@@ -1,5 +1,5 @@
 layout: page
 title: "PAGE1"
-permalink: /new page/
+permalink: /about/new_page1/
 
 谢传龙太帅啦！
