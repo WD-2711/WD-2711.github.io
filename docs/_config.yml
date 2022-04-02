@@ -31,7 +31,7 @@ markdown: kramdown
 github_username:  WD-2711
 
 # Build settings
-theme: minima
+theme: jekyll-theme-hacker
 plugins:
   - jekyll-feed
 
@@ -55,4 +55,3 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-theme: jekyll-theme-hacker
