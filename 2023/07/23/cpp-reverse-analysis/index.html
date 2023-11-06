@@ -1,0 +1,594 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>cpp_reverse_analysis | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="cpp_reverse_analysis"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> cpp_reverse_analysis</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="C-反汇编与逆向分析技术揭秘"><a href="#C-反汇编与逆向分析技术揭秘" class="headerlink" title="C++反汇编与逆向分析技术揭秘"></a>C++反汇编与逆向分析技术揭秘</h1><h2 id="0x00-工作环境与相关工具"><a href="#0x00-工作环境与相关工具" class="headerlink" title="0x00 工作环境与相关工具"></a>0x00 工作环境与相关工具</h2><p>&emsp;VS编译选项设置：</p>
+<p>（1）<strong>Debug：</strong>不对汇编代码做优化。</p>
+<p>（2）<strong>Release：</strong>对编译代码做优化，默认为01优化（最小文件优化），还有一种是02优化（最快执行速度优化）。</p>
+<span id="more"></span>
+<p>&emsp;IDA函数名称识别：</p>
+<p>&emsp;IDA可以识别出库函数（例如<code>MessageBoxA</code>），这是由于IDA的SIG文件的作用。我们可以自己制作SIG文件，放到IDA安装目录的SIG文件夹下。制作步骤如下：</p>
+<p>Step1：将OBJ或LIB文件制作成PAT文件。OBJ文件包含函数名与对应代码的机器码，而LIB文件包含OBJ文件。</p>
+<p>&emsp;制作PAT的过程中，会将机器码特征与函数名保存在PAT文件中。使用<code>pcf.exe</code>将COFF文件格式（obj或lib文件）制作成PAT文件，使用<code>pelf.exe</code>将ELF格式（<code>.o</code>文件与<code>.a</code>文件）制作成PAT文件。随书文件中给出了<code>pcf.exe</code>与<code>pelf.exe</code>。</p>
+<p>Step2：多个PAT文件联合编译成SIG文件。使用<code>sigmake xxx.pat xxx.sig</code>，若为多个PAT文件，则为：<code>sigmake -r *.pat xxx.sig</code>。</p>
+<p>&emsp;制作sig文件的bat脚本：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> %<span class="number">1</span>==&quot;&quot; <span class="keyword">goto</span> end</span><br><span class="line"><span class="keyword">for</span> <span class="variable">%%i</span> <span class="keyword">in</span> (*.lib, *.obj) <span class="keyword">do</span> (pcf <span class="variable">%%i</span>)</span><br><span class="line">sigmake -r *.pat %<span class="number">1</span>.sig</span><br><span class="line"><span class="built_in">del</span> *.pat</span><br><span class="line">:end</span><br></pre></td></tr></table></figure>
+<p>&emsp;此脚本的功能为：在当前目录下打包所有lib与obj文件并生成<code>xx.sig</code>文件。</p>
+<p>&emsp;书中还介绍了反汇编引擎的工作原理，主要是ollydbg、ida如何将机器码转为汇编指令的。由于之前学习过，所以不再赘述。书中还具体介绍了preview反汇编引擎的源码。</p>
+<h2 id="0x01-基本数据类型表现形式"><a href="#0x01-基本数据类型表现形式" class="headerlink" title="0x01 基本数据类型表现形式"></a>0x01 基本数据类型表现形式</h2><p>&emsp;整数类型不再赘述，有符号整数：正数<code>0x00000000-0x7FFFFFFF</code>，负数<code>0x80000000-0xFFFFFFFF</code>。</p>
+<h3 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h3><p>&emsp;浮点存储：用一部分二进制位存放小数点的位置信息（指数域），其他的数据位用来存储没有小数点时的数据与符号（数据域）。通过结合指数域与数据域来得到真实数据。例如，<code>67.625</code>，数据域记录为67625，指数域记录为10的-3次方。浮点数的操作不会用到通用寄存器，而是会使用专门的浮点寄存器进行处理。</p>
+<p>（1）float类型</p>
+<p>&emsp;float编码格式为32位，结构如下：</p>
+<p><img src="/images/cpp-reverse-analysis/image-20230729171437561.png" alt="image-20230729171437561" style="zoom:67%;" /></p>
+<p>&emsp;例如，float类型的<code>12.25</code>，转为二进制为<code>1100.01</code>，用科学计数法表示，二进制部分为<code>1.10001</code>，指数部分为<code>3</code>。最终，符号位为0；指数位为：3+127=130（固定要加127），转为二进制为<code>10000010</code>；尾数为<code>10001000000000000000000</code>。最终编码为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">01000001010001000000000000000000</span><br></pre></td></tr></table></figure>
+<p>&emsp;再比如，float类型的<code>-0.125</code>，转为二进制为<code>0.001</code>，用科学计数法表示，二进制部分为<code>1</code>，指数部分为<code>-3</code>。最终，符号位为1；指数位为：(-3)+127=124，转为二进制为<code>01111100</code>，尾数为<code>00000000000000000000000</code>。最终编码为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10111110000000000000000000000000</span><br></pre></td></tr></table></figure>
+<p>&emsp;但是，针对无法用二进制表示的小数位，例如<code>0.3</code>，那么我们只能用23位尾数表示近似于<code>0.3</code>的值。</p>
+<p>（2）double类型</p>
+<p>&emsp;与float类似，最高位表示符号，指数位占<code>11</code>位，剩余<code>52</code>位表示尾数。它是float类型所占空间的两倍。</p>
+<h3 id="浮点数指令"><a href="#浮点数指令" class="headerlink" title="浮点数指令"></a>浮点数指令</h3><p>&emsp;浮点数操作是用浮点寄存器实现的，普通数据类型使用的是通用寄存器。</p>
+<p>&emsp;早期CPU中，浮点寄存器通过栈结构实现的，由<code>ST(0)-ST(7)</code>8个寄存器，每个浮点寄存器占8字节，这些浮点寄存器是用栈实现的。浮点寄存器的使用就是压栈、出栈的过程。当<code>ST(0)</code>中存在数据时，执行压栈操作，<code>ST(0)</code>中的数据将装入<code>ST(1)</code>，如果没有出栈操作，将按顺序向下压栈，直到将浮点寄存器占满为止。</p>
+<p>&emsp;97年开始，Intel和AMD引入了媒体指令（MMX），它允许多个操作并行。近些年来又有很多的发展，存浮点数的寄存器中：MM寄存器是64位的，XMM是128位的，YMM是256位的。YMM寄存器一共有16个。相应的还有常用的浮点数指令等，例如MOVSS（传送32位单精度数）、ADDSD（双精度加法）等。</p>
+<h4 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h4><p>&emsp;有程序：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="type">float</span> f = (<span class="type">float</span>)argc;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%f&quot;</span>, f);</span><br><span class="line">  argc = (<span class="type">int</span>)f;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, argc);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;其使用x86_vs、x86_gcc、x86_clang、x64_vs编译后的汇编代码与解析如下：</p>
+<p>（1）x86_vs如下：</p>
+<p><img src="/images/cpp-reverse-analysis/image-20230804233552305.png" alt="image-20230804233552305" style="zoom:67%;" /></p>
+<p>（2）x86_gcc如下（主要看传参）：</p>
+<p>&emsp;略。</p>
+<h2 id="0x03-表达式求值过程"><a href="#0x03-表达式求值过程" class="headerlink" title="0x03 表达式求值过程"></a>0x03 表达式求值过程</h2><p>&emsp;之前太懒了，之前没有边看边记。从自增与自减开始，要记笔记咯。<strong>之前对于除法的部分，非常有用，但是没记。</strong></p>
+<h4 id="自增自减"><a href="#自增自减" class="headerlink" title="自增自减"></a>自增自减</h4><p>&emsp;<code>(n++)</code>是先用再加，<code>(++n)</code>是先加再用。</p>
+<h3 id="关系运算与逻辑运算"><a href="#关系运算与逻辑运算" class="headerlink" title="关系运算与逻辑运算"></a>关系运算与逻辑运算</h3><p>&emsp;JZ、JE、JNZ、JNE、JNAE、JNB之流，用到什么查什么。TEST指令：在两个操作数的对应位之间进行 AND 操作，并根据运算结果设置标志位，但不修改目标操作数。</p>
+<p>&emsp;表达式短路：通过与运算和或运算使语句执行时发生中断，从而不执行后面的语句。具体原理为：与运算左表达式为假，则不运行右表达式；或运算左表达式为真，则不运行右表达式。例子如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">accumulation</span><span class="params">(<span class="type">int</span> num)</span></span>&#123;</span><br><span class="line">	<span class="comment">// 要是为0就不执行右表达式</span></span><br><span class="line">	num &amp;&amp; (num += <span class="built_in">accumulation</span>(num<span class="number">-1</span>));</span><br><span class="line">	<span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span>&#123;</span><br><span class="line">	<span class="built_in">accumulation</span>(<span class="number">10</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;条件表达式：<code>A?B:C</code>。4种情况，如下：</p>
+<p>（1）表达式1为简单比较，表达式2与表达式3为常量且相差为1。其关键代码与相应汇编如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">argc == <span class="number">5</span> ? <span class="number">5</span> : <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmp dword ptr [esp+4], 5   ; 比较argc与5</span><br><span class="line">setnz al                   ; ZF取反</span><br><span class="line">add eax, 5</span><br></pre></td></tr></table></figure>
+<p>（2）表达式2与表达式3为常量且相差大于1。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">argc &gt; <span class="number">5</span> ? <span class="number">4</span> : <span class="number">10</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cmp dword ptr [esp+4], 5</span><br><span class="line">mov ecx, 4</span><br><span class="line">mov eax, 0Ah</span><br><span class="line">cmovg eax, ecx             ; 若argc&gt;5则eax=4，否则eax=10</span><br></pre></td></tr></table></figure>
+<p>（3）表达式2与表达式3有变量。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">argc ? n1 : n2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov eax, [esp+0Ch]         ; eax=n2</span><br><span class="line">cmp dword ptr [esp+18h], 0</span><br><span class="line">cmovnz eax, [esp+10h]      ; 若argc!=0，eax=n1，否则eax=n2</span><br></pre></td></tr></table></figure>
+<p>（4）表达式2与表达式3有变量表达式。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">argc ? n1 : n2+<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    cmp dword ptr [esp+0Ch], 0</span><br><span class="line">    jz short loc_401055</span><br><span class="line">    mov eax, [esp]            ; eax=n1</span><br><span class="line">    ...</span><br><span class="line">loc_401055:</span><br><span class="line">	mov eax, [esp+4]</span><br><span class="line">	add eax, 3                ; eax=n2+3</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以看到，使用了分支来实现条件表达式。分支一般效率比条件表达式高，因为CPU能对分支走那条路进行预测。</p>
+<h3 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h3><p>&emsp;<code>&lt;&lt;</code>：左移，最高位到CF中。<code>&gt;&gt;</code>：右移运算，最低为到CF。大多数位运算会导致信息的丢失。对于左移运算而言，有无符号数都是一样的，而对于右移运算而言不一样。</p>
+<h3 id="编译器优化技巧"><a href="#编译器优化技巧" class="headerlink" title="编译器优化技巧"></a>编译器优化技巧</h3><p>&emsp;本章讨论基于奔腾处理器的优化。代码优化的方向为：（1）执行速度；（2）内存空间；（3）磁盘空间。编译器编译大型软件通常要好长时间，其流程为：预处理、词法分析、语法分析、语义分析、中间代码生成、目标代码生成。<strong>优化一般存在于中间代码生成与目标代码生成两部分。</strong>由于中间代码生成在不同的硬件环境下都能通用，因此主要是在这方面做优化。</p>
+<p>&emsp;常见的中间代码生成优化方案如下：</p>
+<p>（1）常量折叠，例如<code>x=1+2</code>，可优化为<code>x=3</code>。</p>
+<p>（2）常量传播，例如<code>x=3;y=x+3</code>，可优化为<code>y=6</code>。</p>
+<p>（3）减少变量，例如<code>x=i*2;y=j*2;if(x&gt;y)&#123;...&#125;</code>，可优化为<code>if(i&gt;j)&#123;...&#125;</code>。</p>
+<p>（4）公共表达式，例如<code>x=i*2;y=i*2;</code>，可以优化为：<code>x=i*2;y=x;</code>。</p>
+<p>（5）复写传播，例如<code>x=a;...;y=x+c</code>，可以优化为<code>y=a+c</code>。</p>
+<p>（6）剪枝，例如<code>if(1&gt;2)&#123;&#125;else&#123;&#125;</code>。</p>
+<p>（7）顺序语句代替分支，例如上述的条件表达式优化。</p>
+<p>（8）强度削弱，用移位代替乘法，用乘法代替除法。</p>
+<p>（9）数学变换，<code>x=a*y+b*y</code>优化为<code>x=(a+b)*y</code>，只需一次乘法。</p>
+<p>（10）代码外提，例如<code>while(x&gt;y/2)&#123;...中并未修改y&#125;</code>，因此可优化为<code>t=y/2;while(x&gt;t)&#123;...&#125;</code>，此时无需每次循环都要计算<code>y/2</code>。</p>
+<p>&emsp;目标代码生成方面的优化（生成二进制代码）与硬件环境有关。针对奔腾处理器，主要的代码生成优化方案有：</p>
+<p>（1）流水线优化。针对指令<code>add eax, dword ptr ds:[ebx+40DA44]</code>，其机器码为<code>038344DA40000</code>，流水线的工作流程如下：</p>
+<p>&emsp;（a）取指令。取<code>0x03</code>，<code>eip+1</code>。</p>
+<p>&emsp;（b）指令译码。得知为加法，但信息不够，先把<code>0x03</code>放入指令队列缓存中。</p>
+<p>&emsp;（c）取指令。取<code>0x83</code>，<code>eip+1</code>。</p>
+<p>&emsp;（d）指令译码。得知参与寻址的寄存器为ebx，存放目标为eax，其后有4字节偏移，把<code>0x83</code>放入指令队列缓存中。</p>
+<p>&emsp;（e）取指令<code>0x44DA40000</code>，放入内部暂存器。同时，<code>ebx</code>的值保存到ALU（计算单元）。</p>
+<p>&emsp;（f）将<code>eax</code>的值传送到ALU。调度MMU（内存管理单元），得到内存单元中的值并传送到ALU，最后进行加和。</p>
+<p>&emsp;（g）将结果保存到<code>eax</code>中。</p>
+<p>&emsp;引入流水线后，例如<code>mov eax, 1; add esp, 8;</code>，第1条流水线执行<code>mov</code>指令时，此时第2条流水线可以对<code>add esp, 8</code>进行读取与译码。奔腾处理器采用长流水线，即每条指令划分为很多阶段，每个阶段执行的工作内容都很简单，这样的优点是容易设计电路，加快工作效率。但是缺点是发生错误后损失较大。例如<code>jmp A; add esp, 8;</code>，第1条流水线正在译码<code>jmp A</code>，此时第2条流水线正在读取<code>add esp, 8</code>指令。但是这是一条<code>jmp</code>指令，因此根本无需分析<code>add esp, 8</code>。ARM使用多流水线，并行程度更高，但是电路设计更复杂，流水线的管理成本也高。</p>
+<p>&emsp;流水线虽好，但是也有些注意事项：</p>
+<p>（1）指令相关性。后一条指令依赖于前一条指令的硬件资源，例如<code>add edx, esi; sar edx, 2;</code>。因此只能先执行完第1条，再执行第2条。</p>
+<p>（2）地址相关性。前一条指令需要访问并回写到某一地址，而后一条指令也要访问这个地址，例如<code>add [00401234], esi; mov eax, [00401234]</code>。因此只能先执行完第1条，再执行第2条。</p>
+<p>&emsp;为了配合流水线工作，处理器增加了分支目标缓冲器。分支目标缓冲器可以记录跳转指令的目标地址，就像表格一样。若遇到分支结构，则利用分支目标缓冲器预测指令的目标地址。分支目标缓冲器所预测的目标地址不一定对。因此，在写循环时，大循环尽量放在内层，这是因为：内层的时候会对目标地址进行预测，预测对了就会提高程序的执行效率，大循环写到内层，分支预测对的次数就会变多。</p>
+<p>&emsp;由于内存的访问效率比处理器更慢，因此增加了片上高速缓存（cache）。cache存放以表格形式存放数据。访问数据时，先找cache。对于分页而言，为了避免频繁访问三级页表转换地址，处理器准备了页表缓冲（TLB），和cache使用的方法类似。TLB与cache都在处理器中。高速缓存是数据对齐的，对于x86而言，因为地址如果不是4对齐的，那么访问数据的时候需要访问多次才能拿到。</p>
+<p>&emsp;这里还给了一个例子，是判断密码是否在正确的。比较好且简单，这里不做过多分析。</p>
+<h2 id="0x04-流程控制语句的识别"><a href="#0x04-流程控制语句的识别" class="headerlink" title="0x04 流程控制语句的识别"></a>0x04 流程控制语句的识别</h2><p>&emsp;C语言是根据代码行的位置决定编译后二进制代码地址的高低的。IF与上节的条件表达式类似，注意02优化选项的不同。switch的效率高于if。在汇编代码中，if结构会在条件跳转后紧跟语句，而switch则会将所有条件跳转放置到一起，当分支过多且各分支比较的值有序时（或者基本有序），switch会使用数据寻址的方式，例如<code>ds:off_401xxx[eax*4]</code>，其中<code>off_401xxx</code>为各分支地址表（跳转表），<code>eax</code>为有序字符。</p>
+<p>&emsp;对于难以构成跳转表的switch，可以采用构建索引表的方式来优化。索引表包括：case语句块地址表、case语句块索引表。地址表包括每一个case的起始地址，是编号到起始地址的映射。索引表中保存地址表的编号，索引表的大小为<code>最大case-最小case</code>，例如<code>switch number</code>，且<code>number</code>在0-255之间，则索引表的大小为255字节，是序号到编号的映射。有两次查表过程，第一次查索引表，得到地址表中的索引，第二次根据地址表的索引查地址。</p>
+<p>&emsp;如果case比较稀疏时，会浪费好多空间。这样的话，可以使用判定树来对索引表所占内存进行优化。每一个case代表一个节点。对于01优化选项来说，体积优先，因此不允许占地方的索引表，而是使用判定树。是if结构，不过是树的形式，不必多言。突然想到曾经做的题中有好多类似于这个的。</p>
+<p>&emsp;do、while、for循环不再多说，非常简单啦。在优化方面，do循环无需优化，因为它只有一个跳转指令（跳转到开头），而while循环则需要两个jmp（一个判断，一个跳转到循环开头），for循环可能更多。do的执行效率最高。任何while循环都可以转化为do循环。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt;= count; i++)&#123;</span><br><span class="line">	sum += i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;转为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum, i = <span class="number">0</span>, <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(count &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        sum += i;</span><br><span class="line">        i++;</span><br><span class="line">    &#125; <span class="keyword">while</span>(i &lt;= count)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;其次，将代码外提，不必每次都要计算。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum, i = <span class="number">0</span>, <span class="number">0</span>;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">    i++;</span><br><span class="line">&#125; <span class="keyword">while</span>(i &lt; argc<span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
+<p>&emsp;转为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum, i = <span class="number">0</span>, <span class="number">0</span>;</span><br><span class="line">tmp = argc - <span class="number">1</span>;</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    sum += i;</span><br><span class="line">    i++;</span><br><span class="line">&#125; <span class="keyword">while</span>(i &lt; tmp);</span><br></pre></td></tr></table></figure>
+<p>&emsp;还有优化方法为强度削弱，例如用加法代替乘法，这里不给出例子。</p>
+<h2 id="0x05-函数的工作原理"><a href="#0x05-函数的工作原理" class="headerlink" title="0x05 函数的工作原理"></a>0x05 函数的工作原理</h2><p>&emsp;当栈顶esp小于栈底ebp时，就形成了栈帧。栈帧中保存寻址局部变量、函数返回地址、函数参数。</p>
+<p>&emsp;栈平衡：函数调用时，要对被调用的函数形成所需的栈空间，函数结束调用时，需要清除刚刚形成的栈空间。</p>
+<p>&emsp;三种调用方式，核心原理里有，复习一下：<code>_cdecl</code>为调用方平衡栈，参数不确定的函数用这个。<code>_stdcall</code>为被调用方平衡栈。<code>_fastcall</code>为被调用方平衡栈，寄存器方式传参（只用ecx与edx）。<code>printf</code>函数使用<code>_cdecl</code>平衡栈，特殊的是，在02优化选项下，会采用复写传播优化，将每次参数平衡的操作进行归并，一次性进行栈平衡。例子如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">push &quot;hello&quot;</span><br><span class="line">call printf</span><br><span class="line">push &quot;xxxx&quot;</span><br><span class="line">call printf</span><br><span class="line">add esp, 0Ch    ; 一次性平衡栈</span><br></pre></td></tr></table></figure>
+<p>&emsp;参数寻址使用ebp或esp进行寻址，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int n = 1     ==&gt; mov dword ptr [ebp-4], 1</span><br><span class="line">char ch = 2   ==&gt; mov byte ptr [ebp-8], 2</span><br></pre></td></tr></table></figure>
+<p>&emsp;但是上面所示的ebp寻址的方式，大多只发生在非02选项下，因为这样做可以方便调试与检测栈平衡。而在02选项下，省略了检测栈平衡的操作，而是直接用esp访问局部变量。例子如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> n = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line"><span class="type">char</span> ch = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>, &amp;ch);</span><br></pre></td></tr></table></figure>
+<p>&emsp;其反编译为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var_5 = byte ptr - 5</span><br><span class="line">var_4 = dword ptr - 4</span><br><span class="line">sub  esp, 8</span><br><span class="line">lea eax, [esp+8+var_4]    ; eax = esp+4，+8是因为sub esp, 8</span><br><span class="line">mov [esp+8+var_4], 1</span><br><span class="line">push eax</span><br><span class="line">push &quot;%d&quot;</span><br><span class="line">call printf</span><br><span class="line">lea eax, [esp+10h+var_4]  ; +10h是因为前面又有两个push操作</span><br><span class="line">mov [esp+10h+var_5], 2</span><br><span class="line">push eax</span><br><span class="line">push &quot;%d&quot;</span><br><span class="line">call printf</span><br><span class="line">add esp, 18h              ; 4次push+0x8=0x18</span><br></pre></td></tr></table></figure>
+<p>&emsp;使用esp寻址后，如果函数执行过程中esp发生了改变，那么在此访问变量时就需要重新计算偏移。为了解决这个问题，ida在分析过程中事先将函数中的每个变量的偏移值计算出来，得出一个固定的偏移值，并用标号进行记录，例子如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var_0 = -4</span><br><span class="line">var_1 = -8</span><br><span class="line">sub esp, 8</span><br><span class="line">lea eax, [esp+8+var_0]</span><br><span class="line">push eax</span><br><span class="line">lea eax, [esp+0xC+var_1]</span><br></pre></td></tr></table></figure>
+<p>&emsp;如果函数使用过程中用栈来传参，那么在ida中，<strong>正数表示参数，负数表示局部变量，0表示返回地址</strong>。注意，对于有<code>push reg</code>但是没有相应pop操作的情况，大概率是代替<code>sub esp, 4</code>，因为这样效率更高。对于不定数量参数的函数，其参数类型传入时都为dword，且需要在某一参数中描述参数的总个数（例如<code>printf</code>）或将最后一个参数赋值为结尾标记。</p>
+<p>&emsp;对于函数的返回值，一般使用eax来进行返回值的传递，对于多返回值（结构体）的情况，一般使用eax和edx进行返回值的传递。</p>
+<p>&emsp;x86有3种函数调用方式（<code>__stdcall</code>，<code>__cdecl</code>，<code>__fastcall</code>），但是x64只有寄存器快速调用约定。前四个参数使用寄存器传递（<code>rcx|rdx|r8|r9</code>）后面的使用栈传递。任何大于8字节或者不是1字节/2字节/4字节/8字节的参数使用引用（指针）传递。所有浮点参数使用XMM寄存器传递（<code>XMM0|XMM1|XMM2|XMM3</code>）。例如，<code>void fun(float, int, float, int)</code>的参数传递顺序为<code>XMM0|rdx|XMM2|r9</code>。虽然前4个参数使用寄存器传递，但是栈中仍然为这4个参数预留了空间，这里称之为栈预留空间，这是为了在函数复杂时不占用多余的寄存器。</p>
+<h2 id="0x06-变量在内存中的位置与访问方式"><a href="#0x06-变量在内存中的位置与访问方式" class="headerlink" title="0x06 变量在内存中的位置与访问方式"></a>0x06 变量在内存中的位置与访问方式</h2><p>&emsp;通常，在PE的只读数据节中，常量的节属性被修饰为不可写，而全局变量和静态变量则在属性为可读写的数据节中。具有初始值的全局变量，其值在链接时被写入创建的PE文件中，当用户执行该文件时，操作系统首先分析并加载PE中的数据。因此，全局变量在程序的任何地方都可以访问，不受作用域的影响。</p>
+<p>&emsp;全局变量与常量相似，都是写入到了文件中，因此生命周期与所在模块相同。全局变量与局部变量的生命周期不同，全局变量的生命周期起始于所在执行文件被操作系统加载后，当程序退出时，全局变量销毁。而局部变量的生命周期则局限于函数作用域。简单理解，生命周期是时间方面衡量的，作用域是空间方面衡量的。</p>
+<p>&emsp;局部变量一般保存在栈中，是通过栈指针来访问的，而全局变量的内存地址在全局数据中，通过固定的地址来访问。先定义的全局变量在低地址，后定义的全局变量在高地址。</p>
+<h3 id="局部静态变量的工作方式"><a href="#局部静态变量的工作方式" class="headerlink" title="局部静态变量的工作方式"></a>局部静态变量的工作方式</h3><p>&emsp;对于静态变量（例如<code>static int a = 1;</code>），分为全局静态变量于局部静态变量。全局静态变量只能在当前文件中使用，可以看作：全局静态变量等价于编译器限制外部源码文件访问的全局变量。局部静态变量的生命周期与全局变量相同，但是作用域仅限于函数体内。局部静态变量会预先被作为全局变量处理，而其初始化部分是在做赋值操作。</p>
+<p>&emsp;当某函数（例如<code>showStatic</code>）被频繁调用时，其中的静态变量只能初始化一次，此时编译器是如何做的呢？如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cmp flag, 0FFFFFFFFh</span><br><span class="line">jnz xxx                  ; 如果不为0FFFFFFFFh，表示局部静态变量已经初始化，跳转到输出</span><br><span class="line">mov ecx, [ebp+8]</span><br><span class="line">mov dword_xxx, ecx       ; 对局部静态变量赋值</span><br><span class="line">push flag</span><br><span class="line">call __Init_thread_foot  ; 调用多线程同步函数设置初始化标志</span><br></pre></td></tr></table></figure>
+<p>&emsp;还有一个问题，编译器是如何让其他作用域对局部静态变量不可见的呢？答案是粉碎法，即在编译期将静态变量重新命名。例如，<code>g_static</code>变为<code>_stdio_printf_options@@9..g_static...@?1??sh</code>之类的。重新命名的过程中，在原有名称中加入其所在的作用域以及类型等信息。</p>
+<h3 id="堆变量"><a href="#堆变量" class="headerlink" title="堆变量"></a>堆变量</h3><p>&emsp;C++中，使用<code>malloc</code>或<code>new</code>申请堆空间，返回的数据便是申请的堆空间地址。使用<code>free</code>或<code>delete</code>释放堆空间。以商场中的商铺为例，<code>malloc</code>是从商场的空地中划分出一块作为商铺，而<code>new</code>则是直接租用划分好的商铺。因此，<code>malloc</code>需要将申请好的堆进行强制转换以说明其类型，而<code>new</code>无需此操作。</p>
+<p>&emsp;在申请堆空间的过程中，调用了<code>_malloc_dbg</code>，之后又调用了<code>heap_alloc_dbg_internal</code>，此函数中使用<code>__CrtMemBlockHeader</code>结构描述了堆空间的成员。堆结构的节点是使用双向链表存储的，<code>__CrtMemBlockHeader</code>结构中，定义了前指针<code>pBlockHeaderPrev</code>和后指针<code>pBlockHeaderNext</code>，通过这两个指针可以遍历程序中申请的<strong>所有</strong>堆空间。除此之外，结构中还有<code>request_number</code>来记录当前堆是第几次申请，<code>gap</code>则为保存数据的数组。</p>
+<p>&emsp;堆释放过程中，只需将要释放的堆从链表中脱链，即可完成堆释放操作。堆的增长方向通常是向上的，即从低地址向高地址增长。书中给了一个分析的示例，比较有意义，但是这里并不记录，具体见P256。</p>
+<h2 id="0x07-数组与指针的寻址"><a href="#0x07-数组与指针的寻址" class="headerlink" title="0x07 数组与指针的寻址"></a>0x07 数组与指针的寻址</h2><p>&emsp;C++中，字符串也被当作数组，其使用寄存器来进行复制，因此一次复制4字节/8字节。</p>
+<p>&emsp;数组作为参数，是如何传递的呢？是直接传递数组头指针。需要注意的是，当将数组传递到使用它的函数时，不能使用<code>sizeof</code>来判断数组的长度，而是要使用<code>strlen</code>。对于数组作为返回值而言，有一个特殊的地方：由于数组在函数内以局部变量形式存储在栈中，且函数返回时会平衡栈，因此当其以指针形式返回时，栈中的数据会变得不稳定。因此，要尽量避免这种情况的发生。</p>
+<p>&emsp;数组的寻址方式有下标寻址与指针寻址两种。指针寻址效率更低，因为指针寻址中，指针指向数组的某地址，要先取出这个地址，然后根据偏移算出最后的目标地址。而下标寻址中，由于数组名本身就是常量地址，因此可以直接针对数组名代替的地址值及逆行偏移计算。（这段不是特别懂）直接上例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">------------------------------- 指针寻址 -------------------------------</span><br><span class="line">lea edx, [ebp-0Ch]        ; 获取数组首地址，edx=buffer</span><br><span class="line">mov [ebp-10h], edx        ; p=buffer</span><br><span class="line">mov eax, [ebp-10h]</span><br><span class="line">movsx ecx, byte ptr [eax]</span><br><span class="line">------------------------------- 下标寻址 -------------------------------</span><br><span class="line">mov edx, 1</span><br><span class="line">imul eax, edx, 0</span><br><span class="line">movsx ecx, byte ptr [ebp+eax-0Ch]</span><br></pre></td></tr></table></figure>
+<p>&emsp;从上例来看，指针寻址需要经过2次寻址才能得到目标数据，而下标寻址方式只需要1次。</p>
+<p>&emsp;使用下标寻址时，要注意：编译器不会对数组的下标进行访问检查，因此很容易出现越界访问的错误。</p>
+<p>&emsp;多维数组与一维数组在内存中的存储方式相同。寻址不再多说，非常简单。</p>
+<p>&emsp;存放指针类型的数组，各个数据元素都是相同类型的指针。例如：<code>char *ary[3] = &#123;&quot;hello&quot;, &quot;world&quot;, &quot;!&quot;&#125;;</code>，注意与二维字符数组<code>char ary[3][10] = &#123;&#123;"hello"&#125;, &#123;"world"&#125;, &#123;"!"&#125;&#125;;</code>的区别。<code>char *ary[3]</code>的每个元素都是一个指针，可以使用二级指针来寻址，例如变为<code>char **p;</code>。</p>
+<p>&emsp;与存放指针类型数组很像的，是指向数组的指针变量，例如：<code>char ary[3][10] = &#123;&#123;"hello"&#125;, &#123;"world"&#125;, &#123;"!"&#125;&#125;;</code>，把他变成指向数组的指针变量为：<code>char (*p)[10]</code>，其中<code>*p</code>可以看作<code>A</code>，那么就是<code>char A[10]</code>。<code>char (*p)[10]</code>的每个元素都是一个数组，需要+10才能到下一个指针，因为此时数据类型为10字节数组。</p>
+<p>&emsp;上述两段还挺重要的，之前做题经常迷糊的点。</p>
+<p>&emsp;函数指针是保存函数首地址的指针变量，其由返回值、参数信息、调用约定组成，他们决定了函数指针在函数调用过程中参数的传递、返回值信息以及如何平衡栈顶。为了区分函数调用与函数指针的调用，给出如下例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> _cdecl <span class="title">show</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;show&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">void</span> (_cdecl *pfn)(<span class="type">void</span>) = show;</span><br><span class="line">	<span class="built_in">pfn</span>();                            <span class="comment">// 函数指针调用</span></span><br><span class="line">	<span class="built_in">show</span>();                           <span class="comment">// 函数调用</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov dword ptr [ebp-4], offset sub_401000</span><br><span class="line">call dword ptr [ebp-4]                ; 函数指针调用</span><br><span class="line">all sub_401000                        ; 函数调用</span><br></pre></td></tr></table></figure>
+<p>&emsp;由于与其它指针不同，函数指针保存的地址是处于代码段的，而不是数据段。因此，编译器不允许函数指针做无意义的加减法操作。</p>
+<h2 id="0x08-结构体与类"><a href="#0x08-结构体与类" class="headerlink" title="0x08 结构体与类"></a>0x08 结构体与类</h2><p>&emsp;C++中，结构体与类都有构造函数、析构函数和成员函数，但不同的是：结构体的访问控制默认为public，类的默认访问控制为private。public、private、protected的访问控制都是在编译期进行检查。编译成功后，程序在执行过程中不会做检查。因此，在反汇编中，类与结构体没有区别。</p>
+<h3 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h3><p>&emsp;C++中的类示例如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Person</span>() &#123;</span><br><span class="line">		age = <span class="number">18</span>;</span><br><span class="line">		height = <span class="number">180</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">getHeight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> height;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">	<span class="type">int</span> height;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>&emsp;类中不能定义自己，因为如果这样计算长度的时候就会崩掉。但是，可以定义自身的指针。空类的长度为1字节。C++默认对齐值为8字节的倍数，当然也可以是4字节的倍数，也可以使用<code>#pragma pack(N)</code>设置对齐的大小。当设定的对齐值大于结构体中的数据成员类型的时候，对齐值是无效的。也就是说，<code>对齐值=min(设定的对齐值, 结构体中最大的数据类型大小)</code>。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="type">char</span> c;</span><br><span class="line">	<span class="type">char</span> arg[<span class="number">4</span>];  <span class="comment">// 占5字节</span></span><br><span class="line">	<span class="type">short</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;上述结构体一共占8字节，对齐值为2字节。当结构体中又出现结构体时，会将嵌套结构体的对齐值作为衡量，进行比较。如下所示，<code>stTwo</code>的对齐值为4：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">sstOne</span> &#123;</span><br><span class="line">	<span class="type">char</span> c;</span><br><span class="line">	<span class="type">char</span> ary[<span class="number">4</span>];</span><br><span class="line">	<span class="type">short</span> s;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">stTwo</span> &#123;</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">	stOne one;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;当类中的数据成员为静态时，其存放位置与全局变量一致（数据区），只是编译器增加了作用域的检查，作用域之外不可见。同类对象将共享静态数据成员的空间。</p>
+<p>&emsp;对象的内存布局不简单，除了数据变量，如果类是某父类的派生，且父类有虚函数，那么此类的内存布局中将含有虚函数表和父类数据成员等信息。当对象为全局对象时，其内存布局与局部对象相同，不同的是所在内存地址（全局对象在数据区，局部对象在栈）、构造函数与析构函数的触发时机。</p>
+<h3 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h3><p>&emsp;this指针保存了所属对象的首地址。举一个例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span> &#123;</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">	<span class="type">float</span> f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span> a;          <span class="comment">// 假设结构体变量a的地址为0x0</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span> *p = &amp;a;    <span class="comment">// 定义结构体指针并赋初值，这条语句相当于struct A *p; p = a;</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%p&quot;</span>, &amp;p-&gt;f); <span class="comment">// 结果为0x4，等价于printf(&quot;%p&quot;, &amp;((struct A*)NULL)-&gt;f);</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;起始这里的<code>&amp;p</code>，就可以看作<code>this</code>。看一个具体的例子，来访问类对象的数据成员：</p>
+<p><img src="/images/cpp-reverse-analysis/image-20230819003518486.png" alt="image-20230819003518486" style="zoom:67%;" /></p>
+<p>&emsp;其反汇编为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Main:</span><br><span class="line">    push ebp</span><br><span class="line">    mov ebp, esp</span><br><span class="line">    push ecx            ; 之后要使用ecx，所以将之前的数据保存</span><br><span class="line">    push 5</span><br><span class="line">    lea ecx, person     ; ecx=对象person的首地址</span><br><span class="line">    call setAge</span><br><span class="line">    mov eax, person</span><br><span class="line">    push eax</span><br><span class="line">    push &quot;Person : %d&quot;</span><br><span class="line">    call printf</span><br><span class="line">    ...</span><br><span class="line">setAge:</span><br><span class="line">	...</span><br><span class="line">	mov [ebp-4], ecx    ; ecx为person的首地址</span><br><span class="line">	mov eax, [ebp-4]    ; this</span><br><span class="line">	mov ecx, [ebp+8]    ; age</span><br><span class="line">	mov [eax], ecx      ; this-&gt;age=age</span><br><span class="line">	mov esp, ebp</span><br><span class="line">	pop ebp</span><br><span class="line">	retn 4              ; 调用方式为thiscall，被调用者负责栈平衡</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以看到，虽然setAge只有一个参数，但是在汇编中却添加了一个对象的地址ecx。这就是this指针的由来。在分析过程中，如果看到某函数使用ecx传递参数，且ecx中保留了对象的this指针，即可怀疑此函数为成员函数。当然，这个规律也不是一定成立的，当使用其他调用方式（例如<code>__stdcall</code>）时，this指针便使用栈来传递，此时就很难区分是否为成员函数。</p>
+<h3 id="静态数据成员"><a href="#静态数据成员" class="headerlink" title="静态数据成员"></a>静态数据成员</h3><p>&emsp;静态数据成员的初值会被写入编译链接后的执行文件。类中的静态数据成员不属于某一对象，其与对象之间是一对多的关系，多个对象也可以拥有同一个静态数据成员。在计算类的长度的时候，静态数据成员不被计算在其中。静态数据成员是常量地址，可通过立即数间接寻址的方式访问。且静态数据成员属于全局变量，且不属于任何对象，因此访问时无须this指针。</p>
+<h3 id="对象作为函数参数"><a href="#对象作为函数参数" class="headerlink" title="对象作为函数参数"></a>对象作为函数参数</h3><p>&emsp;当类的实例作为函数参数时，不会像数组一样将首地址传递过去，而是将对象中的所有数据进行备份，之后将备份的数据作为形参传递到调用函数中使用。但是有一个问题，类的长度不定，那么是如何传递的呢？就这么传呗，注意传参顺序为：最先定义的数据成员最后压栈，最后定义的数据成员最先压栈。</p>
+<p>&emsp;对于含有数组数据成员的对象传参，例子如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">Public:</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">	<span class="type">int</span> height;</span><br><span class="line">	<span class="type">char</span> name[<span class="number">32</span>];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">show</span><span class="params">(Person person)</span></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d %d %d&quot;</span>, person.age, person.height, person.name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span>&#123;</span><br><span class="line">	Person person;</span><br><span class="line">	person.age = <span class="number">1</span>;</span><br><span class="line">	person.height = <span class="number">2</span>;</span><br><span class="line">	<span class="built_in">strcpy</span>(person.name, <span class="string">&quot;tom&quot;</span>);</span><br><span class="line">	<span class="built_in">show</span>(person);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;其对应的汇编代码为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">mov dword ptr person.age, 1</span><br><span class="line">mov dword ptr person.height, 1</span><br><span class="line">push &quot;tom&quot;</span><br><span class="line">lea eax, person.name</span><br><span class="line">push eax</span><br><span class="line">call strcpy</span><br><span class="line">add esp, 0FFFFFFE0h              ; esp-0x20</span><br><span class="line">mov ecx, 0Ah</span><br><span class="line">lea esi, person_addr</span><br><span class="line">mov edi, esp</span><br><span class="line">rep movsd                        ; 将对象中的数据（40bytes）全部转移到栈中</span><br><span class="line">call show</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>&emsp;我们可以看到逻辑不通的地方：对象person占用的内存大小为40字节，但是esp只减了32字节，复制的时候又复制了40字节。那么会不会复制完了之后会造成越界访问么？其实不然，strcpy的调用方式是<code>__cdecl</code>，即调用者平衡栈顶，但是调用了strcpy没平衡栈顶，且strcpy的参数为两个，总共占8字节，所以懂了吧？</p>
+<p>&emsp;在64位程序中，因为栈顶为栈预留空间（就是寄存器的参数可以转移到这上面来），因此无法将对象的数据成员复制到栈顶，编译器将对象的数据成员先复制到临时对象，再将临时对象的地址传递给show函数。</p>
+<p>&emsp;对象当作参数传递时，会制作一份对象的复制数据，当向对象分配内存时，如果有构造函数，编译器会再调用一次构造函数，并作初始化操作。这等同于又定义了一个对象，在某些情况下会调用特殊的构造函数：<strong>复制构造函数</strong>。当代码执行到作用域结束时，局部对象将被销毁，此时再调用析构函数，对内存资源进行释放。这种情况下，由于重新复制了对象，且复制对象作为函数内的局部变量，在函数结束时将会被销毁。此时会产生一个问题，如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Person</span>() &#123;</span><br><span class="line">        name = <span class="keyword">new</span> <span class="type">char</span>[<span class="number">32</span>];</span><br><span class="line">        <span class="keyword">if</span>(name != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="built_in">strcpy</span>(name, <span class="string">&quot;tom&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">Person</span>() &#123;</span><br><span class="line">        <span class="keyword">if</span>(name != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">delete</span>[] name;</span><br><span class="line">            name = <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="type">const</span> <span class="type">char</span>* <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">char</span> *name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">show</span><span class="params">(Person obj)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(obj.<span class="built_in">getName</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">    Person person;</span><br><span class="line">    <span class="built_in">show</span>(person);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;在这个例子中，当对象person作为参数传递时，参数obj复制了对象person中的数据成员name，最终产生两个Person的对象，分别为person与obj。由于没有编写复制构造函数，因此上述例子传递参数的时候是浅拷贝，即：obj与person对象的name字段都指向同一堆地址。当show函数结束时，会释放对象obj，此时name字段被释放掉，person对象就会一脸懵逼。即，再次调用<code>show(person)</code>的时候就会出错。</p>
+<p>&emsp;为了解决这个问题，可以使用深拷贝或者设置引用计数的方法。深拷贝就是调用复制构造函数把对象完全复制一份，包括其中的字段。引用计数也不再多说。</p>
+<p>&emsp;当参数为对象的指针时，不会出现此类问题，因为传的是指针类型，传递过程中无需调用构造函数与析构函数。</p>
+<h3 id="对象作为返回值"><a href="#对象作为返回值" class="headerlink" title="对象作为返回值"></a>对象作为返回值</h3><p>&emsp;对象作为返回值与对象作为参数的处理方式类似。对象作为参数时，进入函数前预先保留对象使用的栈空间，并将实参对象中的数据复制到栈空间中。当对象作为返回值时，调用函数将申请返回对象使用的栈空间，并将返回对象的首地址压入栈中，用于保存返回对象的数据。所以，对象作为返回值时，传递是这样的：<code>被调用函数内的局部对象-&gt;调用函数内的临时对象-&gt;调用函数内的正牌对象</code>。为什么中间还要经过临时对象呢，是因为C++有的时候会有这种情况：直接访问<code>函数A.变量</code>，函数A的返回值是对象，这样的话，由于此时函数A已经退出，其栈帧被关闭，因此无法访问函数A中的对象所在的栈。因此，当函数A退出时，最好的办法是把返回的对象保存在调用者函数的栈中。</p>
+<p>&emsp;上一段中的返回值传递，使用了数据复制，但是仍是浅拷贝，因此也可能会出现同一资源多次释放的错误。对象作为返回值时，不能像作为参数值一样传递指针，因为返回值为局部变量，被调用函数执行完后会销毁这些局部变量。</p>
+<h3 id="小trick"><a href="#小trick" class="headerlink" title="小trick"></a>小trick</h3><p>&emsp;在不产生对象的情况下取得成员偏移量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define offsetof(s,m) (size_t)&amp;(((s*)0)-&gt;m)</span><br></pre></td></tr></table></figure>
+<h2 id="0x09-构造函数和析构函数"><a href="#0x09-构造函数和析构函数" class="headerlink" title="0x09 构造函数和析构函数"></a>0x09 构造函数和析构函数</h2><p>&emsp;构造函数负责初始化，析构函数负责销毁。构造函数支持重载，析构函数是无参函数。他们都不可定义返回值（不是没有），构造函数的返回值是对象首地址。</p>
+<h3 id="构造函数的出现时机"><a href="#构造函数的出现时机" class="headerlink" title="构造函数的出现时机"></a>构造函数的出现时机</h3><p>&emsp;当对象作为参数或者返回值时，构造函数的出现时机是不同的。对象作为局部对象、堆对象、参数对象等类型，构造函数的出现时机也是不同的。且由于构造函数是成员函数，所以在调用的时候需要传递this指针。构造函数调用结束后，会将this指针作为返回值。</p>
+<p>&emsp;成员对象，进入函数作用域后调用构造函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Person person;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;堆对象，在申请完堆空间后调用构造函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person* p = <span class="keyword">new</span> <span class="built_in">Person</span>();`</span><br></pre></td></tr></table></figure>
+<p>&emsp;补充：有参构造函数与对象数组。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int *p = new int(10);  // 申请了int类型的堆变量并赋初值</span><br><span class="line">int *p = new int[10];  // 申请了10个int元素的数组</span><br></pre></td></tr></table></figure>
+<p>&emsp;参数对象，当对象作为函数参数时，调用<code>复制构造函数</code>，该构造函数只有一个参数，且类型为对象的引用。这相当于复制了一个全新的对象。<code>复制构造函数</code>会完成两个对象之间数据的复制。如果没有定义<code>复制构造函数</code>，则会使用<code>默认复制构造函数</code>，但是它是浅拷贝的。如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Person obj1;</span><br><span class="line"><span class="function">Person <span class="title">obj2</span><span class="params">(obj1)</span></span>;     <span class="comment">// 相当于给obj2赋obj1的值</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;因此，当类中有资源申请，并以数据成员来保存这些资源时，就需要使用者自己写一个复制构造函数，来实现深拷贝。例子如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Person</span>() &#123;</span><br><span class="line">        name = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 定义复制构造函数</span></span><br><span class="line">    <span class="built_in">Person</span>(<span class="type">const</span> Person&amp; obj) &#123;</span><br><span class="line">        <span class="type">int</span> len = <span class="built_in">strlen</span>(obj.name);</span><br><span class="line">        <span class="keyword">this</span>-&gt;name = <span class="keyword">new</span> <span class="type">char</span>[len+<span class="built_in">sizeof</span>(<span class="type">char</span>)];</span><br><span class="line">        <span class="built_in">strcpy</span>(<span class="keyword">this</span>-&gt;name, obj.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 触发复制构造函数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">show</span><span class="params">(Person p)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, p.name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Person p;</span><br><span class="line">    <span class="built_in">show</span>(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;汇编代码看P339，很有意义。值得多看几遍。</p>
+<p>&emsp;返回对象，与参数对象类似，不同的是：参数对象是在进入函数前调用复制构造函数，而返回对象则是在返回前使用复制构造函数。也值得看，P345。</p>
+<p>&emsp;全局对象与静态对象：两者构造函数调用的时机相同，都是在<code>mainCRTStartup -&gt; _cinit -&gt; _initterm</code>函数中。代码片段如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="type">void</span> __cdecl _initterm(_PVFV* <span class="type">const</span> first, _PVFV* <span class="type">const</span> last)&#123;</span><br><span class="line">	<span class="keyword">for</span>(_PVFV* it = first; it != last; ++it)&#123;</span><br><span class="line">		...</span><br><span class="line">		(**it)();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;执行<code>(**it)()</code>后并不会进入全局对象的构造函数，而是进入编译器提供的构造代理函数，然后再调用全局对象的构造函数。针对某一类，有对应的构造代理函数，此构造代理函数中包括多个全局对象的构造过程代码。</p>
+<p>&emsp;那我们如何找到全局对象构造函数的位置呢？（1）对于vs，定位<code>mainCRTStartup -&gt; _cinit -&gt; _initterm</code>，对于gcc，定位<code>__main</code>。（2）利用栈回溯，在全局对象那里下断点，之后可以看到构造函数。（3）在atexit函数下断点，因为构造代理函数中会注册析构函数，注册的方式就是使用atexit。</p>
+<h3 id="每个对象是否都有默认的构造函数？"><a href="#每个对象是否都有默认的构造函数？" class="headerlink" title="每个对象是否都有默认的构造函数？"></a>每个对象是否都有默认的构造函数？</h3><p>&emsp;结论：编译器不是在任何情况下都提供默认构造函数的。提供默认构造函数的情况有：（1）类（父类）中有虚函数。因为需要初始化虚表，这个工作应该在构造函数中完成，所以编译器会默认添加。（2）类（父类）中的成员对象有构造函数。类中的成员对象实际上为派生类，这需要先构造父类再构造本身，这个调用过程需要在构造函数内完成。</p>
+<h3 id="析构函数的出现时机"><a href="#析构函数的出现时机" class="headerlink" title="析构函数的出现时机"></a>析构函数的出现时机</h3><p>&emsp;局部对象：作用域的结束处。堆对象：delete处，且一开始调用了析构代理函数，析构代理函数中又调用了析构函数与delete函数。为什么不直接使用析构函数呢？其中一个原因就是又是需要释放的对象不止一个，如果直接调用析构函数，则无法完成多对象的析构。如下所示，就需要代理函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Person *objs = <span class="keyword">new</span> Person[<span class="number">3</span>];</span><br><span class="line"><span class="keyword">delete</span>[] objs;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;需要注意的是，在申请对象数组时，由于对象都在同一个堆空间中，因此32位程序编译器使用了堆空间的前4个字节数据保存对象的总个数。当我们并不使用<code>delete[]</code>而是使用<code>delete</code>来释放对象数组时，当数组元素为基本数据类型时不会出错，但是当元素为存在析构函数的对象时就会出错。这是为什么呢？</p>
+<p>&emsp;我们知道，由于类对象与其他基本数据类型不同，因此对象产生时需要用到代理函数，代理函数根据对象数组的元素逐个调用它们的构造函数，完成初始化过程。代理构造函数如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// objs为第一个对象所在堆空间的首地址</span></span><br><span class="line"><span class="comment">// size为对象占用内存空间的大小</span></span><br><span class="line"><span class="comment">// count为对象个数</span></span><br><span class="line"><span class="comment">// 使用thiscall方式调用构造函数指针</span></span><br><span class="line"><span class="built_in">func</span>(<span class="type">void</span> * objs, <span class="type">int</span> size, <span class="type">int</span> count, <span class="built_in">void</span> (*pfn)(<span class="type">void</span>))</span><br></pre></td></tr></table></figure>
+<p>&emsp;此函数功能为：循环count次，针对objs数组中的每个对象，都调用构造函数。继续分析，当堆空间销毁时，分析如何调用析构函数的。最后分析得出，在使用delete[]时，函数会先判断是否是对象数组，如果不是则转为正常的delete，如果是，则进行delete[]操作，即先将目标指针减4（因为第一个指针指向的值为对象个数），之后调用析构函数。</p>
+<p>&emsp;补充一点，C语言中的free不负责触发析构函数（与delete不同）。再丰富描述一下以下代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Person* <span class="title">getObject</span><span class="params">(Person* p)</span> </span>&#123;</span><br><span class="line">	Person p;</span><br><span class="line">	<span class="keyword">return</span> &amp;p;</span><br><span class="line">&#125;</span><br><span class="line">Person person = <span class="built_in">getObject</span>();</span><br></pre></td></tr></table></figure>
+<p>&emsp;这段代码是把person的地址作为隐含参数传递给getObject，在getObject函数内部完成复制构造的过程。而：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person = <span class="built_in">getObject</span>();</span><br></pre></td></tr></table></figure>
+<p>&emsp;由于此代码并不是在person定义时赋初值，因此不会触发person的复制构造函数。这时候会产生临时对象作为getObject的隐含参数，这个临时对象会在getObject函数内部完成复制构造的过程。如果没有对<code>=</code>重载，则赋值属于浅拷贝。语句结束后（遇到分号<code>;</code>），则会将临时对象销毁。</p>
+<p>&emsp;全局对象与静态对象的析构函数由<code>exit -&gt; _execute_onexit_table</code>实现。</p>
+<p>&emsp;全局构造函数的调用是在初始化函数内完成的，在执行每个全局对象构造代理函数时，都会先执行对象的构造函数，然后使用atexit注册析构代理函数。因为析构函数被定义为无参函数，因此在调用析构函数时无法传递this指针，因此编译器为每个全局对象都建立了一个中间代理的析构函数，用于传入全局对象的this指针。</p>
+<p>&emsp;问题：对于全局对象，能不能取消代理函数，直接在main函数前调用构造函数呢？不行，编译器在写<code>__initterm</code>函数时，将各类初始化函数的指针定义为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(__cdecl *_PVFV)</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>&emsp;然而，由于构造函数可以重载，因此参数类型、个数无法预知，那么如何保证参数个数匹配，实现栈平衡，最好的办法就是代理函数，代理函数的类型被统一制定为PVFV。</p>
+<h2 id="0x10-虚函数"><a href="#0x10-虚函数" class="headerlink" title="0x10 虚函数"></a>0x10 虚函数</h2><p>&emsp;如果有虚函数，那么更好识别构造函数与析构函数。并且定义虚函数之后，即使没定义构造函数，编译器也会提供默认的构造函数。</p>
+<p>&emsp;对象的多态需要虚表和虚表指针完成，虚表指针被定义在对象首地址处，虚函数必须作为成员函数使用。</p>
+<h3 id="虚函数的机制"><a href="#虚函数的机制" class="headerlink" title="虚函数的机制"></a>虚函数的机制</h3><p>&emsp;C++中，使用virtual关键字定义虚函数，编译器会将虚函数的首地址保存在虚表中。而虚表指针保存着虚表的首地址。例子如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">P</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">int</span> <span class="title">getA</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> age;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">setA</span><span class="params">(<span class="type">int</span> age)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>-&gt;age = age;</span><br><span class="line">	&#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;如果没有虚函数，P所占空间为4字节，有了虚函数，所占空间为8字节（多4字节的虚表指针）。对象的虚表指针初始化是在构造函数内完成的，在用户没有编写构造函数时，因为必须初始化虚表指针，因此编译器会提供默认的构造函数。</p>
+<p>&emsp;需要注意的是，利用虚表访问虚函数的情况只有在使用对象的指针或引用虚函数的时候才会出现，当使用对象调用自身虚函数时，无需查表访问，直接调用即可。回过头想想，由于虚表指针初始化一般在构造函数中，因此这也可以当作识别构造函数的特征。析构函数中，也进行了类似于初始化虚表指针的操作，但是此操作的作用是：<strong>还原虚表指针，让其指向自身的虚表首地址，防止在析构函数中调用虚函数时取到非自身虚表，从而导致函数调用错误。</strong></p>
+<h3 id="虚函数的识别"><a href="#虚函数的识别" class="headerlink" title="虚函数的识别"></a>虚函数的识别</h3><p>&emsp;利用虚表可以轻松找到构造函数与析构函数。构造函数查找对象首地址指针有变动的区域即可。而析构函数的对象首地址指针一开始就指向虚表，当然还有一个办法可以识别析构函数：由于全局对象在构造代理函数中，调用了<code>_atexit</code>，而其参数为一个函数指针（就是代理析构函数），<code>_atexit</code>将会把函数放入<code>_execute_onexit_table</code>表中，并在main函数执行结束后倒序执行表中每一个函数。</p>
+<h2 id="0x11-从内存角度看继承与多重继承"><a href="#0x11-从内存角度看继承与多重继承" class="headerlink" title="0x11 从内存角度看继承与多重继承"></a>0x11 从内存角度看继承与多重继承</h2><h3 id="识别类与类之间的关系"><a href="#识别类与类之间的关系" class="headerlink" title="识别类与类之间的关系"></a>识别类与类之间的关系</h3><p>&emsp;子类可以访问父类的public与protected的数据，对于private数据，虽然无法直接访问，但是子类对象内存结构中仍存有父类的private数据，访问控制权限仅限于编译层面。当子类中没有构造函数/析构函数，父类却有构造函数/析构函数时，编译器会为子类提供默认的构造/析构函数。父类B与子类A的内存结构关系与类A中定义了类B的内存结构一样：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">B</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	B b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;在构造子类时，子类的构造函数会先运行父类的构造函数（先构造父类）。在销毁子类时，会先运行子类的析构函数，之后运行父类的析构函数。根据这种关系，我们可以找出类之间的继承关系。子类定义时，顺序为：先构造父类，然后按声明顺序构造成员对象和初始化列表中指定的成员，之后时自身的构造代码。</p>
+<p>&emsp;父类中的成员函数并未在子类中定义，但是子类却可以调用，编译器是如何判断子类有调用此函数权限的呢？答案是粉碎法，函数名进行重组后，会包含函数的作用域、原函数名、每个参数的类型、返回值等信息，可以利用这些信息来判断。那么，子类在调用父类函数时，虽然this指针传递的是子类对象的首地址，但是编译器发现子类对象的内存布局与父类对象相同（因为子类对象开头与父类对象一致）。</p>
+<p>&emsp;我们知道，类中的虚表指针可以使用查表+间接调用来运行虚函数，利用此特性可以让父类指针访问不同的派生类。<strong>在调用父类中的虚函数时，根据指针指向的对象中的虚表指针，可以得到虚表信息，调用虚函数，即构成了多态。</strong>多态的意思就是，针对父类中的函数，不同的子类进行了不同的重写。</p>
+<p>&emsp;当定义了父类定义虚函数的时候，子类对虚函数进行重写，这样的话子类的对象首地址的虚函数指针也会不同。这样的话，我们如果要调用子类的某个虚函数，完全可以把它转为父类，然后直接调用父类中对应的虚函数即可。具体看P402，写的非常清楚。</p>
+<p>&emsp;如果在构造函数中使用虚函数，那么在执行父类构造函数时会将虚表指针改为父类的虚表指针，这样可以防止在子类中构造父类时，父类会根据虚表错误的调用子类的成员函数。</p>
+<p>&emsp;<strong>假设类A中定义了成员函数f1和虚函数f2，且类B继承类A并重写了f2。那么，由于先执行A的构造函数，如果此时A的构造函数中调用f1，f1又调用f2，此时就会调用到B的f2，但是此时B还未构造完成，就会导致异常。</strong>在析构时，先调用自身的析构函数，再调用成员对象的析构函数，最后调用父类的析构函数。具体例子看P405，例子中，先调用了父类的构造函数，然后设置虚表指针为当前类的虚表首地址，而析构函数中的顺序则时先设置虚表指针为当前类的虚表首地址，然后调用父类的析构函数。</p>
+<p>&emsp;析构函数被定义为虚函数的好处？这样的话就可以使用父类指针保存子类对象的基址，那么使用delete释放空间时，如果没有被定义为虚函数，对于代码<code>Person *p = new chinese;</code>，那么编译器就会调用父类的析构函数，发生错误。如果定义了，那么就会访问虚表并调用对象的析构函数。因此，对于类的继承，父类的析构函数要为虚函数。P411是对release源码的分析。</p>
+<p>&emsp;调用析构函数和释放堆空间（delete）是两回事。 这里于一个问题，对象在执行构造函数时，虚表已经完成了初始化，在析构函数执行时，其虚表指针已经是子类的虚表，为什么编译器还要再析构函数中再次将虚表设置为子类虚表呢？答案：编译器无法预知这个子类以后是否会被其它类继承，如果被继承，那么当前虚表就不对了，需要再次设置一波。</p>
+<h3 id="多重继承"><a href="#多重继承" class="headerlink" title="多重继承"></a>多重继承</h3><p>&emsp;当子类有多个父类时，便构成了多重继承关系。子类在内存中首先存放的是父类的数据成员。在多重继承中，存放好多父类的数据成员，数据成员的排列顺序有继承父类的顺序决定，从左向右依次排列。因为有多个父类，因此子类在继承时也将他们的虚表指针一起继承了过来，也就有了多个虚表指针。这些虚表指针将在子类对象转换为父类指针时使用，每个虚表指针对应一个父类。</p>
+<p>&emsp;单继承类的特点：类对象占用的内存空间只有一份虚表指针；只有一个虚表；虚表中保存了类中虚函数的地址；构造时先构造父类，再构造自身，且只调用一次父类构造函数；析构时先析构自身，再析构父类，且只调用一次父类析构函数。多重继承类特点：保存多个虚表指针，多个虚表，…。和类中有对象的情况很相似。</p>
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><p>&emsp;抽象类，我的理解是啥也没有，很抽象。抽象类需要配合虚函数使用，在虚函数声明结尾处添加<code>=0</code>，就会变为纯虚函数。纯虚函数是没有实现只有声明的函数，它的存在是为了让类具有抽象类的功能，让继承于抽象类的子类都有虚表。如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Ac</span>&#123;                     <span class="comment">// 抽象类</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Ac</span>()&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;chouxiang&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">show</span><span class="params">()</span> </span>= <span class="number">0</span>;  <span class="comment">// 纯虚函数</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Vc</span> : <span class="keyword">public</span> Ac &#123;        <span class="comment">// 继承抽象类的子类</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">show</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;抽象class&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Vc obj;</span><br><span class="line">    obj.<span class="built_in">show</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;在其汇编代码中，由于纯虚函数没有实现代码，所以在虚表中也没有首地址，为了防止误调用，需表中保存的纯虚函数首地址替换成<code>__purecall</code>，用于结束程序。这可以作为识别抽象类的特征，即是否有<code>__purecall</code>函数。</p>
+<h3 id="虚继承"><a href="#虚继承" class="headerlink" title="虚继承"></a>虚继承</h3><p>&emsp;菱形继承是最复杂的对象结构，其含义为：类D继承自B与C，B与C继承自类A。此时，D存放B与C的数据，而B与C存放A的数据，这会造成D存放的数据是有冗余的（多份A）。为了解决这个问题，虚继承应运而生，这使得在D中只需保留一份A的成员。虚继承是在B和C继承A的时候使用virtual的方式。</p>
+<p>&emsp;看D的内存结构，如P431所示，其中B与C都存有虚基类偏移表，由于保存类A的信息。其中，虚基类便宜表有两项：（1）虚基类偏移表所属类对应的对象首地址相对于虚基类偏移表的偏移值。（2）虚基类对象首地址相对于虚基类偏移表的偏移值。对于vs与clang而言，在D的构造函数中，需要先构造父类，由于B和C有共同的父类，为了防止重复构造，需要使用构造标记来防止此问题。但是对于gcc而言，编译器使用父类构造代理函数来解决此问题。</p>
+<p>&emsp;由于精力有限，所以并未将汇编代码记录到笔记中，书中已写的非常详细，如有忘记，wd记得查阅。</p>
+<h2 id="0x12-异常处理"><a href="#0x12-异常处理" class="headerlink" title="0x12 异常处理"></a>0x12 异常处理</h2><p>&emsp;由于C++标准中并未规定异常处理的流程，所以不同编译器的异常处理代码也不同。gcc、clang的异常处理代码取决于异常库，此章主要使用vs编译器，其与seh机制很相关，正好复习一波。</p>
+<h3 id="异常处理相关知识"><a href="#异常处理相关知识" class="headerlink" title="异常处理相关知识"></a>异常处理相关知识</h3><p>&emsp;C++中，try负责监视异常，throw负责抛出异常，catch用于捕获异常并处理。异常处理是由编译器于操作系统共同完成，不同的操作系统环境下的编译器堆异常处理的分派过程是不同的。VS C++在处理异常时会在具有异常处理功能的函数入口处注册异常回调函数，当函数内有异常抛出时，会执行已注册的异常回调函数。所有的异常信息会被记录在表格中，异常回调函数根据表格中的信息进行异常的匹配处理工作。记录异常信息的表格结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FuncInfo        struc</span><br><span class="line">  magicNumber   dd      ; 编译器生成的固定数字</span><br><span class="line">  maxState      dd      ; 最大栈展开数的下标值</span><br><span class="line">  pUnwindMap    dd      ; 指向栈展开函数表的指针，指向UnwindMapEntry结构</span><br><span class="line">  dwTryCount    dd      ; try块数量</span><br><span class="line">  pTryBlockMap  dd      ; try块列表，指向TryBlockMapEntry表结构</span><br><span class="line">FuncInfo        ends</span><br></pre></td></tr></table></figure>
+<p>&emsp;表格中，maxState记录了异常需要展开的次数，展开时需要执行的函数由UnwindMapEntry表结构记录。UnwindMapEntry记录了好多析构函数的地址。而TryBlockMapEntry表则用于判断异常产生于哪个try块中，还记录了catch块的信息。具体而言，每个catch块都对应一个_msRttiDscr表。此表中的关键数据结构有pType、CatchProc、dispCatcgObjOffset，在抛出异常对象时，需要复制抛出的异常对象信息，而dispCatcgObjOffset用于定位异常对象在当前EBP中的偏移位置，CatchProc用于保存catch块的地址，pType用于保存异常的匹配信息记录（异常名称等）。</p>
+<p>&emsp;以上是处理异常时所需的表格信息。抛出异常时，同样需要很多表格。书中写的很详细，具体看P450，其中图13-11总结的很好。</p>
+<h3 id="异常为基本数据类型的处理流程"><a href="#异常为基本数据类型的处理流程" class="headerlink" title="异常为基本数据类型的处理流程"></a>异常为基本数据类型的处理流程</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="keyword">throw</span> <span class="number">1</span>;</span><br><span class="line">	&#125; <span class="built_in">catch</span>(<span class="type">int</span> e) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;11&quot;</span>);</span><br><span class="line">	&#125; <span class="built_in">catch</span>(<span class="type">float</span> e)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;22&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;其反汇编流程为：压入异常回调函数，用于在产生异常时接收并分配到对应的异常处理语句块中。异常回调函数<code>__ehhandler$main</code>调用了<code>__CxxFrameHandler</code>，再调用了<code>_InternalCxxFrameHandler</code>。<code>_InternalCxxFrameHandler</code>主要完成了异常类型的检查，最后调用查找try与catch的<code>FindHandler</code>。其中，<code>FindHandler</code>通过3层嵌套的for循环，完成了try与catch的检查，利用<code>TypeMatch</code>函数完成了对异常匹配的判定并得到了结果，又调用了<code>CatchIt</code>完成了异常处理（包括产生异常对象、析构try中的对象，跳转到对应的catch地址、返回到异常catch块的结尾地址）。</p>
+<h3 id="异常为对象的处理流程"><a href="#异常为对象的处理流程" class="headerlink" title="异常为对象的处理流程"></a>异常为对象的处理流程</h3><p>&emsp;与基本数据类型不同的是，当异常为对象时，需要重点关注<code>CatchIt</code>函数，其具体功能为：（1）使用<code>BuildCatchObject</code>函数对抛出的异常对象进行处理，此函数共有4种不同的对象产生方式，分别为指针直接赋值、简单对象复制、有虚表基类复制构造函数、无虚表基类复制构造函数。（2）使用<code>__FrameUnwindToState</code>进行处理，具体而言，将FuncInfo表结构与EHRegistrationNode结构中记录的相关栈展开信息进行比对判断，以检索展开过程中调用的函数，当栈展开与生产对象的流程执行完毕后，调用<code>CallCatchBlock</code>完成catch块的调用工作，最后由<code>_JumpToContinuation</code>跳转回catch结束的地址。</p>
+<h3 id="异常识别处理"><a href="#异常识别处理" class="headerlink" title="异常识别处理"></a>异常识别处理</h3><p>&emsp;异常处理分析的流程如下步骤所示：</p>
+<p>（1）在函数入口处设置异常回调函数，回调函数先将eax设置为FuncInfo的地址，然后跳往<code>__CxxFrameHandler</code>。</p>
+<p>（2）异常的抛出由<code>__CxxThrowException</code>完成，该函数使用的参数有两个，一个是throw的参数指针，一个是抛出信息类型的指针（<code>ThrowInfo *</code>）。</p>
+<p>（3）在异常回调函数中，可以得到异常对象的地址、对应ThrowInfo数据的地址、FuncInfo的地址。根据异常类型，进行try块的匹配工作。若没有找到try块，则析构异常对象，返回<code>ExceptionContinueSearch</code>，继续下一个异常回调函数的处理。当找到了对应的try，则通过<code>TryBlockMapEntry</code>中的<code>pCatch</code>找到catch信息表，用ThrowInfo中的异常类型遍历查找匹配的catch块，比较关键词名称（整形为<code>.h</code>，单精度浮点为<code>.m</code>），找到有效的catch块。</p>
+<p>（4）执行栈展开操作，产生catch块中使用的异常对象。正确析构生命周期已结束的对象，并跳转到catch块，执行catch代码，最后调用<code>_JumpToContinuation</code>返回所有catch语句块的结束地址。</p>
+<p>&emsp;书中给了一个例子，看P464。</p>
+<h3 id="x64异常处理"><a href="#x64异常处理" class="headerlink" title="x64异常处理"></a>x64异常处理</h3><p>&emsp;此时，VS编译器不再采用在函数中注册SEH完成异常处理的方式，而是将异常信息表存放在PE文件的<code>.pdata</code>节中。这个节中记录各种异常函数的相关信息（以RUNTIME_FUNCTION结构体保存）。对于动态生成的函数，必须使用<code>Rt1InstallFunctionTableCallback</code>将此信息提供给操作系统，否则将导致不可靠的异常和进程调试。</p>
+<p>&emsp;RUNTIME_FUNCTION结构体中的UnwindInfo结构为展开数据信息结构，记录函数对堆栈指针的影响以及非易失寄存器保存在堆栈上的位置。这里没太看明白，还给了个例子，具体看P481。</p>
+<h2 id="0x13-PEiD的工作原理分析"><a href="#0x13-PEiD的工作原理分析" class="headerlink" title="0x13 PEiD的工作原理分析"></a>0x13 PEiD的工作原理分析</h2><p>&emsp;PEiD是PE文件分析工具，和die差不多，它不仅可以分析出PE文件的编译器版本，还可以在PE文件经过加壳处理后，分析出相应的加壳版本。这里只是看了分析流程，没跟着走。其分析流程为：</p>
+<p>（1）读取分析文件到内存中，分析出相关PE文件的信息，然后保存。</p>
+<p>（2）检查OEP，计算地址偏移并修正OEP。</p>
+<p>（3）检查OEP地址的合法性。</p>
+<p>（4）将OEP的机器码与特征码进行比较。检查分析文件是否存在<code>.rdata</code>节，并根据分析结果获取对应处理函数所在数组的下标并保存。</p>
+<p>（5）循环调用处理函数，在处理函数中再次检查，最后显示编译器版本。</p>
+<p>&emsp;书中还给出了一个例子，以欺骗PEiD是VC6++的程序，具体见P496。</p>
+<h2 id="0x14-调试器Ollydbg的工作原理分析"><a href="#0x14-调试器Ollydbg的工作原理分析" class="headerlink" title="0x14 调试器Ollydbg的工作原理分析"></a>0x14 调试器Ollydbg的工作原理分析</h2><p>&emsp;Ollydbg的断点功能是基于异常处理实现的，断点类型有：INT3断点、内存断点、硬件断点。</p>
+<p>&emsp;INT3断点是修改机器码为0xCC制造异常，Ollydbg捕获此异常并等待用户处理。Ollydbg实现INT3断点的主要流程：</p>
+<p>（1）检查INT3断点是否记录在断点信息表中。</p>
+<p>（2）将INT3断点信息记录到表中。</p>
+<p>（3）记录INT3断点处的机器码信息。</p>
+<p>（4）将INT3断点处的机器码修改为0xCC，并设置断点记录表。</p>
+<p>&emsp;INT3断点属于执行断点，只能打到执行代码中，对于数据的读/写操作，则需要内存断点来完成。内存断点的类型与特征码：0x7E/0x23（访问断点）、0x7F/0x24（内存写入断点）、0x80/0x25（清除内存断点）。其大概流程如下：检查断点所处的内存位置，并通过修改内存属性制造异常信息，然后由Ollydbg捕获并处理，从而实现断点的功能。在设置了内存属性后，会对内存断点结构执行赋值操作。内存属性的修改通过<code>VitualQuery</code>与<code>VirtualProtectEx</code>完成，通过前者获取原内存页的属性，以便于还原；通过后者修改内存页的属性，以制造内存访问异常。</p>
+<p>&emsp;INT3与内存断点是通过软件完成的，而硬件断点是通过CPU中的调试寄存器实现的，断点长度只能为1/2/4。Ollydbg使用了保存硬件断点信息的结构表，记录每个硬件断点的相关信息。其具体实现过程主要依赖<code>GetThreadContext</code>与<code>SetThreadContext</code>，前者获取当前线程中寄存器的信息，后者设置当前线程中寄存器的信息来对调试寄存器完成修改。</p>
+<h3 id="异常处理机制"><a href="#异常处理机制" class="headerlink" title="异常处理机制"></a>异常处理机制</h3><p>&emsp;前面3种断点都是通过异常使得ollydbg进行捕获，从而实现断点功能。内存断点的触发是内存访问类的错误，其处理流程为：</p>
+<p>（1）得到线程信息，跳转到相应的异常处理分支中。</p>
+<p>（2）若得到线程信息，则根据线程信息的eip进行赋值，否则根据异常地址进行赋值。得到异常处模块的信息并反汇编，进行检查。若模块为自解压（SFX）模式，则进行相应检查与错误处理。</p>
+<p>（3）检查内存断点是否在kernel32.dll中，弹出提示窗口并去除断点。</p>
+<p>（4）调整优先级并退出。</p>
+<p>&emsp;硬件断点的捕获过程是由调试寄存器完成的，因此ollydbg并没有捕获处理过程。</p>
+<h3 id="加载调试程序"><a href="#加载调试程序" class="headerlink" title="加载调试程序"></a>加载调试程序</h3><p>&emsp;Ollydbg通过<code>CreateProcess</code>以调试模式开启新进程。在此之前，需要进行一些检查工作，例如调试进程路径的获取、是否为合法的调试文件等信息，这是通过<code>OpenEXEfile</code>完成的。具体而言，首先根据文件后缀名判断是否为快捷方式，如果为快捷方式则会找到此快捷方式的对应程序的路径，接下来检查DOS头与NT头分析是否是合法的PE文件。之后，当调试的文件是DLL动态库时，使用自带的LoadDll.exe加载dll文件。</p>
+<h2 id="0x15-总结"><a href="#0x15-总结" class="headerlink" title="0x15 总结"></a>0x15 总结</h2><p>&emsp;用处有，但不是特别大。其中重点就是除法、虚函数、构造与析构。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/07/30/starCTF2023/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/07/23/Policy-compliant-signatures/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-07-23 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re-book/">re-book<span>11</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

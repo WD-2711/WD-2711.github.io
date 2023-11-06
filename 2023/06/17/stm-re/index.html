@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>stm-re | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="针对SCTF2020的STM32门锁固件题目firmware.hex。题目相关信息：STM32F103C8T6 MCU密码锁，具有4个按键，分别为1、2、3、4，分别对应GPIO_PA1、GPIO_PA2、GPIO_PA3、GPIO_PA4。有两个flag。flag1：门锁密码； flag2：UART输出的信息。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="stm-re"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> stm-re</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> 针对SCTF2020的STM32门锁固件题目firmware.hex。题目相关信息：STM32F103C8T6 MCU密码锁，具有4个按键，分别为1、2、3、4，分别对应GPIO_PA1、GPIO_PA2、GPIO_PA3、GPIO_PA4。有两个flag。flag1：门锁密码； flag2：UART输出的信息。
+		 </div> <!-- alert -->
+	  		
+
+	  <h1 id="stm32逆向入门"><a href="#stm32逆向入门" class="headerlink" title="stm32逆向入门"></a>stm32逆向入门</h1><h2 id="0x00-背景知识"><a href="#0x00-背景知识" class="headerlink" title="0x00 背景知识"></a>0x00 背景知识</h2><p>&emsp;针对SCTF2020的STM32门锁固件题目<code>firmware.hex</code>。题目链接为：<a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/assets/attachment/stm32/firmware.hex">链接</a>。题目相关信息：STM32F103C8T6 MCU密码锁，具有4个按键，分别为1、2、3、4，分别对应GPIO_PA1、GPIO_PA2、GPIO_PA3、GPIO_PA4。有两个flag。<strong>flag1：门锁密码； flag2：UART输出的信息。</strong></p>
+<span id="more"></span>
+<h3 id="intel-hex文件格式"><a href="#intel-hex文件格式" class="headerlink" title="intel hex文件格式"></a>intel hex文件格式</h3><p>&emsp;这是一个intel hex的格式。Intel Hex文件是遵循Intel Hex文件格式的ASCII文本文件。在Intel Hex文件的每一行中都包含了一个hex记录，这些记录是由一些代表机器语言代码和常量的16进制数据组成。</p>
+<p>&emsp;Intel Hex文件常用来传输要<strong>存储在ROM、EPROM或者Flash中的程序和数据</strong>。大部分的EPROM编程器都能使用Intel Hex文件。Intel Hex由任意数量的十六进制记录组成。每个记录包含6个域。</p>
+<p>（1）ROM（Read-Only Memory）是只读存储器，它的内容在制造时被固定下来，无法被修改。<strong>ROM 通常用于存储程序代码、固件、启动代码和常量数据等不需要经常修改的信息。</strong></p>
+<p>（2）EPROM（Erasable Programmable Read-Only Memory）是可擦写可编程只读存储器，它的内容可以被擦除和重新编程。EPROM 需要使用紫外线擦除器擦除，因此擦除后再次编程需要重新安装到设备中。<strong>EPROM 通常用于开发过程中需要不断修改的程序代码</strong>。</p>
+<p>（3）Flash 是一种非易失性的电子存储器，它的内容可以被擦除和重新编程，但不需要使用紫外线擦除器，而是通过电子擦除方式实现。<strong>Flash 通常用于存储程序代码和数据</strong>，它的可擦除性使得它比 ROM 更加灵活，同时也比 EPROM 更加方便。</p>
+<p>&emsp;在 <strong>STM32 开发中，Flash 是一个非常重要的存储器类型，它用于存储程序代码和数据</strong>。对于一些需要经常修改的程序代码，可以使用 Flash 存储器进行存储。此外，STM32 还具有一些专用的存储器，如EEPROM（Electrically Erasable Programmable Read-Only Memory）和OTP（One-Time Programmable）存储器等，它们用于存储一些关键的参数和配置信息，如设备 ID、序列号、加密密钥等。</p>
+<p>&emsp;记录按以下格式排列：</p>
+<p><img src="/images/stm-re/image-20230617221142375.png" alt="image-20230617221142375" style="zoom:67%;" /></p>
+<p>&emsp;例如：</p>
+<p><img src="/images/stm-re/image-20230617221204737.png" alt="image-20230617221204737" style="zoom:67%;" /></p>
+<p>（1）<strong>Start Code（冒号）：</strong> 每个 Intel HEX 记录都由冒号开头<br>（2）<strong>Byte count（本行数据长度）：</strong>是数据长度域，它代表记录当中数据字节的数量<br>（3）<strong>Address（本行数据的起始地址）：</strong>是地址域，它代表记录当中数据的起始地址<br>（4）<strong>Record type（数据类型）：</strong> 是代表HEX记录类型的域，它可能是以下数据当中的一个：<br>　　00-数据记录<br>　　01-文件结束记录<br>　　02-扩展段地址记录<br>　　03-开始段地址记录<br>　　04-扩展线性地址记录<br>　　05-开始线性地址记录<br>（5）<strong>Data（数据）：</strong> 是数据域，一个记录可以有许多数据字节。记录当中数据字节的数量必须和数据长度域中指定的数字相符<br>（6）<strong>Checksum（校验码）：</strong> 是校验和域，它表示这个记录的校验和.校验和的计算是通过将记录当中所有十六进制编码数字对<br>的值相加，以256为模进行补足</p>
+<p>&emsp;例如上述题目，其内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">:02 0000 04 0800 F2</span><br><span class="line">:10 0000 00 4004002001010008090100080B010008 5C</span><br><span class="line">:10 0010 00 0D0100080F0100081101000800000000 98</span><br><span class="line">:10 0020 00 00000000000000000000000013010008 B4</span><br><span class="line">...</span><br><span class="line">:10 0600 00 00000000000000000000000000000000 EA</span><br><span class="line">:04 0610 00 00000000 E6</span><br><span class="line">:04 0000 05 080000ED 02</span><br><span class="line">:00 0000 01 FF</span><br></pre></td></tr></table></figure>
+<p>&emsp;上述代码解释如下：</p>
+<p>（1）第一行记录了扩展线性地址，其实就是程序的加载基址：<code>0x08000000</code></p>
+<p>（2）倒数第二行记录了程序入口地址：<code>0x080000ED</code></p>
+<p>（3）最后一行标志文件结束</p>
+<p>（4）其余行全部是文件数据</p>
+<h3 id="芯片信息查找"><a href="#芯片信息查找" class="headerlink" title="芯片信息查找"></a>芯片信息查找</h3><p>&emsp;手册更是STM32开发者必不可少的法宝。查找手册的网站（必须知道芯片型号）：<code>https://www.alldatasheet.com/</code>。然后就找到了对应芯片的信息：<code>https://www.st.com/resource/en/datasheet/stm32f103c8.pdf</code>。</p>
+<p><img src="/images/stm-re/image-20230617224139974.png" alt="image-20230617224139974" style="zoom:67%;" /></p>
+<p><img src="/images/stm-re/image-20230617224240509.png" alt="image-20230617224240509" style="zoom:67%;" /></p>
+<p>&emsp;从内存映射可以得到此代码的信息：</p>
+<ul>
+<li>0x08000000-0x0801FFFF: Flash 128k，用于来存储程序代码，不用把程序拷贝到RAM中，而直接在Flash中执行，这种技术叫XIP</li>
+<li>0x20000000-0x20004FFF: SRAM 20k，用于程序运算时存放变量</li>
+<li>0x40000000-0x40023FFF: Peripherals 144k，外设寄存器的映射地址，通过读写这些内存地址实现对外围设备的控制</li>
+</ul>
+<p>&emsp;在之前的hex文件中，<strong>我们知道程序的加载基址是<code>0x08000000</code>，也是Flash的起始地址，所以这里直接就是从Flash中执行程序</strong>。</p>
+<p>补充：NOR Flash与NAND Flash</p>
+<p>（1）NOR Flash是一种串行存储器，它的读取和写入操作可以同时进行。NOR Flash的存储单元通常是按字节进行编址的，因此适合于<strong>存储代码和执行指令</strong>等需要随机访问的应用场景。NOR Flash的读取速度比较快，但写入速度和存储密度相对较低。</p>
+<p>（2）NAND Flash是一种并行存储器，它的读取和写入操作不能同时进行。NAND Flash的存储单元通常是按页或块进行编址的，因此适合于<strong>存储大量数据</strong>的应用场景，如图像、视频和音频等。NAND Flash的存储密度比较高，但读取速度和可靠性相对较低。</p>
+<h3 id="IDA配置"><a href="#IDA配置" class="headerlink" title="IDA配置"></a>IDA配置</h3><p>&emsp;由上面分析可知，内存分为<code>Flash</code>、<code>SRAM</code>、<code>Peripherals</code>。Flash段中的程序除了包括代码，还包括中断向量表。用IDA加载这个hex文件，必须还要进行相关的配置。选用<code>ida7.7</code>32位，由于CPU内核系列是Cortex M3，指令集是ARMv7-M，因此可以进行配置。</p>
+<p><img src="/images/stm-re/image-20230617230049663.png" alt="image-20230617230049663" style="zoom:50%;" /></p>
+<p><img src="/images/stm-re/image-20230617230136986.png" alt="image-20230617230136986" style="zoom:67%;" /></p>
+<h2 id="0x01-题目分析"><a href="#0x01-题目分析" class="headerlink" title="0x01 题目分析"></a>0x01 题目分析</h2><h3 id="入口地址"><a href="#入口地址" class="headerlink" title="入口地址"></a>入口地址</h3><p>&emsp;上面分析过，入口地址为<code>0x080000ED</code>（从hex文件中分析出来的）。那如果没有这个信息怎么办？<strong>利用中断向量表来找到复位时的中断处理函数，跟着函数找就可以找到入口地址。</strong></p>
+<p><img src="/images/stm-re/image-20230617231227940.png" alt="image-20230617231227940" style="zoom:67%;" /></p>
+<p>&emsp;之前分析的，代码基地址为<code>0x08000000</code>（Flash起始地址），跟踪此地址，得到：</p>
+<p><img src="/images/stm-re/image-20230617231411071.png" alt="image-20230617231411071" style="zoom:67%;" /></p>
+<p><img src="/images/stm-re/image-20230617231434118.png" alt="image-20230617231434118" style="zoom:67%;" /></p>
+<p>&emsp;在ARM里，<strong>如果跳转到一个奇数的地址上，则是切换处理器为THUMB模式（指令的长度为2个字节，原来是4个字节）</strong>。nullsub什么都没有做。之后跳入start函数，然后从start，往后跟一会就找到了main函数（<code>sub_8000428</code>），如下所示：</p>
+<p><img src="/images/stm-re/image-20230617233635696.png" alt="image-20230617233635696" style="zoom:67%;" /></p>
+<p>补充：BLX与BX指令</p>
+<p>（1）BLX（Branch with Link and Exchange）和BX（Branch and Exchange）是ARM处理器中的两种跳转指令，用于在不同的指令集（ARM指令集和Thumb指令集）之间进行跳转。</p>
+<p>（2）<strong>BX指令用于在ARM指令集和Thumb指令集之间进行跳转。当CPU处于ARM状态下时，BX指令可以跳转到Thumb状态的代码段，而当CPU处于Thumb状态下时，BX指令则可以跳转到ARM状态的代码段。</strong></p>
+<p>（3）<strong>BLX指令除了可以实现BX指令的功能外，还可以将跳转地址存入链接寄存器（Link Register，LR）中，从而实现函数调用的功能，即BLX指令实现了跳转并链接（Branch with Link and Exchange）的功能。</strong></p>
+<p>补充：LR寄存器</p>
+<p>（1）Link Register是ARM Cortex-M系列处理器中的一种寄存器，它主要用于存储函数返回地址。当一个函数被调用时，LR寄存器会自动保存调用该函数的指令的地址，当函数执行完毕时，程序会从LR寄存器中读取该地址，返回到调用该函数的指令处继续执行。</p>
+<p>（2）在STM32的汇编指令中，LR寄存器通常使用LR或者R14表示。在函数调用时，使用汇编指令BL（Branch with Link）跳转到子函数中执行，此时LR寄存器会自动保存调用该函数的指令的地址。在子函数执行完毕返回时，使用汇编指令BX LR（Branch and Exchange）跳转到LR寄存器中保存的地址，返回到调用该函数的指令处继续执行。</p>
+<p>&emsp;接着分析，为什么上图会有很多标红？红色的位置其实就是IDA没有创建的内存段，因为加载程序hex的时候的地址以及程序大小只让IDA加载了0x8000000附近的内存，而我们之前获得SRAM以及Peripherals的地址信息都没有告诉IDA，所以接下来就创建内存段让这些红色消失。</p>
+<h3 id="segment建立"><a href="#segment建立" class="headerlink" title="segment建立"></a>segment建立</h3><p>&emsp;根据上面分析的SRAM与Peripherals的地址，可以创建新的段。SRAM创建如下：</p>
+<p><img src="/images/stm-re/image-20230617234118824.png" alt="image-20230617234118824" style="zoom:67%;" /></p>
+<h3 id="修复中断向量表"><a href="#修复中断向量表" class="headerlink" title="修复中断向量表"></a>修复中断向量表</h3><p>&emsp;与其说是修复中断向量表，不如说是：<strong>配置ida，让ida可以识别出中断向量表的数据结构。</strong></p>
+<p>&emsp;程序入口之前都是中断向量表，即中断向量表的范围：<code>0x08000000-0x080000EC</code>。</p>
+<p>&emsp;IDApython脚本如下（其实手动也可以）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for i in range(0x8000000,0x80000eb,1): </span><br><span class="line">	// 删除该地址处的标签、注释、函数定义、结构定义等所有命名信息</span><br><span class="line">	del_items(i)</span><br><span class="line">for i in range(0x8000000,0x80000eb,4): </span><br><span class="line">	// 创建4字节</span><br><span class="line">	create_dword(i)</span><br></pre></td></tr></table></figure>
+<p>&emsp;得到如下：</p>
+<p><img src="/images/stm-re/image-20230617235008280.png" alt="image-20230617235008280" style="zoom:67%;" /></p>
+<p>&emsp;其中，<code>0x800016D;0x80001AD;0x80001E5;0x800022D;0x8000149</code>对应的是有函数的，其对应的地址分别为：<code>0800005C;08000060;08000064;08000068;08000078</code>。查询手册，对应的中断为（此图是copy的链接）：</p>
+<p><img src="/images/stm-re/image-20230617235629489.png" alt="image-20230617235629489" style="zoom:67%;" /></p>
+<p>&emsp;对这些地址<code>create_function</code>创建函数。博客原话：<code>分析这五个函数，对应到他们的功能，感觉前四个就是密码按键中断的对应的处理函数，最后一个DMA相关暂时不知道是干什么的。总之这一趟忙活下来，IDA基本就彻底看懂了这个题目的intel hex到底是个啥了。但是我们目前还不是很懂，接下来就是对着STM32的文档，研究程序是怎么用的外设寄存器，并分析程序函数并解题了。</code></p>
+<h2 id="0x03-解题"><a href="#0x03-解题" class="headerlink" title="0x03 解题"></a>0x03 解题</h2><p>&emsp;由于之前选过嵌入式这门课，所以有一点点小了解。之后，用MDK加载题目中的hex文件。步骤具体在《CTF特训营》P460-P465。</p>
+<p>&emsp;由于题目与GPIO_PA1、GPIO_PA2、GPIO_PA3、GPIO_PA4这几个引脚相关，首先先了解一下。而我们想让程序从USART1输出，因此也要用到PA9引脚。如下所示：</p>
+<p><img src="/images/stm-re/image-20230618125932091.png" alt="image-20230618125932091" style="zoom:67%;" /></p>
+<p>补充：引脚</p>
+<p>（1）PA、PB、PC、PD等每组都是16个GPIO引脚</p>
+<p>（2）PA、PB、PC、PD等每组都可能有引脚和其他功能复用</p>
+<p>（3）通过设置每个引脚的<strong>配置寄存器</strong>来决定是否复用</p>
+<p> &emsp;我们需要设置PA1、PA2、PA3、PA4的输入，PA9设置复用为UART的输出。通过STM32F10xxx参考手册，可以配置程序中的寄存器名称。最终得到：</p>
+<p><img src="/images/stm-re/image-20230621103841549.png" alt="image-20230621103841549" style="zoom:67%;" /></p>
+<p>&emsp;但是调试的时候一直卡在<code>USART1_SEND</code>的循环中，搜索了一下，可能有三个原因：</p>
+<p>（1）确保在程序入口点 <code>main()</code> 中正确地初始化了 USART1串口，并且初始化后USART1的状态为可用状态。</p>
+<p>（2）确保在发送数据之前USART1接收缓冲区为空。可以通过读取USART1_SR寄存器的RXNE位来检查是否有未处理的数据，如果有，则需要先读取USART1_DR寄存器中的数据。</p>
+<p>（3）如果USART1串口的波特率设置不正确，可能会导致通信错误，也会导致卡在 <code>while ((USART1_SR &amp; 0x80) == 0)</code>。请确保波特率设置正确。</p>
+<p>&emsp;排查了一下错误，发现配置时应该这样：</p>
+<p><img src="/images/stm-re/image-20230621105615611.png" alt="image-20230621105615611" style="zoom:67%;" /></p>
+<p>&emsp;之后点击debug，然后<code>load firmware.hex</code>，最后<code>reset</code>就好啦。结果如下图所示：</p>
+<p><img src="/images/stm-re/image-20230621105524795.png" alt="image-20230621105524795" style="zoom:67%;" /></p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/iot/2020/07/08/stm32/">https://xuanxuanblingbling.github.io/iot/2020/07/08/stm32/</a></p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/06/19/matrix-review-question/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/06/17/SCTF-2023/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-06-17 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re/">re<span>35</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

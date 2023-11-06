@@ -1,0 +1,364 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>gdb-study | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="gdb-study"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> gdb-study</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="homework08分析"><a href="#homework08分析" class="headerlink" title="homework08分析"></a>homework08分析</h1><p>本文环境为ubuntu-16.04-i686-desktop。（不能用docker，因为 docker 不支持32位）</p>
+<span id="more"></span>
+<h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><p>homework08 的程序流程为：</p>
+<p><img src="/images/gdb-study/3.png" style="zoom:50%;" /></p>
+<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>运行./homework08出现段错误。</p>
+<p><img src="/images/gdb-study/1.png" style="zoom:50%;" /></p>
+<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>​    使用gdb调试，发现有：</p>
+<p><img src="/images/gdb-study/2.png" alt="2" style="zoom: 33%;" /></p>
+<p>​    之后运行 disas main，disas f00，disas f01，disas f02。分别有：</p>
+<p><img src="/images/gdb-study/4.png" alt="image-20221031161154523" style="zoom: 33%;" /></p>
+<p><img src="/images/gdb-study/5.png" alt="image-20221031161256546" style="zoom:33%;" /></p>
+<p><img src="/images/gdb-study/6.png" alt="image-20221031161338741" style="zoom:33%;" /></p>
+<p><img src="/images/gdb-study/7.png" alt="image-20221031161624460" style="zoom:33%;" /></p>
+<h2 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h2><p>在函数f00的入口，对strcpy的调用以及出口设置断点。并设置每次执行到断点后都输出一下 $eip 的值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">b *(f00+0)</span><br><span class="line">b *(f00+24)</span><br><span class="line">b *(f00+34)</span><br><span class="line">display/i $eip</span><br></pre></td></tr></table></figure>
+<h2 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h2><p>​    输入 r 并运行，输入 x/x $esp 并运行查看此时栈的地址。</p>
+<p><img src="/images/gdb-study/8.png" alt="image-20221031163016127" style="zoom: 50%;" /></p>
+<p>​    上述截图表示，此时程序运行到f00的入口，此时esp指针中的内容为0x08048578，此时 esp指向的地址为 <strong>0xbfff03c</strong>。</p>
+<p>​    输入 c 并运行。</p>
+<p><img src="/images/gdb-study/9.png" alt="image-20221031163448114" style="zoom:50%;" /></p>
+<p>​    上述截图表示，此时程序运行到f00的strcpy函数处。此时查看某些信息，有：</p>
+<p><img src="/images/gdb-study/10.png" alt="image-20221031164616975" style="zoom:50%;" /></p>
+<p>​    可以得到，此时 Lbuffer 为src，而 0xbffef5c 是 Lbuffer 复制的目的地址。可见，Lbuffer 的地址 0x0804a040 保存在地址为0xbfffef44 的栈中，而 des 的首地址 <strong>0xbffef5c</strong> 保存在 0xbfffef40 的栈中。</p>
+<p><strong>知识点1：</strong>由于 C 语言默认将参数逆序推入堆栈。因此 C 函数 strcpy(des,src) 的 src 先进栈（高地址），des 后进栈（低地址）。（栈的顺序是由高地址到低地址扩展的。）</p>
+<p>​    因此，可以计算出 des 的首地址与返回地址所在栈的距离 0xbfff03c - 0xbffef5c = 0xe0 = 224。因此，如果 Lbuffer 的内容超过 224 字节，则将发生缓冲区溢出，并且返回地址被改写。</p>
+<h2 id="0x05"><a href="#0x05" class="headerlink" title="0x05"></a>0x05</h2><p>​    输入 c 并运行，得到：</p>
+<p><img src="/images/gdb-study/11.png" alt="image-20221031170555775" style="zoom:50%;" /></p>
+<p><strong>知识点2：</strong>ret 指令让 eip 等于 esp 指向的内容 并且 esp 等于 esp+ 4。</p>
+<p>​    查看此时的 esp 地址，即下一条指令地址，变为字符串为 “QRST”。</p>
+<p><img src="/images/gdb-study/12.png" alt="image-20221031170837601" style="zoom:50%;" /></p>
+<h2 id="0x06"><a href="#0x06" class="headerlink" title="0x06"></a>0x06</h2><p>​    类似的，运行 ./homework 08 arg1 与 ./homework 08 arg1 arg2。</p>
+<p><img src="/images/gdb-study/13.png" alt="image-20221031171423299" style="zoom:50%;" /></p>
+<p>​    发现一个报错一个不报错，因此，f01存在缓冲区溢出，f02不存在缓冲区溢出。</p>
+<p>​    与0x01-0x05类似，不同的是要在程序调试之前加上 set args argv，这样才能调试函数 f01。</p>
+<p>​    最后，计算 0xbffff03c - 0xbfffef61= 0xdb = 219，此时下一条指令地址变为 “LMNO”。</p>
+<h2 id="gdb常用命令："><a href="#gdb常用命令：" class="headerlink" title="gdb常用命令："></a>gdb常用命令：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">r //执行程序到断点</span><br><span class="line">disas // 反汇编 disassemble，例如 disas main</span><br><span class="line">b // 设置断点，例如 b *(f00+24)，表示对strcpy处设置断点</span><br><span class="line">display // 设置程序中断后欲显示的数据及其格式，例如 display /i $pc。 $pc表示当前汇编指令，/i 表示16进制</span><br><span class="line">x // 查看内存地址中的值，例如 x/x $esp 是查看当前$esp中的16进制值， x/s $esp 是查看当前$esp中的字符串值</span><br><span class="line">c // 程序继续往下运行，直到遇到断点或者程序结束</span><br><span class="line">set args 参数 // 调试带参数的程序</span><br><span class="line">show args // 显示程序参数</span><br></pre></td></tr></table></figure>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2022/10/31/re5-packed-movement/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2022/10/29/Hello/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-10-31 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/study-notes/">study-notes<span>17</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

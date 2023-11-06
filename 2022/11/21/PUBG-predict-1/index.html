@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>PUBG-predict | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="PUBG-predict"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> PUBG-predict</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="吃鸡排名预测-研究方案报告"><a href="#吃鸡排名预测-研究方案报告" class="headerlink" title="吃鸡排名预测-研究方案报告"></a>吃鸡排名预测-研究方案报告</h1><p><strong>比赛链接：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://aistudio.baidu.com/aistudio/competition/detail/155/0/introduction">https://aistudio.baidu.com/aistudio/competition/detail/155/0/introduction</a></p>
+<hr>
+<span id="more"></span>
+<h2 id="0x00-赛题任务"><a href="#0x00-赛题任务" class="headerlink" title="0x00 赛题任务"></a>0x00 赛题任务</h2><p>​    构建吃鸡排名预测模型，输入每位玩家的统计信息、队友统计信息、本局其他玩家的统计信息，预测最终的游戏排名。这里的排名是按照队伍排名，若多位玩家在 PUBG一局游戏中组队，则最终排名相同。</p>
+<ol>
+<li><strong>赛题训练集案例如下：</strong></li>
+</ol>
+<p>​    训练集 5万数据，共 150w 行<br>​    测试集共 5000条数据，共 50w 行</p>
+<ol>
+<li><strong>赛题数据文件总大小</strong><br>150MB，数据均为 csv 格式，列使用逗号分<br>测试集中 label字段 team_placement 为空，需要选手预测。</li>
+<li><strong>完整的数据字段含义如下：</strong><br>match_id：本局游戏的 id<br>team_id：本局游戏中队伍 id，表示在每局游戏中队伍信息<br>game_size：本局队伍数量<br>party_size：本局游戏中队伍人数<br>player_assists：玩家助攻数<br>player_dbno：玩家击倒数<br>player_dist_ride：玩家车辆行驶距离<br>player_dist_walk：玩家不幸距离<br>player_dmg：输出伤害值<br>player_kills：玩家击杀数<br>player_name：玩家名称，在训练集和测试集中全局唯一<br>kill_distance_x_min：击杀另一位选手时最小的 x坐标间隔<br>kill_distance_x_max：击杀另一位选手时最大的 x坐标间隔<br>kill_distance_y_min：击杀另一位选手时最小的 y坐标间隔<br>kill_distance_y_max：击杀另一位选手时最大的 x坐标间隔<br>team_placement：队伍排名</li>
+<li><strong>评估指标</strong><br>比赛得分使用绝对回归误差 MAE进行评分，数值越低精度越高。</li>
+</ol>
+<hr>
+<h2 id="0x01-Baseline-代码分析"><a href="#0x01-Baseline-代码分析" class="headerlink" title="0x01 Baseline 代码分析"></a>0x01 Baseline 代码分析</h2><ol>
+<li><strong>数据处理部分</strong></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_df = train_df.drop([<span class="string">&#x27;match_id&#x27;</span>, <span class="string">&#x27;team_id&#x27;</span>], axis=<span class="number">1</span>)</span><br><span class="line">test_df = test_df.drop([<span class="string">&#x27;match_id&#x27;</span>, <span class="string">&#x27;team_id&#x27;</span>], axis=<span class="number">1</span>)</span><br><span class="line">train_df = train_df.fillna(<span class="number">0</span>)</span><br><span class="line">test_df = test_df.fillna(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>​    可以看到，Baseline 将<code>match_id</code>与<code>team_id</code>删除掉了，并将<code>Nan</code>值以0表示。</p>
+<ol>
+<li><strong>模型搭建部分</strong></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Regressor</span>(paddle.nn.Layer):</span><br><span class="line">    <span class="comment"># self代表类的实例自身</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 初始化父类中的一些参数</span></span><br><span class="line">        <span class="built_in">super</span>(Regressor, self).__init__()</span><br><span class="line">        </span><br><span class="line">        self.fc1 = paddle.nn.Linear(in_features=<span class="number">13</span>, out_features=<span class="number">40</span>)</span><br><span class="line">        self.fc2 = paddle.nn.Linear(in_features=<span class="number">40</span>, out_features=<span class="number">20</span>)</span><br><span class="line">        self.fc3 = paddle.nn.Linear(in_features=<span class="number">20</span>, out_features=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        self.relu = paddle.nn.ReLU()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 网络的前向计算</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, inputs</span>):</span><br><span class="line">        x = self.fc1(inputs)</span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        x = self.fc2(x)</span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        x = self.fc3(x)</span><br><span class="line">        x = self.relu(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">opt = paddle.optimizer.SGD(learning_rate=<span class="number">0.01</span>, parameters=model.parameters())</span><br></pre></td></tr></table></figure>
+<p>​        使用了3层全连接，非线性用了<code>ReLu</code>函数，优化器使用了<code>SGD</code>优化器，学习率为0.01。</p>
+<ol>
+<li><strong>模型训练部分</strong></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">EPOCH_NUM = <span class="number">20</span>   <span class="comment"># 设置外层循环次数</span></span><br><span class="line">BATCH_SIZE = <span class="number">1000</span>  <span class="comment"># 设置batch大小</span></span><br><span class="line">training_data = train_df.iloc[:-<span class="number">10000</span>].values.astype(np.float32)</span><br><span class="line">val_data = train_df.iloc[-<span class="number">10000</span>:].values.astype(np.float32)</span><br></pre></td></tr></table></figure>
+<p>​        训练轮数为20，batch大小为1000，训练集大小为1490000，测试集大小为10000。</p>
+<hr>
+<h2 id="0x02-基于-Baseline-的改进"><a href="#0x02-基于-Baseline-的改进" class="headerlink" title="0x02 基于 Baseline 的改进"></a>0x02 基于 Baseline 的改进</h2><h3 id="改进的点："><a href="#改进的点：" class="headerlink" title="改进的点："></a>改进的点：</h3><ol>
+<li><p><strong>对队伍进行聚合，每一个队伍所有人的数据进行平均，并将其当作一条数据。</strong></p>
+<p><strong>原因：</strong>由于我们要预测每个队伍的排名，队伍中的每个人的排名是相同的，因此将队伍中所有人的数据进行平均，更好的反映了队伍的总体表现对排名的影响。</p>
+</li>
+<li><p><strong>对<code>team_replacement</code>作等比例缩小处理，都除每轮的<code>game_size</code>，保证处理后的值处于[0,1]之间。</strong></p>
+<p><strong>原因：</strong>Baseline提供的可供优化的点之一为归一化处理<code>team_replacement</code>，应该是针对不同类型的比赛，相同排名队伍的数据其实差别很大，那么归一化之后，模型就能更好地预测出排名。</p>
+</li>
+<li><p><strong>训练集大小为<code>0.8*总数据</code>，测试集大小为<code>0.2*总数据</code>。</strong></p>
+<p><strong>原因：</strong>训练集测试集划分一般都是8：2。</p>
+</li>
+<li><p><strong>使用了<code>paddle</code>官方文档中最好的优化器<code>Lamb</code>，并设置学习率变化的<code>scheduler</code>，学习率为0.01。</strong></p>
+</li>
+<li><p><strong>网络结构采用了14层全连接网络，激活函数仍使用<code>ReLu</code>。</strong></p>
+<p><strong>原因：</strong>数据量很大，所以网络结构多加几层。但是怕自己时长不够，所以只设置了14层。</p>
+</li>
+<li><p><strong>训练轮数设置为200轮。</strong></p>
+<p><strong>原因：</strong>轮数越大越好。</p>
+</li>
+<li><p><strong>将<code>[game_size, player_name, match_id, team_id]</code>去除。</strong></p>
+<p><strong>原因：</strong><code>team_replacement</code>归一化处理后，<code>game_size</code>用处不大。<code>player_name</code>经过查看数据，是从小到大排列的，用处不大。<code>match_id, team_id</code>也是从小到大排列的，用处不大。</p>
+</li>
+</ol>
+<h3 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">################</span></span><br><span class="line"><span class="comment">##   95.28%   ##  </span></span><br><span class="line"><span class="comment">################</span></span><br><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"># @Time  : 2022/11/18 23:41:11</span></span><br><span class="line"><span class="string"># @Author: wd-2711</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> paddle</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PUBGRegressor</span>(paddle.nn.Layer):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;数据量很大，建议尝试深层神经网络&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">super</span>(PUBGRegressor, self).__init__()</span><br><span class="line">        self.fc1 = paddle.nn.Linear(in_features=<span class="number">11</span>, out_features=<span class="number">64</span>)</span><br><span class="line">        self.fc2 = paddle.nn.Linear(in_features=<span class="number">64</span>, out_features=<span class="number">128</span>)</span><br><span class="line">        self.fc3 = paddle.nn.Linear(in_features=<span class="number">128</span>, out_features=<span class="number">256</span>)</span><br><span class="line">        self.fc4 = paddle.nn.Linear(in_features=<span class="number">256</span>, out_features=<span class="number">512</span>)</span><br><span class="line">        self.fc5 = paddle.nn.Linear(in_features=<span class="number">512</span>, out_features=<span class="number">1024</span>)</span><br><span class="line">        self.fc6 = paddle.nn.Linear(in_features=<span class="number">1024</span>, out_features=<span class="number">2048</span>)</span><br><span class="line">        self.fc7 = paddle.nn.Linear(in_features=<span class="number">2048</span>, out_features=<span class="number">2048</span>)</span><br><span class="line">        self.fc8 = paddle.nn.Linear(in_features=<span class="number">2048</span>, out_features=<span class="number">2048</span>)</span><br><span class="line">        self.fc9 = paddle.nn.Linear(in_features=<span class="number">2048</span>, out_features=<span class="number">1024</span>)</span><br><span class="line">        self.fc10 = paddle.nn.Linear(in_features=<span class="number">1024</span>, out_features=<span class="number">512</span>)</span><br><span class="line">        self.fc11 = paddle.nn.Linear(in_features=<span class="number">512</span>, out_features=<span class="number">256</span>)</span><br><span class="line">        self.fc12 = paddle.nn.Linear(in_features=<span class="number">256</span>, out_features=<span class="number">128</span>)</span><br><span class="line">        self.fc13 = paddle.nn.Linear(in_features=<span class="number">128</span>, out_features=<span class="number">64</span>)</span><br><span class="line">        self.fc14 = paddle.nn.Linear(in_features=<span class="number">64</span>, out_features=<span class="number">1</span>)</span><br><span class="line">        self.relu = paddle.nn.ReLU()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, inputs</span>):</span><br><span class="line">        x = self.relu(self.fc1(inputs))</span><br><span class="line">        x = self.relu(self.fc2(x))</span><br><span class="line">        x = self.relu(self.fc3(x))</span><br><span class="line">        x = self.relu(self.fc4(x))</span><br><span class="line">        x = self.relu(self.fc5(x))</span><br><span class="line">        x = self.relu(self.fc6(x))</span><br><span class="line">        x = self.relu(self.fc7(x))</span><br><span class="line">        x = self.relu(self.fc8(x))</span><br><span class="line">        x = self.relu(self.fc9(x))</span><br><span class="line">        x = self.relu(self.fc10(x))</span><br><span class="line">        x = self.relu(self.fc11(x))</span><br><span class="line">        x = self.relu(self.fc12(x))</span><br><span class="line">        x = self.relu(self.fc13(x))</span><br><span class="line">        x = self.fc14(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;[+] final v2&quot;</span>)</span><br><span class="line">st = time.time()</span><br><span class="line">train_df = pd.read_csv(<span class="string">&#x27;data/data137263/pubg_train.csv.zip&#x27;</span>)</span><br><span class="line">test_df = pd.read_csv(<span class="string">&#x27;data/data137263/pubg_test.csv.zip&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 填充nan值，避免训练出错</span></span><br><span class="line">train_df = train_df.fillna(<span class="number">0</span>)</span><br><span class="line">test_df = test_df.fillna(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除 player_name 这一列</span></span><br><span class="line">train_df = train_df.drop([<span class="string">&#x27;player_name&#x27;</span>], axis = <span class="number">1</span>)</span><br><span class="line">test_df = test_df.drop([<span class="string">&#x27;player_name&#x27;</span>], axis = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 根据队伍进行聚合，并对标签作归一化处理</span></span><br><span class="line"><span class="comment"># 1.train_df</span></span><br><span class="line">new_train_df = train_df.groupby([<span class="string">&#x27;match_id&#x27;</span>, <span class="string">&#x27;team_id&#x27;</span>], as_index = <span class="literal">False</span>).agg(np.mean)</span><br><span class="line">new_train_df[<span class="string">&#x27;team_placement&#x27;</span>] = new_train_df[<span class="string">&#x27;team_placement&#x27;</span>] / new_train_df[<span class="string">&#x27;game_size&#x27;</span>]</span><br><span class="line">train_df = pd.merge(train_df, new_train_df, on = [<span class="string">&#x27;match_id&#x27;</span>, <span class="string">&#x27;team_id&#x27;</span>], how = <span class="string">&quot;outer&quot;</span>)</span><br><span class="line">train_df = train_df.drop(train_df.columns[<span class="number">2</span>:<span class="number">15</span>], axis = <span class="number">1</span>)</span><br><span class="line"><span class="comment"># 2.test_df</span></span><br><span class="line">new_test_df = test_df.groupby([<span class="string">&#x27;match_id&#x27;</span>, <span class="string">&#x27;team_id&#x27;</span>], as_index = <span class="literal">False</span>).agg(np.mean)</span><br><span class="line">test_df = pd.merge(test_df, new_test_df, on = [<span class="string">&#x27;match_id&#x27;</span>, <span class="string">&#x27;team_id&#x27;</span>], how = <span class="string">&quot;outer&quot;</span>)</span><br><span class="line">test_df = test_df.drop(test_df.columns[<span class="number">2</span>:<span class="number">14</span>], axis = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将列的数值归一化 将每一列数据除以最大值</span></span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> train_df.columns[<span class="number">3</span>:-<span class="number">1</span>]:</span><br><span class="line">    train_df[col] /= train_df[col].<span class="built_in">max</span>()</span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> test_df.columns[<span class="number">3</span>:]:</span><br><span class="line">    test_df[col] /= test_df[col].<span class="built_in">max</span>()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;[+] data processing cost &#123;:.2f&#125;s&quot;</span>.<span class="built_in">format</span>(time.time() - st))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 声明定义好的线性回归模型 实例化</span></span><br><span class="line">model = PUBGRegressor()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启模型训练模式</span></span><br><span class="line">model.train()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义优化算法，使用随机梯度下降SGD</span></span><br><span class="line">scheduler = paddle.optimizer.lr.CosineAnnealingDecay(learning_rate = <span class="number">0.01</span>, T_max = <span class="number">200</span>)</span><br><span class="line">opt = paddle.optimizer.Lamb(learning_rate = scheduler, lamb_weight_decay = <span class="number">0.01</span>,beta1 = <span class="number">0.9</span>, beta2 = <span class="number">0.999</span>, epsilon = <span class="number">1e-06</span>,parameters = model.parameters(), grad_clip = <span class="literal">None</span>, name = <span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line">EPOCH_NUM = <span class="number">200</span>   <span class="comment"># 设置外层循环次数 尽量大</span></span><br><span class="line">BATCH_SIZE = <span class="number">1000</span>  <span class="comment"># 设置batch大小  根据硬件调整</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;[+] EPOCH <span class="subst">&#123;EPOCH_NUM&#125;</span>, BATCH_SIZE <span class="subst">&#123;BATCH_SIZE&#125;</span>&quot;</span>)</span><br><span class="line"><span class="comment"># 优化算法</span></span><br><span class="line">training_data = train_df.iloc[:-<span class="number">1</span> * <span class="built_in">int</span>(train_df.shape[<span class="number">0</span>] * <span class="number">0.2</span>)].values.astype(np.float32)</span><br><span class="line">val_data = train_df.iloc[-<span class="number">1</span> * <span class="built_in">int</span>(train_df.shape[<span class="number">0</span>] * <span class="number">0.2</span>):].values.astype(np.float32)</span><br><span class="line">min_loss = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义外层循环</span></span><br><span class="line"><span class="keyword">for</span> epoch_id <span class="keyword">in</span> <span class="built_in">range</span>(EPOCH_NUM):</span><br><span class="line">    st = time.time()</span><br><span class="line">    <span class="comment"># 在每轮迭代开始之前，将训练数据的顺序随机的打乱</span></span><br><span class="line">    np.random.shuffle(training_data)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将训练数据进行拆分，每个batch包含10条数据</span></span><br><span class="line">    mini_batches = [training_data[k:<span class="built_in">min</span>(k+BATCH_SIZE, <span class="built_in">len</span>(training_data))] <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(training_data), BATCH_SIZE)][:-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    train_loss = []</span><br><span class="line">    <span class="keyword">for</span> iter_id, mini_batch <span class="keyword">in</span> <span class="built_in">enumerate</span>(mini_batches):</span><br><span class="line">        <span class="comment"># 清空梯度变量，以备下一轮计算</span></span><br><span class="line">        opt.clear_grad()</span><br><span class="line"></span><br><span class="line">        x = np.array(mini_batch[:, <span class="number">3</span>:-<span class="number">1</span>])</span><br><span class="line">        y = np.array(mini_batch[:, -<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将numpy数据转为飞桨动态图tensor的格式</span></span><br><span class="line">        features = paddle.to_tensor(x)</span><br><span class="line">        y = paddle.to_tensor(y)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 前向计算</span></span><br><span class="line">        predicts = model(features)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 计算损失</span></span><br><span class="line">        loss = paddle.nn.functional.l1_loss(predicts, label = y)</span><br><span class="line">        avg_loss = paddle.mean(loss)</span><br><span class="line">        train_loss.append(avg_loss.numpy())</span><br><span class="line"> </span><br><span class="line">        <span class="comment"># 反向传播，计算每层参数的梯度值</span></span><br><span class="line">        avg_loss.backward()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 更新参数，根据设置好的学习率迭代一步</span></span><br><span class="line">        opt.step()</span><br><span class="line">    </span><br><span class="line">    mini_batches = [val_data[k:<span class="built_in">min</span>(k+BATCH_SIZE, <span class="built_in">len</span>(training_data))] <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(val_data), BATCH_SIZE)][:-<span class="number">1</span>]</span><br><span class="line">    val_loss = []</span><br><span class="line">    <span class="keyword">for</span> iter_id, mini_batch <span class="keyword">in</span> <span class="built_in">enumerate</span>(mini_batches):</span><br><span class="line">        x = np.array(mini_batch[:, <span class="number">3</span>:-<span class="number">1</span>])</span><br><span class="line">        y = np.array(mini_batch[:, -<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">        features = paddle.to_tensor(x)</span><br><span class="line">        y = paddle.to_tensor(y)</span><br><span class="line">        </span><br><span class="line">        predicts = model(features)</span><br><span class="line">        loss = paddle.nn.functional.l1_loss(predicts, label = y)</span><br><span class="line">        avg_loss = paddle.mean(loss)</span><br><span class="line">        val_loss.append(avg_loss.numpy())</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;Epoch <span class="subst">&#123;epoch_id&#125;</span>, train MAE <span class="subst">&#123;np.mean(train_loss) * <span class="number">50</span>:<span class="number">.3</span>f&#125;</span>, val MAE <span class="subst">&#123;np.mean(val_loss) * <span class="number">50</span>:<span class="number">.3</span>f&#125;</span>, timecost <span class="subst">&#123;time.time() - st:<span class="number">.2</span>f&#125;</span>s&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> min_loss &gt; np.mean(val_loss):</span><br><span class="line">        min_loss = np.mean(val_loss)</span><br><span class="line">        paddle.save(model.state_dict(), <span class="string">&#x27;best-pubg.model&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;min loss: &quot;</span>, min_loss * <span class="number">50</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模型预测</span></span><br><span class="line">model.<span class="built_in">eval</span>()</span><br><span class="line">test_data = paddle.to_tensor(test_df.iloc[:, <span class="number">3</span>:].values.astype(np.float32))</span><br><span class="line">test_predict = model(test_data)</span><br><span class="line">test_predict = test_predict.numpy().squeeze()*test_df.iloc[:, <span class="number">2</span>].to_numpy()</span><br><span class="line">test_predict = test_predict.<span class="built_in">round</span>().astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&#x27;team_placement&#x27;</span>: test_predict</span><br><span class="line">&#125;).to_csv(<span class="string">&#x27;submission_PUBG_final.csv&#x27;</span>, index=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将submission.csv压缩为zip格式</span></span><br><span class="line">!<span class="built_in">zip</span> submission_PUBG_final.<span class="built_in">zip</span> submission_PUBG_final.csv</span><br></pre></td></tr></table></figure>
+<p><strong>结果：</strong></p>
+<p>​    <img src="/images/PUBG-predict-1/image-20221121183633519.png" alt="image-20221121183633519" style="zoom:40%;" /></p>
+<hr>
+<h2 id="0x03-基于CART决策树"><a href="#0x03-基于CART决策树" class="headerlink" title="0x03 基于CART决策树"></a>0x03 基于CART决策树</h2><p>​    CART(Classification And Regression Tree)，可以处理分类问题，也可以处理回归问题。CART使用基尼系数作为划分标准。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">################</span></span><br><span class="line"><span class="comment">##   95.19%   ##  </span></span><br><span class="line"><span class="comment">################</span></span><br><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"># @Time  : 2022/11/20 20:45:43</span></span><br><span class="line"><span class="string"># @Author: wd-2711</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> model_selection</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> tree</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gridSearch</span>(<span class="params">args: <span class="built_in">list</span></span>):    </span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        搜索最优参数值</span></span><br><span class="line"><span class="string">        output -&gt; &#123;&#x27;max_depth&#x27;: 11, &#x27;min_samples_leaf&#x27;: 28, &#x27;min_samples_split&#x27;: 72&#125; </span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    [X_train, _, y_train, _, _] = args</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 预设各参数的不同选项值</span></span><br><span class="line">    <span class="comment"># max_depth = [i+5 for i in range(20)]</span></span><br><span class="line">    max_depth = [<span class="number">11</span>]</span><br><span class="line">    min_samples_split = [(i+<span class="number">5</span>)*<span class="number">2</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">31</span>, <span class="number">32</span>)]</span><br><span class="line">    min_samples_leaf = [(i+<span class="number">5</span>)*<span class="number">2</span> <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">10</span>)]</span><br><span class="line">    parameters = &#123;<span class="string">&#x27;max_depth&#x27;</span>:max_depth, <span class="string">&#x27;min_samples_split&#x27;</span>:min_samples_split, <span class="string">&#x27;min_samples_leaf&#x27;</span>:min_samples_leaf&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 网格搜索法，测试不同的参数值</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;[+] searching...&quot;</span>)</span><br><span class="line">    grid_dtcateg = model_selection.GridSearchCV(estimator = tree.DecisionTreeRegressor(), param_grid = parameters, cv=<span class="number">10</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 模型拟合</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;[+] fitting...&quot;</span>)</span><br><span class="line">    grid_dtcateg.fit(X_train, y_train)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 返回最佳组合的参数值</span></span><br><span class="line">    <span class="built_in">print</span>(grid_dtcateg.best_params_)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">desicionTree</span>(<span class="params">args: <span class="built_in">list</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        构建决策树</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    [X_train, X_test, y_train, y_test, test_df] = args</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 构建用于回归的决策树</span></span><br><span class="line">    CART_Reg = tree.DecisionTreeRegressor(max_depth = <span class="number">11</span>, min_samples_leaf = <span class="number">28</span>, min_samples_split = <span class="number">72</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 回归树拟合</span></span><br><span class="line">    CART_Reg.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 模型在划分测试集上的预测</span></span><br><span class="line">    pred = CART_Reg.predict(X_test)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算衡量模型好坏的MAE值</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;[+] MAE loss: &#123;:.3f&#125;&quot;</span>.<span class="built_in">format</span>(metrics.median_absolute_error(y_test, pred)))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 模型在真正测试集上的预测</span></span><br><span class="line">    pred_2 = CART_Reg.predict(test_df)</span><br><span class="line">    pred_2 = pred_2.<span class="built_in">round</span>().astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    pd.DataFrame(&#123;</span><br><span class="line">        <span class="string">&#x27;team_placement&#x27;</span>: pred_2</span><br><span class="line">    &#125;).to_csv(<span class="string">&#x27;submission.csv&#x27;</span>, index=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    train_df = pd.read_csv(<span class="string">&quot;./data/pubg_train.csv&quot;</span>)</span><br><span class="line">    test_df = pd.read_csv(<span class="string">&quot;./data/pubg_test.csv&quot;</span>)</span><br><span class="line"></span><br><span class="line">    train_df = train_df.fillna(<span class="number">0</span>)</span><br><span class="line">    test_df = test_df.fillna(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># split trainset and testset</span></span><br><span class="line">    X_train, X_test, y_train, y_test = model_selection.train_test_split(train_df[train_df.columns[:-<span class="number">1</span>]], train_df[train_df.columns[-<span class="number">1</span>]], test_size = <span class="number">0.25</span>, random_state = <span class="number">711</span>)</span><br><span class="line"></span><br><span class="line">    args = [X_train, X_test, y_train, y_test, test_df]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 搜索最优参数值</span></span><br><span class="line">    <span class="comment"># gridSearch(args)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 根据最优参数值生成树</span></span><br><span class="line">    st = time.time()</span><br><span class="line">    desicionTree(args)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;[+] timecost: &#123;:.2f&#125;s&quot;</span>.<span class="built_in">format</span>(time.time() - st))</span><br></pre></td></tr></table></figure>
+<p>​    通过网格搜索出最优参数值：<code>&#123;&#39;max_depth&#39;: 11, &#39;min_samples_leaf&#39;: 28, &#39;min_samples_split&#39;: 72&#125;</code>，在测试集上输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[+] MAE loss: 3.790</span><br><span class="line">[+] timecost: 13.15</span><br></pre></td></tr></table></figure>
+<p>​    提交之后，发现正确率为95.19%。</p>
+<p><img src="/images/PUBG-predict-1/image-20221121184004571.png" alt="image-20221121184004571"></p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2022/11/21/win32-bufferstack/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2022/11/18/ML-ppt/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-11-21 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/ML/">ML<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

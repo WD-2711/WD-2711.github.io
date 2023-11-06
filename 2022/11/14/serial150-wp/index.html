@@ -1,0 +1,363 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>serial150-wp | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="serial150-wp"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> serial150-wp</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="serial150-wp"><a href="#serial150-wp" class="headerlink" title="serial150-wp"></a>serial150-wp</h1><h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><p>​    exeinfope看无壳且为64位，用ida看发现不能正常反编译成代码，仔细看标红的地方一开始是错误，反编译将花指令<code>0xe8</code> nop掉之后，还有很多自循环，还有很多<code>db</code>占位的，全都nop掉。</p>
+<span id="more"></span>
+<p><img src="/images/serial150-wp/image-20221114201807277.png" alt="image-20221114201807277" style="zoom:30%;" /></p>
+<p>​    最后得到：</p>
+<p><img src="/images/serial150-wp/image-20221114213335546.png" alt="image-20221114213335546" style="zoom:45%;" /></p>
+<p>​    太费劲了，我觉得最好是用idapython脚本写，但是我不知道咋写，只能手动nop了。</p>
+<p>​    写脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ss = [<span class="number">69</span>, <span class="number">90</span>, <span class="number">57</span>, <span class="number">100</span>, <span class="number">109</span>, <span class="number">113</span>, <span class="number">52</span>, <span class="number">99</span>, <span class="number">56</span>, <span class="number">103</span>, <span class="number">57</span>, <span class="number">71</span>, <span class="number">55</span>, <span class="number">98</span>, <span class="number">65</span>, <span class="number">86</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> ss:</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">chr</span>(s), end = <span class="string">&quot;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>得到flag为<code>EZ9dmq4c8g9G7bAV</code>。</p>
+<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>​    见师傅<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiao__1bai/article/details/120197579">https://blog.csdn.net/xiao__1bai/article/details/120197579</a> </p>
+<p>​    里面用的脚本去花指令，详细看看。</p>
+<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>​    其余的师傅用的动调，不多说了，感觉这道题其实考的是用脚本去掉花指令。</p>
+<p>​    主要的冗余有：0xe8花指令，一些循环垃圾代码，一些db垃圾代码。</p>
+<p>​    最后的idapython脚本：（<strong>重点</strong>）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> idc_bc695 <span class="keyword">import</span> * <span class="comment">#不加的话patchbytes报错</span></span><br><span class="line">addr=<span class="number">0x40099c</span> <span class="comment">#main函数开始</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0x400cac</span>-<span class="number">0x40099c</span>):</span><br><span class="line">    <span class="keyword">if</span> Dword(addr+i)==<span class="number">0x05ebb866</span>: <span class="comment">#0x05ebb866是垃圾代码中mov ax, 5EBh的机器指令</span></span><br><span class="line">        <span class="keyword">if</span> Dword(addr+i+<span class="number">4</span>)==<span class="number">0xfa74c031</span>: <span class="comment">#xor eax, eax机器指令是0xfa74c031</span></span><br><span class="line">            <span class="keyword">for</span> a <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>): <span class="comment">#后面还有个e8</span></span><br><span class="line">                PatchByte(addr+i+a,<span class="number">0x90</span>) <span class="comment">#将addr+i+a位置改为0x90</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;Done&#x27;</span>)    </span><br></pre></td></tr></table></figure>
+<p><strong>知识点1：</strong>汇编</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jz XXX // 跳转条件为ZF=1</span><br><span class="line">cmp target, src // 见下图</span><br><span class="line">CLI // 禁止中断发生</span><br><span class="line">STI // 允许中断发生。这两个指令只能在内核模式下执行，不可以在用户模式下执行；而且在内核模式下执行时，应该尽可能快的恢复中断，因为CLI会禁用硬件中断，若长时间禁止中断会影响其他动作的执行（如移动鼠标等等），系统就会变得不稳定。在标志寄存器中中断标志清零的情况下，可以以“int  ××”的形式调用软中断。</span><br><span class="line">DB // 作为汇编语言中的伪操作命令，它用来定义操作数占用的字节数。</span><br></pre></td></tr></table></figure>
+<p><img src="/images/serial150-wp/image-20221114202828615.png" alt="image-20221114202828615" style="zoom:33%;" /></p>
+<p><strong>知识点2：</strong>short 与 near ptr。</p>
+<ol>
+<li><p>jmp short 标号（转到标号处执行命令）<br>这种格式的jmp指令实现的是上述的<strong>段内短转移，修改范围为-128～127</strong>；</p>
+</li>
+<li><p>jmp near ptr 标号（转到标号处执行命令）<br> 这种格式的jmp指令实现的是上述<strong>的段内近转移，在跳转范围大于-128～127时使用jmp short会编译失败。</strong></p>
+</li>
+</ol>
+<p><strong>知识点3：</strong>nop (No Operation) 指令作用。</p>
+<ol>
+<li><p>通过 nop 指令的填充（nop指令长度从一个字节到九个字节，用于对齐），使指令对齐，从而减少取指令时的内存访问次数。一般用来内存地址偶数对齐，比如有一条指令占 3 字节，这时使用 nop 指令（原来几字节，nop后就几字节），CPU 就可以从第四个字节处读取指令。</p>
+</li>
+<li><p>清除由上一个算术逻辑指令设置的 flag 位。</p>
+<ol>
+<li>破解：对于原程序中验证部分使用 nop 来填充，使验证失效。</li>
+</ol>
+</li>
+</ol>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2022/11/15/android-app-100-wp/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2022/11/13/crackme-wp/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-11-14 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re/">re<span>35</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

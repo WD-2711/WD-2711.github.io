@@ -1,0 +1,477 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>re-core-principle-5 | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="re-core-principle-5"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> re-core-principle-5</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="逆向工程核心原理笔记-5"><a href="#逆向工程核心原理笔记-5" class="headerlink" title="逆向工程核心原理笔记-5"></a>逆向工程核心原理笔记-5</h1><h2 id="0x00-反调试技术"><a href="#0x00-反调试技术" class="headerlink" title="0x00 反调试技术"></a>0x00 反调试技术</h2><p>&emsp;反调试技术对调试器与OS有着很强的依赖性（Dependency）。即，有些反调试技术仅能在特定版本OS下正常工作，而且不同种类调试器应用的反调试技术也略有不同。本书主要介绍针对XP与WIN7的反调试。</p>
+<span id="more"></span>
+<p>&emsp;反调试技术分为动态与静态。运用静态技术时，只要在开始破解1次，即可解除全部反调试限制。而运用动态技术时，要一边调试一边破解。因此，动态反调试技术使得破解更困难。如下表所示：</p>
+<p><img src="/images/re-core-principle-5/image-20230504120905116.png" alt="image-20230504120905116" style="zoom:67%;" /></p>
+<p>&emsp;<strong>静态反调试技术主要用来探测调试器，如果探测到，那么程序就无法正常运行。动态反调试会扰乱调试器跟踪（类似于逐行调试）的功能，使我们无法查看程序中的代码与数据。</strong></p>
+<h2 id="0x01-静态反调试技术"><a href="#0x01-静态反调试技术" class="headerlink" title="0x01 静态反调试技术"></a>0x01 静态反调试技术</h2><h3 id="方法1：PEB"><a href="#方法1：PEB" class="headerlink" title="方法1：PEB"></a>方法1：PEB</h3><p>&emsp;PEB结构体中有一些成员与反调试技术密切相关，如下所示：</p>
+<p><img src="/images/re-core-principle-5/image-20230504123014338.png" alt="image-20230504123014338" style="zoom:67%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1. BeingDebugged</span><br><span class="line">	利用方法：IsDebuggerPresent API获取 PEB.BeingDebugged 的值来判断进程是否处于被调试状态。</span><br><span class="line">2. Ldr</span><br><span class="line">	成员作用：是一个指向_PEB_LDR_DATA结构的指针，存储当前进程加载的所有模块的信息，包括模块的基地址、入口点、导入表、导出表等。</span><br><span class="line">	利用方法：调试进程时，堆内存会出现很多0xFEEEFEEE，表示未使用过的堆内存。而_PEB_LDR_DATA是在堆内存中创建的，所以查看PEB.Ldr，看里面是否有0xFEEEFEEE。若有，则代表进程正在被调试。</span><br><span class="line">3. ProcessHeap</span><br><span class="line">	成员作用：指向HEAP结构体</span><br><span class="line">	利用方法：HEAP结构体中由Flags(+0xC)与ForceFlags(+0x10)两个成员，当被调试时，这两个成员被设置为特定的值（正常情况下Flags为0x2，ForceFlags为0x0，仅在XP中有效）。Heap成员可以直接从PEB中获取，也可以通过GetProcessHeap() API获取。</span><br><span class="line">4. NtGlobalFlag</span><br><span class="line">	利用方法：调试进程时，PEB.NtGlobalFlag会设置为0x70，正常应该是0。（然而如果是attach进程则此方法不管用）</span><br></pre></td></tr></table></figure>
+<p>注：经过实验，在WIN11中，<code>IsDebuggerPresent</code>、<code>NtGlobalFlag</code>是有用的，而<code>Ldr</code>、<code>ProcessHeap</code>是没用的。</p>
+<h3 id="方法2：NtQuerylnformationProcess"><a href="#方法2：NtQuerylnformationProcess" class="headerlink" title="方法2：NtQuerylnformationProcess"></a>方法2：NtQuerylnformationProcess</h3><p>&emsp;通过<code>NtQuerylnformationProcess</code>API可以获得与进程调试相关的信息，函数定义如下所示：</p>
+<p><img src="/images/re-core-principle-5/image-20230504132453270.png" alt="image-20230504132453270" style="zoom:67%;" /></p>
+<p>&emsp;其中，<code>ProcessInformation</code>输出人们想要的信息，而<code>ProcessInformationClass</code>是一个枚举类型，来向函数说明自己想要哪些信息。<code>ProcessInformationClass</code>中与调试相关的枚举值为：<code>ProcessDebugPort(0x7)</code>、<code>ProcessDebugObjectHandle(0x1E)</code>、<code>ProcessDebugFlags(0x1F)</code>。</p>
+<h4 id="ProcessDebugPort利用"><a href="#ProcessDebugPort利用" class="headerlink" title="ProcessDebugPort利用"></a>ProcessDebugPort利用</h4><p>&emsp;利用方法：进程处于调试状态时，系统就会为它分配1个调试端口(Debug Port)。<code>ProcessInformationClass</code>参数的值设置为<code>ProcessDebugPort(0x7)</code>时，调用<code>NtQueryInformationProcess</code>就能获取调试端口。若进程处于非调试状态，则变量<code>dwDebugPort</code>的值设置为0；若进程处于调试状态，则变量<code>dwDebugPort</code>的值设置为<code>0xFFFFFFFF</code>。如下代码所示：</p>
+<p><img src="/images/re-core-principle-5/image-20230504132950468.png" alt="image-20230504132950468" style="zoom:67%;" /></p>
+<p>&emsp;有更简单的方法，<code>CheckRemoteDebuggerPresent</code> API调用了<code>NtQueryInformationProcess(ProcessDebugPort)</code> API，因此直接调用<code>CheckRemoteDebuggerPresent</code>即可。</p>
+<h4 id="ProcessDebugObjectHandle利用"><a href="#ProcessDebugObjectHandle利用" class="headerlink" title="ProcessDebugObjectHandle利用"></a>ProcessDebugObjectHandle利用</h4><p>&emsp;利用方法：设置参数为<code>ProcessDebugObjectHandle</code>时，会<strong>获得调试对象的句柄</strong>，如果进程处理与调试状态，句柄就存在，反之就不存在。代码如下所示：</p>
+<p><img src="/images/re-core-principle-5/image-20230504133328581.png" alt="image-20230504133328581" style="zoom:67%;" /></p>
+<h4 id="ProcessDebugFlags利用"><a href="#ProcessDebugFlags利用" class="headerlink" title="ProcessDebugFlags利用"></a>ProcessDebugFlags利用</h4><p>&emsp;利用方法：设置参数为<code>ProcessDebugFlags</code>时，返回值若为0，则处于调试状态，否则不处于调试状态。代码略。</p>
+<p>&emsp;<strong>注：在WIN11中，上述三种利用都可以正常进行。</strong></p>
+<p>&emsp;如何破解反调试，破解上述3种利用？<strong>若只是调用几次API，则可以在调试器中手动操作输出值。相反，若函数被反复调用，则需要使用API钩取技术。</strong></p>
+<p>&emsp;在下面的练习中，我们使用ollyDbg的汇编命令<strong>手动设置钩取代码</strong>。</p>
+<p>1.确定钩取函数位置。将钩取代码设置在代码节区中最后一个Null padding的位置，本例子中为<code>0x407E00</code>。</p>
+<p>2.修改要钩取的API的代码。我们要修改<code>NtQuerylnformationProcess</code>的代码，源代码如下：</p>
+<p><img src="/images/re-core-principle-5/image-20230504134723177.png" alt="image-20230504134723177" style="zoom:67%;" /></p>
+<p>&emsp;修改后代码如下：</p>
+<p><img src="/images/re-core-principle-5/image-20230504135407416.png" alt="image-20230504135407416" style="zoom:67%;" /></p>
+<p>&emsp;注：修改的JMP指令长度为5字节，正好是<code>CALL EDX</code>与<code>RETN 14</code>的长度。钩取API时，一般要在原 API起始地址处设置JMP 指令，但是这里却将JMP命令设置在略微偏下的地址，这是为了回避某些PE保护器的API钩取探测功能。有的PE保护器会检测<code>NtQueryInformationProcess</code>起始地址的第一个字节，若非<code>B8</code>，则认为该API被钩取，就会执行某些非正常运行的行为（也算是一种调试器探测技术）。</p>
+<p>3.编写钩取函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">CALL EDX</span><br><span class="line">PUSH EAX</span><br><span class="line">CMP DWORD PTR SS:[ESP+C], 7</span><br><span class="line">JNZ SHORT 0x407E16</span><br><span class="line">MOV EAX, DWORD PTR SS:[ESP+10]</span><br><span class="line">MOV DWORD PTR DS:[EAX], 0</span><br><span class="line">JMP SHORT 0x407E3A</span><br><span class="line">CMP DWORD PTR SS:[ESP+C], 1E</span><br><span class="line">JNZ SHORT 0x407E29</span><br><span class="line">MOV EAX, DWORD PTR SS:[ESP+10]</span><br><span class="line">MOV DWORD PTR DS:[EAX], 0</span><br><span class="line">JMP SHORT 0x407E3A</span><br><span class="line">CMP DWORD PTR SS:[ESP+C], 1F</span><br><span class="line">JMP SHORT 0x407E3A</span><br><span class="line">MOV EAX, DWORD PTR SS:[ESP+10]</span><br><span class="line">MOV DWORD PTR DS:[EAX], 0</span><br><span class="line">POP EAX</span><br><span class="line">RETN 14</span><br></pre></td></tr></table></figure>
+<p><img src="/images/re-core-principle-5/image-20230504142225344.png" alt="image-20230504142225344" style="zoom:67%;" /></p>
+<p>&emsp;首先，可以看到我们要写的代码在<code>CALL EDX</code>与<code>RETN 14</code>之间。注意<code>PUSH EAX</code>，<code>SS:[ESP+0xC]</code>指的是<code>ProcessInformationClass</code>参数（第2个），而<code>SS:[ESP+0x10]</code>指的是<code>ProcessInformation</code>参数（第3个）。此程序功能为：<strong><code>ProcessInformationClass</code>参数(<code>DWORD PTR SS:[ESP+C]</code>)值为<code>0x7</code>、<code>0x1E</code>、<code>0x1F</code>之一时，则将<code>ProcessInformation</code>参数(<code>DWORDPTR SS:[ESP+10]</code>)地址所指的返回值分别修改为<code>0</code>、<code>0</code>、<code>1</code>。</strong></p>
+<h3 id="方法3：NtQuerySysteminformation"><a href="#方法3：NtQuerySysteminformation" class="headerlink" title="方法3：NtQuerySysteminformation"></a>方法3：NtQuerySysteminformation</h3><p>&emsp;基于调试环境检测的反调试技术。之前的方法通过<strong>探测调试器</strong>来判断自己的进程是否处于被调试状态，非常直接。除此之外，还有间接探测调试器的方法，即：<strong>检测调试环境</strong>。</p>
+<p>&emsp;<code>ntdll!NtQuerySystemInformation</code>是一个系统函数，用来获取当前运行的多种OS信息。其定义如下（看上去和<code>NtQuerylnformationProcess</code>差不多，<code>SystemInformationClass</code>是一个枚举类型，返回<code>SystemInformation</code>。）：</p>
+<p><img src="/images/re-core-principle-5/image-20230504150139916.png" alt="image-20230504150139916" style="zoom:67%;" /></p>
+<h4 id="SystemKernelDebuggerlnformation-0x23-利用"><a href="#SystemKernelDebuggerlnformation-0x23-利用" class="headerlink" title="SystemKernelDebuggerlnformation(0x23)利用"></a>SystemKernelDebuggerlnformation(0x23)利用</h4><p>&emsp;<code>SystemInformationClass</code>设置为<code>SystemKernelDebuggerlnformation(0x23)</code>，即可判断OS是否在调试模式下运行。相关代码如下：</p>
+<p><img src="/images/re-core-principle-5/image-20230504150521370.png" alt="image-20230504150521370" style="zoom:67%;" /></p>
+<p><img src="/images/re-core-principle-5/image-20230504150533460.png" alt="image-20230504150533460" style="zoom:67%;" /></p>
+<p>&emsp;如何进行反调试破解？以正常模式启动OS，而不是以调试模式启动OS。</p>
+<h3 id="方法4：NtQueryObject"><a href="#方法4：NtQueryObject" class="headerlink" title="方法4：NtQueryObject"></a>方法4：NtQueryObject</h3><p>&emsp;思想：<strong>系统中的某个调试器调试进程时，会创建1个调试对象类型的内核对象。检测该对象是否存在即可判断是否有进程正在被调试。</strong></p>
+<p>&emsp;<code>ntdll!NtQueryObject</code>用来获取系统各种内核对象的信息，其定义如下：</p>
+<p><img src="/images/re-core-principle-5/image-20230504151115591.png" alt="image-20230504151115591" style="zoom:67%;" /></p>
+<p><img src="/images/re-core-principle-5/image-20230504151126032.png" alt="image-20230504151126032" style="zoom:67%;" /></p>
+<p>&emsp;和之前的类似，<code>ObjectInformationClass</code>是枚举类型，输出为<code>ObjectInformation</code>。<strong>使用<code>ObjectAllTypesInformation</code>作为<code>ObjectInformationClass</code>的值，来获取系统所有对象信息，然后从中检测是否存在调试对象。</strong>由于输出的<code>ObjectInformation</code>是一个数组，因此需要一个一个比较对象是否是调试对象。相关代码如下：</p>
+<p><img src="/images/re-core-principle-5/image-20230504152215260.png" alt="image-20230504152215260" style="zoom:80%;" /></p>
+<p><img src="/images/re-core-principle-5/image-20230504152229035.png" alt="image-20230504152229035" style="zoom:80%;" /></p>
+<p>&emsp;如何进行反调试破解？<strong>在调用<code>ntdll!ZwQueryObject</code>的地方，将此时的栈中第2个参数<code>ObjectAllTypesInformation</code>的值由0x03改为0x00即可。</strong></p>
+<h3 id="方法5：ZwSetlnformationThread"><a href="#方法5：ZwSetlnformationThread" class="headerlink" title="方法5：ZwSetlnformationThread"></a>方法5：ZwSetlnformationThread</h3><p>&emsp;此方法利用<code>ZwSetlnformationThread</code>，可以<strong>强制分离（detach）被调试者与调试器，从而达到反调试的目的</strong>。其定义如下：</p>
+<p><img src="/images/re-core-principle-5/image-20230504153004946.png" alt="image-20230504153004946" style="zoom:67%;" /></p>
+<p>&emsp;该函数拥有2个参数，第1个参数<code>ThreadHandle</code>用来接收当前线程的句柄，第2个参数<code>ThreadInformationClass</code>表示线程信息类型，若其值设置为<code>ThreadHideFromDebugger(0x11)</code>，调用该函数后，调试进程就会被分离出来（<strong>其原理就是：将线程隐藏起来，调试器就接收不到信息，从而无法调试。</strong>）。<code>ZwSetInformationThread</code>不会对正常运行的程序产生任何影响，但若运行的是调试器程序，调用该API将使调试器终止运行，同时终止自身进程。</p>
+<p>&emsp;如何进行反调试破解？在调用<code>ZwSetInformationThread</code>之前将第2个参数<code>ThreadInformationClass</code>由0x11变为0x00即可。也可以用API钩取自动化这些操作。</p>
+<p>&emsp;再介绍一个API：<code>DebugActiveProcessStop</code>，它用来分离调试器和被调试进程，从而停止调试。而<code>ZwSetInformationThread</code>则用来隐藏当前线程，使调试器无法再收到该线程的调试事件，最终停止调试。</p>
+<h3 id="TLS回调函数"><a href="#TLS回调函数" class="headerlink" title="TLS回调函数"></a>TLS回调函数</h3><p>&emsp;TLS回调函数是程序最初运行的一些代码。在TLS中，经常使用某些反调试技术（例如<code>IsDebuggerPresent</code>）来判断是否被调试。</p>
+<h3 id="ETC"><a href="#ETC" class="headerlink" title="ETC"></a>ETC</h3><p>&emsp;反调试的目的：防止其他人来调试我们的程序，因此，我们就会有很多很多种方法。最常用的方法是：<strong>判断当前系统是否为逆向分析的系统，若是，则直接停止程序。这样，我们就能从系统中轻松获取各种信息（进程、文件、窗口、注册表、主机名、计算机名、用户名环境变量等），通过判断这些，来判断这是不是逆向分析的系统。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 检测OllyDbg窗口-FindWindow</span><br><span class="line">2. 检测OllyDbg进程-CreateToolhelp32Snapshot</span><br><span class="line">3. 检查计算机名称是否为TEST、ANALYSIS等-GetComputerName</span><br><span class="line">4. 检查程序运行路径中是否存在TEST、SAMPLE等名称-GetCommandLine。</span><br><span class="line">5. 检测虚拟机是否处于运行状态(查看虚拟机特有的进程名称-VMWareService.exe、VMWareTray.exe、VMWareUser.exe等)。</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>1.反调试技术有很多，这里只是介绍了几种常见的。</p>
+<p>2.反调试技术对OS有很强的依赖性。有的反调试方法对于不同的OS可能没有用。</p>
+<p>3.使用调试器的插件，可以有效的绕过反调试技术。但是不是万能的。</p>
+<h2 id="0x02-动态反调试技术"><a href="#0x02-动态反调试技术" class="headerlink" title="0x02 动态反调试技术"></a>0x02 动态反调试技术</h2><p>&emsp;动态反调试技术可以不断阻止对程序代码的跟踪调试，与静态反调试技术相比，动态反调试技术难度更高，破解难度更大。</p>
+<h3 id="利用异常来进行动态反调试"><a href="#利用异常来进行动态反调试" class="headerlink" title="利用异常来进行动态反调试"></a>利用异常来进行动态反调试</h3><p>异常(Exception)常用于反调试技术。</p>
+<h4 id="SEH（实际用的非常多）"><a href="#SEH（实际用的非常多）" class="headerlink" title="SEH（实际用的非常多）"></a>SEH（实际用的非常多）</h4><p>&emsp;可以利用如下特性来进行反调试：<strong>正常运行的进程发生异常时，在SEH机制的作用下OS会接收异常，然后调用进程中注册的SEH处理。但是，若进程(被调试者)在调试运行中发生异常，调试器就会接收处理。</strong></p>
+<p>&emsp;书中给出了一个<code>DynAD_SEH.exe</code>的例子，源代码如下所示：</p>
+<p><img src="/images/re-core-principle-5/image-20230504162252436.png" alt="image-20230504162252436" style="zoom:67%;" /></p>
+<p>&emsp;上图红框是安装SEH函数，上图绿框则是出发了异常。其代码执行流如下图：</p>
+<p><img src="/images/re-core-principle-5/image-20230504162339441.png" alt="image-20230504162339441" style="zoom:67%;" /></p>
+<p>&emsp;可以看到，如果处于调试状态，则无法跳转到正常代码。直接<code>jmp 0xFFFFFFFF</code>处。实际情况下，<code>jmp 0xFFFFFFFF</code>可能是及其冗长的代码，会让我们头昏脑胀。</p>
+<p>&emsp;如果运行SEH，则程序跳转到<code>0x40102C</code>，之后运行<code>MOV EAX,DWORD PTR SS:[ARG.3]</code>，它会将<code>pContext</code>放到EAX中，之后通过<code>MOV DWORD PTR DS:[EAX+0xB8], EBX</code>修改<code>pContext</code>中<code>EIP</code>的值，最终通过<code>XOR EAX, EAX</code>返回0，表示不用执行下一个SEH函数。之后，程序会运行到<code>0x401040</code>，通过<code>POP DWORD PTR FS:[0]</code>来删除SEH函数，接着输出<code>No debugging</code>。</p>
+<h4 id="SetUnhandledExceptionFilter"><a href="#SetUnhandledExceptionFilter" class="headerlink" title="SetUnhandledExceptionFilter"></a>SetUnhandledExceptionFilter</h4><p>&emsp;进程中发生异常时，<strong>若SEH未处理或注册的SEH不存在，此时会调用执行系统的<code>kernel32!UnhandledExceptionFilter</code></strong>，该函数内部会运行系统的最后一个异常处理器（SEH函数）：<code>Top Level Exception Filter</code>或<code>Last Exception Filter</code>。这个SEH函数通常会弹出消息框，然后中止进程的运行。</p>
+<p>&emsp;<code>kernel32!UnhandledExceptionFilter</code>内部调用了<code>ntdll!NtQueryInformationProcess</code>（静态反调试），以判断是否正在调试进程（<strong>在win7中没有发现这一点，但是确实检测了进程是否在调试中</strong>）。若进程正常运行，则运行系统最后的异常处理器；若进程处于调试中，则将异常发送给调试器。</p>
+<p>&emsp;通过<code>kerel32!SetUnhandledExceptionFilter</code>可以修改系统最后的异常处理器，函数定义如下：</p>
+<p><img src="/images/re-core-principle-5/image-20230504164236213.png" alt="image-20230504164236213" style="zoom:67%;" /></p>
+<p>&emsp;只要将新的<code>Top Level Exception Filter</code>给这个函数就好，返回值是旧的<code>Top Level Exception Filter</code>的地址。</p>
+<p>&emsp;<strong>如何使用它来进行反调试？</strong>先特意触发异常，然后在新注册的<code>Top Level Exception Filter</code>内部判断进程正常运行还是调试运行，并根据判断结果修改EIP值。</p>
+<p>&emsp;跟着书进行实验，与书实验不同的是（P560），并没有发现<code>ntdll!NtQueryInformationProcess</code>的调用，但是确实检测了进程是否被调试，如果被调试就把控制权交还给调试器，这样就会陷入一个循环。经过分析，发现下图红框位置检测了是否被调试。</p>
+<p><img src="/images/re-core-principle-5/image-20230504171837614.png" alt="image-20230504171837614" style="zoom:67%;" /></p>
+<p>&emsp;只要将此时的EAX转为0，就可以正常运行到我们新注册的<code>Top Level Exception Filter</code>，如下所示：</p>
+<p><img src="/images/re-core-principle-5/image-20230504171959188.png" alt="image-20230504171959188" style="zoom:67%;" /></p>
+<p>&emsp;可以看到，首先<code>0x401009</code>则是恢复了之前的<code>UnhandledExceptionFilter</code>，之后<code>0x40100F-0x401015</code>则是调用<code>pContext</code>并将eip加4，最后返回<code>EAX=0xFFFFFFFF</code>，代表程序运行到最后一个SEH。最终，程序将在报异常的下一条命令开始执行。</p>
+<p>&emsp;那么此程序的逻辑就是：</p>
+<p>（1）若没有进行调试，会首先调用<code>SetUnhandledExceptionFilter</code>设置<code>UnhandledExceptionFilter</code>。那么运行到异常代码后，之后运行这个<code>UnhandledExceptionFilter</code>，并直接运行到出错程序的下一条。</p>
+<p>（2）若进行了调试，会首先调用<code>SetUnhandledExceptionFilter</code>设置<code>UnhandledExceptionFilter</code>。那么运行到异常代码后，会交给调试器，如果调试器忽略了，之后就会交给<code>UnhandledExceptionFilter</code>。在运行<code>UnhandledExceptionFilter</code>之前，程序先做一个静态判断，判断是否是调试器，如果是（需要手动修改），则控制权交还给调试器；如果不是，则运行<code>UnhandledExceptionFilter</code>，并直接运行到出错程序的下一条。</p>
+<p>&emsp;<strong>如何破解这类反调试？这类反调试结合了动态反调试&amp;静态反调试技术，只要使得程序能够运行到正常代码即可。</strong></p>
+<h3 id="Timing-check进行动态反调试"><a href="#Timing-check进行动态反调试" class="headerlink" title="Timing check进行动态反调试"></a>Timing check进行动态反调试</h3><p>&emsp;思想：在调试器中逐行跟踪程序代码比程序正常运行耗费的时间要多出很多。因此可通过计算运行时间的差异来判断进程是否处于被调试状态。由于在模拟器中运行速度也很慢，因此此技术也可以探测是否在模拟器中运行。</p>
+<p>&emsp;实际操作中，该反调试技术通常与其他反调试技术并用，导致反调试的破解过程变得困难。</p>
+<p>&emsp;由于要测量时间间隔，有两类方法：（1）利用CPU计数器计时（例如读取时间戳计数器RDTSC：Read Time Stamp Counter）。（2）利用系统实际时间计时（Time）。下面是两种方法分别对应的API：</p>
+<p><img src="/images/re-core-principle-5/image-20230504183512625.png" alt="image-20230504183512625" style="zoom:67%;" /></p>
+<p>注：计数器的准确程度由高到低排列如下：<code>RDTSC &gt; NtQueryPerformanceCounter &gt; GetTickCount</code>。<code>NtQueryPerformanceCounter</code>与<code>GetTickCount</code>使用相同硬件，但二者准确程度不同。而RDTSC是CPU内部的计数器，其准确程度最高。</p>
+<p>&emsp;下面介绍基于RDTSC的反调试技术。</p>
+<p>&emsp;<strong>x86 CPU中存在一个名为TSC（Time Stamp Counter，时间戳计数器）的64位寄存器。CPU对每个Clock Cycle（时钟周期）计数，然后保存到TSC。<code>RDTSC</code>是一条汇编指令，用来将TSC值读入<code>EDX:EAX</code>寄存器。</strong></p>
+<p>&emsp;随书示例中代码的汇编如下：</p>
+<p><img src="/images/re-core-principle-5/image-20230504184455594.png" alt="image-20230504184455594" style="zoom:67%;" /></p>
+<p>&emsp;其中个人感觉<code>MOV DWORD PTR SS:[EBP-4],EAX</code>作用不大。可以看到，上述代码，如果时间差值小于<code>0xFFFFFF</code>，就会认为是正常程序（未进行调试）。</p>
+<p>&emsp;<strong>如何破解这类反调试？</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 直接F9越过相关代码。</span><br><span class="line">2. 操作第2个RDTSC的结果值，使之与第1个结果值相同。</span><br><span class="line">3. 操纵条件分支指令，直接强制修改Flags的值。</span><br><span class="line">4. 利用内核模式驱动程序使RDTSC失效，但是不知道原理。（OllyAdvanced PlugIn就用了此方法）</span><br></pre></td></tr></table></figure>
+<h3 id="TF位进行动态反调试"><a href="#TF位进行动态反调试" class="headerlink" title="TF位进行动态反调试"></a>TF位进行动态反调试</h3><p>&emsp;EFLAGS的第9比特位为Trap Flag（TF），也叫陷阱位。TF值设置为1时，CPU将进入单步执行模式。单步执行模式中，CPU执行1条指令后即触发1个<code>EXCEPTION_SINGLE _STEP</code>异常，然后TF会自动变为0。<code>EXCEPTION_SINGLE_STEP</code>异常可以与SEH结合，用于探测调试器。</p>
+<p>&emsp;相关汇编代码如下：</p>
+<p><img src="/images/re-core-principle-5/image-20230504190048315.png" alt="image-20230504190048315" style="zoom:67%;" /></p>
+<p>&emsp;解释如下：<strong>发生异常时，若程序进程非调试运行，则运行SEH执行正常代码。若程序进程处于调试中，则无法转到SEH，继续执行<code>0x40102F</code>地址处的指令，然后执行<code>0x401034</code>地址处的<code>JMP EAX(0XFFFFFFF)</code>指令，进程非正常终止。程序的运行就像这样被分为正常运行与调试运行。</strong></p>
+<p>&emsp;<strong>如何破解这类反调试？</strong>设置ollydbg忽略<code>EXCEPTION_SINGLE_STEP</code>异常，将其交给被调试程序处理即可。</p>
+<p>&emsp;还有一种指令，<code>INT 2D</code>也可以用于动态反调试。<strong><code>INT 2D</code>为内核模式中用来触发断点异常的指令，也可以在用户模式下触发异常。但程序调试运行时不会触发异常，只是忽略。</strong>这种在调试与正常运行中不同的表现可以很好地应用于反调试技术。</p>
+<p>&emsp;<code>INT 2D</code>指令有几个有趣的特征：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. INT 2D 执行完后，之后的第一个字节将会被跳过(便于代码混淆)。然后顺序执行，而正常调试则是转到 SEH 函数</span><br><span class="line">2. 在 ollydbg 中，执行完 INT 2D 之后，运行F8/F7会直接运行，而不会单步暂停</span><br></pre></td></tr></table></figure>
+<h4 id="注："><a href="#注：" class="headerlink" title="注："></a>注：</h4><ul>
+<li><p><strong>如何使用<code>ollydbg</code>中调试到<code>SEH</code>？设置options Ignore <code>EXCEPTION_SINGLE_STEP</code>异常。其次，对<code>INT 2D</code>与<code>SEH</code>函数打断点，之后，运行到<code>INT 2D</code>时，将<code>TF</code>位改为1，表示进入单步模式，然后再按F7，就会跳到<code>SEH</code>函数的开头。（原因：猜测应该是<code>ollydbg</code>的单步调试只是对下一条指令的开头设置断点所致。）</strong></p>
+</li>
+<li><p><strong>软件断点 vs 硬件断点：</strong>（1）软件断点通过修改程序代码，而硬件断点是修改CPU的调试寄存器。（2）软件断点适用于在代码中设置断点，而硬件断点适用于在数据读写设置断点。（3）软件断点数目通常比硬件断点多，因为硬件断点的数量受CPU调试寄存器的限制，而软件断点则只受内存空间的限制。</p>
+</li>
+</ul>
+<h3 id="0xCC探测"><a href="#0xCC探测" class="headerlink" title="0xCC探测"></a>0xCC探测</h3><p>&emsp;<strong>思想：</strong>软件断点对应的x86指令为<code>0xcc</code>，若检测到该指令，则可以判断程序是否处于调试状态。（不太可靠，因为<code>0xcc</code>可能是立即数，会有误报）</p>
+<ul>
+<li>很多情况下，我们会在windows API的起始地址打断点，通过调用API时堆栈里存储的返回地址来确定调用API的代码，并进行分析。因此，<strong>只要探测windows API的起始地址，就可以判断是否在调试</strong>。如何破解？<strong>尽量不要在API开头设断点啦。</strong></li>
+<li>比较特定代码区域的校验和也是一种方法，用来检测代码是否被修改，从而判断代码是否被调试。如何破解？修改计算校验和的语句，或者修改比较的语句。</li>
+</ul>
+<h2 id="0x03-高级反调试技术"><a href="#0x03-高级反调试技术" class="headerlink" title="0x03 高级反调试技术"></a>0x03 高级反调试技术</h2><p>&emsp;很多PE保护器使用了高级反调试技术，例如<strong>垃圾代码、条件分支、循环、加解密、复杂的调用树</strong>等。</p>
+<h3 id="垃圾代码"><a href="#垃圾代码" class="headerlink" title="垃圾代码"></a>垃圾代码</h3><p>&emsp;大量无意义的代码。</p>
+<h4 id="注：-1"><a href="#注：-1" class="headerlink" title="注："></a>注：</h4><ul>
+<li><code>XCHG</code>指令，交换两个操作数的值。</li>
+<li><code>HLT</code>指令，用于停止CPU的执行，将CPU进入休眠状态。当有中断或复位信号到来时，CPU会重新启动，并按照指定的程序继续执行。</li>
+<li><code>movzx</code>指令，用于将一个操作数的低位字节（8位或16位）复制到目标操作数的高位字节（16位或32位），并将目标操作数的其余位清零。</li>
+</ul>
+<h3 id="扰乱代码对齐"><a href="#扰乱代码对齐" class="headerlink" title="扰乱代码对齐"></a>扰乱代码对齐</h3><p><img src="/images/re-core-principle-5/image-20230512181653909.png" alt="image-20230512181653909" style="zoom:67%;" /></p>
+<h3 id="加密-解密"><a href="#加密-解密" class="headerlink" title="加密/解密"></a>加密/解密</h3><ul>
+<li>普通的加密解密。</li>
+<li>代码重组。代码对之后的代码进行更改，如下所示：</li>
+</ul>
+<p><img src="/images/re-core-principle-5/image-20230512185752973.png" alt="image-20230512185752973" style="zoom:67%;" /></p>
+<p>&emsp;如果在要被修改的代码上打断点（<code>0xcc</code>），那么重组之后的代码可能就完全不一样，也避免了反调试。</p>
+<h3 id="Stolen-Bytes-Remove-OEP"><a href="#Stolen-Bytes-Remove-OEP" class="headerlink" title="Stolen Bytes (Remove OEP)"></a>Stolen Bytes (Remove OEP)</h3><p>&emsp;<strong>思想：将部分源代码（主要是<code>OEP</code>）转移到保护器创建的内存区域运行。</strong></p>
+<p>&emsp;此技术的优点：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 转储进程内存时，一部分OEP代码会被删除，转储的文件无法正常运行反转储技术。</span><br><span class="line">2. 采用Stolen Bytes的文件再次经过保护器压缩后，会给逆向分析人员造成很大混乱。文件脱壳后，得到的不是熟悉的OEP代码，而是其他形态的代码，这很难判断是脱壳成功还是需要继续操作，容易引起代码逆向分析人员的混乱。</span><br></pre></td></tr></table></figure>
+<p>&emsp;示例：<code>stolen_bytes.exe</code>，跟书进行操作。</p>
+<p>&emsp;首先，使用<code>PESpin</code>保护器对<code>stolen_bytes.exe</code>进行操作，开启<code>Remove OEP</code>选项，得到<code>stolen_bytes_pespin.exe</code>。<strong>但是它给的示例和书中不符。</strong></p>
+<h3 id="API重定向"><a href="#API重定向" class="headerlink" title="API重定向"></a>API重定向</h3><p>&emsp;对于一些逆向分析人员，他们喜欢在API上打断点，此时堆栈中就存有返回地址，接下来只需要在返回地址快乐的调试就好了。API重定向则让他们不再快乐。具体而言，保护器这样做的：<strong>（1）将部分API代码复制到其他内存区域；（2）分析要保护的目标进程代码；（3）修改调用API的代码，来运行自己复制的API代码。</strong>这样，即使在原<code>API</code>地址处设置断点也没用。</p>
+<p>&emsp;下面分析<code>api_redirection1.exe</code>，但是一直达不到书中的效果。（<strong>运行不到解压缩阶段，太菜了呜呜呜，感觉也有一部分懒的因素</strong>）</p>
+<p>&emsp;再分析<code>api_redirection2.exe</code>，<strong>放弃达到书中的效果</strong>，仅记录知识点：</p>
+<ul>
+<li><p>对于<code>ASProtect</code>，每次调试时其代码形态均不同，因为<code>ASProtect</code>的混淆代码生成器每次都会生成新的垃圾代码。<strong>我们把这种能产生相同结果而又具有不同形态的代码称为多态代码(Polymorphic Code)。</strong></p>
+</li>
+<li><p><code>ASProtect</code>并未改变<code>API</code>的地址，没看出来<code>API</code>重定向体现在哪里，感觉只是<code>ASProtect</code>的保护流程很麻烦、很繁琐、很难进行破解。</p>
+</li>
+<li><code>API</code>重定向技术在结构上与<code>API</code>钩取技术有很多类似的地方：都不直接调用原<code>API</code>，而是添加自身代码并执行后再调用（理解了<code>ASProtect</code>的<code>API</code>重定向体现在哪儿）。二者最大的不同在于，它们的目的是不一样的：<code>API</code>重定向用来增加代码调试的难度，而<code>API</code>钩取则用来在<code>API</code>调用前/后添加另外的功能。</li>
+</ul>
+<h3 id="Debug-Blocker-Self-Debugging"><a href="#Debug-Blocker-Self-Debugging" class="headerlink" title="Debug Blocker(Self Debugging)"></a>Debug Blocker(Self Debugging)</h3><p>&emsp;<strong>思想：在调试模式下运行自身进程。</strong><code>Debug Blocker</code>是自我创建技术（以子进程形式运行自身进程）的推广。自我创建技术中，子进程负责执行原代码，父进程负责创建子进程、修改内存(代码)数据 、更改 EP 地址等。<strong>所以仅调试父进程将无法转到OEP代码处，这样能起到很好的反调试效果。但调试时若用附加命令将子进程附加到调试器，这种反调试手法就会失去作用。Debug Blocker的出现弥补这一不足。</strong></p>
+<p>&emsp;<code>Debug Blocker</code>的优点：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 防止代码调试。子进程运行的原代码且已处于调试之中，原则上就无法再使用其他调试器进行附加操作。</span><br><span class="line">2. 能够控制子进程(Debuggee，被调试者)。调试器-被调试者关系中，调试器具有很大权限，可以处理被调试进程的异常、控制代码执行流程等。</span><br></pre></td></tr></table></figure>
+<h4 id="常规反调试-vs-Debug-Blocker"><a href="#常规反调试-vs-Debug-Blocker" class="headerlink" title="常规反调试 vs Debug Blocker"></a>常规反调试 vs <code>Debug Blocker</code></h4><p><img src="/images/re-core-principle-5/image-20230512212059207.png" alt="image-20230512212059207" style="zoom:67%;" /></p>
+<p>&emsp;常规反调试（例如<code>SEH</code>反调试）中，<code>SE Handler</code>代码位于相同的进程内存空间；但Debug Blocker技术中，<code>SE Handler</code>代码位于调试进程。<strong>所以，为了调试子进程，必须先断开与已有调试器的连接，但这样子进程又无法正常运行。</strong></p>
+<h4 id="Nanomite技术"><a href="#Nanomite技术" class="headerlink" title="Nanomite技术"></a>Nanomite技术</h4><p>&emsp;在<code>Debug Blocker</code>上发展而来，更牛逼的技术（<code>PESpin</code>支持此技术）。</p>
+<p>&emsp;<strong>将所有条件跳转指令修改为<code>INT3(0xCC)</code>指令。并且，调试器内部有表格，含有被修改的<code>Jcc</code>指令的位置以及要跳转的地址。执行被调试者内部修改后的指令就会触发异常，控制权即被转交给调试器。调试器通过发生异常的地址从表格中获取要跳转的地址，然后通知被调试者。</strong></p>
+<h3 id="0x04-调试练习1：服务"><a href="#0x04-调试练习1：服务" class="headerlink" title="0x04 调试练习1：服务"></a>0x04 调试练习1：服务</h3><p>&emsp;历时近3个月，终于到达最后一大章节，<strong>此书打算于<code>2023.05.19</code>前看完</strong>。此书的知识丰富且不过时，我自觉没有全部掌握，比较惭愧。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/05/05/build-vulhub/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/04/25/Blockchain-network-survey/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-05-04 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re-book/">re-book<span>11</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

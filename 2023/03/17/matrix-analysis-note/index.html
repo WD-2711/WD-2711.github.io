@@ -1,0 +1,668 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>matrix-analysis-note | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="matrix-analysis-note"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> matrix-analysis-note</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="矩阵分析与应用笔记"><a href="#矩阵分析与应用笔记" class="headerlink" title="矩阵分析与应用笔记"></a>矩阵分析与应用笔记</h1><h2 id="0x00-矩阵的基本概念"><a href="#0x00-矩阵的基本概念" class="headerlink" title="0x00 矩阵的基本概念"></a>0x00 矩阵的基本概念</h2><ul>
+<li><p>向量空间。以向量为元素的集合，N维向量的集合称为N维空间。</p>
+</li>
+<li><p>子空间。子空间是向量空间的子空间，满足：（1）加法闭合性。（2）乘法闭合性。（3）包含0向量。</p>
+</li>
+</ul>
+<span id="more"></span>
+<ul>
+<li>各种矩阵：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317153918477.png" alt="image-20230317153918477" style="zoom: 33%;" /></p>
+<ul>
+<li>常数向量：$a=[1,5,4]^T$；函数向量：<code>x=[1,x^2,x^3]^T</code>；随机向量（向量的元素是随机变量）：<code>x(n)=[x_1(n),x_2(n),x_3(n)]^T</code>。其内积分别为：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317154224945.png" alt="image-20230317154224945" style="zoom: 33%;" /></p>
+<ul>
+<li>范数（距离），如下所示：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317161228070.png" alt="image-20230317161228070" style="zoom: 33%;" /></p>
+<p>&emsp;其性质如下：</p>
+<p><img src="/images/matrix-analysis-note/image-20230317161540231.png" alt="image-20230317161540231" style="zoom: 33%;" /></p>
+<ul>
+<li>向量夹角计算如下：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317161633201.png" alt="image-20230317161633201" style="zoom: 33%;" /></p>
+<ul>
+<li><p>正交。内积等于零，对常数向量和函数向量；或者它们的外积的数学期望等于零矩阵，对随机向量。</p>
+</li>
+<li><p>累积分布函数<code>F[x(t)]</code>与概率密度函数<code>f[x(t)]</code>。</p>
+</li>
+<li><p>自相关矩阵<code>R_x</code>。<code>CN(0,1)</code>表示均值为0，实虚部统计独立且方差各为1/2的复高斯分布。<code>i.i.d</code>指的是独立同分布。</p>
+</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317162904054.png" alt="image-20230317162904054" style="zoom: 33%;" /></p>
+<ul>
+<li>自协方差矩阵<code>C_x</code>。关系为：<code>C_x=R_x-\mul_x\mul_x^H</code></li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317164351768.png" alt="image-20230317164351768" style="zoom: 33%;" /></p>
+<ul>
+<li>也存在互相关矩阵与互协方差矩阵，两者关系也如上述所示。</li>
+<li>相关系数。<code>c_&#123;xy&#125;</code>是两个随机<strong>变量</strong>之间的互协方差。</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317164849885.png" alt="image-20230317164849885" style="zoom: 33%;" /></p>
+<p>&emsp;当<code>\rho_&#123;xy&#125;=0</code>时，那么两个随机<strong>变量</strong>统计不相关。若两个随机<strong>向量</strong>正交，那他们的互相关矩阵为零矩阵。</p>
+<ul>
+<li>高斯随机向量。</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317165705297.png" alt="image-20230317165705297" style="zoom:33%;" /></p>
+<ul>
+<li><p>KNN的原理：（1）计算待分类点到每个样本点间的距离。（2）对每个距离进行排序，选择出距离最小的K个点。（3）将待分类点归入在K个点中占比最高的那一类。</p>
+</li>
+<li><p>Euclidean距离的缺点：不同属性等同看待。而Mahalanobis距离是一种度量<strong>数据之间相似度</strong>的指标，它考虑了<strong>数据的协方差结构</strong>，可以修正Euclidean距离中<strong>各个维度尺度不一致且相关</strong>的问题，其公式为：</p>
+</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317170536455.png" alt="image-20230317170536455" style="zoom: 33%;" /></p>
+<p>&emsp;Mahalanobis距离使用协方差结构可以修正维度尺度不一致且相关的问题，因为协方差矩阵可以反映数据的各个维度之间的相关性和尺度差异。<strong>如果数据在某个维度上有较大的方差，那么该维度对应的协方差矩阵元素会较大，从而使得该维度对应的马氏距离缩小；反之，如果数据在某个维度上有较小的方差，那么该维度对应的协方差矩阵元素会较小，从而使得该维度对应的马氏距离放大。这样就可以消除不同尺度带来的影响。另外，如果数据在不同维度之间有较强的相关性，那么协方差矩阵会有较大的非对角元素，从而使得马氏距离考虑到了数据在不同维度上投影后产生的偏移。这样就可以消除相关性带来的影响。</strong></p>
+<ul>
+<li>线性无关&amp;非奇异矩阵。奇异矩阵的定义是行列式等于0的方阵，非奇异矩阵的定义是行列式不等于0的方阵。</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317172353293.png" alt="image-20230317172353293" style="zoom: 33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230317172706038.png" alt="image-20230317172706038" style="zoom: 33%;" /></p>
+<ul>
+<li>矩阵的<code>L_p</code>范数与<code>Frobenius</code>范数，以及矩阵范数的性质：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317173127971.png" alt="image-20230317173127971" style="zoom: 33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230317173116446.png" alt="image-20230317173116446" style="zoom: 33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230317173939005.png" alt="image-20230317173939005" style="zoom: 33%;" /></p>
+<p>&emsp;<strong>注：</strong>矩阵对角元素之和叫做矩阵的迹，符号为<code>tr(A)</code>。</p>
+<ul>
+<li>矩阵A与B的内积如下：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317174329023.png" alt="image-20230317174329023" style="zoom: 33%;" /></p>
+<ul>
+<li>矩阵内积与范数之间的关系如下：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317181233812.png" alt="image-20230317181233812" style="zoom: 33%;" /></p>
+<ul>
+<li>二次型与正定。</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317182350458.png" alt="image-20230317182350458" style="zoom: 33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230317182714345.png" alt="image-20230317182714345" style="zoom: 33%;" /></p>
+<ul>
+<li>行列式。其中<code>A_&#123;ij&#125;</code>是删掉第<code>i</code>行第<code>j</code>列后剩下的矩阵。</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317182921671.png" alt="image-20230317182921671" style="zoom: 33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230317183327415.png" alt="image-20230317183327415" style="zoom: 33%;" /></p>
+<ul>
+<li>特征值与特征向量。</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317183624244.png" alt="image-20230317183624244" style="zoom: 33%;" /></p>
+<p>&emsp;且特征值满足：</p>
+<p><img src="/images/matrix-analysis-note/image-20230317183707075.png" alt="image-20230317183707075" style="zoom: 33%;" /></p>
+<p>&emsp;<strong>如果有一个特征值为0，那么A就是奇异矩阵。正定矩阵就是特征值全是正实数的矩阵。</strong></p>
+<ul>
+<li>矩阵的迹。</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317185435302.png" alt="image-20230317185435302" style="zoom: 33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230317190040692.png" alt="image-20230317190040692" style="zoom: 33%;" /></p>
+<ul>
+<li>矩阵的秩。矩阵A中线性无关行的数目。</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317212328154.png" alt="image-20230317212328154" style="zoom: 33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230317212800458.png" alt="image-20230317212800458" style="zoom: 33%;" /></p>
+<ul>
+<li>适定/欠定/超定方程。</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317213236812.png" alt="image-20230317213236812" style="zoom: 33%;" /></p>
+<ul>
+<li>矩阵的逆。下列是矩阵有逆的充要条件：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230317221405414.png" alt="image-20230317221405414" style="zoom: 33%;" /></p>
+<p>&emsp;矩阵逆的性质有：</p>
+<p><img src="/images/matrix-analysis-note/image-20230322122344398.png" alt="image-20230322122344398" style="zoom: 33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230322122824501.png" alt="image-20230322122824501" style="zoom:33%;" /></p>
+<p>&emsp;知识补充：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 正交矩阵：正交矩阵是一个方块矩阵，其元素为实数，且行向量与列向量皆为正交的单位向量， A^T = A^&#123;-1&#125;</span><br><span class="line">2. 酉矩阵：酉矩阵是一种复数方阵，它的共轭转置（即把每个元素取共轭再转置）等于它的逆矩阵，可以看作正交矩阵在复数域的推广</span><br></pre></td></tr></table></figure>
+<p><img src="/images/matrix-analysis-note/image-20230322124149124.png" alt="image-20230322124149124" style="zoom:33%;" /></p>
+<ul>
+<li>分块矩阵的逆：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230322175624616.png" alt="image-20230322175624616" style="zoom:33%;" /></p>
+<p>&emsp;因此有：</p>
+<p><img src="/images/matrix-analysis-note/image-20230322175656907.png" alt="image-20230322175656907" style="zoom:33%;" /></p>
+<ul>
+<li>Hermitian矩阵的逆：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230322183801809.png" alt="image-20230322183801809" style="zoom:33%;" /></p>
+<ul>
+<li>左逆矩阵&amp;右逆矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230322184456966.png" alt="image-20230322184456966" style="zoom:33%;" /></p>
+<ul>
+<li>左伪逆矩阵&amp;右伪逆矩阵 </li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230322185053251.png" alt="image-20230322185053251" style="zoom:33%;" /></p>
+<ul>
+<li>广义逆矩阵（有缺陷）</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230322185319374.png" alt="image-20230322185319374" style="zoom:33%;" /></p>
+<ul>
+<li>如果G是A的广义逆矩阵（A的形状为m*n），那么G要满足以下条件：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230327095311769.png" alt="image-20230327095311769" style="zoom: 33%;" /></p>
+<ul>
+<li>如何求广义逆矩阵，也叫Moore-Penrose逆矩阵：</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230327101006854.png" alt="image-20230327101006854" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230327101202099.png" alt="image-20230327101202099" style="zoom:33%;" /></p>
+<ul>
+<li>Kronecker积</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230327101741135.png" alt="image-20230327101741135" style="zoom:33%;" /></p>
+<ul>
+<li>Hardmard积与直和</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230327102016655.png" alt="image-20230327102016655" style="zoom:33%;" /></p>
+<p>&emsp;Hardmard积的性质如下：</p>
+<p><img src="/images/matrix-analysis-note/image-20230327102446503.png" alt="image-20230327102446503" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230327103022868.png" alt="image-20230327103022868" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230327103030855.png" alt="image-20230327103030855" style="zoom:33%;" /></p>
+<h3 id="课后习题："><a href="#课后习题：" class="headerlink" title="课后习题："></a>课后习题：</h3><p><img src="/images/matrix-analysis-note/image-20230327103423028.png" alt="image-20230327103423028" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230327103449623.png" alt="image-20230327103449623" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230327103524484.png" alt="image-20230327103524484" style="zoom:45%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230327103549690.png" alt="image-20230327103549690" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230327103604825.png" alt="image-20230327103604825" style="zoom:40%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230327103637926.png" alt="image-20230327103637926" style="zoom:40%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230327103654691.png" alt="image-20230327103654691" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230327103740583.png" alt="image-20230327103740583" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230327103818196.png" alt="image-20230327103818196" style="zoom:33%;" /></p>
+<h2 id="0x01-特殊矩阵"><a href="#0x01-特殊矩阵" class="headerlink" title="0x01 特殊矩阵"></a>0x01 特殊矩阵</h2><ul>
+<li>基本矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404155427570.png" alt="image-20230404155427570" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404161304234.png" alt="image-20230404161304234" style="zoom:33%;" /></p>
+<ul>
+<li>移位矩阵，通过左乘或右乘，将矩阵的行列顺序反转</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404163355710.png" alt="image-20230404163355710" style="zoom:33%;" /></p>
+<ul>
+<li>选择矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404165154645.png" alt="image-20230404165154645" style="zoom:33%;" /></p>
+<ul>
+<li>置换矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404165235167.png" alt="image-20230404165235167" style="zoom:33%;" /></p>
+<ul>
+<li>正交矩阵与酉矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404170249493.png" alt="image-20230404170249493" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404170507072.png" alt="image-20230404170507072" style="zoom:33%;" /></p>
+<ul>
+<li>酉变换与正规矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404170826095.png" alt="image-20230404170826095" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404171016956.png" alt="image-20230404171016956" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404171601740.png" alt="image-20230404171601740" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404172117305.png" alt="image-20230404172117305" style="zoom:33%;" /></p>
+<ul>
+<li>实向量、实矩阵与复向量、复矩阵的比较</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404173447652.png" alt="image-20230404173447652" style="zoom:33%;" /></p>
+<ul>
+<li>中心化矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404182106106.png" alt="image-20230404182106106" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404182457370.png" alt="image-20230404182457370" style="zoom:33%;" /></p>
+<ul>
+<li>相似矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404182638324.png" alt="image-20230404182638324" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404183212379.png" alt="image-20230404183212379" style="zoom:33%;" /></p>
+<p>&emsp;证明如下：（主要是行列式的性质与迹的性质）。补充：例如<code>A</code>有特征值<code>\lambda</code>，那么A的特征多项式为<code>|det(A-\lambda*I)|</code>。</p>
+<p><img src="/images/matrix-analysis-note/image-20230404183126408.png" alt="image-20230404183126408" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404183801746.png" alt="image-20230404183801746" style="zoom:33%;" /></p>
+<p>&emsp;相似矩阵的性质：</p>
+<p><img src="/images/matrix-analysis-note/image-20230404184108907.png" alt="image-20230404184108907" style="zoom:33%;" /></p>
+<ul>
+<li>相合矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404184253911.png" alt="image-20230404184253911" style="zoom:33%;" /></p>
+<ul>
+<li>三角矩阵</li>
+</ul>
+<p>&emsp;补充：hermitian矩阵：共轭转置与自己相等。</p>
+<p><img src="/images/matrix-analysis-note/image-20230404185152484.png" alt="image-20230404185152484" style="zoom:33%;" /></p>
+<ul>
+<li>Vandermonde矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404185504935.png" alt="image-20230404185504935" style="zoom:33%;" /></p>
+<p>&emsp;信号的DFT：信号的离散傅里叶变换，将时域上的离散信号变为频域上的离散信号。</p>
+<p><img src="/images/matrix-analysis-note/image-20230404190928210.png" alt="image-20230404190928210" style="zoom:33%;" /></p>
+<ul>
+<li>Fourier（傅里叶）矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404191059459.png" alt="image-20230404191059459" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404191710014.png" alt="image-20230404191710014" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404191753545.png" alt="image-20230404191753545" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404192301759.png" alt="image-20230404192301759" style="zoom:33%;" /></p>
+<ul>
+<li>Hadamard矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404192722121.png" alt="image-20230404192722121" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404192842810.png" alt="image-20230404192842810" style="zoom:33%;" /></p>
+<ul>
+<li>Toeplitz矩阵：对角线元素取相同值</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404193656918.png" alt="image-20230404193656918" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404193820661.png" alt="image-20230404193820661" style="zoom:33%;" /></p>
+<h2 id="0x02-矩阵的微分"><a href="#0x02-矩阵的微分" class="headerlink" title="0x02 矩阵的微分"></a>0x02 矩阵的微分</h2><ul>
+<li>矩阵函数</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404194821629.png" alt="image-20230404194821629" style="zoom:33%;" /></p>
+<p>&emsp;借助<code>e^x</code>的泰勒级数展开。</p>
+<p><img src="/images/matrix-analysis-note/image-20230404201042324.png" alt="image-20230404201042324" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404201423143.png" alt="image-20230404201423143" style="zoom:33%;" /></p>
+<p>&emsp;利用欧拉公式<code>e^(iz)=cosz+i*sinz</code>，有：</p>
+<p><img src="/images/matrix-analysis-note/image-20230404202112454.png" alt="image-20230404202112454" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404203450529.png" alt="image-20230404203450529" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404210214407.png" alt="image-20230404210214407" style="zoom:33%;" /></p>
+<ul>
+<li><p>矩阵微分</p>
+<ul>
+<li>函数分类</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404210422733.png" alt="image-20230404210422733" style="zoom:33%;" /></p>
+<ul>
+<li>标量函数的行向量求偏导</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404210734511.png" alt="image-20230404210734511" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404210853438.png" alt="image-20230404210853438" style="zoom:33%;" /></p>
+<ul>
+<li><p>标量函数的列向量求偏导</p>
+<p><img src="/images/matrix-analysis-note/image-20230404211123893.png" alt="image-20230404211123893" style="zoom:33%;" /></p>
+</li>
+<li><p>标量函数的梯度流</p>
+</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404211925537.png" alt="image-20230404211925537" style="zoom:33%;" /></p>
+<ul>
+<li>向量函数的协梯度矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404212437804.png" alt="image-20230404212437804" style="zoom:33%;" /></p>
+<ul>
+<li>矩阵函数的协梯度矩阵</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404212952285.png" alt="image-20230404212952285" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404213000465.png" alt="image-20230404213000465" style="zoom:33%;" /></p>
+<ul>
+<li>例子：（Jacobian矩阵：雅可比矩阵是一阶偏导数以一定方式排列成的矩阵）</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404213033166.png" alt="image-20230404213033166" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404214323376.png" alt="image-20230404214323376" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404214808093.png" alt="image-20230404214808093" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404215237132.png" alt="image-20230404215237132" style="zoom:33%;" /></p>
+</li>
+<li><p>标量函数的微分</p>
+</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404215422998.png" alt="image-20230404215422998" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404215533870.png" alt="image-20230404215533870" style="zoom:33%;" /></p>
+<ul>
+<li>微分与梯度矩阵<strong>（求<code>f(X)</code>梯度矩阵的方法）</strong></li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404215813003.png" alt="image-20230404215813003" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404220049137.png" alt="image-20230404220049137" style="zoom:33%;" /></p>
+<ul>
+<li>实标量函数的微分计算</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404220303899.png" alt="image-20230404220303899" style="zoom:33%;" /></p>
+<ul>
+<li><strong>矩阵微分常用公式</strong></li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404220514088.png" alt="image-20230404220514088" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404223636487.png" alt="image-20230404223636487" style="zoom:33%;" /></p>
+<p>&emsp;<strong>上面几条性质都挺难的，没证明出来。。</strong></p>
+<p><img src="/images/matrix-analysis-note/image-20230404231110521.png" alt="image-20230404231110521" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404232100913.png" alt="image-20230404232100913" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404232136195.png" alt="image-20230404232136195" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404232740936.png" alt="image-20230404232740936" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404232755013.png" alt="image-20230404232755013" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404232821198.png" alt="image-20230404232821198" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404233028374.png" alt="image-20230404233028374" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404233047802.png" alt="image-20230404233047802" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404233116751.png" alt="image-20230404233116751" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404233216209.png" alt="image-20230404233216209" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404233243175.png" alt="image-20230404233243175" style="zoom:33%;" /></p>
+<ul>
+<li>实值矩阵函数的Jacobin矩阵<strong>（重点）</strong></li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404233717221.png" alt="image-20230404233717221" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404233746070.png" alt="image-20230404233746070" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404234006573.png" alt="image-20230404234006573" style="zoom:33%;" /></p>
+<ul>
+<li>标量函数的Hessian矩阵。Hessian矩阵：多元函数的二阶偏导数构成的方阵。</li>
+</ul>
+<p><img src="/images/matrix-analysis-note/image-20230404234431595.png" alt="image-20230404234431595" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404234512494.png" alt="image-20230404234512494" style="zoom:33%;" /></p>
+<p><img src="/images/matrix-analysis-note/image-20230404234520994.png" alt="image-20230404234520994" style="zoom:33%;" /></p>
+<h3 id="课后习题"><a href="#课后习题" class="headerlink" title="课后习题"></a>课后习题</h3><p><img src="/images/matrix-analysis-note/image-20230404194611063.png" alt="image-20230404194611063" style="zoom:33%;" /></p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/03/23/peer-DID/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/03/14/emotion-analysis/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-03-17 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/matrix-analysis-application/">matrix-analysis&application<span>3</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

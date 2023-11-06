@@ -1,0 +1,431 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>taint-checking | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="taint-checking"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> taint-checking</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="symbolic-execution-amp-taint-checking"><a href="#symbolic-execution-amp-taint-checking" class="headerlink" title="symbolic-execution &amp; taint-checking"></a>symbolic-execution &amp; taint-checking</h1><p>&emsp;之前，有西电的大佬<a target="_blank" rel="noopener" href="https://www.k0rz3n.com/">K0rz3n</a>详细说过符号执行与污点分析，之后，USTC的一个学长<code>Ch3nYe</code>也学习了一波。无独有偶，最近我对这个也比较感兴趣，所以趁机学习一波。由于两位大佬说的很详细了，所以我就按两位大佬的脉络来叙述。</p>
+<span id="more"></span>
+<p>参考链接如下：<code>https://ch3nye.top/%E6%B1%A1%E7%82%B9%E5%88%86%E6%9E%90%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/</code></p>
+<h2 id="0x00-符号执行的定义"><a href="#0x00-符号执行的定义" class="headerlink" title="0x00 符号执行的定义"></a>0x00 符号执行的定义</h2><p>&emsp;通俗的说，<strong>如果把一个程序比作DOTA英雄，英雄的最终属性值为程序的输出（包括攻击力、防御力、血槽、蓝槽），英雄的武器出装为程序的输入（出A杖还是BKB）。那么符号执行技术的任务就是，给定了一个英雄的最终属性值，分析出该英雄可以通过哪些出装方式达到这种最终属性值效果。</strong>因此，符号执行是一种<strong>白盒的静态分析技术</strong>。即，分析程序可能的输入需要能够获取到程序的源代码。</p>
+<h2 id="0x01-静态符号执行"><a href="#0x01-静态符号执行" class="headerlink" title="0x01 静态符号执行"></a>0x01 静态符号执行</h2><p>&emsp;<strong>如果把上述英雄的最终属性值替换成程序形成的bug状态（例如数组越界复制的状态），那么，我们就能够利用此技术挖掘漏洞的输入向量了。</strong></p>
+<p>&emsp;给一个源代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> m=M, n=N, q=Q; </span><br><span class="line"><span class="type">int</span> x1=<span class="number">0</span>,x2=<span class="number">0</span>,x3=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(m!=<span class="number">0</span>)</span><br><span class="line">    x1=<span class="number">-2</span>;</span><br><span class="line"><span class="keyword">if</span>(n&lt;<span class="number">12</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!m &amp;&amp; q)</span><br><span class="line">        x2=<span class="number">1</span>;</span><br><span class="line">    x3=<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> R = x1+x2+x3</span><br><span class="line"><span class="comment">// we want R = 3</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;其相应程序路径图为：</p>
+<p><img src="/images/taint-checking/image-20230422203539377.png" alt="image-20230422203539377" style="zoom:67%;" /></p>
+<p>&emsp;可以看到，当满足<code>~M^(N&lt;5)^Q</code>时，会得到<code>R=3</code>。<strong>因此，如果把结果条件更改为漏洞条件，理论上能够进行漏洞挖掘。</strong>但是，<strong>实际的程序中，可能包含了与外设交互的系统函数，而这些系统函数的输入输出并不会直接赋值到符号中，从而阻断了此类问题的求解</strong>。如下代码所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    FILE *fop = <span class="built_in">fopen</span>(<span class="string">&quot;test.txt&quot;</span>);</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span>(argc &gt; <span class="number">3</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">fputs</span>(<span class="string">&quot;Too many parameters, exit.&quot;</span>, fop);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">fputs</span>(<span class="string">&quot;Ok, we will run normally.&quot;</span>, fop);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    output = <span class="built_in">fgets</span>(..., fop);</span><br><span class="line">    <span class="comment">// we want output = &quot;Ok, we will run normally.&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;LLVM的KLEE解决了上述问题。它把一系列的与外设有关的系统函数给重写了一下，使得符号数值的传递能够继续下去。例如，上述代码中，<code>fputs(&quot;Too many parameters, exit.&quot;, fop);</code>可以看成<code>fop=&quot;Too many parameters, exit.&quot;</code>；而<code>output = fgets(..., fop);</code>可以看成<code>output=fop</code>。这样，就能够把符号数值的传递给续上。</p>
+<p>&emsp;符号执行的关键思想：<strong>把输入变为符号值，那么程序计算的输出就是符号输入的函数</strong>。简而言之，就是一个程序执行的路径通常是true和false条件的序列，这些条件是在分支语句处产生的。<strong>程序的所有执行路径可以表示为树，叫做执行树。</strong>如下所示：</p>
+<p><img src="/images/taint-checking/image-20230422205252605.png" alt="image-20230422205252605" style="zoom:67%;" /></p>
+<p>&emsp;可以看到，只要分别输入<code>x,y=0,1</code>、<code>x,y=2,1</code>、<code>x,y=30,15</code>，就可以遍历这三个路径。符号执行的目标就是：<strong>生成这样的输入集合，在给定的时间内探索所有的路径。</strong></p>
+<p>&emsp;符号执行会在全局维护两个变量：（1）符号状态 $\sigma$，表示变量到符号表达式的映射。（2）符号化路径约束PC，用来表示路径条件。</p>
+<p>&emsp;<strong>初始时，$\sigma$为空，PC为true。结束时，PC就会用约束求解器进行求解，以生成实际的输入值。这个实际的输入值如果用程序执行，就会走符号执行过程中探索的那条路径，即此时PC的公式所表示的路径。</strong></p>
+<p>&emsp;以上图为例，当读16-17行后，此时$\sigma={x \rightarrow x_0, y \rightarrow y_0}$，其中 $x_0$ 与 $y_0$ 是两个初始的未约束的符号化值。之后执行第6行，执行完后，此时$\sigma={x \rightarrow x_0, y \rightarrow y_0, z \rightarrow 2*y_0}$。之后，运行到第7行，此时PC会同时有两个不同的更新：$PC \cap (x_0 = 2y_0)$与$PC \cap (x_0 != 2y_0)$。在第8行，又更新了不同的PC（如果不等于，程序直接结束，到不了第8行），分别为：</p>
+<script type="math/tex; mode=display">PC \cap (x_0 = 2y_0) \cap (x_0 > y_0 +10)</script><script type="math/tex; mode=display">PC \cap (x_0 = 2y_0) \cap (x_0 \leq y_0 +10)</script><p>&emsp;那如果遇到循环与递归呢？如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">testme_inf</span><span class="params">()</span> </span>&#123;          </span><br><span class="line">    <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> N = <span class="built_in">sym_input</span>();      </span><br><span class="line">    <span class="keyword">while</span> (N &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        sum = sum + N</span><br><span class="line">        N = <span class="built_in">sym_input</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;上述代码，有无数条执行路径，每条路径的可能性有两种：要么是任意数量的true加上一个false结尾，要么是无穷多数量的true。其符号化约束PC如下：</p>
+<script type="math/tex; mode=display">\left(\wedge_{i \in[1, n]} N_i>0\right) \wedge\left(N_{n+1} \leq 0\right)</script><p>&emsp;其中，每一个$N_i$都是一个新的符号化值，执行结尾的符号状态是：</p>
+<script type="math/tex; mode=display">\left\{N \rightarrow N_{n+1}, \text { sum } \rightarrow \sum_{i \in[1, n]} N_i\right\}</script><p>&emsp;这就是符号执行面临的问题之一：如何处理循环中的无限多路径。但是，我们可以通过限制搜索时间的长短，限制路径数量等方式来解决。</p>
+<p>&emsp;符号执行还面临一个问题：符号路径约束包含不能由求解器高效求解的公式。如下代码所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">twice</span><span class="params">(<span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (v*v) % <span class="number">50</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;将<code>twice</code>函数的代码变成，如上所示。那么路径约束就变为：</p>
+<script type="math/tex; mode=display">x_0 \neq\left(y_0 y_0\right)~~ mod~~ 50, x_0 =\left(y_0 y_0\right)~~ mod~~ 50</script><p>&emsp;这样的话，约束求解器是不能求解这样的约束的，所以符号执行不能产生输入。</p>
+<p>&emsp;上述内容是纯粹的静态符号执行，还有一种动态符号执行（concolic execution）。</p>
+<h2 id="0x02-动态符号执行（concolic-execution）"><a href="#0x02-动态符号执行（concolic-execution）" class="headerlink" title="0x02 动态符号执行（concolic execution）"></a>0x02 动态符号执行（concolic execution）</h2><p>&emsp;有两篇相关论文，分别为<code>DART:Directed Automated Random Testing</code>、<code>CUTE:A concolic unit testing engine for C</code>。</p>
+<p>&emsp;动态符号执行维护一个实际状态(concrete state)和一个符号化状态(symbolic state)：实际状态将所有变量映射到实际值，符号状态只映射那些有非实际值的变量。<strong>动态符号执行首先用一些给定的或者随机的输入来执行程序，收集执行过程中条件语句对输入的符号化约束，然后使用约束求解器去推理输入的变化，从而将下一次程序的执行导向另一条执行路径。简单地说来，就是在已有实际输入得到的路径上，对分支路径条件进行取反，就可以让执行走向另外一条路径。这个过程会不断地重复，加上系统化或启发式的路径选择算法，直到所有的路径都被探索。</strong>以上述例子为例，直接引用<code>ch3nye</code>师傅的原话：</p>
+<p><img src="/images/taint-checking/image-20230422214756293.png" alt="image-20230422214756293" style="zoom:80%;" /></p>
+<p>&emsp;Cristian Cadar对上述动态符号执行做进一步优化，<strong>其创新点主要是在实际状态和符号状态之间进行区分，称之为执行生成的测试（Execution-Generated Testing），简称EGT。这个方法在每次运算前检查值是不是实际的，如果是实际的，那么运算就原样执行，否则，如果至少有一个值是符号化的，运算就会通过更新当前路径的条件符号化地进行。</strong></p>
+<p>&emsp;例如，对于我们的例子程序，第17行把<code>y=sym_input()</code>改变成<code>y=10</code>，那么第6行就会用实际参数10去调用函数twice，并实际执行。然后第7行变成<code>if(20==x)</code>，符号执行若走then路径，则加入约束x=20；对条件进行取反就可以走else路径，约束是x≠20。在then路径上，第8行变成<code>if(x&gt;20)</code>，<strong>那么该if的then路径就不能走了，因为此时有约束x=20。可以看到，这种方式减少了路径遍历。</strong></p>
+<p>&emsp;动态符号执行可以解决静态符号执行的很多问题。<strong>求解器无法求解的部分，用实际值替换就好了。但是，有丢失路径的缺陷。</strong>举一个例子来说明：假设执行从随机输入{x=22, y=7}开始，<code>if(x==z)</code>条件取反生成路径约束$x_0 \neq\left(y_0 y_0\right)~ \bmod ~50$。因为约束求解器无法求解非线性约束，所以动态符号执行的应对方法是，把符号值用实际值替换，此处会把$y_0$的值替换为7，这就<strong>将程序约束简化为</strong>$x_0 \neq 49$ 。通过求解这个约束，可以得到输入{x=49, y=7}，走到一个此前没有走到的路径。<strong>传统静态符号执行是无法做到这一步的。</strong>但是，在这个例子中，我们无法生成路径true-false的输入，即约束</p>
+<script type="math/tex; mode=display">x_0 \neq\left(y_0 y_0\right)~ \bmod ~50 \cap (x_0 \leq y_0 + 10)</script><p>&emsp;又因为$y_0$的值已经实际化了，这就造成了丢失路径的问题，造成不完全性。</p>
+<h2 id="0x03-问题-amp-解决方案"><a href="#0x03-问题-amp-解决方案" class="headerlink" title="0x03 问题&amp;解决方案"></a>0x03 问题&amp;解决方案</h2><h3 id="路径爆炸"><a href="#路径爆炸" class="headerlink" title="路径爆炸"></a>路径爆炸</h3><p>&emsp;问题定义：<strong>每一个条件分支都会产生两个不同约束，符号执行要探索的执行路径依分支数指数增长。</strong></p>
+<p>&emsp;解决方法：通过<strong>路径选择</strong>的方法缓解指数爆炸问题。（1）启发式搜索，目的是先探索最值得探索的路径，最简单的启发式就是随机搜索；（2）可靠的程序分析技术减少路径探索的复杂性，例如剪枝冗余路径，如果程序路径与此前探索过的路径在同样符号约束的情况下到达相同的程序点，那么这条路径就会从该点继续执行，所以可以被丢弃。</p>
+<h3 id="约束求解"><a href="#约束求解" class="headerlink" title="约束求解"></a>约束求解</h3><p>&emsp;问题定义：<strong>符号执行所需的约束求解能力超出了当前约束求解器的能力。</strong></p>
+<p>&emsp;解决方法：</p>
+<p>（1）不相关约束消除。例如当前路径条件是：</p>
+<script type="math/tex; mode=display">(x+y>10) \wedge(z>0) \wedge(y<12)</script><p>&emsp;我们想对$z&gt;0$探索新路径，于是有：</p>
+<script type="math/tex; mode=display">(x+y>10) \wedge(z \leq 0) \wedge(y<12)</script><p>&emsp;由于$\wedge(y&lt;12)$与z没关系，所以约束可以直接写成：</p>
+<script type="math/tex; mode=display">(x+y>10) \wedge(z \leq 0)</script><p>（2）增量求解。本质上是重用的思想。缓存在经历过一个路径后，会将路径与相应的输入保存起来，例如：</p>
+<script type="math/tex; mode=display">(x+y<10) \wedge(x>5) \Rightarrow\{x=6, y=3\}</script><p>&emsp;表示输入${x=6, y=3} $，其程序执行路径为$ (x+y<10) \wedge(x>5) $。那么，如果程序又遇到一个路径约束，如下：</p>
+<script type="math/tex; mode=display">(x+y<10) \wedge(x>5) \wedge(y \geq 0)</script><p>&emsp;那么求解器就会迅速检查${x=6, y=3} $，发现这是一个正确的答案。</p>
+<h3 id="内存建模"><a href="#内存建模" class="headerlink" title="内存建模"></a>内存建模</h3><p>&emsp;<strong>程序语句转换为符号约束的精度对符号执行能实现的覆盖率以及约束求解的可伸缩性有很大影响</strong>。例如，使用数学整数(actual mathematical integers)去近似去代替固定宽度的整数变量，这样的内存模型可能会更有效率，但另一方面，根据诸如算术溢出之类的极端情况，可能导致代码分析不精确，这可能会导致符号执行遗漏路径或探索不可行的路径。</p>
+<h2 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h2><p>&emsp;符号执行技术可以用于测试例的自动生成，也可以用于源代码安全性的检测。前几天学习的Angr，就是其中的一种工具。</p>
+<h2 id="0x05-污点分析原理"><a href="#0x05-污点分析原理" class="headerlink" title="0x05 污点分析原理"></a>0x05 污点分析原理</h2><p>&emsp;污点分析可以抽象成一个三元组<code>&lt;sources,sinks,sanitizers&gt;</code>的形式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. source:污点源，代表不受信任的数据（恶意代码）进入到系统中</span><br><span class="line">2. sink:汇聚点，代表产生安全敏感操作或泄露隐私数据到外界</span><br><span class="line">3. sanitizer:无害处理，表示数据通过加密等手段使数据传播无害</span><br></pre></td></tr></table></figure>
+<p>&emsp;污点分析：<strong>分析程序中由污点源引入的数据是否能够不经无害处理，直接传播到汇聚点。</strong>如果不能，则系统是安全的，否则系统不安全。</p>
+<p>&emsp;在漏洞分析中，使用污点分析将外部数据标记为污点数据，并分析它们是否会影响关键的程序操作，进而挖掘程序漏洞，<strong>即将程序是否存在某种漏洞的问题转化为污点信息是否会被 Sink 点上的操作所使用的问题</strong>。</p>
+<p>&emsp;污点分析的过程如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 定位source与sink</span><br><span class="line">2. 污点传播（分析污点标记数据在程序中的传播途径）</span><br><span class="line">3. 判断sink点最后是否为污点，从而进行漏洞检测</span><br></pre></td></tr></table></figure>
+<p><img src="/images/taint-checking/image-20230507183245920.png" alt="image-20230507183245920" style="zoom:67%;" /></p>
+<p>&emsp;定位<code>source</code>与<code>sink</code>与要检测的系统、关注的漏洞类型等有关系。大体的定位方法有3类：（1）启发式策略，例如来自程序外部输入的数据统称为污点数据；（2）手工标记，根据程序调用的<code>API</code>或数据类型；（3）统计或机器学习的方法。</p>
+<p>&emsp;对于污点传播而言，分为显示流分析与隐式流分析。</p>
+<p>&emsp;显示流分析就是分析标记的污点数据如何跟随程序中变量之间的<strong>数据依赖关系</strong>传播。如下图所示：</p>
+<p><img src="/images/taint-checking/image-20230512222324943.png" alt="image-20230512222324943" style="zoom:67%;" /></p>
+<p>&emsp;隐式流分析就是分析标记的污点数据如何跟随程序中变量之间的<strong>控制依赖关系</strong>传播，如下图的虚线所示：</p>
+<p><img src="/images/taint-checking/image-20230512222450608.png" alt="image-20230512222450608" style="zoom:67%;" /></p>
+<p>&emsp;欠污染：由于对隐式流污点传播处理不当，导致本应被标记的变量没有被标记。相应的还有过污染。</p>
+<p>&emsp;无害处理：将污点数据清洁化，例如加密、输入验证（<code>ScriptGard,CSAS,XSS Auditor,Bek</code>）。</p>
+<p>&emsp;<strong>使用污点分析检测程序漏洞的工作原理：</strong>（基于数据流的污点分析可以看作显式分析，基于依赖关系的污点分析可以看作隐式分析）</p>
+<p><img src="/images/taint-checking/image-20230512222952742.png" alt="image-20230512222952742" style="zoom:67%;" /></p>
+<h2 id="0x06-如何利用动-静态分析来解决污点传播中的显示流-隐式流传播问题"><a href="#0x06-如何利用动-静态分析来解决污点传播中的显示流-隐式流传播问题" class="headerlink" title="0x06 如何利用动/静态分析来解决污点传播中的显示流/隐式流传播问题"></a>0x06 如何利用动/静态分析来解决污点传播中的显示流/隐式流传播问题</h2><h3 id="显示流分析"><a href="#显示流分析" class="headerlink" title="显示流分析"></a>显示流分析</h3><p>&emsp;<strong>静态污点分析：</strong>不运行且不修改代码的前提下，通过分析程序变量间的数据依赖关系来检测数据能否从污点源传播到污点汇聚点。步骤：（1）创建函数调用关系图（CG）；（2）进行传播分析（直接赋值、函数/过程调用传播、别名/指针传播）；如下图所示：</p>
+<p><img src="/images/taint-checking/image-20230518182502109.png" alt="image-20230518182502109" style="zoom:67%;" /></p>
+<p>&emsp;上述静态分析已经非常成熟，现今研究的重点是如何为别名传播的分析提供更精确、高效的解决方案。</p>
+<p>&emsp;<strong>动态污点分析：</strong>为污点数据扩展一个污点标记（tainted tag）的标签并将其存储在存储单元中，然后根据指令类型和指令操作数设计相应的传播逻辑，传播污点标记。种类有：（1）基于硬件。需要在寄存器上扩展标记位，用来存储污点标记。（2）基于软件。使用插桩等，会带来巨大开销。（3）混合。</p>
+<h3 id="隐式流分析"><a href="#隐式流分析" class="headerlink" title="隐式流分析"></a>隐式流分析</h3><p>&emsp;静态污点分析：精度与效率不可兼得。</p>
+<p>&emsp;动态污点分析面临的问题：</p>
+<p>（1）如何确定污点控制条件下需要标记的语句范围，现在的研究大多采用<code>离线的静态分析辅助判断动态污点传播中的隐式流标记范围</code>。例如下图，当<code>document.cookie == &quot;abc&quot;</code>被确定为污点源时，第4行与第6行都会被标记。</p>
+<p><img src="/images/taint-checking/image-20230518184339817.png" alt="image-20230518184339817" style="zoom:67%;" /></p>
+<p>（2）如何选择合适的污点标记分支进行污点传播？例如（1）中都标记的话，可能会出现过污染的情况。</p>
+<h2 id="0x07-污点分析方法的实现"><a href="#0x07-污点分析方法的实现" class="headerlink" title="0x07 污点分析方法的实现"></a>0x07 污点分析方法的实现</h2><h3 id="静态污点分析示例："><a href="#静态污点分析示例：" class="headerlink" title="静态污点分析示例："></a>静态污点分析示例：</h3><p>&emsp;下面是一个存在<code>SQL</code>注入漏洞<code>ASP</code>程序的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">    Set pwd = &quot;bar&quot;</span><br><span class="line">    Set sql1 = &quot;SELECT companyname FROM &quot; &amp; Request.Cookies(&quot;hello&quot;)</span><br><span class="line">    Set sql2 = Request.QueryString(&quot;foo&quot;)</span><br><span class="line">    MySqlStuff pwd, sql1, sql2</span><br><span class="line">    Sub MySqlStuff(password, cmd1, cmd2)</span><br><span class="line">        Set conn = Server.CreateObject(&quot;ADODB.Connection&quot;)</span><br><span class="line">        conn.Provider = &quot;Microsoft.Jet.OLEDB.4.0&quot;</span><br><span class="line">        conn.Open &quot;c:/webdata/foo.mdb&quot;, &quot;foo&quot;, password</span><br><span class="line">        Set rs = conn.Execute(cmd2)</span><br><span class="line">        Set rs = Server.CreateObject(&quot;ADODB.recordset&quot;)</span><br><span class="line">        rs.Open cmd1, conn</span><br><span class="line">    End Sub</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+<p>&emsp;上述ASP的解释：</p>
+<ol>
+<li>定义了三个变量pwd、sql1、sql2，分别用于存储密码、查询语句1和查询语句2。</li>
+<li>调用MySqlStuff函数，该函数接收三个参数password、cmd1和cmd2，分别表示数据库密码、查询语句1和查询语句2。</li>
+<li>在MySqlStuff函数中，首先创建了一个ADODB.Connection对象conn，并设置了其提供程序为”Microsoft.Jet.OLEDB.4.0”。</li>
+<li>使用conn.Open方法打开了一个名为”c:/webdata/foo.mdb”的Access数据库，其中用户名为”foo”，密码为password。</li>
+<li>调用conn.Execute方法执行了查询语句2，并将结果存储到rs对象中。</li>
+<li>创建了一个ADODB.Recordset对象rs，并使用rs.Open方法执行查询语句1，并将结果存储到rs对象中。</li>
+</ol>
+<p>&emsp;将上述代码表示为一种三地址码的形式，例如第 3 行可以表示为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = &quot;SELECT companyname FROM &quot;</span><br><span class="line">b = &quot;hello&quot;</span><br><span class="line">param0 Request</span><br><span class="line">param1 b</span><br><span class="line">callCookies</span><br><span class="line">return c</span><br><span class="line">sql1 = a &amp; c</span><br></pre></td></tr></table></figure>
+<p>&emsp;控制流分析如下：</p>
+<ol>
+<li>调用 Request.Cookies(“hello”) 的返回结果是污染的,所以变量 sql1 也是污染的（外部输入的）</li>
+<li>调用 Request.QueryString(“foo”) 的返回结果 sql2 是污染的（外部输入的）</li>
+<li>函数 MySqlStuff 被调用，它的参数 sql1，sql2 都是污染的。分析函数的处理过程，根据第 6 行函数的声明，标记其参数 cmd1、cmd2 是污染的</li>
+<li>第 10 行是程序的 Sink 点，函数 conn.Execute 执行 SQL 操作，其参数 cmd2 是污染的，进而发现污染数据从 Source 点传播到 Sink 点。因此，认为程序存在 SQL 注入漏洞</li>
+</ol>
+<h3 id="动态污点分析示例："><a href="#动态污点分析示例：" class="headerlink" title="动态污点分析示例："></a>动态污点分析示例：</h3><p>&emsp;<strong>1.污点数据标记：</strong>网络输入、文件输入、输入设备输入</p>
+<p>&emsp;<strong>2.污点动态跟踪：</strong>一般基于以下 2 种机制，（1）动态代码插桩：通过在被分析程序中插入分析代码，跟踪污点信息流在进程中的流动方向。（2）虚拟机：在虚拟机中增加分析污点信息流的功能，跟踪污点数据的流动。</p>
+<p>&emsp;污点动态跟踪需要影子内存（shadow memory）来映射实际内存的污染情况，从而记录内存区域和寄存器是否是被污染的。<strong>影子内存是一个与程序内存大小相同的二进制位数组。每个二进制位对应程序内存中的一个字节，如果该字节被污染，则对应的二进制位被标记为1，否则标记为0。</strong></p>
+<p>&emsp;<strong>3.污点误用检查：</strong>检测污点数据是否有非法使用的情况</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">fun</span><span class="params">(<span class="type">char</span> *str)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> temp[<span class="number">15</span>];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;in strncpy, source: %s\n&quot;</span>, str);</span><br><span class="line">    <span class="built_in">strncpy</span>(temp, str, <span class="built_in">strlen</span>(str));        <span class="comment">// Sink 点（存在缓冲区溢出）</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> source[<span class="number">30</span>];</span><br><span class="line">    gets(source);                           <span class="comment">// Source 点</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strlen</span>(source) &lt; <span class="number">30</span>)</span><br><span class="line">        fun(source);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;too long string, %s\n&quot;</span>, source);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;程序接受外部字符串并调用<code>fun</code>的 2 进制代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">0x08048609 &lt;+51&gt;:    lea    eax,[ebp-0x2a]</span><br><span class="line">0x0804860c &lt;+54&gt;:    push   eax</span><br><span class="line">0x0804860d &lt;+55&gt;:    call   0x8048400 &lt;gets@plt&gt;</span><br><span class="line">...</span><br><span class="line">0x0804862c &lt;+86&gt;:    lea    eax,[ebp-0x2a]</span><br><span class="line">0x0804862f &lt;+89&gt;:    push   eax</span><br><span class="line">0x08048630 &lt;+90&gt;:    call   0x8048566 &lt;fun&gt;</span><br></pre></td></tr></table></figure>
+<p>&emsp;程序调用<code>strncpy</code>的 2 进制代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">0x080485a1 &lt;+59&gt;:    push   DWORD PTR [ebp-0x2c]</span><br><span class="line">0x080485a4 &lt;+62&gt;:    call   0x8048420 &lt;strlen@plt&gt;</span><br><span class="line">0x080485a9 &lt;+67&gt;:    add    esp,0x10</span><br><span class="line">0x080485ac &lt;+70&gt;:    sub    esp,0x4</span><br><span class="line">0x080485af &lt;+73&gt;:    push   eax</span><br><span class="line">0x080485b0 &lt;+74&gt;:    push   DWORD PTR [ebp-0x2c]</span><br><span class="line">0x080485b3 &lt;+77&gt;:    lea    eax,[ebp-0x1b]</span><br><span class="line">0x080485b6 &lt;+80&gt;:    push   eax</span><br><span class="line">0x080485b7 &lt;+81&gt;:    call   0x8048440 &lt;strncpy@plt&gt;</span><br></pre></td></tr></table></figure>
+<p>&emsp;在扫描该程序的二进制代码时，能够扫描到 <code>call &lt;gets@plt&gt;</code>，该函数会读入外部输入，即程序的攻击面。确定了攻击面后，我们将分析污染源数据并进行标记，即将 <code>[ebp-0x2a]</code> 数组（即源程序中的<code>source</code>）标记为污点数据。程序继续执行，该污染标记会随着该值的传播而一直传递。在进入 <code>fun()</code> 函数时，该污染标记通过形参实参的映射传递到参数 <code>str</code> 上。然后运行到 Sink 点函数 <code>strncpy()</code>。该函数的第2个参数即 <code>str</code> 和 第3个参数 <code>strlen(str)</code> 都是污点数据。最后在执行 <code>strncpy()</code> 函数时，若设定了<strong>相应的漏洞规则（目标数组小于源数组）</strong>，将检测出缓冲区溢出漏洞.</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/04/25/Blockchain-network-survey/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/04/18/certificate-transparency-dns/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-04-22 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/study-notes/">study-notes<span>17</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

@@ -1,0 +1,493 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Assembly-4 | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Assembly-4"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Assembly-4</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="汇编语言学习笔记-4"><a href="#汇编语言学习笔记-4" class="headerlink" title="汇编语言学习笔记-4"></a>汇编语言学习笔记-4</h1><h2 id="0x00-内中断"><a href="#0x00-内中断" class="headerlink" title="0x00 内中断"></a>0x00 内中断</h2><p>​    中断意思就是：<strong>CPU不再接着（刚执行完的指令）向下执行，而是转去处理特殊信息（中断信息）</strong>。</p>
+<p>​    那什么时候CPU会马上处理中断信息呢？</p>
+<p><img src="/images/Assembly-4/image-20230224130151427.png" alt="image-20230224130151427" style="zoom:67%;" /></p>
+<p>​    CPU根据中断信息可以找到要执行的处理程序，因此中断信息和处理程序的入口地址间需建立联系。<strong>中断类型码用于定位中断处理程序。</strong></p>
+<span id="more"></span>
+<p>​    通过<strong>中断向量表</strong>，可以使用中断类型码（8位），来确定中断处理程序的段地址与偏移地址。中断向量表保存在内存里，里面存放着256个中断处理程序的入口地址。<strong>中断向量表在<code>0000:0000~0000:03FF</code>中，共1024个字节。</strong></p>
+<p>​    <strong>中断过程（硬件自动执行，程序员无法干预）</strong>：用中断类型码可在中断向量表中找到中断处理程序的入口（即<strong>中断向量</strong>），并用它设置CS和IP，使CPU执行中断过程（需要先保存原来CS与IP的值，以便执行完中断后回到原程序点）。具体如下图所示：</p>
+<p><img src="/images/Assembly-4/image-20230224132509027.png" alt="image-20230224132509027" style="zoom:80%;" /></p>
+<p>​    由于CPU随时都可能进行中断处理，因此<strong>中断处理程序必须一直存储在内存中，且中断处理程序的入口地址（也就是中断向量）必须存储在对应的中断向量表项中。</strong></p>
+<h3 id="中断处理程序"><a href="#中断处理程序" class="headerlink" title="中断处理程序"></a>中断处理程序</h3><p>​    其书写方法与子程序类似，具体如下图：</p>
+<p><img src="/images/Assembly-4/image-20230224133037377.png" alt="image-20230224133037377" style="zoom:80%;" /></p>
+<p>注：iret从栈中依次弹出IP、CS、标志寄存器，汇编语法描述为：<code>pop IP; pop CS; popf</code>。</p>
+<h4 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h4><p>​    已知：</p>
+<p><img src="/images/Assembly-4/image-20230224135512555.png" alt="image-20230224135512555" style="zoom:80%;" /></p>
+<p><img src="/images/Assembly-4/image-20230224135527549.png" alt="image-20230224135527549" style="zoom:80%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code, ds:data</span><br><span class="line">data segment</span><br><span class="line">	db &quot;overflow!&quot;</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">do0:</span><br><span class="line">	mov ax, data</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov si, 0</span><br><span class="line">	mov ax, 0b800H      ; 显示overflow字符串</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov di, 12*160+36*2 ; es:di指向显存空间的中间位置</span><br><span class="line">	mov cx, 9</span><br><span class="line">s:</span><br><span class="line">	mov al, ds:[si]</span><br><span class="line">	mov es:[di], al</span><br><span class="line">	inc si</span><br><span class="line">	add di, 2</span><br><span class="line">	loop s</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H       ; 溢出后直接结束了，不返回</span><br><span class="line">	int 21H</span><br><span class="line">start:</span><br><span class="line">	mov ax, 0H</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov si, offset do0</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov di, 0200H       ; 将do0的代码送入到0000:0200</span><br><span class="line">	mov cx, offset start; 也可以写成mov cx, offset start - offset do0</span><br><span class="line">	sub cx, offset do0</span><br><span class="line">	cld</span><br><span class="line">	rep movsb</span><br><span class="line">	</span><br><span class="line">	mov ax, 1000H</span><br><span class="line">	mov bh, 1</span><br><span class="line">	div bh</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>​    上述代码有两个问题：</p>
+<ol>
+<li>此程序执行完成后，如果再触发div溢出错误，由于data段数据以被回收，因此会显示随机字符串。</li>
+<li>并没有改变中断向量表第一项，也就是入口地址为<code>0000:0200</code>。</li>
+</ol>
+<p>​    修改后的程序为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">do0:</span><br><span class="line">	jmp short do0start</span><br><span class="line">	db &quot;overflow!&quot;</span><br><span class="line">do0start:</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov si, 0202H       ; 0:200H 有指令jmp short do0start(2字节长)</span><br><span class="line">	mov ax, 0b800H      ; 显示overflow字符串</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov di, 24*160+36*2 ; es:di指向显存空间的中间位置</span><br><span class="line">	</span><br><span class="line">	mov cx, 9</span><br><span class="line">s:</span><br><span class="line">	mov al, ds:[si]</span><br><span class="line">	mov es:[di], al</span><br><span class="line">	inc si</span><br><span class="line">	add di, 2</span><br><span class="line">	loop s</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H       ; 溢出后直接结束了，不返回</span><br><span class="line">	int 21H</span><br><span class="line">start:</span><br><span class="line">	mov ax, 0H</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov si, offset do0</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov di, 0200H       ; 将do0的代码送入到0000:0200</span><br><span class="line">	mov cx, offset start - offset do0</span><br><span class="line">	cld</span><br><span class="line">	rep movsb</span><br><span class="line">	mov ax, 0</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov word ptr es:[0], 0200H</span><br><span class="line">	mov word ptr es:[2], 0000H</span><br><span class="line">	</span><br><span class="line">	int 0              ; 进入中断处理程序</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<h3 id="单步中断"><a href="#单步中断" class="headerlink" title="单步中断"></a>单步中断</h3><p>​    CPU执行完一条指令之后，<strong>如果检测到标志寄存器的TF（Trace Flag）位为1，则产生单步中断，引发中断过程</strong>。</p>
+<p>​    单步中断的中断类型码为1，中断过程如下：</p>
+<p><img src="/images/Assembly-4/image-20230224181726078.png" alt="image-20230224181726078" style="zoom:80%;" /></p>
+<p>​    有一个问题：<strong>Debug的T指令在执行一条指令后，就显示各个寄存器的状态，如何实现的？</strong></p>
+<p>（1）T命令执行指令时先设置将<code>TF=1</code>，则CPU工作于单步中断方式，使CPU执行完一条程序指令后就引发单步中断。</p>
+<p>（2）执行对应中断处理程序。寄存器的内容被显示在屏幕上，并且等待输入命令。</p>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>​    有些情况下，CPU 在执行完当前指令后，即便是发生中断，也不会响应。<strong>例如，在执行完向ss寄存器传送数据的指令后，即便是发生中断，CPU 也不会响应。</strong>为啥咧？<strong>因为<code>ss:sp</code>联合指向栈顶，对它们的设置应连续完成。若设置ss的指令后CPU响应中断，中断过程将CS和IP值入栈，此时ss改变而sp未改变，<code>ss:sp</code>指向的不是正确的栈顶，将引起错误。</strong></p>
+<p>​    那么debug的单步中断是如何避免这个问题的呢？（那么之前实验，出现的单步运行时，<code>mov ss,ax</code>之后一条指令没有被显示，这个原因我们就知道啦。）</p>
+<p><img src="/images/Assembly-4/image-20230224183337133.png" alt="image-20230224183337133" style="zoom:67%;" /></p>
+<h2 id="0x01-int指令"><a href="#0x01-int指令" class="headerlink" title="0x01 int指令"></a>0x01 int指令</h2><p>​    中断信息可以来自于CPU的内部或者外部，int指令引发的中断是内中断。<code>int n</code>的执行过程如下：</p>
+<p><img src="/images/Assembly-4/image-20230224190034447.png" alt="image-20230224190034447" style="zoom:70%;" /></p>
+<h3 id="Q-amp-A-1"><a href="#Q-amp-A-1" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><p><img src="/images/Assembly-4/image-20230224191123559.png" alt="image-20230224191123559" style="zoom:67%;" /></p>
+<p>​    安装程序如下（安装7cH中断）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">cube:</span><br><span class="line">	mul ax</span><br><span class="line">	iret</span><br><span class="line">start:</span><br><span class="line">	mov ax, cs      ; ds:[si]-&gt;es:[di]</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov si, offset cube</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov di, 0200H</span><br><span class="line">	cld</span><br><span class="line">	mov cx, offset start - offset cube</span><br><span class="line">	rep movsb</span><br><span class="line">	</span><br><span class="line">	mov ax, 0       ; 设置中断表</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov word ptr es:[7cH*4], 0200H</span><br><span class="line">	mov word ptr es:[7cH*4+2], 0000H</span><br><span class="line">	</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>​    应用程序如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">start:              ; 计算2*3456^2</span><br><span class="line">	mov ax, 3456</span><br><span class="line">	int 7cH</span><br><span class="line">	add ax, ax</span><br><span class="line">	adc dx, dx</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>​    <strong>注：<code>int</code>与<code>iret</code>类似于<code>call</code>与<code>ret</code>。</strong></p>
+<p><img src="/images/Assembly-4/image-20230224194301948.png" alt="image-20230224194301948" style="zoom:67%;" /></p>
+<p>​    安装程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">upper:</span><br><span class="line">	push si</span><br><span class="line">	push bx</span><br><span class="line">s0:</span><br><span class="line">	mov bl, ds:[si]</span><br><span class="line">	cmp bl, 0H</span><br><span class="line">	je upper_end</span><br><span class="line">	and bl, 11011111B</span><br><span class="line">	mov ds:[si], bl</span><br><span class="line">	inc si</span><br><span class="line">	loop s0</span><br><span class="line">upper_end:</span><br><span class="line">	pop bx</span><br><span class="line">	pop si</span><br><span class="line">	iret</span><br><span class="line">start:</span><br><span class="line">	mov ax, cs                           ; ds:[si]-&gt;es:[di]</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov si, offset upper</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov di, 0200H</span><br><span class="line">	mov cx, offset start - offset upper</span><br><span class="line">	cld</span><br><span class="line">	rep movsb</span><br><span class="line">	</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov word ptr es:[7cH*4], 0200H</span><br><span class="line">	mov word ptr es:[7cH*4+2], 0000H</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>​    应用程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code, ds:data</span><br><span class="line">data segment</span><br><span class="line">	db &#x27;aaabbb&#x27;, 0</span><br><span class="line">data ends</span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">	mov ax, data</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov si, 0</span><br><span class="line">	int 7cH</span><br><span class="line"></span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends	</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p><img src="/images/Assembly-4/image-20230225111952160.png" alt="image-20230225111952160" style="zoom:67%;" /></p>
+<p><img src="/images/Assembly-4/image-20230225112055338.png" alt="image-20230225112055338" style="zoom:67%;" /></p>
+<p>​    应用程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">	mov ax, 0b800H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov si, 160*12</span><br><span class="line">	mov bx, offset s_end - offset s</span><br><span class="line">	mov cx, 80</span><br><span class="line">s:</span><br><span class="line">	mov byte ptr es:[si], &#x27;!&#x27;</span><br><span class="line">	add si, 2</span><br><span class="line">	int 7cH</span><br><span class="line">s_end:</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>​    安装程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">install:</span><br><span class="line">	push bp</span><br><span class="line">	mov bp, sp</span><br><span class="line">	cmp cx, 0</span><br><span class="line">	jna install_end</span><br><span class="line">	dec cx</span><br><span class="line">	sub [bp+2], bx</span><br><span class="line">install_end:</span><br><span class="line">	pop bp</span><br><span class="line">	iret</span><br><span class="line">start:</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov di, 0200H</span><br><span class="line">	mov ax, cs</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov si, offset install</span><br><span class="line">	mov cx, offset start - offset install</span><br><span class="line">	cld            ; 控制正向还是反向</span><br><span class="line">	rep movsb</span><br><span class="line">	</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov word ptr es:[7cH*4], 0200H</span><br><span class="line">	mov word ptr es:[7cH*4+2], 0000H</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p><img src="/images/Assembly-4/image-20230225130219592.png" alt="image-20230225130219592" style="zoom:80%;" /></p>
+<p>​    最大位移为FFFFH。</p>
+<p><img src="/images/Assembly-4/image-20230225130535962.png" alt="image-20230225130535962" style="zoom:80%;" /></p>
+<p>​    安装程序为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">install:</span><br><span class="line">	push bp</span><br><span class="line">	mov bp, sp</span><br><span class="line">	add ss:[bp+2], bx </span><br><span class="line">	pop bp</span><br><span class="line">	iret</span><br><span class="line">start:</span><br><span class="line">	mov ax, cs</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov si, offset install</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov di, 0200H</span><br><span class="line">	mov cx, offset start - offset install</span><br><span class="line">	cld</span><br><span class="line">	rep movsb</span><br><span class="line">	</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov es:[7cH*4], 0200H</span><br><span class="line">	mov es:[7cH*4+2], 0000H</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<h2 id="0x02-BIOS与DOS提供的中断例程"><a href="#0x02-BIOS与DOS提供的中断例程" class="headerlink" title="0x02 BIOS与DOS提供的中断例程"></a>0x02 BIOS与DOS提供的中断例程</h2><p>​    BIOS（Basic Input Output System）在主板ROM中，里面存放着这些内容：</p>
+<p>（1）硬件系统的检测与初始化程序。</p>
+<p>（2）<strong>外部中断与内部中断</strong>的中断例程。</p>
+<p>（3）<strong>对硬件设备进行I/O操作</strong>的中断例程。</p>
+<p>​    操作系统DOS也提供了中断例程，从操作系统的角度来看，<strong>DOS的中断例程就是操作系统向程序员提供的编程资源</strong>。</p>
+<p>​    程序员<strong>用int调用BIOS和DOS的中断例程</strong>。</p>
+<h3 id="DOS与BIOS的中断例程是如何安装到内存中去的？"><a href="#DOS与BIOS的中断例程是如何安装到内存中去的？" class="headerlink" title="DOS与BIOS的中断例程是如何安装到内存中去的？"></a>DOS与BIOS的中断例程是如何安装到内存中去的？</h3><p>（1） 开机后CPU初始化(CS)=0FFFFH，(IP)=0，从FFFF:0处开始执行第一条指令，该指令为一条转跳指令。</p>
+<p>（2）CPU转去执行BIOS中的<strong>硬件系统检测</strong>和<strong>初始化程序</strong>（将BIOS的中断例程的入口地址登记在<strong>中断向量</strong>表中）。</p>
+<p>（3） 硬件系统检测和初始化完成后，调用<code>int 19h</code>进行操作系统的引导。从此将计算机交由<strong>操作系统DOS</strong>控制。</p>
+<p>（4）DOS 启动后，除完成其它工作外，还将它所提供的中断例程装入内存，并建立相应的<strong>中断向量</strong>。</p>
+<h2 id="0x03-BIOS中断例程应用"><a href="#0x03-BIOS中断例程应用" class="headerlink" title="0x03 BIOS中断例程应用"></a>0x03 BIOS中断例程应用</h2><p>​    <code>int 10h</code>是BIOS提供的中断例程，包含了<strong>多个</strong>与屏幕输出相关的子程序。当中断例程包含多个子程序时，用<strong>传递的参数来决定执行哪个子程序（用<code>ah</code>来传递内部子程序的编号）</strong>。</p>
+<p>​    <code>int 10h</code>举例（<strong>设置光标位置</strong>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ah -&gt; 子程序编号</span><br><span class="line">bh -&gt; 页参数</span><br><span class="line">dh -&gt; 行参数</span><br><span class="line">dl -&gt; 列参数</span><br><span class="line">al -&gt; 字符</span><br><span class="line">bl -&gt; 颜色属性</span><br><span class="line">cx -&gt; 字符重复个数</span><br></pre></td></tr></table></figure>
+<p><img src="/images/Assembly-4/image-20230225134605037.png" alt="image-20230225134605037" style="zoom:67%;" /></p>
+<p><strong>注：在80*25字符模式下，行号取值范围为<code>0-24</code>，列号取值范围为<code>0-79</code>。</strong></p>
+<p>​    <strong>而bh页号的含义为：</strong></p>
+<p><img src="/images/Assembly-4/image-20230225134255932.png" alt="image-20230225134255932" style="zoom:67%;" /></p>
+<p><img src="/images/Assembly-4/image-20230225140935439.png" alt="image-20230225140935439" style="zoom:67%;" /></p>
+<p>注：<code>BL</code>颜色属性的格式为：</p>
+<p><img src="/images/Assembly-4/image-20230225141411017.png" alt="image-20230225141411017" style="zoom:67%;" /></p>
+<p>​    <strong>例子：在屏幕第5行12列显示3个红底高亮闪烁绿色的’a’</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">	; 设置光标到：第0页-第5行-第12列</span><br><span class="line">	mov ah, 2</span><br><span class="line">	mov bh, 0</span><br><span class="line">	mov dh, 5</span><br><span class="line">	mov dl, 12</span><br><span class="line">	int 10h</span><br><span class="line">	</span><br><span class="line">	mov ah, 9</span><br><span class="line">	mov al, &#x27;a&#x27;</span><br><span class="line">	mov bl, 11001010B</span><br><span class="line">	mov bh, 0</span><br><span class="line">	mov cx, 3</span><br><span class="line">	int 10h</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<h2 id="0x04-DOS中断例程应用"><a href="#0x04-DOS中断例程应用" class="headerlink" title="0x04 DOS中断例程应用"></a>0x04 DOS中断例程应用</h2><p>​    <code>int 21h</code>中断例程是DOS提供的中断例程。</p>
+<p>​    例如程序返回功能：</p>
+<p><img src="/images/Assembly-4/image-20230225142304937.png" alt="image-20230225142304937" style="zoom:67%;" /></p>
+<p>​    DOS的<code>int 21h</code>也可以在在光标位置显示字符串，格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ds:dx     ; 指向要显示的字符串，以&#x27;$&#x27;作为结束符</span><br><span class="line">mov ah, 9 ; 功能号9，表示在光标位置处显示字符串</span><br><span class="line">int 21H</span><br></pre></td></tr></table></figure>
+<p>​    例子，在屏幕的第5行12列显示字符串”Welcome to masm!”。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code, ds:data</span><br><span class="line">data segment</span><br><span class="line">	db &#x27;Welcome to masm!$&#x27;</span><br><span class="line">data ends</span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">	; 设置光标到：第0页-第12行-第5列</span><br><span class="line">	mov ah, 2</span><br><span class="line">	mov bh, 0</span><br><span class="line">	mov dh, 5</span><br><span class="line">	mov dl, 12</span><br><span class="line">	int 10h</span><br><span class="line">	</span><br><span class="line">	mov ax, data</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov dx, 0</span><br><span class="line">	mov ax, 0900H</span><br><span class="line">	int 21h</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<h2 id="0x05-端口"><a href="#0x05-端口" class="headerlink" title="0x05 端口"></a>0x05 端口</h2><p>​    CPU可以直接读写3个地方的数据：CPU 内部的寄存器；内存单元；端口。</p>
+<p>​    <strong>端口读写不能用<code>mov</code>、<code>push</code>、<code>pop</code>等内存读写指令。</strong></p>
+<p>​    端口的读写指令有：<code>in</code>表示从端口读取数据，<code>out</code>表示向端口写入数据。</p>
+<p>​    举例说明：<code>in al, 60H</code>，表示从<code>60h</code>号端口读入一个字节，执行流程如下：</p>
+<p>（1）CPU通过<strong>地址总线</strong>将地址信息60h发出；</p>
+<p>（2）CPU通过<strong>控制总线</strong>发出端口读命令，选中端口所在的芯片，并通知它，将要从中读取数据；</p>
+<p>（3）端口所在的芯片将60h端口中的数据通过<strong>数据总线</strong>送入CPU。</p>
+<p>​    <strong>注：in和out指令与端口进行数据读写时，只能使用固定的寄存器<code>ax</code>或者<code>al</code>。</strong></p>
+<p>​    端口读写举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">; 0-255端口</span><br><span class="line">in al, 20h ;从20h端口读入一个字节</span><br><span class="line">out 20h, al;向20h端口写入一个字节</span><br><span class="line">; 256-65535端口</span><br><span class="line">mov dx, 3f8H</span><br><span class="line">in al, dx  ;从3f8H端口读入一个字节</span><br><span class="line">out dx, al ;向3f8H端口写入一个字节</span><br></pre></td></tr></table></figure>
+<h2 id="0x06-CMOS-RAM芯片"><a href="#0x06-CMOS-RAM芯片" class="headerlink" title="0x06 CMOS RAM芯片"></a>0x06 CMOS RAM芯片</h2><p>PC机中有一个CMOS RAM芯片，其有如下特征：</p>
+<p>（1）包含一个时钟和一个有128字节的RAM存储器。</p>
+<p>（2）该芯片靠电池供电。所以，关机后其内部的实时钟仍可正常工作， RAM 中的信息不丢失。</p>
+<p>（3）128 个字节的 RAM 中，内部时钟占用 0-0dh单元来保存时间信息，其余大部分单元用于保存系统配置信息，供系统启动时BIOS程序读取。</p>
+<p>（4）此芯片有两个端口：70h地址端口与71h数据端口。70h存放要访问的CMOS RAM单元的地址；71h存放从选定的CMOS RAM单元中读取的数据，或要写入到其中的数据。</p>
+<p>​    例如，要读取CMOS RAM的2号单元：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al, 2</span><br><span class="line">out 70h, al</span><br><span class="line">in al, 71h</span><br></pre></td></tr></table></figure>
+<p>​    再比如，写入CMOS RAM的2号单元0。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov al, 2</span><br><span class="line">out 70h, al</span><br><span class="line">mov al, 0</span><br><span class="line">out 70h, al</span><br></pre></td></tr></table></figure>
+<p>​    CMOS RAM中有128字节的RAM，其中0-0Dh放着当前时间，具体为：</p>
+<p><img src="/images/Assembly-4/image-20230304214041855.png" alt="image-20230304214041855" style="zoom:80%;" /></p>
+<p>​    给出一个题目，如下：</p>
+<p><img src="/images/Assembly-4/image-20230304214303899.png" alt="image-20230304214303899" style="zoom:80%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">start:</span><br><span class="line">	; 取出月份信息</span><br><span class="line">	mov al, 8</span><br><span class="line">	out 70h, al</span><br><span class="line">	in al, 71h</span><br><span class="line">	mov ah, al</span><br><span class="line">	mov cl, 4</span><br><span class="line">	shr ah, cl</span><br><span class="line">	and al, 00001111B</span><br><span class="line">	</span><br><span class="line">	; 将月份信息转为ascii码</span><br><span class="line">	add ah, 30H</span><br><span class="line">	add al, 30H</span><br><span class="line">	</span><br><span class="line">	; 打印到屏幕上</span><br><span class="line">	mov bx, 0b800H</span><br><span class="line">	mov es, bx</span><br><span class="line">	mov byte ptr es:[160*12+40*2], ah</span><br><span class="line">	mov byte ptr es:[160*12+40*2+2], al</span><br><span class="line"></span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<h2 id="0x07-shl与shr指令"><a href="#0x07-shl与shr指令" class="headerlink" title="0x07 shl与shr指令"></a>0x07 shl与shr指令</h2><p>​    逻辑移位指令。例如<code>shl</code>为左移指令：<strong>将一个寄存器或内存单元中的数据向左移位；将移出的一位写入CF中；最低位补0。</strong></p>
+<p>​    当移动位数大于1时，移动位数要放入<code>cl</code>中。</p>
+<h2 id="0x08-外中断"><a href="#0x08-外中断" class="headerlink" title="0x08 外中断"></a>0x08 外中断</h2><p>​    CPU能够执行指令进行运算，并对外部I/O设备进行控制。</p>
+<p>​    <strong>PC的主板上有接口芯片，接口芯片内部有很多寄存器，CPU将这些寄存器当作端口来访问。</strong>外设与CPU靠接口芯片（端口）来进行联系，如下所示：</p>
+<p><img src="/images/Assembly-4/image-20230304220741003.png" alt="image-20230304220741003" style="zoom:70%;" /></p>
+<p>​    CPU 在执行完当前指令后，<strong>可以检测到外设发送过来的中断信息，引发中断过程，处理外设的输入。</strong></p>
+<h3 id="中断类型"><a href="#中断类型" class="headerlink" title="中断类型"></a>中断类型</h3><p>​    可屏蔽中断与不可屏蔽中断。<strong>可屏蔽中断是CPU可以不立即响应的（可以屏蔽的）外中断。</strong></p>
+<p>​    标志寄存器的IF位决定CPU是否响应可屏蔽中断：</p>
+<p>​    （1）如果IF=1，则CPU在执行完当前指令后响应中断，引发中断过程；</p>
+<p>​    （2）如果IF=0，则不响应此可屏蔽中断。</p>
+<p>​    <strong>回顾内中断的中断过程：</strong></p>
+<p>（1）取中断类型码<code>n</code>。</p>
+<p>（2）标志寄存器入栈，<code>IF=0</code>，<code>TF=0</code>；<strong>IF=0代表禁止其他的可屏蔽中断。<code>sti</code>用于设置IF=1，<code>cli</code>用于设置IF=0</strong></p>
+<p>（3）CS、IP入栈。</p>
+<p>（4）<code>(IP)=(n*4)</code>，<code>(CS)=(n*4+2)</code>，由此转去执行中断处理程序。</p>
+<p>​    内中断的中断类型码是在CPU内部产生的。可屏蔽外中断的信息来自于CPU外部，中断类型码是通过数据总线送入CPU的；</p>
+<p>​    <strong>不可屏蔽中断是CPU必须响应的外中断。</strong>当CPU 检测到不可屏蔽中断信息时，则在执行完当前指令后，立即响应，引发中断过程。<strong>8086CPU不可屏蔽中断的中断类型码固定为2。</strong></p>
+<p>​    <strong>不可屏蔽中断的中断过程为：</strong></p>
+<p>（1）标志寄存器入栈，<code>IF=0</code>，<code>TF=0</code>；CS、IP入栈。</p>
+<p>（2）<code>(IP)=(8)</code>，<code>(CS)=(0AH)</code></p>
+<p>​    <strong>几乎所有由外设引发的外中断都是可屏蔽中断。</strong></p>
+<h3 id="键盘输入的处理过程"><a href="#键盘输入的处理过程" class="headerlink" title="键盘输入的处理过程"></a>键盘输入的处理过程</h3><p>（1）键盘输入。（2）引发9号中断。（3）执行<code>int 9</code>中断例程。</p>
+<p>​    键盘中有芯片扫描键盘上每个键的开关状态：<strong>按下一个键时，该芯片产生一个扫描码（通码，对应于按下键的位置），通码被送入主板上的相关接口芯片内端口地址为60H的寄存器。松开按下的键时，产生扫描码（断码，对应于松开键的位置），断码被送入60H端口中。</strong> </p>
+<p>​    其中，断码与通码之间的关系为：<code>断码=通码+80h</code>。具体流程为：</p>
+<p><img src="/images/Assembly-4/image-20230304224728897.png" alt="image-20230304224728897" style="zoom:80%;" /></p>
+<p>​    <strong>补充：BIOS键盘缓冲区是系统启动后，BIOS用于存放<code>int 9</code>中断例程所接收的键盘输入的内存区，可以存储15个键盘输入，一个键盘输入用一个字存放，高位存放扫描码，低位存放字符码（ascii）。</strong></p>
+<p>​    如果要按下若是控制键（如 Ctrl ）和切换键（如 CapsLock），则会改变键盘状态字节，其具体描述如下：</p>
+<p><img src="/images/Assembly-4/image-20230304225531643.png" alt="image-20230304225531643" style="zoom:80%;" /></p>
+<h3 id="编写int-9中断例程"><a href="#编写int-9中断例程" class="headerlink" title="编写int 9中断例程"></a>编写int 9中断例程</h3><p>​    <strong>题目：</strong>编程在屏幕中间依次显示<code>a-z</code> ，并可以让人看清。在显示的过程中，按下Esc键后，改变显示的颜色。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">; 循环100000h次，能让人看清</span><br><span class="line">empty_cycle:</span><br><span class="line">	push ax</span><br><span class="line">	push bx</span><br><span class="line">	</span><br><span class="line">	mov ax, 0</span><br><span class="line">	mov bx, 10h</span><br><span class="line">s1:</span><br><span class="line">	sub ax, 1</span><br><span class="line">	sbb bx, 0</span><br><span class="line">	cmp ax, 0</span><br><span class="line">	jne s1</span><br><span class="line">	cmp dx, 0</span><br><span class="line">	jne s1</span><br><span class="line">	</span><br><span class="line">	pop bx</span><br><span class="line">	pop ax</span><br><span class="line">	ret</span><br><span class="line"></span><br><span class="line">start:</span><br><span class="line">	mov bx, 0b800H</span><br><span class="line">	mov es, bx</span><br><span class="line">	mov cx, 26</span><br><span class="line">	mov al, &#x27;a&#x27;</span><br><span class="line">s0:</span><br><span class="line">	mov es:[160*12+40*2], al</span><br><span class="line">	inc al</span><br><span class="line">	call empty_cycle</span><br><span class="line">	loop s0</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>​    <strong>上述代码实现了编程在屏幕中间依次显示<code>a-z</code> ，并可以让人看清，那怎么改变颜色呢？</strong></p>
+<p>​    <strong>补充：<code>int</code>与<code>call</code>的比较。</strong></p>
+<p><img src="/images/Assembly-4/image-20230304231137294.png" alt="image-20230304231137294" style="zoom:50%;" /></p>
+<p>​    <img src="/images/Assembly-4/image-20230304231157491.png" alt="image-20230304231157491" style="zoom:50%;" /></p>
+<p>​    那么如果要用call来模仿int的话，就是：</p>
+<p><img src="/images/Assembly-4/image-20230304231356735.png" alt="image-20230304231356735" style="zoom:67%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pushf ; （1）标志寄存器入栈</span><br><span class="line">pushf ; （2）IF=0，TF=0</span><br><span class="line">pop ax</span><br><span class="line">and ah, 11111100B</span><br><span class="line">push ax</span><br><span class="line">popf</span><br><span class="line">call dword ptr ds:[0] ; （3）</span><br></pre></td></tr></table></figure>
+<p>​    题目思路如下：</p>
+<p><img src="/images/Assembly-4/image-20230304230901362.png" alt="image-20230304230901362" style="zoom:80%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">in al, 60h ; （1）从60h端口读取键盘输入</span><br><span class="line">;（2）由于int 9被重写了，所以不能直接用Int 9来进行步骤2，那么假设旧的int 9入口放在了ds:[0]中，那么就要调用它</span><br><span class="line">pushf </span><br><span class="line">pushf</span><br><span class="line">pop ax</span><br><span class="line">and ah, 11111100B</span><br><span class="line">push ax</span><br><span class="line">popf</span><br><span class="line">call dword ptr ds:[0]</span><br><span class="line">; （3）如何改变颜色呢？</span><br><span class="line">; 字符显示在b800:160*12+40*2；其字符属性的控制字节：b800:160*12+40*2+1。</span><br><span class="line">; inc b800:[160*12+40*2+1] 就可以改变颜色</span><br><span class="line">; 注意：要在该程序返回前，将中断向量表中的int 9中断例程的入口地址恢复为原来的地址。否则程序返回后，别的程序将无法使用键盘。</span><br></pre></td></tr></table></figure>
+<p>​    最终程序为：（<strong>不用持久化安装int9例程</strong>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code, ss:stack, ds:data</span><br><span class="line">stack segment</span><br><span class="line">	db 128 dup(0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">	dw 2 dup(0)</span><br><span class="line">data ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">;--------------------------- 新的 int 9 例程 ----------------------------  </span><br><span class="line">int9:</span><br><span class="line">	push ax</span><br><span class="line">	push bx</span><br><span class="line">	push es</span><br><span class="line">	</span><br><span class="line">    in al, 60h                             ; 获取低位，al内容是ascii码</span><br><span class="line"></span><br><span class="line">    ; 对int进行模拟</span><br><span class="line">    pushf </span><br><span class="line">    pushf</span><br><span class="line">    pop bx</span><br><span class="line">    and bh, 11111100B</span><br><span class="line">    push bx</span><br><span class="line">    popf</span><br><span class="line">    call dword ptr ds:[0]</span><br><span class="line">	</span><br><span class="line">    cmp al, 1h                             ; Esc的扫描码为1</span><br><span class="line">    jne int9_end</span><br><span class="line">	</span><br><span class="line">	; Esc改变字符颜色</span><br><span class="line">	mov bx, 0b800H</span><br><span class="line">	mov es, bx</span><br><span class="line">	inc byte ptr es:[160*12+40*2+1]</span><br><span class="line">int9_end:</span><br><span class="line">	pop es</span><br><span class="line">	pop bx</span><br><span class="line">	pop ax</span><br><span class="line">	iret</span><br><span class="line">;--------------------------- 新的 int 9 例程 ---------------------------   </span><br><span class="line"></span><br><span class="line">;--------------------------- 空循环 ------------------------------------   </span><br><span class="line">; 循环100000h次，能让人看清</span><br><span class="line">empty_cycle:</span><br><span class="line">	push ax</span><br><span class="line">	push bx</span><br><span class="line">	</span><br><span class="line">	mov ax, 0</span><br><span class="line">	mov bx, 10h</span><br><span class="line">s1:</span><br><span class="line">	sub ax, 1</span><br><span class="line">	sbb bx, 0</span><br><span class="line">	cmp ax, 0</span><br><span class="line">	jne s1</span><br><span class="line">	cmp dx, 0</span><br><span class="line">	jne s1</span><br><span class="line">	</span><br><span class="line">	pop bx</span><br><span class="line">	pop ax</span><br><span class="line">	ret</span><br><span class="line">;--------------------------- 空循环 ------------------------------------ </span><br><span class="line">;--------------------------- 安装新的int 9 例程 ------------------------ </span><br><span class="line">int9_install:</span><br><span class="line">	</span><br><span class="line">	; 保存旧的int 9地址到 ds:[2], ds:[0]</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	push es:[9*4]                         ; 旧的int 9偏移地址</span><br><span class="line">	pop ds:[0]</span><br><span class="line">	push es:[9*4+2]                       ; 新的int 9段地址</span><br><span class="line">	pop ds:[2]</span><br><span class="line">                           </span><br><span class="line">    </span><br><span class="line">    ; 设置新的int9的入口地址</span><br><span class="line">    ; 0000:[9*4] 中放入 offset int9，0000:[9*4+2] 中放入 cs。</span><br><span class="line">    mov ax, 0000H</span><br><span class="line">    mov es, ax</span><br><span class="line">    mov es:[9*4], offset int9</span><br><span class="line">    mov es:[9*4+2], cs</span><br><span class="line">    </span><br><span class="line">	jmp start_1</span><br><span class="line">;--------------------------- 安装新的int 9 例程 ------------------------ </span><br><span class="line">;--------------------------- 主程序 ----------------------------------- </span><br><span class="line">start_0:</span><br><span class="line">	; 初始化堆栈</span><br><span class="line">	mov ax, stack</span><br><span class="line">	mov ss, ax</span><br><span class="line">	mov sp, 128	</span><br><span class="line">	</span><br><span class="line">	; 初始化data段</span><br><span class="line">	mov ax, data</span><br><span class="line">	mov ds, ax</span><br><span class="line">	</span><br><span class="line">	; 安装新的int 9例程</span><br><span class="line">	jmp int9_install</span><br><span class="line">start_1:</span><br><span class="line">	; 屏幕上依次显示a-z</span><br><span class="line">	mov ax, 0b800H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov cx, 26</span><br><span class="line">	mov al, &#x27;a&#x27;</span><br><span class="line">s0:</span><br><span class="line">	mov es:[160*12+40*2], al</span><br><span class="line">	inc al</span><br><span class="line">	call empty_cycle</span><br><span class="line">	loop s0</span><br><span class="line"></span><br><span class="line">	; 将旧的int 9例程地址放回原位</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	push ds:[0]</span><br><span class="line">	pop es:[9*4]</span><br><span class="line">	push ds:[2]</span><br><span class="line">	pop es:[9*4+2]	</span><br><span class="line">	</span><br><span class="line">	; 程序结束</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">;--------------------------- 主程序 ----------------------------------- </span><br><span class="line">code ends</span><br><span class="line">end start_0</span><br></pre></td></tr></table></figure>
+<p>​    <strong>题目：安装一个新的int 9中断例程，在DOS下，按Esc键后改变当前屏幕的显示颜色，其他的键照常处理。</strong></p>
+<p>​    <strong>注：如何改变屏幕颜色？改变从B800开始的4000个字节中的所有奇地址单元中的内容，当前屏幕的显示颜色即发生改变。</strong></p>
+<p>​    以下是<code>int9_new_install</code>安装程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code, ss:stack</span><br><span class="line"></span><br><span class="line">stack segment</span><br><span class="line">	db 128 dup(0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">;------------------ int9_new ----------------------------</span><br><span class="line">int9_new:</span><br><span class="line">	push ax</span><br><span class="line">	push bx</span><br><span class="line">	push cx</span><br><span class="line">	push es</span><br><span class="line">	; 取当前键盘输入的元素</span><br><span class="line">	in al, 60H</span><br><span class="line">	</span><br><span class="line">	; 放入标志寄存器</span><br><span class="line">	pushf</span><br><span class="line">	pushf</span><br><span class="line">	pop bx</span><br><span class="line">	and bx, 11111100B</span><br><span class="line">	push bx</span><br><span class="line">	popf</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	call dword ptr es:[0200H]</span><br><span class="line">	</span><br><span class="line">	; 更改屏幕颜色</span><br><span class="line">	cmp al, 3BH</span><br><span class="line">	jne int9_new_end</span><br><span class="line">	mov ax, 0B800H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov cx, 2000</span><br><span class="line">	mov bx, 0</span><br><span class="line">s0:</span><br><span class="line">	inc byte ptr es:[bx+1]</span><br><span class="line">	add bx, 2</span><br><span class="line">	loop s0</span><br><span class="line">int9_new_end:</span><br><span class="line">	pop es</span><br><span class="line">	pop cx</span><br><span class="line">	pop bx</span><br><span class="line">	pop ax</span><br><span class="line">	iret</span><br><span class="line">;------------------ int9_new ----------------------------</span><br><span class="line"></span><br><span class="line">;------------------ main --------------------------------</span><br><span class="line">start:</span><br><span class="line">	; 初始化堆栈</span><br><span class="line">	mov ax, stack</span><br><span class="line">	mov ss, ax</span><br><span class="line">	mov sp, 128</span><br><span class="line">	</span><br><span class="line">	; 保存int9_old的地址</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	push es:[9*4]</span><br><span class="line">	pop es:[0200H]</span><br><span class="line">	push es:[9*4+2]</span><br><span class="line">	pop es:[0200H+2]</span><br><span class="line">	</span><br><span class="line">	; 安装int9_new</span><br><span class="line">	; ds:[si]-&gt;es:[di]</span><br><span class="line">	mov ax, cs</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov si, offset int9_new</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov di, 0210H</span><br><span class="line">	mov cx, offset start - offset int9_new</span><br><span class="line">	cld</span><br><span class="line">	rep movsb</span><br><span class="line">	</span><br><span class="line">	; 改变入口地址</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	cli</span><br><span class="line">	mov word ptr es:[9H*4], 0210H</span><br><span class="line">	mov word ptr es:[9H*4+2], 0000H</span><br><span class="line">	sti</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">;------------------ main --------------------------------</span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>​    以下是<code>call</code>调用程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code, ss:stack</span><br><span class="line">stack segment</span><br><span class="line">	db 128 dup(0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">;------------------ empty_cycle ---------------------</span><br><span class="line">empty_cycle:</span><br><span class="line">	push ax</span><br><span class="line">	push bx</span><br><span class="line"></span><br><span class="line">	mov ax, 0</span><br><span class="line">	mov bx, 0FFFFH</span><br><span class="line">s0:</span><br><span class="line">	sub ax, 1</span><br><span class="line">	sbb bx, 0</span><br><span class="line">	cmp ax, 0</span><br><span class="line">	jne s0</span><br><span class="line">	cmp bx, 0</span><br><span class="line">	jne s0</span><br><span class="line"></span><br><span class="line">	pop bx</span><br><span class="line">	pop ax</span><br><span class="line">	ret</span><br><span class="line">;------------------ empty_cycle ---------------------</span><br><span class="line">;------------------ main ----------------------------</span><br><span class="line">start:</span><br><span class="line">	call empty_cycle</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">;------------------ main ----------------------------</span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>​    以下是<code>int9_new_uninstall</code>卸载程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code, ss:stack</span><br><span class="line">stack segment</span><br><span class="line">	db 128 dup(0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">;------------------ main ----------------------------</span><br><span class="line">start:</span><br><span class="line">	; 将旧的 int9 地址还原</span><br><span class="line">	mov ax, 0000H</span><br><span class="line">	mov es, ax</span><br><span class="line">	push es:[0200H]</span><br><span class="line">	pop es:[9*4]</span><br><span class="line">	push es:[0200H+2]</span><br><span class="line">	pop es:[9*4+2]</span><br><span class="line">	</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">;------------------ main ----------------------------</span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure>
+<p>​    <strong>调了好久都没调好（不知道为啥，cli无法屏蔽外部中断），什么勾八程序。</strong></p>
+<p>​    CPU对外设输入的处理方法：</p>
+<p>​    （1）外设的输入送入端口；</p>
+<p>​    （2）向CPU 发出外中断（可屏蔽中断）信息；</p>
+<p>​    （3）CPU检测到可屏蔽中断信息，如果IF=1，CPU在执行完当前指令后响应中断，执行相应的中断例程；</p>
+<p>​    （4）可在中断例程中实现对外设输入的处理。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/02/25/signature-paper/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/02/23/Assembly-3/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-02-24 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Assembly/">Assembly<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

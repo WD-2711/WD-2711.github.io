@@ -1,0 +1,428 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>PoisoningAttack-in-Recommender-Systems | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="PoisoningAttack-in-Recommender-Systems"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> PoisoningAttack-in-Recommender-Systems</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Triple-Adversarial-Learning-for-Influence-based-PoisoningAttack-in-Recommender-Systems"><a href="#Triple-Adversarial-Learning-for-Influence-based-PoisoningAttack-in-Recommender-Systems" class="headerlink" title="Triple Adversarial Learning for Influence based PoisoningAttack in Recommender Systems"></a>Triple Adversarial Learning for Influence based PoisoningAttack in Recommender Systems</h1><p>&emsp;最近<code>NLP</code>要进行论文汇报，打算汇报这篇论文。</p>
+<p>&emsp;推荐系统，想必大家都知道，例如我们刷B站时，B站会推送给我们某些令我们感兴趣的内容（养号）。但是推荐系统容易受到中毒攻击，即，在推荐系统中注入一组精心设计的用户档案会严重影响推荐质量。中毒攻击的类型有：<code>Adversarial Attack</code>、<code>Optimization-based Attack</code>、<code>Influence-based Poisoning Attack</code>等。</p>
+<span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. Adversarial Attack。攻击者改变输入数据，从而使推荐系统的输出结果发生变化（基于统计信息）。例如，攻击者可以修改一些评分或者行为数据，或者添加虚假评分或行为数据，以此来影响推荐系统的结果。</span><br><span class="line">2. Optimization-based Attack。攻击者通过优化某个目标函数，从而使推荐系统的输出结果发生变化。例如，攻击者可以通过优化某个目标函数，来使推荐系统更倾向于推荐某些特定的物品或者降低某些物品的推荐权重。</span><br><span class="line">3. Influence-based Poisoning Attack。攻击者选择一些关键的物品或用户（有针对性，而Adversarial Attack是随机的），然后对它们进行篡改，以此来影响推荐系统的推荐结果。例如，攻击者可以在某个物品上添加虚假的评分或者评论，这些虚假的数据可以是攻击者手动添加的，也可以通过机器学习算法自动生成。</span><br></pre></td></tr></table></figure>
+<p>&emsp;本文中的攻击属于<code>Influence-based Poisoning Attack</code>。本文贡献：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 考虑到输入噪声的情况下，通过对生成器、鉴别器和影响模块的三重对抗性学习，生成恶意用户。</span><br><span class="line">2. 探索了一种新的近似方法（来评估攻击对于推荐系统的影响）。通过分析，证明了试验攻击的分布近似于真实用户的分布。</span><br></pre></td></tr></table></figure>
+<h2 id="0x00-背景介绍"><a href="#0x00-背景介绍" class="headerlink" title="0x00 背景介绍"></a>0x00 背景介绍</h2><p>&emsp;推荐系统容易遭受攻击。现有攻击都集中在优化定义的攻击对象（如何更好的攻击推荐系统，达到自己的目的），但是生成的攻击文件（用户行为应该是什么样子的，用户个人资料应该如何定义）很单调，容易被检测到。（虽然<code>Adversarial Attack</code>利用统计信息生成的攻击文件更接近真实用户，但是不知道该咋优化具体模型。）</p>
+<p>&emsp;基于此问题，有很多研究。有研究者利用<code>GAN</code>来生成恶意用户（例如<code>Christakopoulou</code>用<code>DCGAN</code>先生成”真实”用户，然后针对攻击意图对”真实”用户进行改变，此模型最差情况下是传统的基于模型的优化攻击），<code>Lin</code>将<code>Adversarial Attack</code>的损失纳入<code>generator</code>（生成攻击文件的模块），但本质上仍是<code>Adversarial Attack</code>，难以保证攻击性。</p>
+<p>&emsp;本文提出了<code>triple adversarial learning</code>，将<code>jointly attack optimization</code>和<code>GAN</code>联合到一块，来生成有效的攻击文件，且攻击文件的分布近似于真实分布（意味着生成的恶意用户更难检测）。<strong>（贡献点1）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">补充：Jointly Attack Optimization。攻击者会优化一个目标函数，该函数同时考虑多个目标，包括推荐系统的准确性和攻击者的目标。攻击者的目标可以是影响特定用户的推荐结果，或者使推荐系统更倾向于推荐某些特定的物品。</span><br></pre></td></tr></table></figure>
+<p>&emsp;那我们如何评估攻击文件攻击推荐系统的有效性呢？<strong>把攻击文件（也可以理解为恶意的用户数据）和正常文件放一块，然后重新训练推荐系统，然后就可以评估（需要在每个<code>GAN</code>训练时期多次训练推荐系统，计算太麻烦）。</strong>受<code>[19]</code>的启发，本文提出了一种近似方法，来来评估攻击对于推荐系统的影响，来避免重复训练。<strong>（贡献点2）</strong></p>
+<p>&emsp;最后，此文将影响力建模成影响力模块，并集成<code>GAN</code>，从而生成了基于影响力的三重对抗性学习（与<code>TripleGAN</code>类似）。<strong>（贡献点3）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">补充：TripleGAN 是一种推荐系统模型。</span><br><span class="line">1. 它同时学习用户、物品和评分之间的关系，从而实现个性化的推荐。</span><br><span class="line">2. 核心思想：有三个生成器和三个判别器，分别对应用户、物品和评分。每个生成器都用一个随机噪声向量作为输入，然后生成用户 or 物品 or 评分。每个判别器则接收一个三元组（用户、物品、评分）作为输入，然后输出一个二元值，用于判断输入的三元组是否真实存在。</span><br><span class="line">3. 训练步骤：</span><br><span class="line">	（1） 训练三个判别器，使它们能够准确地区分真实数据和生成数据。</span><br><span class="line">	（2） 训练三个生成器，使它们能够生成具有高度相似性的用户、物品和评分。</span><br><span class="line">	（3） 通过三个损失函数来衡量生成器的性能，包括用户损失、物品损失和评分损失。</span><br><span class="line">	（4） 训练生成器：最大化判别器对真实数据的判别准确率和对生成数据的判别错误率（就是想让判别器将数据都认为是真实数据）。</span><br></pre></td></tr></table></figure>
+<h3 id="中毒攻击的相关工作"><a href="#中毒攻击的相关工作" class="headerlink" title="中毒攻击的相关工作"></a>中毒攻击的相关工作</h3><h4 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1. Average attack。攻击者向多个物品添加相同的虚假评分。</span><br><span class="line">2. Bandwagon attack。攻击者将多个物品分成若干个小组，然后在每个小组中分别添加相同的虚假评分。</span><br><span class="line">3. Based on Factorization-Based collaborative recommendation。主要针对基于矩阵分解的协同过滤推荐算法，攻击者会通过篡改用户-物品评分矩阵来操纵推荐结果。攻击步骤如下：</span><br><span class="line">	（1）获取用户-物品评分矩阵。</span><br><span class="line">	（2）构造攻击目标 &amp; 篡改评分矩阵：攻击者会选择一些目标物品或目标用户，并根据攻击目标构造一个目标向量。例如，攻击者可以将目标向量设置为一系列较高的评分，以此来提高目标物品或目标用户在推荐系统中的权重。</span><br><span class="line">4. Modeled as linear optimization problem and injected limited fake co-visitation。将攻击建模为约束线性优化问题。在该优化问题中，攻击者需要最小化注入虚假用户数据，同时保证注入数据后的推荐结果能够满足一定的约束条件（约束条件包括：虚假数据数量、质量、分布）。</span><br><span class="line">	为了满足此约束条件，攻击者使用最小化二乘法来计算虚假数据的权重，并使用这些权重来生成虚假数据。同时，攻击者还会使用空间分布模型来生成虚假数据，以便最大限度地影响推荐系统的推荐结果。</span><br><span class="line">5. GAN or 强化学习</span><br><span class="line">... ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">补充：强化学习。</span><br><span class="line">核心思想：在智能体和环境之间建立一个交互模型，智能体根据环境的反馈来调整自己的决策，从而学习到最优的策略。这个交互模型通常使用马尔可夫决策过程（Markov Decision Process，MDP）来描述，包括状态、动作、奖励等组成部分。</span><br></pre></td></tr></table></figure>
+<h4 id="检测-防御"><a href="#检测-防御" class="headerlink" title="检测/防御"></a>检测/防御</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 从评分矩阵中提取特征来检测是否是恶意用户。</span><br><span class="line">2. Probability model &amp; Borderline-SMOTE method。Aktukmak采用了基于贝叶斯网络的方法，将用户评分矩阵、购买历史和点击历史等数据转化为贝叶斯网络中的节点，并使用贝叶斯统计方法来计算节点之间的联合概率分布，从而预测用户是否有攻击性。此外，他还采用Borderline-SMOTE的方法来解决数据不平衡的问题，此方法会首先对数据集进行采样，使得正例和负例之间的比例接近于1:1。然后，它会在正例和负例之间进行插值，以生成新的数据样本。在插值过程中，Borderline-SMOTE方法会特别关注那些处于正例和负例之间的边界样本，以便更好地学习分类器的边界。</span><br><span class="line">... ...</span><br></pre></td></tr></table></figure>
+<h2 id="0x01-问题定义"><a href="#0x01-问题定义" class="headerlink" title="0x01 问题定义"></a>0x01 问题定义</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">补充：升级攻击，降级攻击，可用性攻击。</span><br><span class="line">1. 升级攻击。通过欺骗推荐系统来提高自己的评分或者购买历史，从而获得更好的推荐结果。</span><br><span class="line">2. 降级攻击。通过欺骗推荐系统来降低其他用户的评分或者购买历史，从而使他们得到更差的推荐结果。</span><br><span class="line">3. 可用性攻击。通过发送大量的请求或者篡改推荐算法来占用推荐系统的资源或者破坏其正常运行。</span><br><span class="line">总结：</span><br><span class="line">	提升攻击和降级攻击旨在提升或降级目标项目的推荐频率；可用性攻击旨在最大化未看到项目的预测误差，从而降低对系统的信任（用户想看那个，你就是不推荐）。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">补充：全知识，部分知识</span><br><span class="line">1. 全知识：</span><br><span class="line">	攻击者知道所有用户的历史行为，知道推荐系统的算法与参数</span><br><span class="line">2. 部分知识：</span><br><span class="line">	攻击者只知道部分用户的历史行为，并且攻击者只知道推荐器系统的类型，而无法捕获内部参数。一般来说，对于部分知识，攻击者将估计目标模型，从而把这种类型的攻击转变为全知识攻击。</span><br><span class="line">	具体来说，假设目标模型的参数是未知的，攻击者使用web爬虫获得的部分数据来训练一个本地模拟器，该模拟器使用与目标模型相同的算法，但具有攻击者定义的参数。此时，攻击者可以基于本地模拟器执行全知识攻击以生成假用户，并将这些本地生成的用户注入到目标模型中以执行攻击。</span><br></pre></td></tr></table></figure>
+<p>&emsp;本文基于升级攻击（<code>promotion attacks</code>）、部分知识，并限制攻击者在推荐系统中注入$n$个恶意用户。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">补充：Bi-level Optimization Problem（双层优化问题）</span><br><span class="line">目标：在黑盒攻击模型下，找到最优的攻击策略，以最小化攻击者的成本并最大化攻击效果。</span><br><span class="line">	攻击者需要在双层优化问题中进行决策。在第一层优化中，攻击者需要选择攻击策略，例如添加虚假评分、删除真实评分、改变评分等。在第二层优化中，攻击者需要最大化攻击效果，例如提高自己的曝光率等。</span><br><span class="line">	双层优化问题可以用公式表示：min_x&#123;max_y&#123;L(x,y)&#125;&#125;</span><br><span class="line">	其中，x 表示攻击者的行为/策略；y 表示推荐系统的响应（推荐系统参数）；L(x,y) 表示目标函数，可以表示攻击效果。此式子可以表示，攻击者要在推荐系统的响应中选择最优的攻击策略，使得推荐结果最大程度地符合自己的目的。</span><br></pre></td></tr></table></figure>
+<p><code>Bi-level Optimization Problem</code>：</p>
+<script type="math/tex; mode=display">\max _{X^{\prime}} \mathcal{L}_{a t k}\left(X, \theta_R\right)</script><script type="math/tex; mode=display">\theta_R=\arg \min _{\theta_R}\left(\mathcal{L}_{\text {train }}\left(X, \theta_R\right)+\mathcal{L}_{\text {train }}\left(X^{\prime}, \theta_R\right)\right)</script><p>&emsp;其中，$X$是当前观察到的评级矩阵，$X’$是当前观察到的评级矩阵，$\theta<em>R$是推荐系统模型的参数，$\mathcal{L}</em>{a t k}\left(X, \theta_R\right)$是目标函数。第二个式子表示假用户和真用户分别计算损失，并调整模型参数使损失最小。<strong>此式子可以表示，攻击者要在推荐系统的响应中选择最优的攻击策略（最小的损失），使得推荐结果最大程度地符合自己的目的。</strong></p>
+<p>&emsp;本文基于升级攻击，因此我们希望目标条目出现在尽可能多的用户的<code>top-k</code>推荐列表中，因此可以定义目标函数为：</p>
+<script type="math/tex; mode=display">\mathcal{L}_{a t k}\left(X, \theta_R\right)=\sum_{i=1}^n \sum_{j \in \mathcal{V}_{i, k}}-\ln \sigma\left(\hat{r}_{i, j}-\hat{r}_{i, t}\right)</script><p>&emsp;其中，$\sigma(x)=1 /\left(1+e^{-x}\right)$，$V<em>{i, k}$代表用户$i$的<code>top-k</code>列表，$\hat{r}</em>{i, j}$代表用户$i$对物品$j$的实时评分。若$j$在<code>top-k</code>列表中，且位置很高，那么$\sum<em>{j \in \mathcal{V}</em>{i, k}}-\ln \sigma\left(\hat{r}<em>{i, j}-\hat{r}</em>{i, t}\right)$就很大，最后$\mathcal{L}_{a t k}\left(X, \theta_R\right)$也很大。</p>
+<p>&emsp;由于是双层优化，因此模型需要在中毒后重新训练，因此得到的$\theta<em>R$只是最优解的近似值。若想得到更精确的值，目前的优化方法主要使用可微目标的梯度或搜索离散数据的邻域。由于$r</em>{i, j}$是离散的，这样就很难找到精确的值，因此我们将$r<em>{i, j} \in\left{0,1, \ldots, r</em>{\max }\right}$变为$r<em>{i, j} \in \left[0, r</em>{\max }\right]$。</p>
+<h2 id="0x02-三重对抗性学习"><a href="#0x02-三重对抗性学习" class="headerlink" title="0x02 三重对抗性学习"></a>0x02 三重对抗性学习</h2><p>&emsp;本文提出了三重对抗性学习（<code>TrialAttack</code>），其框架如下图所示：</p>
+<p><img src="/images/PoisoningAttack-in-Recommender-Systems/image-20230513225042366.png" alt="image-20230513225042366" style="zoom:67%;" /></p>
+<p>&emsp;上图中，有生成器$G$，鉴别器$D$，影响模块$I$。</p>
+<ul>
+<li>生成器。输入噪声$e$，输出攻击文件$u$（此文件很接近真实用户的行为，且对推荐系统造成足够大的影响。），其中$u_i$代表用户对商品$i$的评分。</li>
+<li>鉴别器。鉴别攻击文件（恶意用户）与正常文件（正常用户）。仅当文件与影响力都是正常时，才会输出<code>True</code>。计算出的影响为正常，影响模块预测出的影响不正常。</li>
+<li>影响模块。（1）对产生的用户的破坏力进行评估，引导生成器产生影响尽可能大的用户。（2）影响力可以被视为用户的潜在特征，并用作鉴别器的输入。因此，它旨在使预测的影响显得更正常而不被鉴别器检测到。</li>
+</ul>
+<p>&emsp;上图中，$IF()$代表计算出的影响，而$I()$代表预测出的影响。</p>
+<h3 id="影响模块"><a href="#影响模块" class="headerlink" title="影响模块"></a>影响模块</h3><p>&emsp;把攻击文件（也可以理解为恶意的用户数据）和正常文件放一块，然后重新训练推荐系统，然后就可以评估攻击文件对系统的影响。但是数据太多，重新训练是不切实际的，而且我们也不知道正常文件。</p>
+<p>&emsp;对于训练集中的样本$z$，使用$\epsilon$进行加权，那么就会得到：</p>
+<script type="math/tex; mode=display">\hat{\theta}_{z, \epsilon}=\arg \min _{\theta \in \Theta} \frac{1}{n} \sum_{i=1}^n \mathcal{L}\left(z_i, \theta\right)+\epsilon \mathcal{L}(z, \theta)</script><p>&emsp;<strong>根据<code>[19]</code></strong>，$\epsilon$加权后对测试样本$z_{test}$的影响函数可定义为：</p>
+<script type="math/tex; mode=display">\mathcal{I}_{\text {up,loss }}(z):=\left.\frac{d \mathcal{L}\left(z_{\text {test }}, \hat{\theta}_{z, \epsilon}\right)}{d \epsilon}\right|_{\epsilon=0}=-\nabla_\theta \mathcal{L}\left(z_{\text {test }}, \hat{\theta}\right)^T H_{\hat{\theta}}^{-1} \nabla_\theta \mathcal{L}(z, \hat{\theta})</script><p>&emsp;其中，$H<em>{\hat{\theta}}:=\frac{1}{n} \sum</em>{i=1}^n \nabla<em>\theta^2 \mathcal{L}\left(z_i, \hat{\theta}\right)$，这是一个Hessian矩阵。</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">补充：Hessian矩阵。二阶偏导数矩阵，它描述了一个多元函数的局部曲率。</span><br></pre></td></tr></table></figure>
+<p>&emsp;此外，考虑将小扰动$\delta$添加到样本$z$的场景，对样本$z_{test}$的影响函数可以定义为：</p>
+<script type="math/tex; mode=display">\mathcal{I}_{\text {pert }, \text { loss }}(z):=-\frac{1}{n} \nabla_\theta \mathcal{L}\left(z_{\text {test }}, \hat{\theta}\right)^T H_{\hat{\theta}}^{-1} \nabla_z \nabla_\theta \mathcal{L}(z, \hat{\theta}) \delta</script><p>&emsp;上述式子表示：对样本$z$（训练）进行改变，如何影响测试样本$z_{test}$的预测结果。通过<strong>影响函数估计模型振荡可以用作评估攻击效果的有效工具</strong>。</p>
+<p>&emsp;对于本文来说，我们想要估计一个从未出现过的恶意用户$z$的影响，因此简单的增加或干扰用户是不可行的。因此我们将毒害用户的操作分解为两个阶段：(1) 选择正常用户$z$并将其添加到数据集中; (2) 干扰添加的用户$z$，使其与假用户$z’$相同。如下图所示：</p>
+<p><img src="/images/PoisoningAttack-in-Recommender-Systems/image-20230514122441944.png" alt="image-20230514122441944" style="zoom:80%;" /></p>
+<p>&emsp;上图表示：将恶意用户 $z’$（黑色节点）中毒到推荐系统相当于首先添加现有的正常用户 $z$（红色节点），然后扰动添加的 $z$，直到它与 $z’$ 相同。因此，添加恶意用户对推荐系统的影响可以看作：</p>
+<script type="math/tex; mode=display">\mathcal{I}_{\text {poison }}\left(z^{\prime}\right)=\mathcal{I}_{\text {add,loss }}(z)+\mathcal{I}_{\text {pert }, \text { loss }}(z)</script><p>&emsp;对于一个由$n$用户组成的系统，每个训练用户的权重为$\frac{1}{n}$，因此添加一个现有用户相当于将这个用户的权重提高了$\epsilon \approx \frac{1}{n}$，可以计算影响为：</p>
+<script type="math/tex; mode=display">\mathcal{I}_{a d d, l o s s}(z) \approx \frac{1}{n} \mathcal{I}_{u p, l o s s}(z)=-\frac{1}{n} \mathcal{L}_{a t k}\left(X, \hat{\theta}_R\right)^T H_{\hat{\theta}_R}^{-1} \nabla_{\theta_R} \mathcal{L}\left(z, \hat{\theta}_R\right)</script><p>&emsp;将新加入的用户$z$变为恶意用户$z’$，相当于进行扰动，扰动大小为：$\delta=z^{\prime}-z$，因此可以计算影响为：</p>
+<script type="math/tex; mode=display">\mathcal{I}_{\text {pert,loss }}(z)=-\frac{1}{n} \mathcal{L}_{a t k}\left(X, \hat{\theta}_R\right)^T H_{\hat{\theta}_R}^{-1} \nabla_z \nabla_{\theta_R} \mathcal{L}\left(z, \hat{\theta}_R\right)\left(z^{\prime}-z\right)</script><p>&emsp;因此，在数据集中添加恶意用户$z’$的总影响为：</p>
+<script type="math/tex; mode=display">\begin{aligned} \mathcal{I}_{\text {poison }}\left(z^{\prime}\right)= & -\frac{1}{n} \nabla_{\theta_R} \mathcal{L}_{a t k}\left(X, \hat{\theta}_R\right)^T H_{\hat{\theta}_R}^{-1}\left[\nabla_{\theta_R} \mathcal{L}\left(z, \hat{\theta}_R\right)+\right. \\ & \left.\nabla_z \nabla_{\theta_R} \mathcal{L}\left(z, \hat{\theta}_R\right)\left(z^{\prime}-z\right)\right] .\end{aligned}</script><p>&emsp;但是，<code>[19]</code>中说明了用户$z$与$z’$必须足够相似。因此，对于恶意用户$z’$，要遍历数据集找到一个最相似的$z$，之后计算$\mathcal{I}<em>{\text {poison }}\left(z^{\prime}\right)$。上述式子中，$H</em>{\hat{\theta}_R}^{-1}$是比较难计算的，虽然利用Hessian-vector products (IHVP) 可以进行有效计算，但是复杂度为$O(n m+t p)$。其中，$t$为IHVP的迭代次数，$p=n d+m d$是模型参数的总维度。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">补充：Hessian-vector products (IHVP) </span><br><span class="line">	Hessian-vector products (HVP) 是指在机器学习中计算 Hessian 矩阵与某个向量的乘积。而 Hessian-vector products 的逆 (IHVP) 是指在机器学习中计算 Hessian 矩阵的逆矩阵与某个向量的乘积。</span><br><span class="line">	推荐系统中使用的模型 Hessian 矩阵的逆矩阵。计算 Hessian 矩阵的逆矩阵是非常耗时的，因为 Hessian 矩阵的大小通常与数据集的规模成平方关系。而 Hessian-vector products (IHVP) 是计算 Hessian 矩阵的逆矩阵的一种简化方法。</span><br><span class="line">	IHVP 方法基于 Hessian-vector products (HVP) 的思想，通过计算 Hessian 矩阵与向量的乘积来逼近 Hessian 矩阵的逆矩阵与向量的乘积。IHVP 方法通常使用牛顿共轭梯度法（Newton Conjugate Gradient，NCG）等最优化算法进行计算，可以在较短的时间内获得 Hessian 矩阵的逆矩阵与向量的乘积的近似值。</span><br></pre></td></tr></table></figure>
+<p>&emsp;为了方便计算，我们假设用户$z_{min}$是最接近所有恶意用户的正常用户。</p>
+<h4 id="两个命题"><a href="#两个命题" class="headerlink" title="两个命题"></a>两个命题</h4><ul>
+<li><p>在目标为$t$的升级攻击中，设$p(z’)$是恶意用户的分布；有$m$维向量$\mu$，$\mu<em>i$代表对物品$i$的评分模式；$e_t$是一个$m$维的向量，$t$维的值为$r</em>{max}$，其他值为0；那么有：</p>
+<script type="math/tex; mode=display">z_{\min }=\underset{z}{\arg \min } E_{z^{\prime} \sim p\left(z^{\prime}\right)}\left\|z^{\prime}-z\right\|_0=\Pi\left(\mu+\mathrm{e}_{\mathrm{t}}\right)</script><p>&emsp;其中，$\Pi(z)$指将$z<em>i$映射到合理的评分。因此，可以计算出$z</em>{min}$，然后我们可以直接训练推荐系统。</p>
+<p>&emsp;为什么进行上述操作？避免计算$\mathcal{L}_{a d d, \operatorname{loss}}(z)$，将时间复杂度变为$O(p)$。最终，恶意用户$z’$的影响为：</p>
+<script type="math/tex; mode=display">\mathcal{I}\left(z^{\prime}\right)=-\frac{1}{n} \nabla_{\theta_R} \mathcal{L}_{a t k}\left(X, \hat{\theta}_R\right)^T H_{\hat{\theta}_R}^{-1} \nabla_z \nabla_{\theta_R} \mathcal{L}\left(z_{m i n}, \hat{\theta}_R\right)\left(z^{\prime}-z_{m i n}\right)</script></li>
+<li><p>设$p(z’)$是恶意用户的分布；$\operatorname{Err}<em>I\left(z^{\prime}, z\right)$是选择$u$时对$z’$的影响误差，那么当$\delta=z^{\prime}-z \rightarrow 0$时，有：$E</em>{z^{\prime} \sim p\left(z^{\prime}\right)}\left(\operatorname{Err}<em>I\left(z^{\prime}, z</em>{\text {min }}\right)\right) \leq E<em>{z^{\prime} \sim p\left(z^{\prime}\right)}\left(\operatorname{Err}_I\left(z^{\prime}, z\right)\right)$。这说明，当扰动最小时，选择$z</em>{min}$的影响估计误差并不比从原始数据集中选择的用户差。</p>
+</li>
+</ul>
+<h4 id="影响模型"><a href="#影响模型" class="headerlink" title="影响模型"></a>影响模型</h4><p>&emsp;基于影响越大，攻击收益越高。利用上述影响公式可以准确衡量用户的影响力，从而为生成器训练提供可靠的保证。在每一轮中，随机选取真实用户$u_I$，并最小化真实影响$IF_I$（利用上述公式计算）与预测影响力$I\left(u_I\right)$之间的差距，公式如下：</p>
+<script type="math/tex; mode=display">\min \mathcal{L}_{s u p}^I=E_{\left(u_I, I F_I\right) \sim p(u, I F)}\left(I F_I-I\left(u_I\right)\right)^2</script><p>  &emsp;并尽力让鉴别器以为输入的影响是真实的，即：</p>
+<script type="math/tex; mode=display">\min \mathcal{L}_{g a n}^I=E_{\left(u_I, I\left(u_I\right)\right) \sim p_I(u, I F)} \log \left(1-D\left(u_I, I\left(u_I\right)\right)\right)</script><h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><p>&emsp;用户生成不明显且恶意的用户。但有以下挑战：（1）对于大量的项目，要具体了解每个项目的偏好并不容易 [5]；（2）因模式崩溃而产生的用户多样性不足[8]。即使假用户具有攻击性，也很容易被发现，因为多样性低 [7,26]。</p>
+<p>&emsp;针对上述挑战，本文提供了一种多样化的噪声采样，生成器的输入噪声$e$，其中$e_i$是给予物品$i$的评分。多样化的噪声采样主要包括评分采样和偏好采样。具体过程如下：</p>
+<p>1.使用K-means算法将所有真实用户聚类为不同的组。</p>
+<p>2.使用评分采样来生成初始噪声$eu$，其中$eu_i$是从物品$i$的评分分布中采样的。</p>
+<p>3.由于用户对不太可能对所有项目进行评分，因此使用偏好采样来选择用户可能对其进行评分的项目。我们生成选择向量$em$，$em<em>i=1$表示选择这个物品并进行评分。具体来说：随机选择组$j$，然后将$\sum_i e m_i$设置为组$j$对物品$i$的评分，那么选择物品$i$的概率为：$p\left(e m_i=1\right)=\frac{\mu</em>{j, i}}{\sum<em>k \mu</em>{j, k}}$，其中$\mu<em>{j, i}$为组$j$中对物品$i$的评分。对于目标$t$而言，$em</em>{t}=1$。</p>
+<p>4.我们只关注偏好采样选择的物品，因此最终噪声为$e=e u \odot e m$，$\odot$指的是按元素进行乘法（因此生成的用户也只关心这些偏好物品）。</p>
+<p>&emsp;这种噪声生成的好处：（1）多样化的噪声采样使生成器可以专注于可能被评分的低维物品，从而减轻了学习压力。<strong>（没看懂）</strong>（2）以通过这样的一系列操作 (例如，聚类) 来保证多样性。</p>
+<p>&emsp;之后，生成用户。生成器需要伪装生成的用户，以便鉴别器将其误认为是真实的：</p>
+<script type="math/tex; mode=display">\min \mathcal{L}_{g a n}^G=E_{\left(u_G, I F_G\right) \sim P_G(u, I F)} \log \left(1-D\left(u_G, I F_G\right)\right)</script><p>&emsp;生成的用户应该是恶意的，因此有：</p>
+<script type="math/tex; mode=display">\max \mathcal{L}_{a t k}^G=E_{u_G \sim p_G(u)} I\left(u_G\right)</script><p>&emsp;为了防止由于攻击损失的结合而导致学习分布偏离真实分布，我们将重建损失集成到生成器中。由于输入噪声是从真实分布中采样的，因此重建损失有利于生成近似真实的评分：</p>
+<script type="math/tex; mode=display">\min \mathcal{L}_{r e c}^G=E_{e_G \sim p_G}(e), u_G \sim p_G(u)\left\|u_G-e_G\right\|_2</script><h3 id="鉴别器"><a href="#鉴别器" class="headerlink" title="鉴别器"></a>鉴别器</h3><p>&emsp;鉴别器致力于区分生成的用户和真实用户，以避免被生成器和影响模块欺骗。只有当输入用户和影响力是真实的时，鉴别器才会将其视为真实的。因此，判别器的对抗性损失定义如下：</p>
+<script type="math/tex; mode=display">\begin{aligned} \max \mathcal{L}_{g a n}^D= & E_{(u, I F) \sim p(u, I F)} \log D(u, I F)+ \\ & \alpha E_{\left(u_I, I F_I\right) \sim P_I(u, I F)} \log \left(1-D\left(u_I, I F_I\right)\right)+ \\ & (1-\alpha) E_{\left(u_G, I F_G\right) \sim p_G(u, I F)} \log \left(1-D\left(u_G, I F_G\right)\right)\end{aligned}</script><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>&emsp;总结一波，本文的三重对抗性学习可以看作一个3方<code>minimax</code>游戏：</p>
+<script type="math/tex; mode=display">\min _{G, I} \max _D U(D, G, I)=\mathcal{L}_{g a n}^D+\gamma \mathcal{L}_{s u p}^I-\beta_1 \mathcal{L}_{a t k}^G+\beta_2 \mathcal{L}_{r e c}^G</script><p>&emsp;首先，按照如下算法进行训练。之后，采样噪声并生成恶意用户文件，并获取其影响。最后，使用组级别的抽样：（1）根据每个组的用户比例选择一个组；（2）选择该组中最有影响力的用户。重复该过程，直到选择了$n’$个用户。</p>
+<p><img src="/images/PoisoningAttack-in-Recommender-Systems/image-20230514170623867.png" alt="image-20230514170623867" style="zoom:67%;" /></p>
+<h3 id="理论分析"><a href="#理论分析" class="headerlink" title="理论分析"></a>理论分析</h3><p>&emsp;本部分对TrialAttack在非参数假设下的学习能力进行系统的理论分析，证明TrialAttack可以在执行有效攻击的同时近似真实用户。首先，我们考虑一个没有攻击损失的简化试验攻击，即$\beta_1=0$<strong>（不知道为啥）</strong>，然后下面描述生成器和影响模块的学习能力：</p>
+<h4 id="引理1"><a href="#引理1" class="headerlink" title="引理1"></a>引理1</h4><p>&emsp;当$\beta_1=0$时，我们可以得到$p(u, I F)=p_G(u, I F)=p_I(u, I F)$，其中$D^*(u, I F)=0.5$。这说明，如果TrialAttack不考虑攻击，则生成器和影响模块都可以学习达到均衡时的真实用户分布。此外，$D^*(u, I F)=0.5$表示判别器很难区分用户影响对是否是真实的。</p>
+<h4 id="引理2"><a href="#引理2" class="headerlink" title="引理2"></a>引理2</h4><p>&emsp;对于域$\mathcal{X}$两个分布$P$和$Q$，假设存在一个小的$\epsilon$，使得对于任意$x \in \mathcal{X}$，都有：$|p(x)-q(x)|&lt;\epsilon$，其中$p(x)$是$P$的概率密度，$q(x)$是$Q$的概率密度，那么有：$\left.J S(P \mid Q)\right|_{\epsilon=0}=0$。这说明，对于分布的任何点$x$，如果在另一个分布中总有一个与$x$有小的$\epsilon$邻域的点，则两个分布几乎完全相同。</p>
+<h3 id="引理3"><a href="#引理3" class="headerlink" title="引理3"></a>引理3</h3><p>&emsp;略。由引理3可知，当考虑攻击损失时，通过TrialAttack学习的评级分布接近真实的。此外，TrialAttack通过最大化影响力来生成具有特定攻击意图的恶意用户。因此，TrialAttack可以产生恶意但接近现实的中毒配置文件。</p>
+<h2 id="0x03-实验"><a href="#0x03-实验" class="headerlink" title="0x03 实验"></a>0x03 实验</h2><p>&emsp;数据集：<code>ML-100K2</code>，<code>ML-1M2</code>和<code>FilmTrust</code>。数据集含有用户、物品以及评分。对于每个数据集，我们从每个用户中随机选择一个正样本，作为测试集；其余的作为训练集和验证集，比例为9：1。</p>
+<p>&emsp;参数设置：将基于MF的推荐系统作为目标模型，潜在因子维度$d$为64，$epoch=1000$，使用Adam优化器，生成器与鉴别器学习率为0.0001，影响模块的学习率为0.001。$\alpha=0.5$，$\beta_2=100$，$\gamma=1$，$T_D=1$，$T_G=2$，$T_I=1$。对于<code>ML-100K2</code>，<code>ML-1M2</code>和<code>FilmTrust</code>，$\beta_1$分别为2000、4000、400，$N$分别为500、2000、500。</p>
+<p>&emsp;攻击之间的比较。TrialAttack，随机攻击 [21]，平均攻击 [21]，PGA [22]，TNA [12]，和AUSH [25]。</p>
+<p>&emsp;评价指标。平均命中率（$HR@k$）与归一化折扣累积增益（$NDCG@k$），$k=10$。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">补充：HR@k与NDCG@k</span><br><span class="line">1. HR@k：表示在推荐列表的前k个物品中，有多少个是用户真正感兴趣的物品。</span><br><span class="line">	HR@k的计算方式如下：HR@k = (推荐列表中前k个物品中用户真正感兴趣的物品数量) / (用户真正感兴趣的物品总数)</span><br><span class="line">	通常情况下，HR@k的取值范围为[0,1]，值越大表示推荐结果越好。</span><br><span class="line">2. NDCG@k：表示在推荐列表的前k个物品中，用户感兴趣的物品排在前面的程度。</span><br><span class="line">	NDCG@k的计算方式如下：NDCG@k = DCG@k / IDCG@k</span><br><span class="line">	其中，DCG@k表示推荐列表的前k个物品的折损累计增益（Discounted Cumulative Gain），IDCG@k表示最优推荐列表的前k个物品的折损累计增益。DCG@k的计算方式如下：</span><br><span class="line">	DCG@k = Σ(i=1 to k) (2^rel(i) - 1) / log2(i+1)。其中，rel(i)表示推荐列表中第i个物品的相关度，通常取值为0或1。IDCG@k的计算方式与DCG@k类似，只是将推荐列表替换为最优推荐列表。</span><br><span class="line">	通常情况下，NDCG@k的取值范围为[0,1]，值越大表示推荐结果越好。</span><br></pre></td></tr></table></figure>
+<h3 id="全知识攻击"><a href="#全知识攻击" class="headerlink" title="全知识攻击"></a>全知识攻击</h3><h4 id="与baseline比较"><a href="#与baseline比较" class="headerlink" title="与baseline比较"></a>与baseline比较</h4><p><img src="/images/PoisoningAttack-in-Recommender-Systems/image-20230514180445504.png" alt="image-20230514180445504" style="zoom:67%;" /></p>
+<p>&emsp;首先，结果表明 TrialAttack 在 HR@10 和 NDCG@10 方面明显优于基线。与TNA 相比，TrialAttack 在攻击随机项目时对 HR@10 的提升超过 33.7%，并且在攻击冷门物品时提升更为显着，提升高达 72.0%。其次，对于同样基于 GAN 的 AUSH，我们观察到其性能与平均攻击和其他先令攻击几乎相同。那是因为它包含了段内损失，这在本质上仍然是一种启发式先令攻击。最后，我们注意到在 ML-1M 和 ML-100K 中，对冷门物品的攻击伤害比随机物品更明显。当攻击规模为 2% 时，超过 80% 的用户被成功攻击。我们怀疑它们比 FilmTrust 更密集且具有相对较少的行为特征，使它们更容易受到攻击。</p>
+<h4 id="影响的有效性（影响模块的有效性）"><a href="#影响的有效性（影响模块的有效性）" class="headerlink" title="影响的有效性（影响模块的有效性）"></a>影响的有效性（影响模块的有效性）</h4><p>&emsp;TrialAttack的关键是结合影响力函数来引导生成器产生有影响力的用户。在这一部分中，我们评估了影响函数对攻击性能的影响。设TrialAttack-NIF为无攻击影响损失的攻击，即$\beta_1=0$。下表报告了当攻击大小为3% 时，TrialAttack-NIF与原始TrialAttack攻击随机项目之间的比较。它揭示了利用影响力进行试验攻击的优势是显著的。在ML-100K的最佳情况下，HR@10增加约62倍，而NDCG@10增加92倍。这些结果强调了影响对提高攻击性能的积极影响。</p>
+<p><img src="/images/PoisoningAttack-in-Recommender-Systems/image-20230514180840456.png" alt="image-20230514180840456" style="zoom:67%;" /></p>
+<h4 id="防御模型中的表现"><a href="#防御模型中的表现" class="headerlink" title="防御模型中的表现"></a>防御模型中的表现</h4><p>&emsp;使用了最近研究中最广泛的对抗训练[6,16,31,35]。下表列出了攻击规模为 3% 时对抗性训练后的性能。为了强调防御效果，我们这里使用 HR@50。结果表明，即使配置了防御程序，TrialAttack仍然有效并处于领先地位，显示出TrialAttack强大的破坏性。</p>
+<p><img src="/images/PoisoningAttack-in-Recommender-Systems/image-20230514181059708.png" alt="image-20230514181059708" style="zoom:67%;" /></p>
+<h3 id="部分知识攻击"><a href="#部分知识攻击" class="headerlink" title="部分知识攻击"></a>部分知识攻击</h3><p>&emsp;我们构建了一个本地模拟器，将部分知识攻击转化为全知识攻击，并在本地模拟器上执行TrialAttack和baseline。对于观察到的用户的采样，我们采用操作[12]，根据到目标项目的距离选择最近的用户。本地模拟器的维度设置为 128，与目标模型不同。下图将HR@10与仅使用部分用户进行训练时不受欢迎的项目进行了比较。</p>
+<p><img src="/images/PoisoningAttack-in-Recommender-Systems/image-20230514181524235.png" alt="image-20230514181524235" style="zoom:80%;" /></p>
+<p>&emsp;注意到 TrialAttack 仍然有效，知识的缺乏并没有显着降低攻击性能。相比之下，我们发现获得的知识越多，攻击不一定越好（例如，当观察到 60% 的用户评分时，FilmTrust 中的 PGA 实现了最佳性能）。我们怀疑它可以在获得足够知识的前提下，针对部分用户进行高质量的攻击。<br>&emsp;还研究了推荐系统维度$d$的攻击敏感性。我们将本地模拟器的维度$d$设置为64，而目标系统使用不同的维度。在不受欢迎的项目下的结果如下图所示，它表明该维度具有最小的影响，并且TrialAttack仍然可以在不同维度上产生高质量的假冒用户。攻击总是有效的优良特性给我们一个警钟，即解决推荐系统的安全问题势在必行。<br><img src="/images/PoisoningAttack-in-Recommender-Systems/image-20230514181854643.png" alt="image-20230514181854643" style="zoom:80%;" /></p>
+<h3 id="虚假用户检测"><a href="#虚假用户检测" class="headerlink" title="虚假用户检测"></a>虚假用户检测</h3><p>&emsp;下图展示了在不同参数下检测虚假用户的F1得分。分数越大，检测性能越好。首先，由TrialAttack-Rand生成的大部分用户很容易被检测到，这表明不同的噪声采样在学习真实轮廓方面是有效的。其次，可以看出，在这些数据集中，TrialAttack不容易被察觉。特别是在ML-100K和ML-1M上，假冒用户几乎完全欺骗了检测器，这清楚地验证了TrialAttack在生成不可察觉用户方面的优越性。最后，我们发现对FilmTrust的大多数攻击的检测性能显著下降。</p>
+<p><img src="/images/PoisoningAttack-in-Recommender-Systems/image-20230514182038629.png" alt="image-20230514182038629" style="zoom:80%;" /></p>
+<h2 id="0x04-结论"><a href="#0x04-结论" class="headerlink" title="0x04 结论"></a>0x04 结论</h2><p>&emsp;略。</p>
+<ul>
+<li>参考链接：</li>
+</ul>
+<p>1.<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43532928/article/details/126517165?spm=1001.2014.3001.5501">https://blog.csdn.net/qq_43532928/article/details/126517165?spm=1001.2014.3001.5501</a></p>
+<p>2.<a target="_blank" rel="noopener" href="https://www.semanticscholar.org/paper/Triple-Adversarial-Learning-for-Influence-based-in-Wu-Lian/0e03a2a612e131f93daa4343427b44acc9cfdcee">https://www.semanticscholar.org/paper/Triple-Adversarial-Learning-for-Influence-based-in-Wu-Lian/0e03a2a612e131f93daa4343427b44acc9cfdcee</a></p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/05/16/people-emotion-analysis/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/05/11/go-review/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-05-13 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/papers/">papers<span>8</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

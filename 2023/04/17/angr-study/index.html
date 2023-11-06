@@ -1,0 +1,351 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>angr-study | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="angr-study"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> angr-study</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="angr学习笔记"><a href="#angr学习笔记" class="headerlink" title="angr学习笔记"></a>angr学习笔记</h1><p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/A951860555/article/details/119102789">https://blog.csdn.net/A951860555/article/details/119102789</a></p>
+<p>题目链接：<a target="_blank" rel="noopener" href="https://github.com/jakespringer/angr_ctf">https://github.com/jakespringer/angr_ctf</a></p>
+<p>angr安装：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/212816">https://www.anquanke.com/post/id/212816</a></p>
+<hr>
+<p>&emsp;angr是一个二进制分析平台，<strong>目的是找程序路径。</strong>本学习笔记通过做题（<code>angr_find</code>、<code>angr_avoid</code>、<code>angr_find_condition</code>）来学习angr。</p>
+<span id="more"></span>
+<h2 id="0x00-angr-find"><a href="#0x00-angr-find" class="headerlink" title="0x00 angr_find"></a>0x00 angr_find</h2><p>&emsp;32位程序。程序如下：</p>
+<p><img src="/images/angr-study/image-20230417105504090.png" alt="image-20230417105504090" style="zoom:67%;" /></p>
+<p>&emsp;Angr脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> angr</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a Pro --&gt; Create a simu --&gt; Explore</span></span><br><span class="line">pro = angr.Project(<span class="string">&quot;./00_angr_find&quot;</span>)</span><br><span class="line"></span><br><span class="line">init_state = pro.factory.entry_state()  <span class="comment"># start() addr</span></span><br><span class="line">simu = pro.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line">good_addr = <span class="number">0x804868f</span></span><br><span class="line">simu.explore(find=good_addr)</span><br><span class="line"></span><br><span class="line"><span class="comment"># get res</span></span><br><span class="line"><span class="keyword">if</span> simu.found:</span><br><span class="line">    res = simu.found[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        <span class="comment"># print stdin/stdout/stderr, stdin is flag</span></span><br><span class="line">        <span class="built_in">print</span>(res.posix.dumps(i))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;No result!&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最后三行输出依次是stdin/stdout/stderr的值</span></span><br><span class="line"><span class="comment"># stdin代表输入的passwd即flag</span></span><br><span class="line"><span class="comment"># stdout是程序运行的输出</span></span><br><span class="line"><span class="comment"># 程序没有运行出错，所以stderr没有输出。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># output:</span></span><br><span class="line"><span class="comment"># b&#x27;IICLTGRK&#x27;</span></span><br><span class="line"><span class="comment"># b&#x27;Enter the password: &#x27;</span></span><br><span class="line"><span class="comment"># b&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="0x01-angr-avoid"><a href="#0x01-angr-avoid" class="headerlink" title="0x01 angr_avoid"></a>0x01 angr_avoid</h2><p>&emsp;发现由于main函数过大，而无法反编译。而<code>maybe_good</code>函数如下：</p>
+<p><img src="/images/angr-study/image-20230417114414306.png" alt="image-20230417114414306" style="zoom:67%;" /></p>
+<p>&emsp;因此，只要<code>should_succeed==1</code>且<code>s1==s2</code>即可。而且要避免进入<code>avoid_me</code>函数中，此函数会将<code>should_succeed</code>设置为0。<strong>（不加入avoid也是可以求解的，不过会使用更多的时间。）</strong></p>
+<p>&emsp;Angr脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> angr</span><br><span class="line"></span><br><span class="line">pro = angr.Project(<span class="string">&quot;./01_angr_avoid&quot;</span>)</span><br><span class="line"></span><br><span class="line">init_state = pro.factory.entry_state()</span><br><span class="line">simu = pro.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line">good_addr = <span class="number">0x080485F7</span></span><br><span class="line">avoid_addr = <span class="number">0x080485BF</span>   <span class="comment"># avoid_me func</span></span><br><span class="line">simu.explore(find=good_addr, avoid=avoid_addr)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simu.found:</span><br><span class="line">    res = simu.found[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        <span class="built_in">print</span>(res.posix.dumps(i))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;No result!&quot;</span>)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">b&#x27;JLVUSGJZ&#x27;</span></span><br><span class="line"><span class="string">b&#x27;Enter the password: &#x27;</span></span><br><span class="line"><span class="string">b&#x27;&#x27;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="0x02-angr-find-condition"><a href="#0x02-angr-find-condition" class="headerlink" title="0x02 angr_find_condition"></a>0x02 angr_find_condition</h2><p>&emsp;程序逻辑如下：</p>
+<p><img src="/images/angr-study/image-20230417115017544.png" alt="image-20230417115017544" style="zoom:67%;" /></p>
+<p>&emsp;这道题的目的主要是学习另外一种条件判断的方法，前面的题目指定是地址，这里也可以指定为一个条件函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> angr</span><br><span class="line"></span><br><span class="line">pro = angr.Project(<span class="string">&quot;./02_angr_find_condition&quot;</span>)</span><br><span class="line"></span><br><span class="line">init_state = pro.factory.entry_state()</span><br><span class="line">simu = pro.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">success</span>(<span class="params">state</span>):</span><br><span class="line">    output = state.posix.dumps(<span class="number">1</span>)   <span class="comment"># get output from stdout</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">b&quot;Good Job.&quot;</span> <span class="keyword">in</span> output</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">abort</span>(<span class="params">state</span>):</span><br><span class="line">    output = state.posix.dumps(<span class="number">1</span>)   <span class="comment"># get output from stdout</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">b&quot;Try again.&quot;</span> <span class="keyword">in</span> output</span><br><span class="line"></span><br><span class="line">simu.explore(find=success, avoid=abort)</span><br><span class="line"><span class="keyword">if</span> simu.found:</span><br><span class="line">    res = simu.found[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">        <span class="built_in">print</span>(res.posix.dumps(i))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;No result!&quot;</span>)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">b&#x27;OHYJUMBE&#x27;</span></span><br><span class="line"><span class="string">b&#x27;Enter the password: Good Job.\n&#x27;</span></span><br><span class="line"><span class="string">b&#x27;&#x27;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="0x03-angr-symbolic-registers"><a href="#0x03-angr-symbolic-registers" class="headerlink" title="0x03 angr_symbolic_registers"></a>0x03 angr_symbolic_registers</h2><p>&emsp;反汇编代码如下：</p>
+<p><img src="/images/angr-study/image-20230417135812157.png" alt="image-20230417135812157" style="zoom:67%;" /></p>
+<p>&emsp;这道题最主要的区别在于scanf读取了三个参数，以前的angr版本不支持scanf获取多个参数，所以会采用设置寄存器求解的方法，如下脚本所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> angr</span><br><span class="line"><span class="keyword">import</span> claripy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pro = angr.Project(<span class="string">&quot;./03_angr_symbolic_registers&quot;</span>)</span><br><span class="line"></span><br><span class="line">start_addr = <span class="number">0x080488c7</span></span><br><span class="line">init_state = pro.factory.blank_state(addr=start_addr)  <span class="comment"># blank_state, not entry_state</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># create three vars</span></span><br><span class="line">size_in_bits = <span class="number">32</span></span><br><span class="line">passwd0 = claripy.BVS(<span class="string">&quot;passwd0&quot;</span>, size_in_bits)</span><br><span class="line">passwd1 = claripy.BVS(<span class="string">&quot;passwd1&quot;</span>, size_in_bits)</span><br><span class="line">passwd2 = claripy.BVS(<span class="string">&quot;passwd2&quot;</span>, size_in_bits)</span><br><span class="line"></span><br><span class="line"><span class="comment"># scanf --&gt; eax/ebx/edx</span></span><br><span class="line">init_state.regs.eax = passwd0</span><br><span class="line">init_state.regs.ebx = passwd1</span><br><span class="line">init_state.regs.edx = passwd2</span><br><span class="line"></span><br><span class="line">simu = pro.factory.simgr(init_state)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">success</span>(<span class="params">state</span>):</span><br><span class="line">    output = state.posix.dumps(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">b&quot;Good Job.&quot;</span> <span class="keyword">in</span> output</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">abort</span>(<span class="params">state</span>):</span><br><span class="line">    output = state.posix.dumps(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">b&quot;Try again.&quot;</span> <span class="keyword">in</span> output</span><br><span class="line"></span><br><span class="line">simu.explore(find=success, avoid=abort)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simu.found:</span><br><span class="line">    res = simu.found[<span class="number">0</span>]</span><br><span class="line">    solu0 = res.solver.<span class="built_in">eval</span>(passwd0)  <span class="comment"># you can also use init_state.regs.eax replace passwd0</span></span><br><span class="line">    solu1 = res.solver.<span class="built_in">eval</span>(passwd1)</span><br><span class="line">    solu2 = res.solver.<span class="built_in">eval</span>(passwd2)</span><br><span class="line"></span><br><span class="line">    solu = <span class="string">&quot; &quot;</span>.join(<span class="built_in">map</span>(<span class="string">&quot;&#123;:x&#125;&quot;</span>.<span class="built_in">format</span>, [solu0, solu1, solu2]))</span><br><span class="line">    <span class="built_in">print</span>(solu)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;No result!&quot;</span>)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">db01abf7 4930dc79 d17de5ce</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/04/18/certificate-transparency-dns/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/04/16/re-core-principle-4/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-04-17 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re/">re<span>35</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

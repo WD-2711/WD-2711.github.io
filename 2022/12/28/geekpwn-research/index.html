@@ -1,0 +1,514 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>geekpwn-research | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="geekpwn-research"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> geekpwn-research</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="geekpwn调研"><a href="#geekpwn调研" class="headerlink" title="geekpwn调研"></a>geekpwn调研</h1><h2 id="汽车安全"><a href="#汽车安全" class="headerlink" title="汽车安全"></a>汽车安全</h2><h3 id="A-vulnerability-affecting-Hyundai-and-Genesis-vehicles-where-we-could-remotely-control-car"><a href="#A-vulnerability-affecting-Hyundai-and-Genesis-vehicles-where-we-could-remotely-control-car" class="headerlink" title="A vulnerability affecting Hyundai and Genesis vehicles where we could remotely control car"></a>A vulnerability affecting Hyundai and Genesis vehicles where we could remotely control car</h3><p><strong>时间：</strong>2022-11-30</p>
+<p>​    针对现代品牌的汽车。本质上就是汽车控制软件的漏洞，漏洞很简单，为邮箱后加入<code>%0d</code>后会暴露受害者的密码，从而登录受害者的账号，在软件上控制受害者的汽车。</p>
+<span id="more"></span>
+<h3 id="SiriusXM-IDOR-vulnerablity-exposed-vehicle-token-that-make-unauthorized-remotely-control-Honda-Nissan-Infiniti-and-Acura-vehicles"><a href="#SiriusXM-IDOR-vulnerablity-exposed-vehicle-token-that-make-unauthorized-remotely-control-Honda-Nissan-Infiniti-and-Acura-vehicles" class="headerlink" title="SiriusXM IDOR vulnerablity exposed vehicle token,that make unauthorized remotely control Honda, Nissan, Infiniti, and Acura vehicles"></a>SiriusXM IDOR vulnerablity exposed vehicle token,that make unauthorized remotely control Honda, Nissan, Infiniti, and Acura vehicles</h3><p><strong>时间：</strong>2022-11-30</p>
+<p>​    针对本田、日产等汽车品牌。也是汽车控制软件上的漏洞，通过fuzz不同车主的车辆<code>vin</code>码，可以得到很多车主的敏感信息，还可以借助<code>vin</code>码远程操控车辆。</p>
+<h3 id="Reverse-engineering-an-EV-charger"><a href="#Reverse-engineering-an-EV-charger" class="headerlink" title="Reverse engineering an EV charger"></a>Reverse engineering an EV charger</h3><p><strong>时间：</strong>2022-11-11</p>
+<p>​    对电动汽车的充电器（<code>Zaptec Pro</code>充电器）进行逆向。现在的电动充电器是<code>Debian</code>操作系统+<code>Wifi</code>+<code>4G</code>+<code>蓝牙</code>，可以看作树莓派，就是充电桩。</p>
+<p>​    这俩人通过分析<code>NAND</code>闪存，从引导分区中提取到了设备树文件，从而知道充电器内硬件的配置方式，来控制传递给linux内核的引导参数，进入到了单用户模式，拿到了该充电器的一个<code>shell</code>。</p>
+<p>​    之后，他俩又对PIN码进行分析，发现PIN初始码出场的时候由公司自己设置，可看作是随机的。那么知道PIN码可以做什么呢？能不能免费充电呢？最终结果是不能，蓝牙接口实现的功能是有限的。本充电器也没有放硬编码root密码（意思就是密码以明文方式直接写入到代码中），对云平台与充电器的流量进行分析，会发现充电器会把内核日志与用电量数据传回给云平台，云平台也能远程在充电器运行函数。</p>
+<p>​    这个充电器没啥严重的安全问题，不足就是没有使用加密的NAND闪存，让研究者获得了充电器的root权限。</p>
+<h3 id="Bypassing-the-Renesas-RH850-P1M-E-read-protection-using-fault-injection"><a href="#Bypassing-the-Renesas-RH850-P1M-E-read-protection-using-fault-injection" class="headerlink" title="Bypassing the Renesas RH850/P1M-E read protection using fault injection"></a>Bypassing the Renesas RH850/P1M-E read protection using fault injection</h3><p><strong>时间：</strong>2022-11-08</p>
+<p>​    故障注入，我理解的就是通过给设备一些不正常的电平信号等，来绕过设备的一些安全检查。比较复杂，最终可以绕过一个禁用设置。</p>
+<h3 id="TesMla-An-app-to-complete-man-in-the-middle-attack-with-Tesla-Model-3"><a href="#TesMla-An-app-to-complete-man-in-the-middle-attack-with-Tesla-Model-3" class="headerlink" title="TesMla: An app to complete man in the middle attack with Tesla Model 3"></a>TesMla: An app to complete man in the middle attack with Tesla Model 3</h3><p><strong>时间：</strong>2022-09-19</p>
+<p>​    一个在Model3中应用中间人攻击的app。特斯拉的钥匙可以直接是手机APP，手机靠近时特斯拉会与手机进行蓝牙配对从而进行解锁。研究人员在车主手机上安装了一个TesMla程序，从而使得黑客可以自己解锁启动Model 3。</p>
+<p>​    手机与Model 3的认证协议如下：</p>
+<p><img src="/images/geekpwn-research/image-20221230105707305.png" alt="image-20221230105707305" style="zoom:80%;" /></p>
+<p>​    <strong>中间人攻击原理：</strong>就是在车主手机和他的车中间建立中间节点，让车主即使不在车附近，也能够解锁车辆。</p>
+<p>​    <strong>前提条件：</strong></p>
+<ul>
+<li>车辆与 Phone Key 之间的重新连接仅取决于车辆的 BLE MAC 地址。特斯拉 Model 3 使用其始终静态的公共 MAC 地址进行广播。Phone Key 不会将车辆与具有相同 BLE MAC 地址的其他恶意设备区分开来，因为重新连接不会检查其他信息。</li>
+<li>BLE 通信都是明文形式。它为对手提供了嗅探的机会。</li>
+<li>20 字节的令牌 G 的值在数小时内保持不变。连接状态不会导致令牌更新。无论 Phone key 和 Model 3 多次连接和断开连接，令牌都可能保持不变。</li>
+</ul>
+<p>​    <strong>攻击过程：</strong></p>
+<p><img src="/images/geekpwn-research/m-16723694146553.jpg" alt="m" style="zoom:80%;" /></p>
+<h3 id="How-I-hacked-my-car"><a href="#How-I-hacked-my-car" class="headerlink" title="How I hacked my car"></a>How I hacked my car</h3><p><strong>时间：</strong>2022-05-22</p>
+<p>​    针对现代汽车，目前已修复（但是还是可供用户选择是否修复）。这个帖子是真的牛逼。</p>
+<p>​    本文针对现代2021Ioniq SEL`的车载信息娱乐（In-Vehicle Infotainment:IVI）系统（就是车中间显示屏）进行hack。</p>
+<p>​    首先，通过转到软件更新屏幕进入到工程模式，里面含有大量的隐藏设置，其中重要的是<code>USB拷贝</code>（将日志复制到USB驱动器，或者从USB设备中下载并更新系统），还有就是<code>ADB TCP调试</code>，但是扫描之后发现没有ADB端口。</p>
+<p>​    目前仅有一些日志，这些日志内容包含在IVI上运行的应用程序的记录。目前的思路是，对IVI上运行的程序进行逆向，从而写一个类似的应用程序，并使用USB设备使IVI下载并更新系统从而安装这些程序，最后获得系统权限。</p>
+<p>​    在官网上找到了一些IVI模块的固件，例如GPS与HD Radio以及各种系统映像，但是这些系统映像是加密的，例如<code>John The Ripper</code>与<code>Hashcat</code>等工具都无法暴力破解，但是找到了另一个工具<code>bkcrack</code>，这个工具要求如果能在加密zip中找到一个文件的至少12字节，就可能对此文件进行解密（其中一个坑就是要的文件的12个字节不是原始文件本身，而是原始文件的压缩版本）。最终，找到了一个未加密过的固件，里面有一个一模一样的文件，就可以解密了。</p>
+<p>​    解密后发现里面有一个网卡的驱动程序，于是买了相应的网卡，但是只能访问CarPlay和Android Auto 服务器，没有其他端口可用。又发现其中有一个文件在工程模式下将IP和MAC设置为一个固定值，于是打算用<code>ethtool</code>修改MAC地址，之后又修改IP，看看能访问不。</p>
+<p>​    但是访问不了，因为日志中固定IP与MAC始终是<code>eth0</code>设备，这是某种始终处于离线状态的内置网卡，用别的其他网卡都是显示<code>eth1</code>。</p>
+<p>​    那就直接用USB更新自己写的固件呗。</p>
+<p>​    首先得知道固件咋写的，其中用了什么加密，什么安全措施。找到了一个<code>shell</code>脚本文件<code>linux_envsetup.sh</code>，这是创建系统更新<code>zip</code>的脚本，里面写了<code>zip</code>的密码，加密方法，密钥和IV，还使用RSA签名。之后，用<code>binwalk</code>提取<code>updateboot.img</code>中的信息，提取出了类似于linux系统的文件结构，里面有一个<code>updateAgent</code>文件，逆向后发现有RSA公钥，直接Google发现是常见公钥，于是私钥也知道了。</p>
+<p>​    总结一下，通过<code>linux_envsetup.sh</code>脚本，可以了解<code>D-Audio2V</code>加密固件更新是如何进行的：</p>
+<ol>
+<li>所有各种二进制文件都被分类到正确的目录中。（Micom 更新放在 micom 文件夹中，系统映像放在系统文件夹中，等等。）</li>
+<li>使用重复的 SHA224 计算更新中每个二进制文件的哈希值，这些哈希值被放入 update.cfg 文件中。每行包含文件的原始名称、一个冒号，然后是文件的哈希值。更新.cfg 文件</li>
+<li>某些文件使用 AES 测试密钥加密，这些文件被重命名为<code>enc_&#123;OriginalName&#125;</code>。</li>
+<li>使用与其他文件相同的方法对 update.cfg 文件进行哈希处理，然后对哈希进行签名。签名的哈希值被放入 update.info 文件中。</li>
+<li>所有二进制文件、update.cfg 文件和 update.info 文件都被压缩到一个加密的 zip 文件中。</li>
+</ol>
+<p>​    那么可以直接写或者修改系统固件。</p>
+<p>​    但是，先不要这么着急，我们就想拿一个shell，在官方更新固件中找到了一个运行 Guider 的新 bash 脚本，Guider 是一种基于 Python 的性能分析工具。新的固件中运行了Guider。直接在Guider脚本中添加后门。</p>
+<p>​    添加了两个后门。第一个是一个 USB 脚本启动器，它会在插入系统的任何闪存驱动器上搜索并启动一个名为<code>1C207FCE3065.sh</code>的脚本文件。第二个后门是一个简单的 python 反向 shell，它会尝试连接到<code>192.168.0.2</code>，当通过 Wi-Fi 连接时，这将是我的手机或笔记本电脑。然后相应的修改各种签名哈希值啥的。</p>
+<p>​    之后，将新固件放到USB闪存上，然后进入IVI设置应用程序下载更新。最终，第二个后门不起作用，直接用的第一个后门，拿到了shell的root权限。</p>
+<p>​    最终，作者还自己写了个IVI的程序，用于锁车解锁车什么的，就不细说了。具体见：</p>
+<p>​    <a target="_blank" rel="noopener" href="https://programmingwithstyle.com/posts/howihackedmycarpart3/">https://programmingwithstyle.com/posts/howihackedmycarpart3/</a></p>
+<p>​    总之，很牛逼。</p>
+<hr>
+<h2 id="充电桩漏洞"><a href="#充电桩漏洞" class="headerlink" title="充电桩漏洞"></a>充电桩漏洞</h2><h3 id="充电基础设施"><a href="#充电基础设施" class="headerlink" title="充电基础设施"></a>充电基础设施</h3><p>​    <strong>分为四层：</strong>信息接入层、基础设施层、运营服务层以及数据共享层。</p>
+<p><img src="/images/geekpwn-research/image-20221230123440019.png" alt="image-20221230123440019" style="zoom:80%;" /></p>
+<p><img src="/images/geekpwn-research/image-20210928160341232-16340382000954-16723749103857.png" alt="image-20210928160341232-16340382000954"></p>
+<p>​    直流充电桩最广泛。充电桩将电网中的电力通过动力电源输，经过功率变换单元转化为与电动汽车匹配的功率，由输出开关单元控制充电过程，使用充电电缆车辆插头传送电能给电动汽车。在整个充电过程中，主要的控制和数据交互部分是充电控制单元承担的。</p>
+<p><img src="/images/geekpwn-research/%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91-%E5%85%85%E7%94%B5%E6%A1%A9.png" alt="网络拓扑-充电桩" style="zoom:67%;" /></p>
+<p>​    <strong>重点就是充电控制计费单元（TCU）。</strong>TCU 集成串口、CAN总线、485总线、SD总线、以太网、SIM卡槽、音频、LVDS、数字量输入输出等接口，并支持北斗、GPS双模定位、蓝牙通信、4G全网通通信等功能，可实现充电桩人机显示、计费计量、支付、数据加密、控制充电设备、与车联网平台通信等业务相关的管理功能（<strong>全能啊，小电脑</strong>）。相应的硬件标注见：<a target="_blank" rel="noopener" href="https://delikely.github.io/2021/10/20/Charging-infrastructure/。">https://delikely.github.io/2021/10/20/Charging-infrastructure/。</a></p>
+<p>​    充电网络中有专门的通信协议，如下图所示：</p>
+<p><img src="/images/geekpwn-research/%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91-%E5%85%85%E7%94%B5%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%8D%8F%E8%AE%AE.png" alt="网络拓扑-充电基础设施协议" style="zoom:80%;" /></p>
+<p>​    BMS（Battery Management System）用于<strong>电动汽车充电机与电池管理系统</strong>之间。<strong>计费控制单元与充电控制器</strong>之间使用了<strong>类似于BMS</strong>的协议。<strong>计费控制单元与电表</strong>之间使用DL/T 645、<strong>Modbus</strong> 等协议。不同的运营商有不同的<strong>充电机与运营平台协议</strong>，例如OCPP（全球开放性的通信标准）、T/CEC 102.4（中电推出的）等。</p>
+<p>​    <strong>充电桩常见攻击面：</strong></p>
+<ol>
+<li>充电桩系统配置界面（HMI界面）弱口令。</li>
+<li>应用安全。充电桩采用的嵌入式linux，其中各类组件可能存在已知漏洞。</li>
+<li>硬件安全。调试接口（串口、网口）未做防护，固件容易被提取分析。</li>
+<li>通信安全。有的通信协议不安全，有的板载协议不安全（例如读卡器使用的RS232）。</li>
+<li>通信消息上业务逻辑上的缺陷，例如伪造VIN码（车辆识别码）实现免费换充电。</li>
+<li>云平台安全。ECMP（电动汽车充电监控运营管理平台,EV CHARGING MANAGEMENT PLATFORM）上的WEB 组件漏洞、主机漏洞、服务配置不当、逻辑漏洞等，会造成大量的数据泄露。</li>
+</ol>
+<h3 id="充电桩漏洞挖掘实战"><a href="#充电桩漏洞挖掘实战" class="headerlink" title="充电桩漏洞挖掘实战"></a>充电桩漏洞挖掘实战</h3><p>​    针对两家公司：Ebee（Bender）与GARO。在这两家公司的官网上能下载固件。</p>
+<p>​    对Ebee的固件进行分析，发现了SSH硬编码，可以将用户权限提升为普通权限（利用<code>CVE-2021-34601,CVE-2021-34602</code>）。利用硬编码进入系统发现了明文存储的web后台的账号与密码，并存在命令注入漏洞。</p>
+<p>​    对GARO进行分析，主要存在：web管理页面上缺少用户查看与修改信息的访问控制，即无认证（CVE-2021-45878）；Tomcat Manager硬编码允许攻击者获得授权访问并完全控制Tomcat（CVE-2021-45877）；url的<code>downloadAndUpdate</code>容易受到命令注入。未经过滤的用户输入用于生成代码，然后在下载新固件时执行（CVE-2021-45876）。</p>
+<hr>
+<h2 id="蓝牙相关"><a href="#蓝牙相关" class="headerlink" title="蓝牙相关"></a>蓝牙相关</h2><h3 id="低功耗蓝牙攻击实用指南"><a href="#低功耗蓝牙攻击实用指南" class="headerlink" title="低功耗蓝牙攻击实用指南"></a>低功耗蓝牙攻击实用指南</h3><p>​    BLE（Bluetooth Low Energy）指的是低功耗蓝牙，它在保持相同的通信范围的同时，功耗更低，非常适合<strong>低数据速率的持久长连接情况</strong>下使用。BLE特点：多平台通信，较快匹配速度，长时间连接。</p>
+<h4 id="BLE的安全问题"><a href="#BLE的安全问题" class="headerlink" title="BLE的安全问题"></a>BLE的安全问题</h4><p>（1）窃听。（2）中间人攻击。（3）Dos&amp;Fuzz。</p>
+<h4 id="BLE的两个核心概念"><a href="#BLE的两个核心概念" class="headerlink" title="BLE的两个核心概念"></a>BLE的两个核心概念</h4><p><strong>GAP 通用访问配置文件（Generic Access Profile）</strong></p>
+<p>​    其用于<strong>设备连接与广播通信</strong>，负责设备对外可见性。GAP中有外围设备（蓝牙心率检测器等）和中心设备（手机）的概念。外围设备每隔一段时间发送广播数据，中心设备对其回应，外围设备再次回应。</p>
+<p><strong>GATT 通用属性配置文件(Generic Attribute Protocol)</strong></p>
+<p>​    定义两个BLE设备如何<strong>进行数据交换</strong>。它有服务和属性两个概念，服务可以理解为可以容纳很多抽屉的柜子，而属性就是其中的抽屉。可以看到，一个服务可以有多个属性。服务和属性都有自己的唯一识别码。</p>
+<h4 id="BLE利用工具"><a href="#BLE利用工具" class="headerlink" title="BLE利用工具"></a>BLE利用工具</h4><p>​    Linux安装<code>blueZ</code>（蓝牙栈），<strong>BlueZ的功能是编写实现蓝牙无线标准规范</strong>。还有<code>hcitool</code>与<code>gattool</code>。<code>hcitool</code>利用笔记本电脑的主机控制器接口与BLE设备进行通信和读写更改，因此，<code>hcitool</code>可以在连接受害者BLE设备后<strong>更改受害者设备的某些值</strong>。而<code>gattool</code>主要用来帮助<strong>发现可用 BLE 设备的服务和属性</strong>，以便根据攻击者读取/写入受害者的数据。<code>nRF Connect</code>可以嗅探和写入数据。</p>
+<p>​    之后，使用<code>Blash</code>对BLE进行攻击。具体见：</p>
+<p>​    <a target="_blank" rel="noopener" href="https://delikely.github.io/2018/12/27/%E4%BD%8E%E5%8A%9F%E8%80%97%E8%93%9D%E7%89%99%E6%94%BB%E5%87%BB%E5%AE%9E%E7%94%A8%E6%8C%87%E5%8D%97/">https://delikely.github.io/2018/12/27/%E4%BD%8E%E5%8A%9F%E8%80%97%E8%93%9D%E7%89%99%E6%94%BB%E5%87%BB%E5%AE%9E%E7%94%A8%E6%8C%87%E5%8D%97/</a></p>
+<hr>
+<h2 id="漏洞收集"><a href="#漏洞收集" class="headerlink" title="漏洞收集"></a>漏洞收集</h2><h3 id="智能电视漏洞挖掘"><a href="#智能电视漏洞挖掘" class="headerlink" title="智能电视漏洞挖掘"></a>智能电视漏洞挖掘</h3><h4 id="历史智能电视漏洞汇总"><a href="#历史智能电视漏洞汇总" class="headerlink" title="历史智能电视漏洞汇总"></a>历史智能电视漏洞汇总</h4><ol>
+<li>命令注入。某电视品牌使用反引号命令执行，应该是系统重命名阶段的时候，加入类似于<code>sleep 5</code>的命令。</li>
+<li>乐视电视利用<code>UPnP</code>任意安装应用。手机端连接到电视后利用<code>UPnP</code>中的XML的文件声明，该文件声明一开始是用于电视机下载遥控器应用更新的。通过发送<code>XML Message</code>，请求里含有<code>DownLoadFile</code>的服务，由于电视机没进行有效过滤，从而能够下载任意apk，下载完之后利用电视广播服务，可以调用系统内部的静默安装服务，从而安装软件。</li>
+<li>TCL目录遍历（CVE-2020-27403）；Sony Smart TV 目录遍历（CVE-2019-10886）等。</li>
+<li>权限提升（针对LG webOS）。luna-send-pub 命令调用 downloadmanager 服务可以下载文件到本地的任意位置，且文件属主为 root ，而系统中的 /etc/luna-services2/ls-hubd.conf 配置文件中定义了可执行脚本，脚本在开机之后会被 Root 调用指令。那么，就可以这样利用：（1）在本地创建 ls-hubd.conf 文件；（2）在电视中编写反弹 shell 脚本；（3）使用 luna-send-pub 下载 ls-hubd.conf 覆盖原有文件；（4）本地监听，然后重启服务之后就拿到了具备 Root 权限了 Shell 了。</li>
+<li>拒绝服务漏洞，ADB漏洞等。</li>
+<li>SUPRA智能云电视视频劫持漏洞（CVE-2019-12477）。开了80端口，能够用投屏服务，但是没有验证用户和资源的合法性，因此未授权用户可以播放任意内容。<strong>智能电视开放的端口很多，可以在上面做文章。</strong></li>
+</ol>
+<h4 id="智能电视GetShell"><a href="#智能电视GetShell" class="headerlink" title="智能电视GetShell"></a>智能电视GetShell</h4><p>​    智能电视的操作系统有：<strong>Android，WebOS（LG的电视，基于Linux），Tizen（三星的电视，基于Linux）。</strong></p>
+<p>​    厂商留了adb调试，但是调试的时候发现权限不够。一个提权点就是厂商留的一个后门，当factory.debug = 1时，会以<code>root</code>权限调用factory_app，但是被SElinux（可以理解为一个最大限度减小系统中服务进程可访问资源的一个服务）阻断了。于是准备在电视开机前，进入<code>uboot</code>，更改<code>uboot</code>中的参数，于是使用串口调试，进入<code>BootLoader</code>关闭<code>SELinux</code>。</p>
+<hr>
+<h2 id="知识补充"><a href="#知识补充" class="headerlink" title="知识补充"></a>知识补充</h2><h3 id="Token与jwt"><a href="#Token与jwt" class="headerlink" title="Token与jwt"></a>Token与jwt</h3><h4 id="token"><a href="#token" class="headerlink" title="token"></a>token</h4><p><strong>token的认证流程</strong></p>
+<ol>
+<li>用户输入用户名和密码，发送给服务器。</li>
+<li>服务器验证用户名和密码，正确的话就返回一个<strong>签名过的**</strong>token**，浏览器客户端拿到这个token。</li>
+<li>客户端自己保存token，后续每次请求中，浏览器会把token作为http header发送给服务器，服务器<strong>验证签名</strong>是否有效，如果有效那么认证就成功，可以返回客户端需要的数据。</li>
+</ol>
+<p><strong>特点：</strong>可以隐藏真实数据，但是服务器拿到之后得查数据库验证token正确性。</p>
+<h4 id="jwt-json-web-token"><a href="#jwt-json-web-token" class="headerlink" title="jwt(json web token)"></a>jwt(json web token)</h4><p><strong>概念。</strong>将<strong>用户信息加密到</strong>jwt里，服务器不保存任何用户信息。服务器通过使用保存的密钥验证jwt的正确性，只要正确即通过验证。</p>
+<p><strong>组成。</strong>通常由Header头部，Payload负载和Signature签名3部分组成，3部分之间用<code>.</code>分割，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Header一般由<code>&#123; &quot;alg&quot;: &quot;哈希算法&quot;, &quot;typ&quot;: &quot;JWT&quot; &#125;</code>，经base64编码形成。</li>
+<li>Payload就是双方定义的一些消息内容，例如<code>&#123;&quot;sub&quot;: &quot;1234567890&quot;, &quot;name&quot;: &quot;John Doe&quot;,&quot;admin&quot;: true &#125;</code>，经base64编码形成。</li>
+<li>Signature就是将前两部分用一个<code>secret</code>进行加密，例如使用的是<code>HMAC SHA256</code>算法，那么签名就是：<code>HMACSHA256( base64UrlEncode(header) + &quot;.&quot; + base64UrlEncode(payload),secret)</code>。</li>
+</ol>
+<p><strong>验证。</strong>客户端带着<code>jwt</code>来发起请求，服务端就直接使用<code>secret</code>进行解密，解签证解出第一部分和第二部分，然后比对第二部分的信息和客户端穿过来的信息是否一致。如果一致验证成功，否则验证失败。</p>
+<p><strong>特点：</strong>jwt包含用户信息且无法修改，但可以分担服务器的存储压力。</p>
+<h3 id="Fuzzing-模糊测试"><a href="#Fuzzing-模糊测试" class="headerlink" title="Fuzzing 模糊测试"></a>Fuzzing 模糊测试</h3><h4 id="源代码或二进制文件的模糊测试"><a href="#源代码或二进制文件的模糊测试" class="headerlink" title="源代码或二进制文件的模糊测试"></a>源代码或二进制文件的模糊测试</h4><p>​    灰盒测试有广泛的应用。开始时在程序编译阶段对程序进行插桩，插桩后得到的反馈数据来判断哪些变异的种子是优秀的种子。这可以指导遗传变异算法，可引导测试种子向优异的方向变异而无需人工建模。下图是灰盒测试具体架构：</p>
+<p><img src="/images/geekpwn-research/image-20221230135646795.png" alt="image-20221230135646795" style="zoom:80%;" /></p>
+<h4 id="其他类型的测试"><a href="#其他类型的测试" class="headerlink" title="其他类型的测试"></a>其他类型的测试</h4><p>​    还包括环境变量和参数的模糊测试（对环境变量进行修改，常用的工具为<code>iFuzz</code>。）；web应用程序的模糊测试，工具为webFuzz；文件格式的模拟测试；网络协议的模糊测试等。</p>
+<h3 id="UPnP"><a href="#UPnP" class="headerlink" title="UPnP"></a>UPnP</h3><p>​    UPnP意思就是通用即插即用，主要用于设备的智能互联互通，不需要使用设备驱动程序，它包含很多基本协议，例如SSDP、GENA、SOAP等。要达到的目标就是：<strong>任何设备接入网络之后，网络设备就能知道有新设备加入，且设备之间可以相互通信</strong>。</p>
+<h3 id="OTA"><a href="#OTA" class="headerlink" title="OTA"></a>OTA</h3><p>​    类似于咱现在手机的系统升级，直接连接wifi下载升级包进行升级，而无需刷机升级，就是OTA。</p>
+<h2 id="蓝牙安全"><a href="#蓝牙安全" class="headerlink" title="蓝牙安全"></a>蓝牙安全</h2><h3 id="piconet的定义"><a href="#piconet的定义" class="headerlink" title="piconet的定义"></a>piconet的定义</h3><p>​    Piconet是一个术语，它通常用于描述蓝牙技术中的一个基本网络。在蓝牙技术中，Piconet是一个由一个主设备和最多七个从设备组成的短距离无线网络。主设备控制整个网络，从设备则被动地接收和发送数据。当需要连接更多的设备时，可以使用蓝牙中的扩展蓝牙（Bluetooth scatternet）技术，将多个Piconet连接成一个更大的网络。</p>
+<p>​    Piconet通常用于描述蓝牙设备之间的短距离通信，例如，当您将手机与蓝牙耳机配对时，就会创建一个Piconet网络。在Piconet中，主设备和从设备之间的通信是通过一种称为”时分多址”（Time Division Multiple Access, TDMA）的技术实现的，该技术将时间划分为短时间段，每个设备在自己的时间段内发送和接收数据。这种技术使得多个设备可以在同一个频率上进行通信而不会互相干扰。</p>
+<h3 id="BLE的密钥交换配对"><a href="#BLE的密钥交换配对" class="headerlink" title="BLE的密钥交换配对"></a>BLE的密钥交换配对</h3><h4 id="生成初始密钥（K-init）"><a href="#生成初始密钥（K-init）" class="headerlink" title="生成初始密钥（K_init）"></a>生成初始密钥（K_init）</h4><p>​    根据E22算法生成K_init。E22的输入由3部分组成：（1）从设备的物理地址：BD_ADDR。在生成K_init前，主设备通过询问方式获得从设备的地址BD_ADDR。（2）PIN码及其长度，PIN码是双方设备预先设定的。（3）有一个128位的随机数(IN_RAND)。由主设备产生，并以明文方式传送给从设备。</p>
+<p><img src="/images/geekpwn-research/image-20230217165109673.png" alt="image-20230217165109673" style="zoom:67%;" /></p>
+<h4 id="生成链路密钥（K-ab）"><a href="#生成链路密钥（K-ab）" class="headerlink" title="生成链路密钥（K_ab）"></a>生成链路密钥（K_ab）</h4><ul>
+<li>主设备A产生128位的随机数LK_RAND_A，从设备B也产生128位的随机数LK_RAND_B。</li>
+<li>主设备A将K_init与LK_RAND_A进行位比特逻辑异或运算，异或结果发送给B设备；同样的，在B设备中，K_init和LK_RAND_B进行位比特逻辑异或运算，结果发送给A设备。</li>
+<li>A和B设备都具有相同的K_init、LK_RAND_A和LK_RAND_B。</li>
+<li>设备A和B分别用E21算法将LK_RAND_A和BD_ADDR_A、LK_RAND_B和BD_ADDR_B加密，并将结果进行异或得到K_ab。</li>
+</ul>
+<p><img src="/images/geekpwn-research/image-20230217165355494.png" alt="image-20230217165355494" style="zoom:67%;" /></p>
+<h4 id="双方认证"><a href="#双方认证" class="headerlink" title="双方认证"></a>双方认证</h4><p>​    双向认证采用challenge-response(挑战-应答)方式。主设备A为应答方，从设备B为请求方。</p>
+<ul>
+<li>作为应答方的A设备产生一个128位的随机数AU_RAND_A，并以明文的方式传送至B设备。</li>
+<li>A、B设备用E1算法将AU_RAND、K_ab和BD_ADDR_B加密运算分别生成32位的SRESA和SRESB。</li>
+<li>B设备将结果SRESB传送给A设备，A设备比较SERESA和SERSB，如果两个的值相等，此次认证通过。执行完此次认证后，A设备和B设备的角色对换，即A设备作为请求方，B设备作为应答方，采用同样的方式进行认证。</li>
+</ul>
+<h3 id="针对蓝牙协议的攻击"><a href="#针对蓝牙协议的攻击" class="headerlink" title="针对蓝牙协议的攻击"></a>针对蓝牙协议的攻击</h3><h4 id="a-中间人攻击"><a href="#a-中间人攻击" class="headerlink" title="a. 中间人攻击"></a>a. 中间人攻击</h4><p>​    假设一个设备A和B之前已经通信过，当通信完成之后，A和B是互相知道彼此的链路密钥的。</p>
+<p>​    B通过修改自身地址，把自己的地址改为A的地址后，伪装成A和C通信，那么C此时就以为自己和A通信。B也可以伪装成C和A去通信，因为B知道A的链路密钥，B是能够通过A的认证从而和A进行连接 。这样 A和 C之间并没有进行实质的通信 ，都是B分别伪装和A，C通信。这样就造成了中间人攻击。</p>
+<p>​    这种中间人攻击的主要原因在于<strong>蓝牙通信链路密钥在硬件层生产，而且每次认证都相同</strong>。</p>
+<h4 id="b-PIN码攻击、中继攻击、鉴权DOS攻击"><a href="#b-PIN码攻击、中继攻击、鉴权DOS攻击" class="headerlink" title="b. PIN码攻击、中继攻击、鉴权DOS攻击"></a>b. PIN码攻击、中继攻击、鉴权DOS攻击</h4><h3 id="针对蓝牙实现过程的攻击"><a href="#针对蓝牙实现过程的攻击" class="headerlink" title="针对蓝牙实现过程的攻击"></a>针对蓝牙实现过程的攻击</h3><h4 id="a-BlueBorne"><a href="#a-BlueBorne" class="headerlink" title="a. BlueBorne"></a>a. BlueBorne</h4><p>To be continue</p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/86949">https://www.anquanke.com/post/id/86949</a></p>
+<p>之后详细看一看这篇。</p>
+<h3 id="BLE的信道与数据包格式"><a href="#BLE的信道与数据包格式" class="headerlink" title="BLE的信道与数据包格式"></a>BLE的信道与数据包格式</h3><p>​    BLE有40个信道，有3个信道是advertising channel(广播通道)，分别是37、38、39，用于发现设备(Scanning devices)、初始化连接(initiating a connection)和广播数据(broadcasting date)。剩下的37个信道为data channel(数据通道)，用于两个连接的设备间的通讯。</p>
+<p>​    BLE的报文分为<strong>广播报文和数据报文</strong>，这两个报文的格式是相同的，分为前导码、访问码、有效载荷和循环冗余校验校验码组成。</p>
+<p><img src="/images/geekpwn-research/image-20230217171544780.png" alt="image-20230217171544780" style="zoom:67%;" /></p>
+<p>​    注：octet指的就是1byte。</p>
+<h4 id="前导码Preamble"><a href="#前导码Preamble" class="headerlink" title="前导码Preamble"></a>前导码Preamble</h4><p>​    用于频率同步、数据速率同步、自动增益控制调整，固定为 01010101或者10101010序列。</p>
+<h4 id="访问码Access-Address"><a href="#访问码Access-Address" class="headerlink" title="访问码Access Address"></a>访问码Access Address</h4><p>​    广播报文地址为：0x8E89BED6。</p>
+<h3 id="BLE协议栈"><a href="#BLE协议栈" class="headerlink" title="BLE协议栈"></a>BLE协议栈</h3><p>​    如下图所示：</p>
+<p><img src="/images/geekpwn-research/image-20230217171909995.png" alt="image-20230217171909995" style="zoom:80%;" /></p>
+<h4 id="Physical-layer"><a href="#Physical-layer" class="headerlink" title="Physical layer"></a>Physical layer</h4><p>​    使蓝牙可以使用2.4GHz频道，并且能自适应的调频。</p>
+<h4 id="Link-layer"><a href="#Link-layer" class="headerlink" title="Link layer"></a>Link layer</h4><p>​    用于控制设备的射频状态，设备将处于Standby(待机)、Advertising（通告）、Scanning（扫描）、Initiating（初始化）、Connection（连接）这五种状态中的一种。</p>
+<ul>
+<li>待机状态（Standby State）：此时即不发送数据，也不接受数据，最节能；</li>
+<li>通告状态（Advertising State）：通告状态下的设备一般也被称为通告者（Advertiser），它会通过advertising channel（广播通道）周期性的发送数据，广播的数据可以由处于Scanning state或Initiating state的实体接受；</li>
+<li>扫描状态（Scanning State）：可以通过advertising channel（广播通道）接受数据的装填，该状态下的设备又被称为扫描者（Scanner）；</li>
+<li>初始化状态（Initiating State）：和Scanning State类似，不过是一种特殊的状态。Scanner会侦听所有的advertising channel，而Initator（初始化者）则只侦听某个特定设备的广播，并在接受到数据后，发送连接请求，以便和Advertiser建立连接；</li>
+<li>连接状态（Connection State）：由Initiating State或Advertising State自动切换而来，其中，<strong>Initiater方被称为Mater（主设备），Advertiser方则称作Slave（从设备）</strong>。</li>
+</ul>
+<h4 id="HCI"><a href="#HCI" class="headerlink" title="HCI"></a>HCI</h4><p>​    主机控制接口层（Host Controller Interface，简写HCI）：定义Host（主机）和Controller（控制器）之间的通信协议，这一层可以是软件或者硬件接口，如UART（串行通信的集成电路。常用于将数据从一个设备传输到另一个设备，例如将数据从计算机发送到外围设备）、USB等。</p>
+<h4 id="Generic-Access-Profile-GAP"><a href="#Generic-Access-Profile-GAP" class="headerlink" title="Generic Access Profile(GAP)"></a>Generic Access Profile(GAP)</h4><p>​    直接与应用程序或配置文件通信的接口，它实现了如下功能：</p>
+<ul>
+<li>定义GAP层的蓝牙设备角色（role）。<ul>
+<li>Broadcaster（广播者）：设备正在发送advertising events</li>
+<li>Obserber（观察者）：设备正在接受advertising events</li>
+<li>Peripheral（外设）：设备接受Link Layer连接（对应Link Layer的slave角色）</li>
+<li>Central（主机）：设备发起Link Layer连接（对应Link Layer的master角色）</li>
+</ul>
+</li>
+<li>定义GAP层的用于实现各种通信的操作模式：蓝牙设备发现、蓝牙设备连接等。</li>
+<li>定义<strong>蓝牙地址、蓝牙名称、蓝牙的PIN码</strong>。</li>
+</ul>
+<h4 id="Logical-Link-Control-and-Adaptation-Protocol（L2CAP-Protocol）"><a href="#Logical-Link-Control-and-Adaptation-Protocol（L2CAP-Protocol）" class="headerlink" title="Logical Link Control and Adaptation Protocol（L2CAP Protocol）"></a>Logical Link Control and Adaptation Protocol（L2CAP Protocol）</h4><p>​    为上层提供数据<strong>封装</strong>服务，允许逻辑上的点对点数据通信。</p>
+<h4 id="Security-Manager（SM）"><a href="#Security-Manager（SM）" class="headerlink" title="Security Manager（SM）"></a>Security Manager（SM）</h4><p>​    负责BLE通信中有关安全的内容，<strong>包括配对（pairing,）、认证（authentication）和加密（encryption）等过程</strong>。</p>
+<h4 id="Attribute-protocol（ATT）"><a href="#Attribute-protocol（ATT）" class="headerlink" title="Attribute protocol（ATT）"></a>Attribute protocol（ATT）</h4><p>​    在BLE协议栈中，Physical Layer负责提供一系列的Physical Channel；基于这些Physical Channel，Link Layer可在两个设备之间建立用于点对点通信的Logical Channel；而<strong>L2CAP则将这个Logical Channel换分为一个个的L2CAP Channel，以便提供应用程序级别的通道复用</strong>。</p>
+<p>​    物联网需要信息采集，基于信息采集的需求，BLE抽象出Attribute protocol，该<strong>协议将这些信息以Attribute（属性）的形式抽象出来，并提供一些方法，供远端设备（remote device）读取、修改这些属性的值（Attribute value）</strong>。</p>
+<p>​    提供信息（Attribute）的一方称作ATT server（一般是那些传感器节点），访问信息的一方称作ATT client。</p>
+<p>​    一个Attribute由Attribute Type、Attribute Handle和Attribute Value组成：</p>
+<ul>
+<li>Attribute Type用以标示Attribute的类型，类似于我们常说的温度、湿度等人类可识别的术语，通过UUID进行区分。</li>
+<li>Attribute Handle是一个16-bit的数值，用作唯一识别Attribute server上的所有Attribute。一个server上可能存在多个相同type的Attribute。</li>
+<li>同一类型的多个Attribute，可以组成一个Group。</li>
+</ul>
+<p>​    Attribute也能够定义一些权限（Permissions），以便server控制client的访问行为。</p>
+<h4 id="Generic-Attribute-profile（-GATT）"><a href="#Generic-Attribute-profile（-GATT）" class="headerlink" title="Generic Attribute profile（ GATT）"></a>Generic Attribute profile（ GATT）</h4><p>​    ATT仅仅定义了一套机制，允许client和server通过Attribute的形式共享信息，ATT并不关心共享哪些信息，因为这是GATT关心的事情。如下图所示：</p>
+<p><img src="/images/geekpwn-research/image-20230217182305423.png" alt="image-20230217182305423"></p>
+<p>​    由上图可知，GATT中的三个要素Profile、Service、Characteristic以及他们的层级关系。值得注意的是，“Profile”是基于GATT所派生出的真正的Profile，这是SIG蓝牙技术联盟对一些同范畴内的Service打包后的集合，如电池、心率、血压等，作用不大。</p>
+<p>​    <strong>Service可以理解为PHP中的类。Characteristic可以理解为PHP的函数，是GATT中具体的功能对象，每个Service都可以包含一个或多个Characteristic（特征）。</strong></p>
+<p>​    上图除Profile外，Service、Characteristic、Characteristic Properties、Characteristic Value、Characteristic Descriptor等等，都是作为一个Attribute存在的。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/01/04/js-proto/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2022/12/27/pyd-re/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-12-28 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/study-notes/">study-notes<span>17</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

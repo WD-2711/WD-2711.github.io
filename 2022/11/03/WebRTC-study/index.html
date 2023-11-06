@@ -1,0 +1,425 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>WebRTC-study | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="WebRTC-study"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> WebRTC-study</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="WebRTC教程"><a href="#WebRTC教程" class="headerlink" title="WebRTC教程"></a>WebRTC教程</h1><p>MDN（Mozilla Developer Network）对WebRTC的定义：WebRTC (Web Real-Time Communications) 是一项实时通讯技术，它允许网络应用或者站点，在不借助中间媒介的情况下，建立浏览器之间点对点（Peer-to-Peer）的连接，实现视频流和（或）音频流或者其他任意数据的传输。WebRTC包含的这些标准使用户在无需安装任何插件或者第三方的软件的情况下，创建点对点（Peer-to-Peer）的数据分享和电话会议成为可能。</p>
+<span id="more"></span>
+<hr>
+<p><strong>注：</strong>引用自<a target="_blank" rel="noopener" href="https://juejin.cn/post/7071994793710075911">https://juejin.cn/post/7071994793710075911</a></p>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p><img src="/images/WebRTC-study/image-20221103232054752.png" alt="image-20221103232054752" style="zoom:60%;" /></p>
+<p>可以看到，一个简单的点对点通讯系统主要由四部分组成：</p>
+<ul>
+<li>WebRTC客户端：负责生产/消费音视频数据，位于NAT之内，属于内网</li>
+<li>NAT：Network Address Translation (NAT)，网络地址转换协议， 能够将设备的内网地址映射到一个公网的地址。</li>
+<li>信令服务器：用于传输SDP、candidate等信令数据。</li>
+<li>STUN/TURN服务器(中继服务器)：<ul>
+<li>STUN：用于为位于NAT内的设备找到自己的公网地址。WebRTC客户端通过给处于公网的STUN服务器发送请求来获得自己的公网地址信息，以及是否能够被（穿过路由器）访问。</li>
+<li>TURN：对于无法通过STUN服务器进行内网穿越的“对称型NAT”，我们可以借助TURN服务器作为中继服务器，通过TURN服务器对数据进行转发。</li>
+</ul>
+</li>
+</ul>
+<p><strong>点对点的通信原理：</strong></p>
+<ol>
+<li>首先客户端需要信令服务器连接，后续双方需要<strong>通过信令服务器来了解对方的一些必要的信息，比如告诉对方自己的支持的音视频格式、自己外网IP地址和端口是多少等</strong>（此时还无法知道自己的公网地址）。</li>
+<li>与STUN建立连接，获得自己的外网IP地址和端口，以及是否能够进行内网穿越。不支持内网穿越的情况下还需要连接TURN服务器进行中继通信。</li>
+<li>WebRTC客户端拿到自己的外网IP地址和端口后，通过信令服务器将自己的信息（candidate信息）交换给对方。当双方都获取到对方的地址后，它们就可以尝试NAT穿越，进行P2P连接了。</li>
+</ol>
+<h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><h3 id="MediaStreamTrack"><a href="#MediaStreamTrack" class="headerlink" title="MediaStreamTrack"></a>MediaStreamTrack</h3><p>WebRTC中的<strong>基本</strong>媒体单位，一个MediaStreamTrack包含一种媒体源（媒体设备或录制内容）<strong>返回的单一类型的媒体（如音频，视频）</strong>。单个轨道可包含多个通道，如<strong>立体声源尽管由多个音频轨道构成，但也可以看作是一个轨道</strong>。</p>
+<h3 id="MediaStream"><a href="#MediaStream" class="headerlink" title="MediaStream"></a>MediaStream</h3><p>MediaStream是MediaStreamTrack的合集，可以<strong>包含 &gt;=0 个 MediaStreamTrack</strong>。MediaStream能够确保它所包含的所有轨道都是是<strong>同时播放</strong>的，以及轨道的单一性。</p>
+<h3 id="source-与-sink"><a href="#source-与-sink" class="headerlink" title="source 与 sink"></a>source 与 sink</h3><p>​    在MediaTrack的源码中，MediaTrack都是由对应的source和sink组成的。</p>
+<p>​    浏览器中存在从source到sink的媒体管道。其中source负责<strong>生产媒体资源</strong>，包括多媒体文件，web资源等静态资源以及麦克风采集的音频，摄像头采集的视频等动态资源。而sink则负责<strong>消费source生产媒体资源，也就是通过等媒体标签进行展示，或者是通过RTCPeerConnection将source通过网络传递到远端</strong>。RTCPeerConnection可同时扮演source与sink的角色，作为sink，可以将获取的source降低码率，缩放，调整帧率等，然后传递到远端，作为source，将获取的远端码流传递到本地渲染。</p>
+<h3 id="MediaTrackConstraints"><a href="#MediaTrackConstraints" class="headerlink" title="MediaTrackConstraints"></a>MediaTrackConstraints</h3><p>​    <code>MediaTrackConstraints</code>描述MediaTrack的功能以及每个功能可以采用的一个或多个值，从而达到<strong>选择和控制源</strong>的目的。 <code>MediaTrackConstraints</code> 可作为参数传递给<code>applyConstraints()</code>以达到控制轨道属性的目的，同时可以通过调<code>getConstraints()</code>用来查看最近应用自定义约束。例如：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">const constraints = &#123;</span><br><span class="line">  <span class="attribute">width</span>: &#123;min: <span class="number">640</span>, ideal: <span class="number">1280</span>&#125;,</span><br><span class="line">  <span class="attribute">height</span>: &#123;min: <span class="number">480</span>, ideal: <span class="number">720</span>&#125;,</span><br><span class="line">  advanced: [</span><br><span class="line">    &#123;<span class="attribute">width</span>: <span class="number">1920</span>, height: <span class="number">1280</span>&#125;,</span><br><span class="line">    &#123;aspectRatio: <span class="number">1.333</span>&#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//使用1280x720的摄像头分辨率</span></span><br><span class="line">const constraints = &#123;</span><br><span class="line">  <span class="selector-tag">audio</span>: true,</span><br><span class="line">  video: &#123; <span class="attribute">width</span>: <span class="number">1280</span>, height: <span class="number">720</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line">const constraints = &#123;</span><br><span class="line">  <span class="selector-tag">audio</span>: true, </span><br><span class="line">   video: &#123; facingMode: <span class="string">&quot;user&quot;</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line">const constraints = &#123;</span><br><span class="line">  <span class="selector-tag">audio</span>: true, </span><br><span class="line">  video: &#123; facingMode: &#123; exact: <span class="string">&quot;environment&quot;</span> &#125; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123; video: true &#125;也是一个MediaTrackConstraints对象，用于指定请求的媒体类型和相对应的参数。</span></span><br><span class="line">navigator<span class="selector-class">.mediaDevices</span><span class="selector-class">.getUserMedia</span>(&#123; video: true &#125;)</span><br><span class="line"><span class="selector-class">.then</span>(mediaStream =&gt; &#123;</span><br><span class="line">  const track = mediaStream.getVideoTracks()<span class="selector-attr">[0]</span>;</span><br><span class="line">  track<span class="selector-class">.applyConstraints</span>(constraints)</span><br><span class="line">  <span class="selector-class">.then</span>(() =&gt; &#123;</span><br><span class="line">    <span class="comment">// Do something with the track such as using the Image Capture API.</span></span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="selector-class">.catch</span>(e =&gt; &#123;</span><br><span class="line">    // The constraints could not be satisfied by the available devices.</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="如何播放MediaStream"><a href="#如何播放MediaStream" class="headerlink" title="如何播放MediaStream"></a>如何播放MediaStream</h3><p>​    可将MediaStream对象直接赋值给<a href="https://link.juejin.cn/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FWeb%2FAPI%2FHTMLMediaElement"><code>HTMLMediaElement</code></a> 接口的 <code>srcObject</code>属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">video.<span class="property">srcObject</span> = stream;</span><br></pre></td></tr></table></figure>
+<h2 id="WebRTC实现点对点通信"><a href="#WebRTC实现点对点通信" class="headerlink" title="WebRTC实现点对点通信"></a>WebRTC实现点对点通信</h2><ol>
+<li>检测本地音视频设备和进行采集音视频的采集；</li>
+<li>通过信令服务器与对方建立连接；</li>
+<li>创建RTCPeerConnection对象<ul>
+<li>绑定音视频数据</li>
+<li>进行媒体协商</li>
+<li>交换candidate信息</li>
+</ul>
+</li>
+<li>音视频数据传输与渲染</li>
+</ol>
+<h2 id="检测本地音视频设备-and-进行采集音视频的采集"><a href="#检测本地音视频设备-and-进行采集音视频的采集" class="headerlink" title="检测本地音视频设备 and 进行采集音视频的采集"></a>检测本地音视频设备 and 进行采集音视频的采集</h2><h3 id="检测本地音视频设备"><a href="#检测本地音视频设备" class="headerlink" title="检测本地音视频设备"></a>检测本地音视频设备</h3><p>​    通过<code>MediaDevices.enumerateDevices()</code>我们可以得到一个本机可用的媒体输入和输出设备的列表，例如麦克风，摄像机，耳机设备等。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取媒体设备</span></span><br><span class="line">navigator.<span class="property">mediaDevices</span>.<span class="title function_">enumerateDevices</span>().<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>​    列表中的每个媒体输入都可作为<a href="https://link.juejin.cn/?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FAPI%2FMediaTrackSupportedConstraints">MediaTrackConstraints</a>中对应类型的值，如一个音频设备输入audioDeviceInput可设置为MediaTrackConstraints中audio属性的值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> constraints = &#123; audio : audioDeviceInput &#125;</span><br></pre></td></tr></table></figure>
+<p>​    将该constraint值作为参数传入到<code>MediaDevices.getUserMedia(constraints)</code>中，便可获得该设备的MediaStream。</p>
+<h3 id="采集本地音视频数据"><a href="#采集本地音视频数据" class="headerlink" title="采集本地音视频数据"></a>采集本地音视频数据</h3><p>​    可通过调用<code>MediaDevices.getUserMedia()</code>来访问本地媒体，调用该方法后浏览器会提示用户给予使用媒体输入的许可，媒体输入会产生一个<code>MediaStream</code>，里面包含了请求的媒体类型的轨道。此流可以包含一个视频轨道（来自硬件或者虚拟视频源，比如相机、视频采集设备和屏幕共享服务等等）、一个音频轨道（同样来自硬件或虚拟音频源，比如麦克风、A/D转换器等等），也可能是其它轨道类型。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">navigator.<span class="property">mediaDevices</span>.<span class="title function_">getUserMedia</span>(constraints)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params">stream</span>) &#123;</span><br><span class="line">    <span class="comment">/* 使用这个stream*/</span></span><br><span class="line">    video.<span class="property">srcObject</span> = stream;</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">    <span class="comment">/* 处理error */</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="通过信令服务器与对方建立连接"><a href="#通过信令服务器与对方建立连接" class="headerlink" title="通过信令服务器与对方建立连接"></a>通过信令服务器与对方建立连接</h2><p>​    信令服务器主要用于帮我们进行业务逻辑的处理（如加入房间、离开房间）以及进行媒体协商和交换candidate。</p>
+<p>​    信令服务器可以有很多种方案，在这里我们借助node.js和socket.io实现一个简单的信令服务器。</p>
+<h3 id="创建HTTP服务器"><a href="#创建HTTP服务器" class="headerlink" title="创建HTTP服务器"></a>创建HTTP服务器</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let <span class="attr">http</span> = require(<span class="string">&#x27;http&#x27;</span>)<span class="comment">; // 提供HTTP 服务</span></span><br><span class="line">let <span class="attr">express</span> = require(<span class="string">&#x27;express&#x27;</span>)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">let <span class="attr">app</span> = express()<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">let <span class="attr">http_server</span> = http.createServer(app)<span class="comment">;</span></span><br><span class="line">http_server.listen(8081, &#x27;127.0.0.1&#x27;)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h3 id="引入-socket-io-实现两端的实时通信"><a href="#引入-socket-io-实现两端的实时通信" class="headerlink" title="引入 socket.io 实现两端的实时通信"></a>引入 socket.io 实现两端的实时通信</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">let <span class="attr">http</span> = require(<span class="string">&#x27;http&#x27;</span>)<span class="comment">; // 提供HTTP 服务</span></span><br><span class="line">const &#123; Server &#125; = require(&#x27;socket.io&#x27;)<span class="comment">;</span></span><br><span class="line">let <span class="attr">express</span> = require(<span class="string">&#x27;express&#x27;</span>)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">let <span class="attr">app</span> = express()<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">//HTTP 服务</span><br><span class="line">let <span class="attr">http_server</span> = http.createServer(app)<span class="comment">;</span></span><br><span class="line">http_server.listen(8081, &#x27;127.0.0.1&#x27;)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">const <span class="attr">io</span> = new Server(http_server, &#123;</span><br><span class="line">  // 处理跨域配置</span><br><span class="line">  cors: &#123;</span><br><span class="line">    origin: <span class="section">[&#x27;http://127.0.0.1:3000&#x27;, &#x27;http://localhost:3000&#x27;]</span>,</span><br><span class="line">    credentials: true,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h4 id="监听客户端的消息"><a href="#监听客户端的消息" class="headerlink" title="监听客户端的消息"></a>监听客户端的消息</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socket.<span class="keyword">on</span>(<span class="string">&#x27;messageName&#x27;</span>, messageHandler)</span><br></pre></td></tr></table></figure>
+<h4 id="客户端加入房间"><a href="#客户端加入房间" class="headerlink" title="客户端加入房间"></a>客户端加入房间</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socket.<span class="keyword">join</span>(roomId);</span><br></pre></td></tr></table></figure>
+<h4 id="向房间内的客户端发送消息"><a href="#向房间内的客户端发送消息" class="headerlink" title="向房间内的客户端发送消息"></a>向房间内的客户端发送消息</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socket.to(roomId).emit(<span class="string">&#x27;messageName&#x27;</span>, <span class="keyword">data</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="转发消息"><a href="#转发消息" class="headerlink" title="转发消息"></a>转发消息</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用于转发sdp、candidate等消息</span></span><br><span class="line">socket.<span class="title function_">on</span>(<span class="string">&#x27;message&#x27;</span>, <span class="function">(<span class="params">&#123; roomId, data &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  socket.<span class="title function_">to</span>(roomId).<span class="title function_">emit</span>(<span class="string">&#x27;message&#x27;</span>, data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="创建RTCPeerConnection对象"><a href="#创建RTCPeerConnection对象" class="headerlink" title="创建RTCPeerConnection对象"></a>创建RTCPeerConnection对象</h3><p>RTCPeerConnection 接口代表一个由本地计算机到远端的WebRTC连接。该接口提供了创建，保持，监控，关闭连接的方法的实现。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> pc = <span class="keyword">new</span> <span class="built_in">RTCPeerConnection</span>()</span><br></pre></td></tr></table></figure>
+<h4 id="绑定音视频数据"><a href="#绑定音视频数据" class="headerlink" title="绑定音视频数据"></a>绑定音视频数据</h4><p>我们可以通过 addTrack 方法和 addStream 方法（已过时，不推荐）将音视频数据和 RTCPeerConnection 对象进行绑定。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mediaStream.<span class="title function_">getTracks</span>().<span class="title function_">forEach</span>(<span class="function"><span class="params">track</span> =&gt;</span> &#123;</span><br><span class="line">  peerConnection.<span class="title function_">addTrack</span>(track, mediaStream);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="进行媒体协商"><a href="#进行媒体协商" class="headerlink" title="进行媒体协商"></a>进行媒体协商</h4><p>​    所谓的媒体协商，就是交换双方SDP信息，SDP包含音视频的编解码(<a href="https://link.juejin.cn?target=https%3A%2F%2Fdeveloper.mozilla.org%2Fzh-CN%2Fdocs%2FGlossary%2FCodec">codec</a>),源地址,和时间信息等信息。</p>
+<p>​    呼叫端获取本地sdp(offer)，调用pc.setLocalDescription(offer)保存本地的sdp信息后，通过信令服务器发送本地sdp到远端。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 呼叫端获取本地sdp(offer)</span></span><br><span class="line">pc.<span class="title function_">createOffer</span>().<span class="title function_">then</span>(<span class="function"><span class="params">offer</span> =&gt;</span> &#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;------ 获取到了本地offer&#x27;</span>, offer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 绑定本地sdp信息</span></span><br><span class="line">pc.<span class="title function_">setLocalDescription</span>(offer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过信令服务器发送本地sdp到远端</span></span><br><span class="line">signalServer.<span class="title function_">send</span>(&#123;</span><br><span class="line">	<span class="attr">type</span>: <span class="string">&#x27;offer&#x27;</span>,</span><br><span class="line">	<span class="attr">value</span>: offer,</span><br><span class="line">&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>​    被叫端接收到来自远端的offer后，调用 pc.setRemoteDescription(offer) 绑定远端sdp，然后调用pc.createAnswer() 创建本地sdp并使用   pc.setLocalDescription(answer) 进行保存，最后利用信令服务器将 answer sdp 发送给远端。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">onGetRemoteOffer</span> = offer =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;------ 获取到了远端offer&#x27;</span>, offer);</span><br><span class="line">    <span class="comment">// 远端发起呼叫，开始建立连接</span></span><br><span class="line">    <span class="comment">// 绑定远端sdp</span></span><br><span class="line">    pc.<span class="title function_">setRemoteDescription</span>(offer);</span><br><span class="line">    <span class="comment">// 创建本地sdp</span></span><br><span class="line">    pc.<span class="title function_">createAnswer</span>().<span class="title function_">then</span>(<span class="function"><span class="params">answer</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 绑定本地sdp</span></span><br><span class="line">        pc.<span class="title function_">setLocalDescription</span>(answer);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;------ 获取到了本地answer&#x27;</span>, answer);</span><br><span class="line">        <span class="comment">// 发送本地sdp到远端</span></span><br><span class="line">        signalServer.<span class="title function_">send</span>(&#123;</span><br><span class="line">        	<span class="attr">type</span>: <span class="string">&#x27;answer&#x27;</span>,</span><br><span class="line">        	<span class="attr">value</span>: answer,</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>​    呼叫端接收到远端的answer后，调用 pc.setRemoteDescription(answer) 绑定远端sdp。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">onGetRemoteAnswer</span> = answer =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;------ 获取到了远端answer&#x27;</span>, answer);</span><br><span class="line">    <span class="comment">// 绑定远端sdp</span></span><br><span class="line">    pc.<span class="title function_">setRemoteDescription</span>(answer);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="ICE"><a href="#ICE" class="headerlink" title="ICE"></a>ICE</h4><p>​    当媒体协商完成后，WebRTC就开始建立网络连接了。建立网络连接的前提是客户端需要知道对端的外网地址，这个<strong>获取并交换外网地址的过程，我们称为ICE</strong>。</p>
+<h5 id="收集"><a href="#收集" class="headerlink" title="收集"></a>收集</h5><p>​    WebRTC内部集成了收集Candidate的功能。收集到Candidate后，为了通知上层，WebRTC还提供onicecandidate事件。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听 candidate 获取事件</span></span><br><span class="line">pc.<span class="title function_">addEventListener</span>(<span class="string">&#x27;icecandidate&#x27;</span>, <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> candidate = event.<span class="property">candidate</span>;</span><br><span class="line">    <span class="keyword">if</span> (candidate) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;------ 获取到了本地 candidate：&#x27;</span>, candidate)</span><br><span class="line">      <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<h5 id="交换"><a href="#交换" class="headerlink" title="交换"></a>交换</h5><p>​    收集到candidate后，可以通过信令系统将candidate信息发送给远端。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送candidate到远端</span></span><br><span class="line">signalServer.<span class="title function_">send</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;candidate&#x27;</span>, <span class="attr">value</span>: candidate &#125;);</span><br></pre></td></tr></table></figure>
+<p>​    远端接收到对端的candidate后，会与本地的candidate形成CandidatePair（即连接候选者对）。有了CandidatePair，WebRTC就可以开始尝试建立连接了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取到远端的candidate</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">onGetRemoteCandidate</span> = candidate =&gt; &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;------ 获取到了远端candidate&#x27;</span>, candidate);</span><br><span class="line">	pc.<span class="title function_">addIceCandidate</span>(candidate);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="远端音视频数据接收与渲染"><a href="#远端音视频数据接收与渲染" class="headerlink" title="远端音视频数据接收与渲染"></a>远端音视频数据接收与渲染</h4><p>当双方都获取到对端的candidate信息后，WebRTC内部就开始尝试建立连接了。连接一旦建成，音视频数据就开始源源不断地由发送端发送给接收端。</p>
+<p>通过RTCPeerConnection对象的track事件，我们能接收到远端的音视频数据并进行渲染。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听到远端传过来的媒体数据</span></span><br><span class="line">pc.<span class="title function_">addEventListener</span>(<span class="string">&#x27;track&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;------ 获取到了远端媒体数据：&#x27;</span>, e);</span><br><span class="line">    <span class="keyword">if</span> (remoteVideo.<span class="property">srcObject</span> !== e.<span class="property">streams</span>[<span class="number">0</span>]) &#123;</span><br><span class="line">      remoteVideo.<span class="property">srcObject</span> = e.<span class="property">streams</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>注：</strong>引用自<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44938451/article/details/122158975">https://blog.csdn.net/qq_44938451/article/details/122158975</a></p>
+<h2 id="WebRTC-简单概念"><a href="#WebRTC-简单概念" class="headerlink" title="WebRTC 简单概念"></a>WebRTC 简单概念</h2><p><img src="/images/WebRTC-study/image-20221105195123025.png" alt="image-20221105195123025" style="zoom:50%;" /></p>
+<p>​    上述序列中，WebRTC并不提供Stun服务器和Signal服务器，服务器端需要自己实现。Stun服务器可以用google提供的实现stun协议的测试服务器（stun:stun.l.google.com:19302），Signal服务器则完全需要自己实现了，它需要在ClientA和ClientB之间传送彼此的SDP信息和candidate信息，ClientA和ClientB通过这些信息建立P2P连接来传送音视频数据。由于网络环境的复杂性，并不是所有的客户端之间都能够建立P2P连接，这种情况下就需要有个relay服务器做音视频数据的中转。<strong>而Signal服务器其实就是我们的websocket，stun服务器其实就是webrtc。</strong></p>
+<p><strong>上图中的流程如下：</strong></p>
+<ol>
+<li>ClientA首先创建PeerConnection对象，然后打开本地音视频设备，将音视频数据封装成MediaStream添加到PeerConnection中。</li>
+<li>ClientA调用PeerConnection的CreateOffer方法创建一个用于offer的SDP对象，SDP对象中保存当前音视频的相关参数。ClientA通过PeerConnection的SetLocalDescription方法将该SDP对象保存起来，并通过Signal服务器发送给ClientB。</li>
+<li>ClientB接收到ClientA发送过的offer SDP对象，通过PeerConnection的SetRemoteDescription方法将其保存起来，并调用PeerConnection的CreateAnswer方法创建一个应答的SDP对象，通过PeerConnection的SetLocalDescription的方法保存该应答SDP对象并将它通过Signal服务器发送给ClientA。</li>
+<li>ClientA接收到ClientB发送过来的应答SDP对象，将其通过PeerConnection的SetRemoteDescription方法保存起来</li>
+<li>在SDP信息的offer/answer流程中，ClientA和ClientB已经根据SDP信息创建好相应的音频Channel和视频Channel并开启Candidate数据的收集，<strong>Candidate数据可以简单地理解成Client端的IP地址信息（本地IP地址、公网IP地址、Relay服务端分配的地址）</strong>。</li>
+<li>当ClientA收集到Candidate信息后，PeerConnection会通过OnIceCandidate接口给ClientA发送通知，ClientA将收到的Candidate信息通过Signal服务器发送给ClientB，ClientB通过PeerConnection的AddIceCandidate方法保存起来。同样的操作ClientB对ClientA再来一次。</li>
+<li>这样ClientA和ClientB就已经建立了音视频传输的P2P通道，ClientB接收到ClientA传送过来的音视频流，会通过PeerConnection的OnAddStream回调接口返回一个标识ClientA端音视频流的MediaStream对象，在ClientB端渲染出来即可。同样操作也适应ClientB到ClientA的音视频流的传输。</li>
+</ol>
+<h3 id="搭建-turn-服务器"><a href="#搭建-turn-服务器" class="headerlink" title="搭建 turn 服务器"></a>搭建 turn 服务器</h3><p><strong>0x00：</strong>下载各种东西。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">apt -y install openssl-devel</span><br><span class="line">openssl req -x509 -newkey rsa:2048 -keyout /etc/turn_server_pkey.pem -out /etc/turn_server_cert.pem -days 99999 -nodes</span><br><span class="line">wget --no-check-certificate https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz</span><br><span class="line">tar -zxvf libevent-2.1.12-stable.tar.gz</span><br><span class="line">cd libevent-2.1.12-stable/</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line">apt-get install coturn</span><br></pre></td></tr></table></figure>
+<p><strong>0x01：</strong>更改配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#与前ifconfig查到的网卡名称一致</span><br><span class="line">relay-device=eth0</span><br><span class="line">listening-ip=10.0.16.7</span><br><span class="line">external-ip=159.75.239.36</span><br><span class="line">user=chr:123456</span><br><span class="line">realm=chr.com</span><br><span class="line">listening-port=3478</span><br><span class="line">cli-password=qwerty</span><br><span class="line"></span><br><span class="line">cert=/etc/turn_server_cert.pem</span><br><span class="line">pkey=/etc/turn_server_pkey.pem</span><br></pre></td></tr></table></figure>
+<p><strong>0x02：</strong>开端口&amp;启动</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">turnserver -a -o -f -r xxx.com</span><br></pre></td></tr></table></figure>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2022/11/05/yum-and-apt/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2022/11/02/花指令/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-11-03 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/study-notes/">study-notes<span>17</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

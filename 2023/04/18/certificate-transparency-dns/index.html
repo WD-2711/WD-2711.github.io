@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>certificate-transparency-dns | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="certificate-transparency-dns"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> certificate-transparency-dns</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Dns-transparency-调研"><a href="#Dns-transparency-调研" class="headerlink" title="Dns transparency 调研"></a>Dns transparency 调研</h1><p>&emsp;证书放在分布式独立账本中。用户代理：验证证书是否已合法添加到日志中，来帮助执行证书审核。监视器：确保所有记录的证书在日志中可见，并监视日志中的可疑证书。</p>
+<span id="more"></span>
+<h2 id="Certicate-Transparency-Using-Blockchain"><a href="#Certicate-Transparency-Using-Blockchain" class="headerlink" title="Certicate Transparency Using Blockchain"></a>Certicate Transparency Using Blockchain</h2><p>&emsp;使CA在未获得域名所有者同意的情况下无法为域名颁发证书（CT的作用）。使用Go写（hyperledger）。</p>
+<p>&emsp;证书透明度的最终目标是Web客户端应该只接受公开记录的证书，并且CA不可能在没有公开可见的情况下为域颁发证书。<strong>在最终确定其有效性之前，未经授权的证书可能会被浏览器接受。在本文中，我们建议域所有者在授权其域的证书时拥有绝对控制权。域名所有者直接参与其域名的证书颁发过程。</strong></p>
+<p>&emsp;<strong>CT细节：</strong>Auditors使用一致性保护（由Log Servers提供）来验证日志的新条目是否总是添加到日志的旧条目中，并且没有人通过追溯插入、删除或修改证书来损坏日志。<strong>一致性证明允许Auditors验证其对特定日志的当前视图与其过去的视图是否一致。</strong>Monitors监视Log Servers日志中的可疑证书。Monitors 还验证所有记录的证书在日志中是否可见。他们通过定期获取添加到日志中的所有新条目来实现这一点。<strong>因此，大多数Monitors都有其监视的日志的完整副本。</strong></p>
+<p><img src="/images/certificate-transparency-dns/image-20230422110423761.png" alt="image-20230422110423761" style="zoom:50%;" /></p>
+<h3 id="Log-Servers-如何维护证书、生成审计路径和提供一致性证明"><a href="#Log-Servers-如何维护证书、生成审计路径和提供一致性证明" class="headerlink" title="Log Servers 如何维护证书、生成审计路径和提供一致性证明"></a>Log Servers 如何维护证书、生成审计路径和提供一致性证明</h3><p>&emsp;如何维护证书？CT中的日志服务器使用Merkle哈希树来促进证书的公开审计。二叉树，叶节点是证书哈希，非叶节点是子节点合并起来，然后哈希。</p>
+<p>&emsp;生成审计路径？叶节点到根节点的路径。</p>
+<p>&emsp;提供一致性证明？验证日志的两个版本是否一致。举例说明，如下所示，首先一致性证明是给出新树的信息<code>(c,h(x_4),h(x_5),h(x_6))</code>。之后，验证<code>d==h(c,h(x_4))</code>，来验证旧树是否正确。之后验证<code>h==(c,h(h(h(x_4), h(x_5)), h(x_6)))</code>是否正确，如果正确则满足一致性。</p>
+<p><img src="/images/certificate-transparency-dns/image-20230422111349913.png" alt="image-20230422111349913" style="zoom:80%;" /></p>
+<p><img src="/images/certificate-transparency-dns/image-20230422111357928.png" alt="image-20230422111357928" style="zoom:80%;" /></p>
+<h3 id="Hyperledger-Fabric（HF）"><a href="#Hyperledger-Fabric（HF）" class="headerlink" title="Hyperledger Fabric（HF）"></a>Hyperledger Fabric（HF）</h3><p>&emsp;一个开源区块链平台。</p>
+<p>&emsp;包括：（1）Chaincode：是一种实现应用程序逻辑的程序代码。（2）Endorsement Policy：定义哪些节点需要对交易进行确认。</p>
+<p>&emsp;流程：（1）Execution Phase：在此阶段，客户将交易发送给背书政策指定的特定对等方。这样的消息是一个已签名的请求，用于调用链代码函数。它必须包括链代码id、时间戳和事务的有效负载。然后，每个事务都由特定的对等方执行，并记录其输出。背书对等方根据当前状态模拟/执行事务。对等方将此执行的结果与认可对等方的签名一起发送给客户端。此时没有对分类帐进行更新。客户收集背书并将其组合成交易。客户端验证验证对等方的签名，并检查认可策略是否已执行。如果满足这些条件，客户端将使用对等方的读写集、签名和Channel id创建一个签名信封。上述信封代表交易提案。（2）Ordering Phase：客户将向排序服务广播交易建议。排序服务不阅读信封中的内容；它只收集网络中所有频道的信封，对其进行排序，并创建包含这些信封的签名链块，最后广播给所有的对等方。（3）Validation Phase：在此阶段中，每个对等点随后验证与认可策略和执行一致性相关的认可交易的状态更改。所有对等点都以相同的顺序验证事务，并且验证是确定性的。最后，每个对等点将块附加到链上，并且对于每个有效事务，写集合被提交到当前状态数据库。发出一个事件，通知客户端应用程序事务已被不变地附加到链上，并通知事务是有效的还是无效的。</p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><p>&emsp;将证书透明度所需要的log变成了hyperledger。</p>
+<p><img src="/images/certificate-transparency-dns/image-20230422122254690.png" alt="image-20230422122254690" style="zoom:80%;" /></p>
+<p>&emsp;hyperledger是一个账本，元素是<code>(domain, cert)</code>。账本更新需要<code>(old cert, new cert, old key signature)</code>。</p>
+<p>&emsp;证书撤销。将元素改为<code>(domain,(cert, revoked/not revoked))</code>。</p>
+<h2 id="Certificate-Transparency-with-Enhanced-Privacy"><a href="#Certificate-Transparency-with-Enhanced-Privacy" class="headerlink" title="Certificate Transparency with Enhanced Privacy"></a>Certificate Transparency with Enhanced Privacy</h2><p>&emsp;<strong>方案贡献：</strong>（1）在恶意日志服务器试图迫使用户接受实际上没有在日志中注册的假证书的情况下，用户应该能够验证从日志服务器接收到的证书验证消息是否是恶意生成的（即，基于假证书进行操纵）<strong>（用区块链与不用区块链）</strong>。（2）用户的浏览隐私：在证书验证过程中，用户的任何浏览信息（如用户希望访问何种网络服务器）都不应泄露给外部实体，如日志服务器和监视器。</p>
+<p>&emsp;要解决的问题：（1）一致性。不同位置，日志记录的相同。（2）时间前后，后面日志包含前面日志。</p>
+<h3 id="share-value-tree（SVT）"><a href="#share-value-tree（SVT）" class="headerlink" title="share value tree（SVT）"></a>share value tree（SVT）</h3><p>&emsp;非叶节点与叶节点。非叶节点<code>x</code>表示阈值门，<code>x.n</code>表示<code>x</code>的子节点数量，<code>x.s</code>表示<code>x</code>的共享值，<code>x.k</code>表示其阈值。</p>
+<h3 id="不用区块链来抵御split-world-attack"><a href="#不用区块链来抵御split-world-attack" class="headerlink" title="不用区块链来抵御split-world attack"></a>不用区块链来抵御split-world attack</h3><p>&emsp;使用秘密共享树，与monitor进行交互，来解决上述两个问题，同时保护用户隐私。但是monitor密钥轮换是一个问题，而且可能需要多个Monitor。</p>
+<h2 id="LogPicker-Strengthening-Certificate-Transparency-Against-Covert-Adversaries"><a href="#LogPicker-Strengthening-Certificate-Transparency-Against-Covert-Adversaries" class="headerlink" title="LogPicker: Strengthening Certificate Transparency Against Covert Adversaries"></a>LogPicker: Strengthening Certificate Transparency Against Covert Adversaries</h2><h2 id="SoK-SCT-Auditing-in-Certificate-Transparency"><a href="#SoK-SCT-Auditing-in-Certificate-Transparency" class="headerlink" title="SoK: SCT Auditing in Certificate Transparency"></a>SoK: SCT Auditing in Certificate Transparency</h2><p>&emsp;<strong>目前，现在的问题是缺乏审计，即Auditors，因为我不用区块链，还要保持日志一致性，所以就需要一个构造合理的Auditors。</strong></p>
+<p>&emsp;客户端直接查询日志：客户端直接向日志进行查询是否有某个证书。但有两个问题：1. 没有隐私，日志能够知道客户端访问的哪个网页；2. 日志无法确认客户端是合法的，要不就会向外部共享证书。</p>
+<p>&emsp;客户端通过代理来查询日志：保证代理与日志没有串通，且会增加延迟。其中，可以将DNS服务器当作代理，因为日志知道DNS服务器对证书感兴趣，因此日志不会知晓客户端的信息。（<strong>google提出来的，可以在DNS的回复中获取证据信息。</strong>）但此方案有隐私风险：（1）SCT审查可能是异步的，SCT审查通过不同的DNS进行路由，从而定位客户端位置；<strong>（2）DNS会进行预取，预先取SCT，而客户端此时不需要，可能会暴露客户端其他信息。（google已经放弃DNS方案）</strong></p>
+<p>&emsp;在客户端直接查询日志的方向上，还有一个思路，我们可以让日志知道客户端现在正在查询证书，但是日志不知道客户端查询的什么证书。（1）Fuzzy ranges。日志可以向客户端证明其要的证书在某个范围内，而不是证明某个证书是否存在。其可以让客户端查询两个索引之间的所有条目，但是证书需要包含序列号，会增加通信与计算成本。且客户端在查询时，需要查询一个范围，如果客户端向多个日志进行查询，且日志之间是串通的，那么就可以取交集，来缩小范围。（2）PIR（私有信息检索）。PIR就是客户查询隐私，服务端内容全局可见。现有解决方案大多在双服务器的PIR上运行。但是，还要验证STH（signed tree head）与之前信任的STH的一致性。这也要求证书需要包含序列号。<strong>这些方案存在开销过大的问题。</strong>（3）私有集求交（PSM）。要求服务器与客户端都不知道对方的信息，即客户端不知道服务器的其他信息，服务器不知道客户端要查询的内容。</p>
+<p>&emsp;还有一种，客户端与日志不通信，那么日志就不会知道客户端访问的什么网页。其方法有：（1）客户端本地保存日志，对客户端存储有重大挑战。（2）CA将包含证明SCT嵌入到证书中，这样客户端就不用去问日志。如果日志立即将SCT发给CA，那么</p>
+<p>注：SCT是由证书颁发机构（Certificate Authority，CA）签署的证书签名时间戳，用于证明该证书已被提交到证书透明度日志（CT log）中。SCT确保了证书的公开性，因为它们可以让任何人验证证书是否已经被提交到日志中。STH是一个包含了所有已提交到CT日志中的证书哈希值的数据结构。STH由CT日志的管理员签名，确保了日志的完整性和公开性。STH还允许任何人验证日志中的证书数量和内容是否已被篡改。SCT和STH之间的关系是，SCT证明了证书已经被提交到CT日志中，而STH则提供了CT日志的完整性和公开性证明。SCT和STH的结合确保了证书透明度系统的安全和有效性。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/04/22/taint-checking/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/04/17/angr-study/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-04-18 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/papers/">papers<span>8</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

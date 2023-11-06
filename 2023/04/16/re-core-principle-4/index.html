@@ -1,0 +1,588 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>re-core-principle-4 | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="re-core-principle-4"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> re-core-principle-4</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="逆向工程核心原理笔记-4"><a href="#逆向工程核心原理笔记-4" class="headerlink" title="逆向工程核心原理笔记-4"></a>逆向工程核心原理笔记-4</h1><h2 id="0x00-优秀分析工具标准"><a href="#0x00-优秀分析工具标准" class="headerlink" title="0x00 优秀分析工具标准"></a>0x00 优秀分析工具标准</h2><p>&emsp;即便是普通的工具，对其认真研习并运用到极致，它也能成为天下独一无二的优秀工具。</p>
+<span id="more"></span>
+<h2 id="0x01-64位计算"><a href="#0x01-64位计算" class="headerlink" title="0x01 64位计算"></a>0x01 64位计算</h2><p>&emsp;windows 95是32位的，但也能运行16位DOS。windows 2000/XP也是32位的。IA-64（Itanium）是专用在大型服务器与超算中，不支持32位。而现在的PC中的x64则支持32位。如果要用64位支持32位程序，首先在数据的定义上，如下所示：</p>
+<p><img src="/images/re-core-principle-4/image-20230423194634120.png" alt="image-20230423194634120" style="zoom:67%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ILP32: Integer、Long、Pointer-32位</span><br><span class="line">LLP: LongLong、Pointer-64位</span><br><span class="line">LP64: Long、Pointer-64位</span><br></pre></td></tr></table></figure>
+<p>&emsp;微软提供了WOW64（windows on windows 64）的机制，使得32位程序在64位程序中正常运行。64位应用程序会加载<code>kernel32.dll</code>(64位)与<code>ntdll.dll</code> (64位)。而32位应用程序则会加载<code>kernel32.dll</code>(32位)与<code>ntdll.dll</code>(32位)，<strong>WOW64会在中间将<code>ntdll.dll</code>(32位)的请求(API调用)重定向到<code>ntdll.dll</code>(64位)</strong>。如下图所示：</p>
+<p><img src="/images/re-core-principle-4/image-20230423195727831.png" alt="image-20230423195727831" style="zoom:67%;" /></p>
+<p>&emsp;windows下有<code>SysWOW64</code>与<code>System32</code>两个文件夹，<code>SysWOW64</code>中存放32位dll，当运行32位程序时，就用这个，映射到<code>System32</code>文件夹下的dll中。<code>System32</code>存放64位dll。<strong>因此，64位应用程序中使用<code>GetSystemDirectory</code>查找系统文件夹，正常返回<code>System32</code>文件夹，32位应用程序中调用<code>GetSystemDirectory</code>返回的文件夹名称也为<code>System32</code>，文件夹的实际内容与<code>SysWOW64</code>文件夹是一样的，这是WOW64在中间截获了API调用并进行操作后返回的结果，这使32位应用程序可以正常运行。</strong></p>
+<p>&emsp;对于注册表而言，使用32位进程请求访问<code>HKLM/SOFTWARE</code>下的键时，WOW64会将其重定向到32位的<code>HKLM/SOFTWARE/Wow6432Node</code>下的键。当使用64位进程请求访问<code>HKLM/SOFTWARE</code>下的键时，就正常进行访问。注意，与文件系统不同，注册表无法完全分离32位与64位，经常出现32/64位共用的情形。有时候向 32 位部分写入的值会自动写入 64 位部分。</p>
+<h2 id="0x02-x64处理器"><a href="#0x02-x64处理器" class="headerlink" title="0x02 x64处理器"></a>0x02 x64处理器</h2><p>&emsp;x64相比于x86新增了很多东西，我们在此只说一小部分。</p>
+<ul>
+<li>内存地址变为64位，因此寄存器大小以及栈都变为64位。</li>
+<li>x64进程虚拟内存大小为16TB，32位进程虚存仅为4GB。</li>
+<li>x64系统中通用寄存器大小为64位，数量增加到18个，此外，还有16个XMM寄存器，每个XMM寄存器为128位。64位寄存器的字母以<code>R</code>开头，x86以<code>E</code>开头。64位系统中不使用段寄存器。</li>
+</ul>
+<p><img src="/images/re-core-principle-4/image-20230423204452028.png" alt="image-20230423204452028" style="zoom:60%;" /></p>
+<ul>
+<li>call/jmp解析方式不同。</li>
+</ul>
+<p>&emsp;32位如下所示，其中FF15后面的00405000解析为绝对地址。</p>
+<p><img src="/images/re-core-principle-4/image-20230423205047985.png" alt="image-20230423205047985" style="zoom:50%;" /></p>
+<p>&emsp;64位如下所示，其中FF15后面的3FFA解析为相对地址。</p>
+<p><img src="/images/re-core-principle-4/image-20230423205207224.png" alt="image-20230423205207224" style="zoom:50%;" /></p>
+<p>&emsp;<strong>计算方法：</strong><code>00000001 0040100 + 3FFA + 6 = 00000001 00405000</code>。而又因为<code>00000001 00405000</code>存储着<code>00000000 75CE1E12</code>，因此最后被解析为<code>call 00000000 75CE1E12</code>。</p>
+<ul>
+<li>32位调用函数包括<code>cdecl</code>、<code>stdcall</code>、<code>fastcall</code>三种，而64位系统中只有<code>fastcall</code>，它把函数的4个参数传递到寄存器中，进行参数传递，<strong>64位系统中由调用者清理栈</strong>。（<strong>复习：被调函数执行完毕后，函数的调用者(Caller)负责清理存储在栈中的参数，这种方式称为<code>cdecl</code>方式。反之，被调用者(Callee)负责清理保存在栈中的参数，这种方式称为<code>stdcall</code>方式。<code>fastcall</code>方式与<code>stdcall</code>类似，但是使用寄存器传递前两个参数，而不是使用栈。其调用速度快。</strong>）如下表所示：</li>
+</ul>
+<p><img src="/images/re-core-principle-4/image-20230423210308824.png" alt="image-20230423210308824" style="zoom:67%;" /></p>
+<ul>
+<li>调用子函数时，不再使用push命令传递参数，而是通过mov指令操作寄存器与预定的栈来传递。创建栈帧时也不再使用RBP寄存器，而是直接使用RSP寄存器来实现。使用 Visual C++ 编译32位程序时，若开启了编译器的优化功能，则几乎看不到使用EBP寄存器的栈帧。</li>
+</ul>
+<p>&emsp;该方式的优点：<strong>调用子函数无需改变栈指针RSP，函数返回也无需清理RSP，大幅度提升速度。</strong>下面来验证一下，代码如下，分别用win32与x64进行编译：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;windows.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    HANDLE hFile = INVALID_HANDLE_VALUE;</span><br><span class="line">    </span><br><span class="line">    hFile = <span class="built_in">CreateFileA</span>(<span class="string">&quot;c:\\work\\ReverseCore.txt&quot;</span>,    <span class="comment">// 1st - (string)</span></span><br><span class="line">                        GENERIC_READ,                   <span class="comment">// 2nd - 0x80000000</span></span><br><span class="line">                        FILE_SHARE_READ,                <span class="comment">// 3rd - 0x00000001</span></span><br><span class="line">                        <span class="literal">NULL</span>,                           <span class="comment">// 4th - 0000000000</span></span><br><span class="line">                        OPEN_EXISTING,                  <span class="comment">// 5th - 0x00000003</span></span><br><span class="line">                        FILE_ATTRIBUTE_NORMAL,          <span class="comment">// 6th - 0x00000080</span></span><br><span class="line">                        <span class="literal">NULL</span>);                          <span class="comment">// 7th - 0x00000000</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( hFile != INVALID_HANDLE_VALUE )</span><br><span class="line">        <span class="built_in">CloseHandle</span>(hFile);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;win32的main函数情况：</p>
+<p>（1）不使用栈帧。由于代码比较简单，变量又少，开启编译器的优化选项后，栈帧会被省略。</p>
+<p>（2）调用子函数（<code>CreateFileA</code>、<code>CloseHandle</code>）时使用栈传递参数特征。</p>
+<p>（3）使用PUSH指令压入栈的函数参数不需要main函数清理。在32位环境中采用<code>stdcall</code>方式调用Win32API时，由被调用者清理栈。</p>
+<p>（4）调用<code>CreateFileA</code>后，<code>CreateFileA</code>会自动调<code>CreateFileW</code>。</p>
+<p>&emsp;x64的程序则需要使用windbg调试。其main代码如下所示：</p>
+<p><img src="/images/re-core-principle-4/image-20230424093158952.png" alt="image-20230424093158952" style="zoom:67%;" /></p>
+<p>（1）使用变形的栈帧。在代码起始部分分配58h字节大小的栈，最后在RET命令之前释放。栈操作并未使用RBP寄存器，而直接使用RSP寄存器。</p>
+<p>（2）几乎没有使用PUSH/POP指令。设置参数的代码（<code>00000001 4000101d-00000001 40001044</code>）。前4个参数使用寄存器（RCX、RDX、R8、R9）。后3个参数使用栈。有意思的是并未看到调用者清理栈（这原来是64位<code>fastcall</code>的特征），原因在于子函数使用的是分配给main的栈，子函数本身不会分配栈。</p>
+<p>（3）第5个参数在栈中的存储位置有些奇怪。如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">00000001-40001028 mov dword ptr [rsp+20h], 3;</span><br></pre></td></tr></table></figure>
+<p>&emsp;从以上代码可以看到，第5个参数在栈中的存储位置为<code>[rsp+20h]</code>，<code>[rsp]</code>并未指向栈顶。原因在于，虽然x64系统中前4个参数使用寄存器传递，但栈中仍然为它们预留了同等大小的空间(20h=4*8字节)。</p>
+<h2 id="0x03-PE32"><a href="#0x03-PE32" class="headerlink" title="0x03 PE32+"></a>0x03 PE32+</h2><p>&emsp;PE32+是64位windows的可执行文件格式。前面说过，64位windows的进程虚拟内存为16TB，低8TB给用户模式，高8TB给内核模式。本节主要讲解PE32+与PE32的不同点。</p>
+<p>&emsp;<strong><code>PE32+</code>的<code>IMAGE_NT_HEADERS</code>如下：</strong></p>
+<p><img src="/images/re-core-principle-4/image-20230424112901180.png" alt="image-20230424112901180" style="zoom:67%;" /></p>
+<p>&emsp;<strong><code>PE32+</code>的<code>IMAGE_FILE_HEADER</code>的Machine值为<code>0x8664</code>，<code>PE32</code>的Machine值为<code>0x014C</code></strong>。</p>
+<p>&emsp;<strong>与<code>PE32</code>相比，<code>PE32+</code>的<code>IMAGE_OPTIONAL_HEADER</code>变化最大。</strong>具体变化简述如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Magic。PE32中Magic值为010B，PE32+中Magic值为020B。</span><br><span class="line">BaseOfData。PE32文件中该字段用于指示数据节的起始地址(RVA)而PE32+文件中删除了该字段。</span><br><span class="line">ImageBase。由4字节变为8字节。AddressOfEntryPoint、SizeOfImage等字段大小与原PE32位是一样的，都是4字节，意味着 PE32+格式的文件占用的实际虚拟内存中，各映像的大小最大为4GB。但是由于ImageBase的大小为8个字节(64位)，程序文件可以加载到进程虚拟内存中的任意地址。</span><br><span class="line">堆和栈相关的字段变为8字节。</span><br></pre></td></tr></table></figure>
+<p>&emsp;<strong>与<code>PE32</code>相比，<code>IMAGE_THUNK_DATA</code>结构体的大小由原来的4个字节变为8个字节。</strong>下图是<code>IMAGE_IMPORT_DESCRIPTOR</code>示意图（其中<code>OriginalFirstThunk</code>与<code>FirstThunk</code>是<code>IMAGE_THUNK_DATA</code>结构体，装载PE文件时，OS的PE装载器会向<code>IAT</code>中写入真正的API入口地址）：</p>
+<p><img src="/images/re-core-principle-4/image-20230424125405520.png" alt="image-20230424125405520" style="zoom:67%;" /></p>
+<p><strong>注：</strong></p>
+<ul>
+<li><code>IMAGE_TLS_DIRECTORY</code>：在Windows PE格式中，TLS代表线程本地存储（Thread Local Storage），用于在多线程应用程序中为每个线程分配独立的内存空间。<code>IMAGE_TLS_DIRECTORY</code>是PE结构中的一个数据结构，用于描述TLS数据的位置和大小。</li>
+<li><code>CFF Explorer</code>与<code>PE view</code>都是观察PE格式的工具，但是<code>CFF Explorer</code>可以查看64位PE的格式，而<code>PE view</code>只能观察32位PE格式。</li>
+</ul>
+<h2 id="0x04-windbg学习"><a href="#0x04-windbg学习" class="headerlink" title="0x04 windbg学习"></a>0x04 windbg学习</h2><p>&emsp;符号指的是调试信息文件（<code>*.pdb</code>）。使用Visual C++编译程序时，除了生成PE文件外，还会一起生成（<code>*pdb：Program Data Base</code>）程序数据库文件，该文件包含PE文件的各种调试信息（变量/函数名、函数地址等）。</p>
+<p>&emsp;<code>windbg</code>不仅可以对64位程序进行调试，还可以进行<strong>内核调试</strong>。使用<code>WinDbg</code>进行内核调试时，一般要使用2台PC（调试器-被调试者）调试前需要将2台PC连接起来。使用虚拟机也可以，被称为本地内核调试（Local Kernel Debugging），但是调试器的许多功能在这种调试方式下都受到限制。</p>
+<p>&emsp;为什么要用两台PC？内核调试中，被调试者为系统内核，所以 OS 系统自身会暂停。</p>
+<p>&emsp;下面我们想进行本地内核调试。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. bcdedit  // 查看系统信息</span><br><span class="line">2. bcdedit -debug on // 打开调试模式</span><br><span class="line">3. 管理员打开windbg-File-Kernel debug-Local-确定</span><br><span class="line">4. 之后显示Ntoskrnl.exe文件的装载地址，此文件其实是windows内核的内存装载映像</span><br><span class="line">5. 输入u nt!ZwCreateFile L50，代表输出ZwCreateFile的前50行汇编指令</span><br></pre></td></tr></table></figure>
+<h2 id="0x05-64位调试"><a href="#0x05-64位调试" class="headerlink" title="0x05 64位调试"></a>0x05 64位调试</h2><p>&emsp;示例文件源代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// WOW64Test.cpp -&gt; WOW64Test.exe</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;windows.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;Shlobj.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;tchar.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;Shell32.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> _tmain(<span class="type">int</span> argc, TCHAR* argv[])</span><br><span class="line">&#123;</span><br><span class="line">    HKEY    hKey                = <span class="literal">NULL</span>;</span><br><span class="line">    HANDLE  hFile               = INVALID_HANDLE_VALUE;</span><br><span class="line">    TCHAR   szPath[MAX_PATH]    = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">////////////////</span></span><br><span class="line">    <span class="comment">// system32 folder</span></span><br><span class="line">    <span class="keyword">if</span>( <span class="built_in">GetSystemDirectory</span>(szPath, MAX_PATH) )</span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;1) system32 path = %s\n&quot;</span>, szPath);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">////////////////</span></span><br><span class="line">    <span class="comment">// File size</span></span><br><span class="line">    _tcscat_s(szPath, <span class="string">L&quot;\\kernel32.dll&quot;</span>);</span><br><span class="line">    hFile = <span class="built_in">CreateFile</span>(szPath, GENERIC_READ, FILE_SHARE_READ, <span class="literal">NULL</span>, </span><br><span class="line">                       OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span>( hFile != INVALID_HANDLE_VALUE )</span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;2) File size of \&quot;%s\&quot; = %d\n&quot;</span>, </span><br><span class="line">        szPath, <span class="built_in">GetFileSize</span>(hFile, <span class="literal">NULL</span>));</span><br><span class="line">        <span class="built_in">CloseHandle</span>(hFile);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">////////////////</span></span><br><span class="line">    <span class="comment">// Program Files</span></span><br><span class="line">    <span class="keyword">if</span>( <span class="built_in">SHGetSpecialFolderPath</span>(<span class="literal">NULL</span>, szPath, </span><br><span class="line">                               CSIDL_PROGRAM_FILES, FALSE) )</span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;3) Program Files path = %s\n&quot;</span>, szPath);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">////////////////</span></span><br><span class="line">    <span class="comment">// Registry</span></span><br><span class="line">    <span class="keyword">if</span>( ERROR_SUCCESS == <span class="built_in">RegCreateKey</span>(HKEY_LOCAL_MACHINE, </span><br><span class="line">                                      <span class="string">L&quot;SOFTWARE\\ReverseCore&quot;</span>, &amp;hKey) )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">RegCloseKey</span>(hKey);</span><br><span class="line">        _tprintf(<span class="string">L&quot;4) Create Registry Key : HKLM\\SOFTWARE\\ReverseCore\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;分别编译成x86与x64程序，并运行，其输出如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230424144647177.png" alt="image-20230424144647177" style="zoom:80%;" /></p>
+<p>&emsp;对于x86程序，VC++2010工具生成的(基于控制台的)<code>PE32</code>文件的<code>EP</code>代码的特征，ollydbg一开始就停在了entry处：</p>
+<p><img src="/images/re-core-principle-4/image-20230424145706207.png" alt="image-20230424145706207" style="zoom:67%;" /></p>
+<p><img src="/images/re-core-principle-4/image-20230424145814617.png" alt="image-20230424145814617" style="zoom:50%;" /></p>
+<p>&emsp;如何查找main函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(1) 在GetCommandLine上设置断点。被调试者(WOW64Test_x86.exe)是一个基于控制台的应用程序。因此，调用main函数前会先调用GetCommandLine，需要先把main函数的参数存储到栈中。</span><br><span class="line">(2) 在GetSystemDirectory、GetFileSize、CreateFile等API上打断点。</span><br><span class="line">(3) 字符串检索。</span><br></pre></td></tr></table></figure>
+<p>&emsp;对于x64程序，使用windbg，程序一开始停在<code>ntdll.dll</code>的系统断点处。因此，我们先要程序停在entry处。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(1) 输入!dh WOW64Test_x64，查看文件头信息，从而获得 entry point 地址，发现为142C（RVA）。</span><br><span class="line">(2) 输入g WOW64Test_x64+0x142C，到达entry地址。</span><br><span class="line">(3) 输入u eip L10，显示10条汇编指令。</span><br><span class="line">(4) 连续输入p，到startup代码处。</span><br><span class="line">(5) 使用bp kernel32!GetCommandLineWStub 设置断点，之后使用g来运行。</span><br><span class="line">(6) 使用r rsp查看rsp中的值，并用dq rsp查看rsp的值指向的地址的8字节值。（也就是看栈）</span><br></pre></td></tr></table></figure>
+<p>&emsp;如下所示：</p>
+<p><img src="/images/re-core-principle-4/image-20230424154857618.png" alt="image-20230424154857618" style="zoom:67%;" /></p>
+<p>&emsp;由于<code>GetCommandLineW</code>没有参数，因此<code>rsp</code>指向函数返回地址，也就是<code>00000001 40001381</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(7) g 00000001 40001381，之后输入u eip L20</span><br></pre></td></tr></table></figure>
+<p>&emsp;如下所示：</p>
+<p><img src="/images/re-core-principle-4/image-20230424155451417.png" alt="image-20230424155451417" style="zoom:80%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(8) g 00000001 400013ea，转到main函数，使用r查看其寄存器</span><br></pre></td></tr></table></figure>
+<p><img src="/images/re-core-principle-4/image-20230424155910387.png" alt="image-20230424155910387" style="zoom:80%;" /></p>
+<p><img src="/images/re-core-principle-4/image-20230424160155922.png" alt="image-20230424160155922" style="zoom:80%;" /></p>
+<p><img src="/images/re-core-principle-4/image-20230424160413801.png" alt="image-20230424160413801" style="zoom:80%;" /></p>
+<p><img src="/images/re-core-principle-4/image-20230424160955237.png" alt="image-20230424160955237" style="zoom:80%;" /></p>
+<p>&emsp;上述，<code>main(int argc, char* argv[])</code>，其中<code>rcx==argc==1</code>，<code>argv==rdx</code>是参数数组，<code>r8</code>是一个指针数组，所有元素都指向栈区域，它是使用<code>Visual C++ 2010</code>工具编译代码时由编译器自动添加的参数。</p>
+<p><strong>注：</strong></p>
+<p>（1）bp与bu的区别：bp就是正常断点，bu命令也用于设置断点，但它是一个不稳定的断点，即一旦命中后就自动失效。</p>
+<h2 id="0x06-ASLR"><a href="#0x06-ASLR" class="headerlink" title="0x06 ASLR"></a>0x06 ASLR</h2><p>&emsp;<code>ASLR</code>是一种针对缓冲区溢出的安全保护技术，微软从<code>windows vista</code>（内核版本6.0开始）开始使用此技术。</p>
+<p><img src="/images/re-core-principle-4/image-20230424163445011.png" alt="image-20230424163445011" style="zoom: 67%;" /></p>
+<p>&emsp;<strong>ASLR使得PE文件每次加载到内存的起始地址都会随机变化，并且每次运行程序时相应进程的栈以及堆的起始地址也会随机改变。也就是说，每次EXE文件运行时加载到进程内存的实际地址都不同，最初加载DLL文件时装载到内存中的实际地址也是不同的。</strong></p>
+<p><img src="/images/re-core-principle-4/image-20230424164225737.png" alt="image-20230424164225737" style="zoom:67%;" /></p>
+<p>&emsp;可以看到，采用ASLR的程序有<code>.reloc</code>节区，而不采用ASLR的程序没有<code>.reloc</code>节区。两者<code>Number of Sections</code>也不一样。</p>
+<p>&emsp;两个重要的不同字段：<code>IMAGE_FILE_HEADER\Characteristics</code>、<code>IMAGE_OPTIONAL_HEADER\DLL Characteristics</code>。</p>
+<p><img src="/images/re-core-principle-4/image-20230424170641049.png" alt="image-20230424170641049" style="zoom: 67%;" /></p>
+<p><img src="/images/re-core-principle-4/image-20230424170749191.png" alt="image-20230424170749191" style="zoom:67%;" /></p>
+<h3 id="练习-删除ASLR功能"><a href="#练习-删除ASLR功能" class="headerlink" title="练习-删除ASLR功能"></a>练习-删除ASLR功能</h3><p>&emsp;跟着P428来操作就可以。仅需要删除<code>IMAGE_OPTIONAL_HEADER\DLL Characteristics</code>的部分即可。而添加ASLR功能比较麻烦，既需要在文件头添加ASLR相应条目，还要增加重定位节区（<code>.reloc</code>）。</p>
+<h2 id="0x07-内核版本为6中的会话"><a href="#0x07-内核版本为6中的会话" class="headerlink" title="0x07 内核版本为6中的会话"></a>0x07 内核版本为6中的会话</h2><p>&emsp;0x06中说了，<code>windows vista</code>使用的<code>windows</code>版本为6的内核。其采用了一种新的<strong>会话管理机制</strong>。</p>
+<p>&emsp;一个在XP中可运行的服务程序在Vista中无法正常运行，且这些服务程序主要是与用户存在交互行为的程序。这是为什么呢？<code>Kernel 6</code>中使用的会话管理机制引起的。<strong>会话管理机制意味着：使用<code>CreateRemoteThread</code>进行DLL注入的方法不再适用于<code>kernel6</code>中的服务进程（对一般进程仍然适用）。</strong></p>
+<p>&emsp;<strong>会话指的是登录后的用户环境。以Windows操作系统为例，”切换用户”可以创建本地用户会话，”远程桌面连接”可以创建远程用户会话。</strong></p>
+<p><img src="/images/re-core-principle-4/image-20230424185917114.png" alt="image-20230424185917114" style="zoom:50%;" /></p>
+<p>&emsp;XP与vista的系统进程与服务进程都在ID为0的会话中。但是，<strong>对于XP来说，第一个登陆系统的用户会话ID为0；而对于vista来说，第一个登录系统的用户会话ID为1。</strong>相当于将会话ID为0与其他会话隔离开，能够提高安全性，这叫做<strong>会话0隔离机制</strong>。</p>
+<p>&emsp;虽然微软的ASLR与会话0隔离机制能够提高安全性，但是也有攻破的方法。<strong>例如，对于会话0隔离机制，会话1中的进程可以强行终止会话0中的进程；对于ASLR，<code>ReadProcessMemory</code>、<code>WriteProcessMemory</code>、<code>VirtualAllocEx</code>API也能正常运行（绕过了ASLR）。</strong></p>
+<h2 id="0x08-内核版本为6中的DLL注入"><a href="#0x08-内核版本为6中的DLL注入" class="headerlink" title="0x08 内核版本为6中的DLL注入"></a>0x08 内核版本为6中的DLL注入</h2><p>&emsp;由于使用了新的会话管理机制，因此使用<code>CreateRemoteThread</code>注入DLL的旧方法对某些进程<strong>（服务进程）</strong>不再适用。<strong>这是为什么呢？该如何解决呢？</strong></p>
+<p>&emsp;首先，先给出一个失败的例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// InjectDll.cpp -&gt; InjectDll.exe</span></span><br><span class="line"><span class="comment">// 老生常谈</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;windows.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;tchar.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">SetPrivilege</span><span class="params">(LPCTSTR lpszPrivilege, BOOL bEnablePrivilege)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TOKEN_PRIVILEGES tp;</span><br><span class="line">    HANDLE hToken;</span><br><span class="line">    LUID luid;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( !<span class="built_in">OpenProcessToken</span>(<span class="built_in">GetCurrentProcess</span>(),</span><br><span class="line">                          TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, </span><br><span class="line">			              &amp;hToken) )</span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;OpenProcessToken error: %u\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( !<span class="built_in">LookupPrivilegeValue</span>(<span class="literal">NULL</span>,           <span class="comment">// lookup privilege on local system</span></span><br><span class="line">                              lpszPrivilege,  <span class="comment">// privilege to lookup </span></span><br><span class="line">                              &amp;luid) )        <span class="comment">// receives LUID of privilege</span></span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;LookupPrivilegeValue error: %u\n&quot;</span>, <span class="built_in">GetLastError</span>() ); </span><br><span class="line">        <span class="keyword">return</span> FALSE; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    tp.PrivilegeCount = <span class="number">1</span>;</span><br><span class="line">    tp.Privileges[<span class="number">0</span>].Luid = luid;</span><br><span class="line">    <span class="keyword">if</span>( bEnablePrivilege )</span><br><span class="line">        tp.Privileges[<span class="number">0</span>].Attributes = SE_PRIVILEGE_ENABLED;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        tp.Privileges[<span class="number">0</span>].Attributes = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Enable the privilege or disable all privileges.</span></span><br><span class="line">    <span class="keyword">if</span>( !<span class="built_in">AdjustTokenPrivileges</span>(hToken, </span><br><span class="line">                               FALSE, </span><br><span class="line">                               &amp;tp, </span><br><span class="line">                               <span class="built_in">sizeof</span>(TOKEN_PRIVILEGES), </span><br><span class="line">                               (PTOKEN_PRIVILEGES) <span class="literal">NULL</span>, </span><br><span class="line">                               (PDWORD) <span class="literal">NULL</span>) )</span><br><span class="line">    &#123; </span><br><span class="line">        _tprintf(<span class="string">L&quot;AdjustTokenPrivileges error: %u\n&quot;</span>, <span class="built_in">GetLastError</span>() ); </span><br><span class="line">        <span class="keyword">return</span> FALSE; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( <span class="built_in">GetLastError</span>() == ERROR_NOT_ALL_ASSIGNED )</span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;The token does not have the specified privilege. \n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">InjectDll</span><span class="params">(DWORD dwPID, LPCTSTR szDllPath)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    HANDLE hProcess = <span class="literal">NULL</span>, hThread = <span class="literal">NULL</span>;</span><br><span class="line">    HMODULE hMod = <span class="literal">NULL</span>;</span><br><span class="line">    LPVOID pRemoteBuf = <span class="literal">NULL</span>;</span><br><span class="line">    DWORD dwBufSize = (DWORD)(_tcslen(szDllPath) + <span class="number">1</span>) * <span class="built_in">sizeof</span>(TCHAR);</span><br><span class="line">    LPTHREAD_START_ROUTINE pThreadProc;</span><br><span class="line">    BOOL bRet = TRUE;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// #1. 通过dwPID，打开要注入的进程</span></span><br><span class="line">    <span class="keyword">if</span> ( !(hProcess = <span class="built_in">OpenProcess</span>(PROCESS_ALL_ACCESS, FALSE, dwPID)) )</span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;OpenProcess(%d) failed!!! [%d]\n&quot;</span>, dwPID, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// #2. 向要注入的进程中分配存储空间</span></span><br><span class="line">    pRemoteBuf = <span class="built_in">VirtualAllocEx</span>(hProcess, <span class="literal">NULL</span>, dwBufSize, MEM_COMMIT, PAGE_READWRITE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// #3. 将要注入的dll放入空间中</span></span><br><span class="line">    <span class="built_in">WriteProcessMemory</span>(hProcess, pRemoteBuf, (LPVOID)szDllPath, dwBufSize, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// #4. LoadLibraryA()</span></span><br><span class="line">    hMod = <span class="built_in">GetModuleHandle</span>(<span class="string">L&quot;kernel32.dll&quot;</span>);</span><br><span class="line">    pThreadProc = (LPTHREAD_START_ROUTINE)<span class="built_in">GetProcAddress</span>(hMod, <span class="string">&quot;LoadLibraryW&quot;</span>);</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// #5. LoadLibraryA(hack.dll)</span></span><br><span class="line">    hThread = <span class="built_in">CreateRemoteThread</span>(hProcess, <span class="literal">NULL</span>, <span class="number">0</span>, pThreadProc, pRemoteBuf, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="keyword">if</span>( hThread == <span class="literal">NULL</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;[ERROR] CreateRemoteThread() failed!!! [%d]\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        bRet = FALSE;</span><br><span class="line">        <span class="keyword">goto</span> _ERROR;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">WaitForSingleObject</span>(hThread, INFINITE);	</span><br><span class="line"></span><br><span class="line">_ERROR:</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>( pRemoteBuf )</span><br><span class="line">        <span class="built_in">VirtualFreeEx</span>(hProcess, pRemoteBuf, <span class="number">0</span>, MEM_RELEASE);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( hThread )</span><br><span class="line">        <span class="built_in">CloseHandle</span>(hThread);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( hProcess )</span><br><span class="line">        <span class="built_in">CloseHandle</span>(hProcess);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> bRet;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> _tmain(<span class="type">int</span> argc, TCHAR *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>( argc != <span class="number">3</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;USAGE : %s &lt;pid&gt; &lt;dll_path&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// change privilege</span></span><br><span class="line">    <span class="keyword">if</span>( !<span class="built_in">SetPrivilege</span>(SE_DEBUG_NAME, TRUE) )</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// inject dll</span></span><br><span class="line">    <span class="keyword">if</span>( <span class="built_in">InjectDll</span>((DWORD)_tstol(argv[<span class="number">1</span>]), argv[<span class="number">2</span>]) )</span><br><span class="line">        _tprintf(<span class="string">L&quot;InjectDll() success!!!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        _tprintf(<span class="string">L&quot;InjectDll() failed!!!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// dummy.cpp -&gt; dummp.dll</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;windows.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;tchar.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">BOOL WINAPI <span class="title">DllMain</span><span class="params">(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    TCHAR   szPath[MAX_PATH]    = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line">    TCHAR   szMsg[<span class="number">1024</span>]         = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line">    TCHAR   *p                  = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span>( fdwReason )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> DLL_PROCESS_ATTACH : </span><br><span class="line">            <span class="built_in">GetModuleFileName</span>(<span class="literal">NULL</span>, szPath, MAX_PATH);</span><br><span class="line">            p = _tcsrchr(szPath, <span class="string">L&#x27;\\&#x27;</span>);</span><br><span class="line">            <span class="comment">// 如果注入成功，就输出相关调试信息</span></span><br><span class="line">            <span class="keyword">if</span>( p != <span class="literal">NULL</span> )</span><br><span class="line">            &#123;</span><br><span class="line">                _stprintf_s(szMsg, <span class="number">1024</span> - <span class="built_in">sizeof</span>(TCHAR), </span><br><span class="line">                            <span class="string">L&quot;Injected in %s(%d)&quot;</span>, </span><br><span class="line">                            p + <span class="number">1</span>,                          <span class="comment">// Process Name</span></span><br><span class="line">                            <span class="built_in">GetCurrentProcessId</span>());         <span class="comment">// PID</span></span><br><span class="line">                <span class="built_in">OutputDebugString</span>(szMsg);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以发现，向正常进程<code>notepad.exe</code>注入是成功的，然而向服务进程<code>svchost.exe</code>注入则是失败的。</p>
+<p>&emsp;首先，调试<code>InjectDll.exe</code>发现，运行完<code>CreateRemoteThread()</code>，显示错误<code>ERROR_ACCESS_DENIED</code>。</p>
+<p>&emsp;再次进行调试，可以发现<code>CreateRemoteThread()</code>调用了<code>CreateRemoteThreadEx()</code>，发现参数差不多（只是多了一个<code>lpAttributeList</code>），其又调用了<code>ntdll!ZwCreateThreadEx()</code>，其参数也是差不多，重要参数都传过来了。<strong>书上说，最终调用了<code>sysenter</code>，但是我没有找到进入<code>sysenter</code>的证据，程序会在某个环节卡住。</strong></p>
+<p>&emsp;实际上，<code>CreateRemoteThreadEx()</code>与<code>ntdll!ZwCreateThreadEx()</code>都是vista新增的API，之前没有。下图展示了在XP与win7中调用<code>CreateRemoteThread</code>的流程：</p>
+<p><img src="/images/re-core-principle-4/image-20230424202136277.png" alt="image-20230424202136277" style="zoom: 67%;" /></p>
+<p>&emsp;那我们得到结论，由于增加的API，让注入失败。</p>
+<p><strong>注：</strong><code>kernelbase.dll</code>是从Vista开始新增的<code>DLL</code>文件，负责包装（wrapper）<code>kernel32.dll</code>。</p>
+<p>&emsp;<strong>由于<code>kernelbase!CreateRemoteThreadEx</code>只是<code>kernel32!CreateRemoteThread</code>的包装器（wrapper），他俩没啥区别，因此问题就在<code>ntdll!ZwCreateThreadEx()</code>中。</strong></p>
+<p>&emsp;<code>ZwCreateThreadEx()</code>定义如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230424203243937.png" alt="image-20230424203243937" style="zoom:67%;" /></p>
+<p>&emsp;下图是注入失败时<code>ZwCreateThreadEx()</code>的参数：</p>
+<p><img src="/images/re-core-principle-4/image-20230424203148869.png" alt="image-20230424203148869" style="zoom:80%;" /></p>
+<p>&emsp;<strong>Google后发现，在vista中，直接调用<code>ZwCreateThreadEx()</code>就能注入成功，不受会话影响，但是第7个参数（<code>CreateSuspended</code>）要设置为0，而不是1。Windows XP开始，<code>CreateRemoteThread</code>内部的实现算法采用了挂起模式，即先创建出线程，再使用”恢复运行”方法继续执行（<code>CreateSuspended=1</code>）。</strong></p>
+<p>&emsp;<strong>我改了第7个参数发现没用。</strong></p>
+<p>&emsp;发现了一个问题，就是<code>ZwCreateThreadEx()</code>与<code>NtCreateThreadEx()</code>地址一样，且我看不到<code>ZwCreateThreadEx()</code>的代码，且调试时，<code>CreateRemoteThreadEx()</code>调用的是<code>ntdll!NtCreateThreadEx()</code>，而不是<code>ntdll!ZwCreateThreadEx()</code>。经过思考，可能是用ollydbg进行调试的问题，ollydbg只能调试用户模式下的应用。因此，换成windbg调试一波<strong>（但是要进行两个主机之间的连接，win7虚拟机一直报dll缺失，懒了，搁置）</strong>。</p>
+<p>注：</p>
+<ul>
+<li><code>ZwCreateThreadEx()</code>与<code>NtCreateThreadEx()</code>的区别是什么？<code>ZwCreateThreadEx()</code>是内核调用的。<code>NtCreateThreadEx()</code>由用户模式代码调用。</li>
+</ul>
+<p>&emsp;除了改第7个参数以外，书中还说了一种解决注入失败的方法。可以看到，<code>ZwCreateThreadEx()</code>的第一个参数是线程句柄，说明此时远程线程已经被创建，但是无法工作。原因可能就是<code>ZwResumeThreadEx</code>调用失败（<strong>注意是resume</strong>）导致的。经过调试发现，程序将<code>ZwResumeThreadEx</code>跳过去了，通过改变程序执行路径，就能实现正确的DLL注入。<strong>（但是复现的时候有问题）</strong></p>
+<p>&emsp;存在的问题如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 找不到NtCreateThreadEx()，只有ZwCreateThreadEx()</span><br><span class="line">2. 修改参数值 CreateSuspended 没用</span><br><span class="line">3. 程序运行到 NtCreateThreadEx() 总是卡在 ADD ESP, 4 上</span><br></pre></td></tr></table></figure>
+<p>&emsp;<strong>总结一下无法注入的原因：在API内部创建远程线程时采用了挂起模式，若远程进程属于会话0，则不会恢复运行，而是直接返回错误。</strong>（一般来说，在创建远程线程时，先采用挂起模式创建，再”恢复运行”。）</p>
+<p>&emsp;之后，我们编写一个新的<code>InjectDll.exe</code>程序：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;windows.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;tchar.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">SetPrivilege</span><span class="params">(LPCTSTR lpszPrivilege, BOOL bEnablePrivilege)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义 ZwCreateThreadEx 函数()</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">DWORD</span> <span class="params">(WINAPI *PFNTCREATETHREADEX)</span></span></span><br><span class="line"><span class="function"><span class="params">( </span></span></span><br><span class="line"><span class="params"><span class="function">    PHANDLE                 ThreadHandle,	</span></span></span><br><span class="line"><span class="params"><span class="function">    ACCESS_MASK             DesiredAccess,	</span></span></span><br><span class="line"><span class="params"><span class="function">    LPVOID                  ObjectAttributes,	</span></span></span><br><span class="line"><span class="params"><span class="function">    HANDLE                  ProcessHandle,	</span></span></span><br><span class="line"><span class="params"><span class="function">    LPTHREAD_START_ROUTINE  lpStartAddress,	</span></span></span><br><span class="line"><span class="params"><span class="function">    LPVOID                  lpParameter,	</span></span></span><br><span class="line"><span class="params"><span class="function">    BOOL	                CreateSuspended,	</span></span></span><br><span class="line"><span class="params"><span class="function">    DWORD                   dwStackSize,	</span></span></span><br><span class="line"><span class="params"><span class="function">    DWORD                   dw1, </span></span></span><br><span class="line"><span class="params"><span class="function">    DWORD                   dw2, </span></span></span><br><span class="line"><span class="params"><span class="function">    LPVOID                  Unknown </span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断是否是vista</span></span><br><span class="line"><span class="function">BOOL <span class="title">IsVistaOrLater</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    OSVERSIONINFO osvi;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">ZeroMemory</span>(&amp;osvi, <span class="built_in">sizeof</span>(OSVERSIONINFO));</span><br><span class="line">    osvi.dwOSVersionInfoSize = <span class="built_in">sizeof</span>(OSVERSIONINFO);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">GetVersionEx</span>(&amp;osvi);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( osvi.dwMajorVersion &gt;= <span class="number">6</span> )</span><br><span class="line">        <span class="keyword">return</span> TRUE;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> FALSE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">MyCreateRemoteThread</span><span class="params">(HANDLE hProcess, LPTHREAD_START_ROUTINE pThreadProc, LPVOID pRemoteBuf)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    HANDLE      hThread = <span class="literal">NULL</span>;</span><br><span class="line">    FARPROC     pFunc = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( <span class="built_in">IsVistaOrLater</span>() )    <span class="comment">// Vista, 7, Server2008</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 直接调用 NtCreateThreadEx</span></span><br><span class="line">        pFunc = <span class="built_in">GetProcAddress</span>(<span class="built_in">GetModuleHandle</span>(<span class="string">L&quot;ntdll.dll&quot;</span>), <span class="string">&quot;NtCreateThreadEx&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span>( pFunc == <span class="literal">NULL</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;MyCreateRemoteThread() : GetProcAddress(\&quot;NtCreateThreadEx\&quot;) failed!!! [%d]\n&quot;</span>,</span><br><span class="line">                   <span class="built_in">GetLastError</span>());</span><br><span class="line">            <span class="keyword">return</span> FALSE;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ((PFNTCREATETHREADEX)pFunc)(&amp;hThread,</span><br><span class="line">                                    <span class="number">0x1FFFFF</span>,</span><br><span class="line">                                    <span class="literal">NULL</span>,</span><br><span class="line">                                    hProcess,</span><br><span class="line">                                    pThreadProc,</span><br><span class="line">                                    pRemoteBuf,</span><br><span class="line">                                    FALSE,      <span class="comment">// 第7各参数设置为0</span></span><br><span class="line">                                    <span class="literal">NULL</span>,</span><br><span class="line">                                    <span class="literal">NULL</span>,</span><br><span class="line">                                    <span class="literal">NULL</span>,</span><br><span class="line">                                    <span class="literal">NULL</span>);</span><br><span class="line">        <span class="keyword">if</span>( hThread == <span class="literal">NULL</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;MyCreateRemoteThread() : NtCreateThreadEx() failed!!! [%d]\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">            <span class="keyword">return</span> FALSE;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>                    <span class="comment">// 2000, XP, Server2003</span></span><br><span class="line">    &#123;</span><br><span class="line">        hThread = <span class="built_in">CreateRemoteThread</span>(hProcess, </span><br><span class="line">                                     <span class="literal">NULL</span>, </span><br><span class="line">                                     <span class="number">0</span>, </span><br><span class="line">                                     pThreadProc, </span><br><span class="line">                                     pRemoteBuf, </span><br><span class="line">                                     <span class="number">0</span>, </span><br><span class="line">                                     <span class="literal">NULL</span>);</span><br><span class="line">        <span class="keyword">if</span>( hThread == <span class="literal">NULL</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;MyCreateRemoteThread() : CreateRemoteThread() failed!!! [%d]\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">            <span class="keyword">return</span> FALSE;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>( WAIT_FAILED == <span class="built_in">WaitForSingleObject</span>(hThread, INFINITE) )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;MyCreateRemoteThread() : WaitForSingleObject() failed!!! [%d]\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">InjectDll</span><span class="params">(DWORD dwPID, <span class="type">char</span> *szDllName)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    HANDLE hProcess = <span class="literal">NULL</span>;</span><br><span class="line">    LPVOID pRemoteBuf = <span class="literal">NULL</span>;</span><br><span class="line">    FARPROC pThreadProc = <span class="literal">NULL</span>;</span><br><span class="line">    DWORD dwBufSize = <span class="built_in">strlen</span>(szDllName)+<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( !(hProcess = <span class="built_in">OpenProcess</span>(PROCESS_ALL_ACCESS, FALSE, dwPID)) )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;[ERROR] OpenProcess(%d) failed!!! [%d]\n&quot;</span>, </span><br><span class="line">        dwPID, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pRemoteBuf = <span class="built_in">VirtualAllocEx</span>(hProcess, <span class="literal">NULL</span>, dwBufSize, </span><br><span class="line">                                MEM_COMMIT, PAGE_READWRITE);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">WriteProcessMemory</span>(hProcess, pRemoteBuf, (LPVOID)szDllName, </span><br><span class="line">                       dwBufSize, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    pThreadProc = <span class="built_in">GetProcAddress</span>(<span class="built_in">GetModuleHandle</span>(<span class="string">L&quot;kernel32.dll&quot;</span>), </span><br><span class="line">                                 <span class="string">&quot;LoadLibraryA&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( !<span class="built_in">MyCreateRemoteThread</span>(hProcess, (LPTHREAD_START_ROUTINE)pThreadProc, pRemoteBuf) )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;[ERROR] MyCreateRemoteThread() failed!!!\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">VirtualFreeEx</span>(hProcess, pRemoteBuf, <span class="number">0</span>, MEM_RELEASE);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">CloseHandle</span>(hProcess);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// adjust privilege</span></span><br><span class="line">    <span class="built_in">SetPrivilege</span>(SE_DEBUG_NAME, TRUE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// InjectDll.exe &lt;PID&gt; &lt;dll_path&gt;</span></span><br><span class="line">    <span class="keyword">if</span>( argc != <span class="number">3</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;usage : %s &lt;PID&gt; &lt;dll_path&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( !<span class="built_in">InjectDll</span>((DWORD)<span class="built_in">atoi</span>(argv[<span class="number">1</span>]), argv[<span class="number">2</span>]) )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;InjectDll() failed!!!\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;InjectDll() succeeded!!!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>&emsp;<strong>发现在win7下官方给的示例也不行，win11下也不行，只不过报错变了。离谱啊？为啥啊？</strong></p>
+<p><img src="/images/re-core-principle-4/image-20230424223444435.png" alt="image-20230424223444435" style="zoom:67%;" /></p>
+<p>&emsp;经过分析，是如下代码出了问题，其中<code>pFunc</code>总为空（<strong>问题搁置</strong>）：</p>
+<p><img src="/images/re-core-principle-4/image-20230424224956644.png" alt="image-20230424224956644" style="zoom:67%;" /></p>
+<h2 id="0x09-InjDll-exe：DLL注入专用工具"><a href="#0x09-InjDll-exe：DLL注入专用工具" class="headerlink" title="0x09 InjDll.exe：DLL注入专用工具"></a>0x09 InjDll.exe：DLL注入专用工具</h2><p>&emsp;<code>InjDll.exe</code>是之前我们使用的DLL注入的程序，若目标进程为32位，那么<code>InjDll.exe</code>和要注入的DLL都是32位。若目标进程为64位，那么<code>InjDll.exe</code>和要注入的DLL都是64位。<strong>（突然想到，之前的注入问题是不是64位与32位的问题？？）</strong></p>
+<h1 id="高级逆向分析技术"><a href="#高级逆向分析技术" class="headerlink" title="高级逆向分析技术"></a>高级逆向分析技术</h1><p>&emsp;咱什么时候也弄上了高级逆向啊？我好牛蛙。</p>
+<h2 id="0x10-TLS回调函数"><a href="#0x10-TLS回调函数" class="headerlink" title="0x10 TLS回调函数"></a>0x10 TLS回调函数</h2><p>&emsp;TLS（Thread Local Storage，线程局部存储）回调函数（Callback Function）常用于反调试。<strong>TLS回调函数的调用运行要先于EP代码的执行，该特征使它可以作为一种反调试技术使用。</strong></p>
+<p>&emsp;下面跟着书做实验：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">打开HelloTls.exe，显示Hello。但用Ollydbg调试之后，显示Debugger Detected。（为什么不同呢？是因为程序运行EP代码前先调用了TLS回调函数，而该回调函数中含有反调试代码，使程序在被调试时弹出&quot;Debugger Detected!&quot;消息对话框。）</span><br></pre></td></tr></table></figure>
+<p>&emsp;<strong>TLS是各线程的独立的数据存储空间，使用TLS技术可在线程内部使用或修改进程的全局数据，就像对待自身的局部变量一样。</strong></p>
+<p>&emsp;如果在编程中启用了TLS功能，PE头文件就会设置TLS表，在<code>IMAGE_NT_HEADERS -&gt; IMAGE_OPTIONAL_HEADER -&gt; IMAGE_DATA_DIRECTORY[9]</code>中，它存的值指向了<code>IMAGE_TLS_DIRECTORY</code>。其结构如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230426212313168.png" alt="image-20230426212313168" style="zoom:50%;" /></p>
+<p>&emsp;结构体中<code>AddressOfCallBacks</code>比较重要，它指向含有TLS回调函数的数组（VA），这意味着同一程序可以注册多个TLS回调函数。</p>
+<p>&emsp;TLS回调函数是指，每当创建或终止进程的线程时会自动调用执行的函数。创建进程的主线程时也会自动调用回调函数，且其调用执行先于EP代码。反调试技术利用的就是TLS回调函数的这一特征。</p>
+<p>&emsp;TLS回调函数的定义如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230427142514992.png" alt="image-20230427142514992" style="zoom:67%;" /></p>
+<p>&emsp;再来看DLL的main函数的定义：</p>
+<p><img src="/images/re-core-principle-4/image-20230427142546390.png" alt="image-20230427142546390" style="zoom:67%;" /></p>
+<p>&emsp;是不是差不多？在TLS回调函数的定义中，<code>DllHandle</code>为模块句柄（加载地址）；<code>Reason</code>表示调用TLS回调函数的原因，包括<code>DLL_PROCESS_ATTACH(1)</code>、<code>DLL_THREAD_ATTACH(2)</code>、<code>DLL_THREAD_DETACH(3)</code>、<code>DLL_PROCESS_DETACH(0)</code>。</p>
+<p>&emsp;下面看一个程序<code>TlsTest.exe</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 指示编译器在代码中使用线程局部存储TLS</span></span><br><span class="line"><span class="comment">// TLS是一种机制，允许多线程程序为每个线程分配独立的存储空间</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(linker, <span class="string">&quot;/INCLUDE:__tls_used&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print_console</span><span class="params">(<span class="type">char</span>* szMsg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    HANDLE hStdout = <span class="built_in">GetStdHandle</span>(STD_OUTPUT_HANDLE);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">WriteConsoleA</span>(hStdout, szMsg, <span class="built_in">strlen</span>(szMsg), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> NTAPI <span class="title">TLS_CALLBACK1</span><span class="params">(PVOID DllHandle, DWORD Reason, PVOID Reserved)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">char</span> szMsg[<span class="number">80</span>] = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line">    <span class="built_in">wsprintfA</span>(szMsg, <span class="string">&quot;TLS_CALLBACK1() : DllHandle = %X, Reason = %d\n&quot;</span>, DllHandle, Reason);</span><br><span class="line">    <span class="built_in">print_console</span>(szMsg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> NTAPI <span class="title">TLS_CALLBACK2</span><span class="params">(PVOID DllHandle, DWORD Reason, PVOID Reserved)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">char</span> szMsg[<span class="number">80</span>] = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line">    <span class="built_in">wsprintfA</span>(szMsg, <span class="string">&quot;TLS_CALLBACK2() : DllHandle = %X, Reason = %d\n&quot;</span>, DllHandle, Reason);</span><br><span class="line">    <span class="built_in">print_console</span>(szMsg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义TLS数组</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> data_seg(<span class="string">&quot;.CRT$XLX&quot;</span>)</span></span><br><span class="line">    PIMAGE_TLS_CALLBACK pTLS_CALLBACKs[] = &#123; TLS_CALLBACK1, TLS_CALLBACK2, <span class="number">0</span> &#125;;</span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> data_seg()</span></span><br><span class="line"></span><br><span class="line"><span class="function">DWORD WINAPI <span class="title">ThreadProc</span><span class="params">(LPVOID lParam)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">print_console</span>(<span class="string">&quot;ThreadProc() start\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print_console</span>(<span class="string">&quot;ThreadProc() end\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    HANDLE hThread = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print_console</span>(<span class="string">&quot;main() start\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    hThread = <span class="built_in">CreateThread</span>(<span class="literal">NULL</span>, <span class="number">0</span>, ThreadProc, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">WaitForSingleObject</span>(hThread, <span class="number">60</span>*<span class="number">1000</span>);</span><br><span class="line">    <span class="built_in">CloseHandle</span>(hThread);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print_console</span>(<span class="string">&quot;main() end\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;程序运行如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230427144905556.png" alt="image-20230427144905556" style="zoom:67%;" /></p>
+<p>&emsp;可以看到，在进程初始与结束，会运行TLS。在线程初始与结束，也会运行TLS。程序中没有使用<code>printf</code>而是使用了<code>WriteConsole</code>，是因为TLS函数先于主线程来运行，此时可能C语言的某些库还没有加载，所以使用<code>printf</code>会报错。</p>
+<p>&emsp;使用<code>ollydbg</code>调试此程序时需要改变<code>first pause at Tls callback</code>。调试<code>Hellotls.exe</code>，发现回调函数：</p>
+<p><img src="/images/re-core-principle-4/image-20230427150016162.png" alt="image-20230427150016162" style="zoom:67%;" /></p>
+<p>&emsp;其使用<code>kernel32.IsDebuggerPresent</code>来判断是否有调试器。</p>
+<p>&emsp;下面对于简单的<code>Hello.exe</code>添加TLS功能。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Hello.cpp -&gt; Hello.exe</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;windows.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">MessageBoxA</span>(<span class="literal">NULL</span>, <span class="string">&quot;Hello :)&quot;</span>, <span class="string">&quot;main()&quot;</span>, MB_OK);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;添加思路如下：<code>IMAGE_OPTIONAL_HEADER</code>中添加<code>TLS Table</code>（<code>IMAGE_TLS_DIRECTORY</code>）位置，之后在相应位置添加<code>IMAGE_TLS_DIRECTORY</code>；<code>IMAGE_TLS_DIRECTORY</code>中有<code>Address of Callbacks</code>，定义好它的位置后，在相应位置添加TLS函数内容即可。</p>
+<p>&emsp;其中<code>IMAGE_TLS_DIRECTORY</code>与<code>Address of Callbacks</code>放到哪儿呢？有几种可选位置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 添加到某节区末尾的空白区域</span><br><span class="line">2. 增加最后一个节区的大小（书中采用的方法）</span><br><span class="line">3. 在PE文件最后添加一个新节区</span><br></pre></td></tr></table></figure>
+<p>&emsp;书中采用方法2，跟着书上的实验做，是可以进行的。具体步骤如下：</p>
+<p>&emsp;首先，查看PE文件相关信息：<code>Section Alignment=1000</code>，<code>File Alignment=200</code>。那么，由于我们选择方法2，即增加最后一个节区的大小，那么我们就把最后一个节区<code>.rsrc</code>后面添加200字节。（原来<code>.rsrc</code>节区的<code>VirtualSize</code>为<code>1B4</code>，PE装载器会按照<code>Section Alignment</code>值对齐该值，即加载到内存中的大小为 1000。所以将节区的文件大小增加200后，实际<code>VirtualSize</code>值变为<code>3B4</code>，它比加载到内存中的尺寸1000要小，所以不需要再单独增大<code>VirtualSize</code>的值。）</p>
+<p>&emsp;其次，更改<code>.rsrc</code>节区头信息，<code>SizeofRawData=400</code>（原来是200）、<code>Characteristics=E0000060</code>。<code>Characteristics</code>的属性如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230428115333896.png" alt="image-20230428115333896" style="zoom:67%;" /></p>
+<p>&emsp;之后，设置TLS表（位置在<code>IMAGE_NT_HEADERS -&gt; IMAGE_OPTIONAL_HEADER -&gt; IMAGE_DATA_DIRECOTRY[9]</code>）的RVA与Size。接下来，设置TLS表指向的<code>IMAGE_TLS_DIRECTORY</code>，在<code>IMAGE_TLS_DIRECTORY</code>中的<code>AddressOfCallbacks</code>中定义TLS函数的地址。并在相应地址填入回调函数，如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230428120243068.png" alt="image-20230428120243068" style="zoom:67%;" /></p>
+<p>&emsp;程序的解释如下：Reason参数值为1(<code>DLL_PROCESS_ATTACH</code>)时，<code>MOV EAX, DWORD PTR FS:[30]</code>用于检查<code>PEB.BeingDebugged</code>成员，若处于调试状态，则弹出消息框（<code>MessageBoxA</code>）后终止并退出进程（<code>ExitProcess</code>）。注意，<code>0x49c270</code>与<code>0x40c280</code>存储<code>MessageBoxA</code>所需的字符串。</p>
+<h2 id="0x11-TEB"><a href="#0x11-TEB" class="headerlink" title="0x11 TEB"></a>0x11 TEB</h2><p>&emsp;TEB（<code>Thread Environment Block</code>）指线程环境块，该结构体包含进程中运行线程的各种信息，进程中的每个线程都对应1个TEB结构体。TEB结构体如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230428155051055.png" alt="image-20230428155051055" style="zoom:60%;" /></p>
+<p>&emsp;上述对于TEB的定义很简单（实际很复杂），windows 7与XP的TEB定义是不同的，也很复杂。使用windbg查看win7的TEB如下（内核模式下，在用户模式下使用此命令只能看到<code>wow64_teb</code>）：</p>
+<p><img src="/images/re-core-principle-4/image-20230428161915690.png" alt="image-20230428161915690" style="zoom:80%;" /></p>
+<p>&emsp;在TEB中，有几个成员比较重要。</p>
+<p>&emsp;在用户调试中，比较重要的两个成员是<code>NtTib</code>与<code>ProcessEnvironmentBlock</code>。如下图所示：</p>
+<p><img src="/images/re-core-principle-4/image-20230428160505827.png" alt="image-20230428160505827" style="zoom:67%;" /></p>
+<p>&emsp;<code>NtTib</code>（<code>TIB: Thread Information Block</code>）线程信息块定义如下所示：</p>
+<p><img src="/images/re-core-principle-4/image-20230428160831287.png" alt="image-20230428160831287" style="zoom:60%;" /></p>
+<p>&emsp;<code>ExceptionList</code>成员指向<code>EXCEPTION_REGISTRATION_RECORD</code>结构体组成的链表，它用于Windows的SEH（异常处理机制）。Self成员是 <code>NT_TIB</code>结构体的自引用指针，也是TEB结构体的指针（因为TEB结构体的第一个成员就是<code>NT_TIB</code>）。</p>
+<p>&emsp;那么如何在用户模式下访问TEB结构体呢？<strong>除了使用windbg，还有就是通过API（<code>Ntdll.NtCurrentTeb()</code>）进行访问。</strong>经过调试发现，TEB与FS段寄存器有某种关联。</p>
+<p>&emsp;FS寄存器除了可以访问TLS，还指向当前线程的TEB。32位系统中进程的虚拟内存大小为4GB，因而需要32位的指针才能访问整个内存空间。但是FS寄存器的大小只有16位，那么它如何表示进程内存空间中的TEB结构体的地址呢？<strong>实际上，FS寄存器并非直接指向TEB结构体的地址，它持有SDT的索引，而该索引持有实际TEB地址。</strong>如下所示，<strong>TEB结构体位于FS段寄存器所指的段内存的起始地址处</strong>。：</p>
+<p><img src="/images/re-core-principle-4/image-20230428172345831.png" alt="image-20230428172345831" style="zoom:60%;" /></p>
+<p>&emsp;那么，就有：<strong><code>FS:[0x18] = TEB.NtTib.Self = address of TIB = address of TEB</code></strong>，其中，self成员在TEB中的偏移是0x18。</p>
+<p>&emsp;还有：<strong><code>FS:[0x30] = TEB ProcessEnvironmentBlock = address of PEB</code>，PEB是进程环境块。</strong></p>
+<p>&emsp;最后，<strong><code>FS:[0] = TEB.NtTib.ExceptionList = address of SEH</code>，SEH代表异常处理机制。</strong></p>
+<p><strong>补充：</strong></p>
+<p>&emsp;1. SDT是<code>Segment Descriptor Table</code>（段描述符表）的缩写，其位于内核内存区域，其地址存储在特殊的寄存器 GDTR（<code>Global Descriptor Table Resiger</code>，全局描述符表寄存器）中。</p>
+<p>&emsp;2. <strong>FS段寄存器作用：FS段寄存器提供一个用于访问线程局部存储（TLS）的基址。TLS是一种内存管理机制，允许多个线程在共享内存的情况下独立地访问自己的数据。当一个线程访问TLS时，它将使用FS段寄存器中指定的地址作为数据的基址。这个地址通常被初始化为指向一个线程私有的数据区域，这个数据区域可以存储线程专有的数据，例如线程的栈、线程局部变量等等。</strong></p>
+<h2 id="0x12-PEB"><a href="#0x12-PEB" class="headerlink" title="0x12 PEB"></a>0x12 PEB</h2><p>&emsp;PEB，进程环境块，它是存放进程信息的结构体，尺寸非常大。获得PEB的两种方式如下：</p>
+<ul>
+<li>直接获取PEB地址。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX，DWORD PTR FS:[30]     ; FS[30] = address of PEB</span><br></pre></td></tr></table></figure>
+<ul>
+<li>先获取TEB地址，再通过ProcessEnvironmentBlock成员(+30偏移)获取PEB地址。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV EAX，DWORD PTR FS:[18]     ; FS[18] = address of TEB</span><br><span class="line">MOV EAX，DWORD PTR DS:[EAX+30] ; DS[EA+30] = address of PEB</span><br></pre></td></tr></table></figure>
+<p>&emsp;PEB结构如下，与TEB一样，实际复杂得多：</p>
+<p><img src="/images/re-core-principle-4/image-20230428181927943.png" alt="image-20230428181927943" style="zoom:67%;" /></p>
+<p>&emsp;其中的几个重要成员有：<code>BeingDebugged</code>、<code>ImageBaseAddress</code>、<code>Ldr</code>、<code>ProcessHeap</code>、<code>NtGlobalFlag</code>：（这样就能解释通0x10处的代码了）</p>
+<p><img src="/images/re-core-principle-4/image-20230428182324350.png" alt="image-20230428182324350" style="zoom:67%;" /></p>
+<p>&emsp;下面是一个PEB的dump：</p>
+<p><img src="/images/re-core-principle-4/image-20230428184429094.png" alt="image-20230428184429094" style="zoom:67%;" /></p>
+<p>&emsp;对于<code>BeingDebugged</code>成员，windows API中有一个<code>Kernel32!IsDebuggerPresent()</code>，代码如下，来判断是否被调试，其中调用了此成员：</p>
+<p><img src="/images/re-core-principle-4/image-20230428183907053.png" alt="image-20230428183907053" style="zoom:67%;" /></p>
+<p>&emsp;对于<code>ImageBaseAddress</code>成员，其可以表示进程的基址。<code>GetModuleHandle</code>的API可以用来获取<code>ImageBase</code>，其中就调用了此成员。</p>
+<p>&emsp;对于<code>Ldr</code>成员，它是指向<code>_PEB_LDR_DATA</code>结构体的指针，其结构如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230428190402190.png" alt="image-20230428190402190" style="zoom:67%;" /></p>
+<p>&emsp;<code>Ldr</code>的作用是：<strong>当模块（DLL）加载到进程后，通过<code>PEB.Ldr</code>成员可以直接获取该模块的加载基地址。</strong> <code>_PEB_LDR_DATA</code>结构体中，有3个<code>_LIST_ENTRY</code>类型的成员，分别为<code>InLoadOrderModuleList</code>、<code>InMemoryOrderModuleList</code>、<code>InInitializationOrderModuleList</code>。下面是<code>_LIST_ENTRY</code>的结构：</p>
+<p><img src="/images/re-core-principle-4/image-20230428190724386.png" alt="image-20230428190724386" style="zoom:67%;" /></p>
+<p>&emsp;可以看到<code>_LIST_ENTRY</code>是一个双向链表，这个双线链表保存着<code>_LDR_DATA_TABLE_ENTRY</code>结构体的信息<strong>（我没看出来）</strong>。<strong>每一个加载到进程中的DLL模块都有对应的<code>_LDR_DATA_TABLE_ENTRY</code>结构体。</strong>需要注意的是，<code>_PEB_LDR_DATA</code>中存在3种链表（<code>InLoadOrderModuleList</code>、<code>InMemoryOrderModuleList</code>、<code>InInitializationOrderModuleList</code>），<strong>即，存在多个<code>_LDR_DATA_TABLE_ENTRY</code>结构体，并且有3种链接方法可以将它们链接起来。</strong></p>
+<p>&emsp;对于<code>ProcessHeap</code>与<code>NtGlbalFlag</code>成员，可以应用于反调试技术。若进程处于调试状态，它们就持有特定值，类似于<code>BeingDebugged</code>。</p>
+<h2 id="0x13-SEH"><a href="#0x13-SEH" class="headerlink" title="0x13 SEH"></a>0x13 SEH</h2><p>&emsp;SEH（Structure Exception Handler）是Windows操作系统默认的异常处理机制。逆向分析中，SEH可以用于反调试程序。在程序源码中，使用<code>__try</code>、<code>__except</code>、<code>__finally</code>等关键字来具体实现。注意，SEH与C++中的<code>try</code>、<code>catch</code>相比有不同的结构。</p>
+<p>&emsp;有一个练习示例<code>seh.exe</code>。<strong>该程序故意触发了内存非法访问（Memory Access Violation）异常，然后通过SEH机制来处理该异常。并且使用PEB信息向程序添加简单的反调试代码，使程序在正常运行与调试运行时表现出不同的行为动作。</strong>此程序是通过编译空的main函数，之后用ollyDbg向其中加入汇编代码来实现的，因此没有源代码。</p>
+<p>&emsp;内存非法访问如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230503154102025.png" alt="image-20230503154102025" style="zoom:67%;" /></p>
+<p>&emsp;红框语句就是向内存地址为0的单位放入1，但是内存地址0是未分配的，因此会报异常。之后按<code>shift+F9</code>将异常抛给程序，它就会显示<code>检测出调试器</code>。</p>
+<p>&emsp;OS处理异常的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 运行时出现异常：</span><br><span class="line">	进程运行过程中若发生异常，OS会委托进程处理。若进程代码中存在具体的异常处理（如SEH）代码，则能顺利处理相关异常，程序继续运行。但如果进程内部没有具体实现SEH，那么相关异常就无法处理，OS就会启动默认的异常处理机制，终止进程运行。</span><br><span class="line">2. 调试时出现异常：</span><br><span class="line">	被调试者出现异常，OS会将异常交给调试器处理。此时调试器可以选择：（1）直接修改异常：代码、寄存器。（2）将异常交给被调试者，被调试者使用SEH（异常处理函数）进行处理。（3）若调试器与被调试者都无法处理，则最终由OS处理。</span><br></pre></td></tr></table></figure>
+<p>&emsp;下面介绍几种常见的异常：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">1. EXCEPTION_ACCESS_VIOLATION(C0000005)</span><br><span class="line">	触发条件：试图访问不存在或不具访问权限的内存区域</span><br><span class="line">	举例：</span><br><span class="line">	（1）MOV DWORD PTR DS:[0], 1 // 内存地址0处是尚未分配的区域</span><br><span class="line">	（2）ADD DWORDPTR DS:[401000], 1 // .text节区的起始地址401000仅具有“读”权限 (无“写”权限)</span><br><span class="line">	（3）XOR DWORDPTR DS:[80000000], 1234 // 内存地址80000000属于内核区域，用户模式下无法访问</span><br><span class="line">2. EXCEPTION_BREAKPOINT(80000003)</span><br><span class="line">	触发条件：断点处</span><br><span class="line">	举例：</span><br><span class="line">	（1）INT 3，机器码为0xCC</span><br><span class="line">3. EXCEPTION_ILLEGAL_INSTRUCTION(C000001D)</span><br><span class="line">	触发条件：遇到无法解析的指令</span><br><span class="line">	举例：</span><br><span class="line">	（1） 0FFF</span><br><span class="line">4. EXCEPTION_INT_DIVIDE_BY_ZERO(C0000094)</span><br><span class="line">	触发条件：除法运算中分母为0</span><br><span class="line">	举例：</span><br><span class="line">	（1） MOV EAX, 1</span><br><span class="line">		 XOR ECX, ECX</span><br><span class="line">		 DIV ECX</span><br><span class="line">5. EXCEPTION_SINGLE_STEP(80000004)</span><br><span class="line">	触发条件：执行1条指令，然后暂停，这也叫CPU的单步模式。只要将EFLAGS寄存器的TF设置为1后，CPU就会进入单步模式</span><br></pre></td></tr></table></figure>
+<p>注：PE tools可以将运行的进程转储，可以作为ollydbg保存调试文件的另一种方式。</p>
+<p>&emsp;SEH以链的形式存在。第一个异常处理器中若未处理相关异常，它就会被传递到下一个异常处理器，直到得到处理。SEH是由<code>_EXCEPTION_REGISTRATION_RECORD</code>结构体组成的链表，<code>_EXCEPTION_REGISTRATION_RECORD</code>的结构如下，若next为全1，那么就代表是最后一个节点：</p>
+<p><img src="/images/re-core-principle-4/image-20230503162505280.png" alt="image-20230503162505280" style="zoom:67%;" /></p>
+<p>&emsp;SEH链如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230503162541039.png" alt="image-20230503162541039" style="zoom:67%;" /></p>
+<p>&emsp;而异常处理函数（上图<code>HANDLER</code>）定义如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230503162710047.png" alt="image-20230503162710047" style="zoom:67%;" /></p>
+<p>&emsp;可以看到，异常处理函数接收4个参数，返回一个<code>PEXCEPTION_DISPOSITION</code>。</p>
+<p>&emsp;异常处理函数的第1个参数，类型为<code>EXCEPTION_RECORD</code>，定义如下（其中<code>ExceptionCode</code>指明异常类型，<code>ExceptionAddress</code>指明异常发生的地址）：</p>
+<p><img src="/images/re-core-principle-4/image-20230503162954366.png" alt="image-20230503162954366" style="zoom:67%;" /></p>
+<p>&emsp;异常处理函数的第2个参数<code>pFrame</code>，代表SEH链的起始地址。</p>
+<p>&emsp;异常处理函数的第3个参数，类型为<code>CONTEXT</code>，它用于存储CPU各寄存器的值，也就是上下文。这种情况在多线程中有用，每个线程都有一个<code>CONTEXT</code>结构体。CPU暂时离开当前线程去运行其他线程时，CPU寄存器的值就会保存当前线程的<code>CONTEXT</code>结构体；CPU再次运行该线程时，会使用保存在<code>CONTEXT</code>结构体的值来覆盖CPU寄存器的值，然后从之前暂停的代码处继续执行。</p>
+<p>&emsp;第4个参数<code>pValue</code>供系统内部使用，可忽略。</p>
+<p>&emsp;异常处理函数的返回值（<code>PEXCEPTION_DISPOSITION</code>）是一个枚举类型，其定义如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230503164224302.png" alt="image-20230503164224302" style="zoom:67%;" /></p>
+<p>&emsp;异常处理函数如果能正确处理异常，则会返回<code>ExceptionContinueExecution(0)</code>，之后从发生异常的代码处继续运行。若异常处理函数无法处理异常，则返回<code>ExceptionContinueSearch(1)</code>，将异常派送到SEH链的下一个处理函数。</p>
+<p>&emsp;通过TEB（线程）的<code>NtTib</code>可以访问SEH链，其中<code>TEB.NtTib.ExceptionList</code>是第一个SEH成员。FS段寄存器指向段内存的起始地址，<code>FS:[0]</code>即指向SEH链开头。</p>
+<h4 id="SEH定义安装"><a href="#SEH定义安装" class="headerlink" title="SEH定义安装"></a>SEH定义安装</h4><p>&emsp;C语言中使用<code>__try</code>、<code>__except</code>、<code>finally</code>就可以向代码添加SEH。使用汇编的话，则需要加入如下汇编指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PUSH @MyHandler           ; 第2个参数</span><br><span class="line">PUSH DWORD PTR FS:[0]     ; 第1个参数</span><br><span class="line">MOV DWORD PTR FS:[0], ESP ; 将SEH头改变</span><br></pre></td></tr></table></figure>
+<p>&emsp;前面的<code>seh.exe</code>就是通过修改汇编指令来做的，如下图红框所示：</p>
+<p><img src="/images/re-core-principle-4/image-20230503194217723.png" alt="image-20230503194217723" style="zoom:67%;" /></p>
+<p>&emsp;安装好后，发现SEH代码存放在<code>0040105A</code>中，代码如下所示：</p>
+<p><img src="/images/re-core-principle-4/image-20230503202015261.png" alt="image-20230503202015261" style="zoom:67%;" /></p>
+<p><img src="/images/re-core-principle-4/image-20230503203450569.png" alt="image-20230503203450569" style="zoom:67%;" /></p>
+<p>&emsp;上述代码可以检测是否为调试器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MOV ESI, DWORD PTR SS:[ARG3]  // 将pContext放入到ESI中</span><br><span class="line">MOV EAX,DWORD PTR FS:[30]     // 将PEB地址放到EAX中</span><br><span class="line">CMP BYTE PTR DS:[EAX+2], 1    // 比较BeingDebugged与1</span><br><span class="line">JNE SHORT 00401076            // 若BeingDebugged!=1, 则跳转到00401076</span><br><span class="line">MOV DWORD PTR DS:[ESI+B8],00401023 // 程序处于调试状态，pContext+B8=EIP的位置，说明将EIP改变为00401023，而00401023输出Debugger detected</span><br><span class="line">JMP SHORT 00401080 // 跳转到XOR EAX, EAX</span><br><span class="line">MOV DWORD PTR DS:[ESI+B8],00401039 // 程序未处于调试状态，则将EIP改为00401039</span><br><span class="line">XOR EAX,EAX // 返回值EAX=0，代表ExceptionContinueExecution=0，继续执行异常代码</span><br><span class="line">RETN</span><br></pre></td></tr></table></figure>
+<p>&emsp;在<code>0040104D</code>代码中，为<strong><code>POP DWORD PTR FS:[0]</code></strong>（可以分解为<code>MOV EAX, [ESP]; ADD ESP, 4;</code>）。之后为<strong><code>ADD ESP,4</code></strong>，使用这两条语句，就能将刚才定义的SEH函数删除，并将<code>FS:[0]</code>定为SEH的第二个函数。</p>
+<p>&emsp;SEH大量应用于压缩器、保护器、恶意程序(Malware)，用来反调试。</p>
+<h4 id="什么是枚举类型？"><a href="#什么是枚举类型？" class="headerlink" title="什么是枚举类型？"></a>什么是枚举类型？</h4><p>&emsp;枚举类型通过列出枚举器（Enumerator）的方式定义，每个枚举器代表一个具体的取值。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Color</span> &#123;</span><br><span class="line">  RED,</span><br><span class="line">  GREEN,</span><br><span class="line">  BLUE</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>&emsp;这定义了一个名为<code>Color</code>的枚举类型，它包含三个枚举器：<code>RED</code>、<code>GREEN</code>和<code>BLUE</code>。这些枚举器的取值分别为0、1和2（默认情况下，第一个枚举器的取值为0，后续枚举器的取值依次递增）。使用上面的枚举类型，可以声明一个变量表示颜色：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Color myColor = GREEN;</span><br></pre></td></tr></table></figure>
+<p>&emsp;这比使用数字0或1更容易理解，也更容易修改和维护。</p>
+<h4 id="FPU-Floating-Point-Unit，浮点运算单元-是专门用于浮点数运算的处理器，它有一套专用指令，与普通x86指令的形态结构不同。"><a href="#FPU-Floating-Point-Unit，浮点运算单元-是专门用于浮点数运算的处理器，它有一套专用指令，与普通x86指令的形态结构不同。" class="headerlink" title="FPU(Floating Point Unit，浮点运算单元)是专门用于浮点数运算的处理器，它有一套专用指令，与普通x86指令的形态结构不同。"></a>FPU(Floating Point Unit，浮点运算单元)是专门用于浮点数运算的处理器，它有一套专用指令，与普通x86指令的形态结构不同。</h4><h2 id="0x14-IA-32（x86）指令"><a href="#0x14-IA-32（x86）指令" class="headerlink" title="0x14 IA-32（x86）指令"></a>0x14 IA-32（x86）指令</h2><p>&emsp;指令格式如下：</p>
+<p><img src="/images/re-core-principle-4/image-20230504091119098.png" alt="image-20230504091119098" style="zoom:67%;" /></p>
+<h3 id="指令解析练习"><a href="#指令解析练习" class="headerlink" title="指令解析练习"></a>指令解析练习</h3><p>&emsp;了解即可。P524之前的内容。</p>
+<h3 id="为什么要掌握IA-32解析？"><a href="#为什么要掌握IA-32解析？" class="headerlink" title="为什么要掌握IA-32解析？"></a>为什么要掌握IA-32解析？</h3><p>&emsp;检测变形病毒(<code>Polymorphic Virus</code>)时必须探测出<code>Polymorphic</code>引擎中产生的指令类型，这时就需要分析人员具有丰富的指令知识。掌握IA-32指令相关知识对于编写打补丁代码、分析漏洞Shell代码都非常有帮助。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/04/17/angr-study/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/04/10/hvv-middle-ctf/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-04-16 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re-book/">re-book<span>11</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

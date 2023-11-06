@@ -1,0 +1,371 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>ML-ppt | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="ML-ppt"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> ML-ppt</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="ML-homework"><a href="#ML-homework" class="headerlink" title="ML-homework"></a>ML-homework</h1><h2 id="题目1"><a href="#题目1" class="headerlink" title="题目1"></a>题目1</h2><p><img src="/images/ML-ppt/image-20221118145407741.png" alt="image-20221118145407741" style="zoom:50%;" /></p>
+<h3 id="基础知识："><a href="#基础知识：" class="headerlink" title="基础知识："></a>基础知识：</h3><span id="more"></span>
+<script type="math/tex; mode=display">
+(a^Tb)^T=b^Ta</script><p>​    矩阵微分公式：</p>
+<script type="math/tex; mode=display">
+\frac{\partial \boldsymbol{a}^{\mathrm{T}} \boldsymbol{x}}{\partial \boldsymbol{x}}=\frac{\partial \boldsymbol{x}^{\mathrm{T}} \boldsymbol{a}}{\partial \boldsymbol{x}}=\boldsymbol{a}</script><p>​    那么</p>
+<script type="math/tex; mode=display">
+\frac{\partial \boldsymbol{x}^{\mathrm{T}} \boldsymbol{Ax}}{\partial \boldsymbol{x}}=(\boldsymbol{x}^T\boldsymbol{A})^T+\boldsymbol{Ax}=(\boldsymbol{A}+\boldsymbol{A}^T)\boldsymbol{x}</script><h3 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h3><p><img src="/images/ML-ppt/image-20221121203615626.png" alt="image-20221121203615626" style="zoom:50%;" /></p>
+<h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><ol>
+<li>正则化可以看作是损失函数的<strong>惩罚项</strong>。</li>
+<li>岭估计的参数模要严格小于最小二乘估计的参数模，即引入L2正则项后，参数长度变短了。这被叫做<strong>特征缩减</strong>。</li>
+<li>特征缩减可以使得影响较小的特征系数衰减到0，只保留重要特征从而<strong>减少模型复杂度，减少过拟合</strong>。</li>
+</ol>
+<h2 id="题目2"><a href="#题目2" class="headerlink" title="题目2"></a>题目2</h2><p><img src="/images/ML-ppt/image-20221118192313490.png" alt="image-20221118192313490" style="zoom:50%;" /></p>
+<h3 id="基础知识：-1"><a href="#基础知识：-1" class="headerlink" title="基础知识："></a>基础知识：</h3><p><img src="/images/ML-ppt/image-20221118194704936.png" alt="image-20221118194704936" style="zoom:35%;" /></p>
+<p><img src="/images/ML-ppt/image-20221118194620334.png" alt="image-20221118194620334" style="zoom:40%;" /></p>
+<p><img src="/images/ML-ppt/image-20221118195546732.png" alt="image-20221118195546732" style="zoom:40%;" /></p>
+<h3 id="题解：-1"><a href="#题解：-1" class="headerlink" title="题解："></a>题解：</h3><p><img src="/images/ML-ppt/image-20221121203648506.png" alt="image-20221121203648506" style="zoom:50%;" /></p>
+<h3 id="补充：-1"><a href="#补充：-1" class="headerlink" title="补充："></a>补充：</h3><p><img src="/images/ML-ppt/image-20221118203258011.png" alt="image-20221118203258011" style="zoom:34%;" /></p>
+<h2 id="题目3"><a href="#题目3" class="headerlink" title="题目3"></a>题目3</h2><p><img src="/images/ML-ppt/image-20221118203820485.png" alt="image-20221118203820485" style="zoom:36%;" /></p>
+<h3 id="基础知识：-2"><a href="#基础知识：-2" class="headerlink" title="基础知识："></a>基础知识：</h3><p>​    分类的评价指标：</p>
+<p><img src="/images/ML-ppt/image-20221118203938704.png" alt="image-20221118203938704" style="zoom:53%;" /></p>
+<p><img src="/images/ML-ppt/image-20221118203958051.png" alt="image-20221118203958051" style="zoom:43%;" /></p>
+<p><img src="/images/ML-ppt/image-20221118204052981.png" alt="image-20221118204052981" style="zoom:37%;" /></p>
+<p><img src="/images/ML-ppt/image-20221118204244369.png" alt="image-20221118204244369" style="zoom:36%;" /></p>
+<p><img src="/images/ML-ppt/image-20221118204505151.png" alt="image-20221118204505151" style="zoom:40%;" /></p>
+<p><strong>对数几率回归：</strong>用回归函数做分类任务。</p>
+<p><img src="/images/ML-ppt/image-20221118204835296.png" alt="image-20221118204835296" style="zoom:36%;" /></p>
+<h3 id="题解：-2"><a href="#题解：-2" class="headerlink" title="题解："></a>题解：</h3><p><img src="/images/ML-ppt/image-20221121203726097.png" alt="image-20221121203726097" style="zoom:40%;" /></p>
+<h2 id="题目4"><a href="#题目4" class="headerlink" title="题目4"></a>题目4</h2><p><img src="/images/ML-ppt/image-20221118225705375.png" alt="image-20221118225705375" style="zoom:67%;" /></p>
+<h3 id="题解：-3"><a href="#题解：-3" class="headerlink" title="题解："></a>题解：</h3><p><img src="/images/ML-ppt/image-20221121203803784.png" alt="image-20221121203803784" style="zoom:40%;" /></p>
+<p><img src="/images/ML-ppt/image-20221121203829860.png" alt="image-20221121203829860" style="zoom:85%;" /></p>
+<h3 id="补充：-2"><a href="#补充：-2" class="headerlink" title="补充："></a>补充：</h3><p>支持向量机的对偶问题</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/39592364">https://zhuanlan.zhihu.com/p/39592364</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40859436/article/details/80647547">https://blog.csdn.net/weixin_40859436/article/details/80647547</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/de882f0fc434">https://www.jianshu.com/p/de882f0fc434</a></p>
+<h2 id="题目5"><a href="#题目5" class="headerlink" title="题目5"></a>题目5</h2><p><img src="/images/ML-ppt/image-20221119110557712.png" alt="image-20221119110557712" style="zoom:55%;" /></p>
+<h3 id="题解：-4"><a href="#题解：-4" class="headerlink" title="题解："></a>题解：</h3><p>​    用了脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"># @Time  : 2022/11/21 20:41:20</span></span><br><span class="line"><span class="string"># @Author: wd-2711</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    x1 = [[<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">1</span>]]</span><br><span class="line">    x2 = [[<span class="number">1</span>, <span class="number">1</span>], [<span class="number">1</span>, <span class="number">0</span>]]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10000</span>):</span><br><span class="line">        [w11, w21, w12, w22, b1, b2, b3, w1, w2] = [random.randint(-<span class="number">2</span>,<span class="number">2</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>)]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">max</span>(w11 * x1[<span class="number">0</span>][<span class="number">0</span>] + w12 * x2[<span class="number">0</span>][<span class="number">0</span>] + b1, <span class="number">0</span>) * w1 + b3 &gt; <span class="number">0</span>) + (<span class="built_in">max</span>(w21 * x1[<span class="number">0</span>][<span class="number">1</span>] + w22 * x2[<span class="number">0</span>][<span class="number">1</span>] + b2, <span class="number">0</span>) * w2 + b3) &gt; <span class="number">0</span> <span class="keyword">and</span> \</span><br><span class="line">            (<span class="built_in">max</span>(w11 * x1[<span class="number">1</span>][<span class="number">0</span>] + w12 * x2[<span class="number">1</span>][<span class="number">0</span>] + b1, <span class="number">0</span>) * w1 + b3 &gt; <span class="number">0</span>) + (<span class="built_in">max</span>(w21 * x1[<span class="number">1</span>][<span class="number">1</span>] + w22 * x2[<span class="number">1</span>][<span class="number">1</span>] + b2, <span class="number">0</span>) * w2 + b3) &lt; <span class="number">0</span>:</span><br><span class="line">            <span class="built_in">print</span>([w11, w21, w12, w22, b1, b2, b3, w1, w2])</span><br></pre></td></tr></table></figure>
+<p>​    最终有结果：</p>
+<p><img src="/images/ML-ppt/image-20221121204158990.png" alt="image-20221121204158990" style="zoom:80%;" /></p>
+<h3 id="补充：-3"><a href="#补充：-3" class="headerlink" title="补充："></a>补充：</h3><p>神经网络中的异或问题</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/comli_cn/article/details/109170804">https://blog.csdn.net/comli_cn/article/details/109170804</a></p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2022/11/21/PUBG-predict-1/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2022/11/17/re-part-3/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-11-18 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/ML/">ML<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

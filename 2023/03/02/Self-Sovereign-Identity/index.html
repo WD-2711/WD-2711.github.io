@@ -1,0 +1,487 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Self-Sovereign-Identity | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Self-Sovereign-Identity"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Self-Sovereign-Identity</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Self-Sovereign-Identity（SSI）阅读笔记"><a href="#Self-Sovereign-Identity（SSI）阅读笔记" class="headerlink" title="Self-Sovereign Identity（SSI）阅读笔记"></a>Self-Sovereign Identity（SSI）阅读笔记</h1><h2 id="0x01-SSI导论"><a href="#0x01-SSI导论" class="headerlink" title="0x01 SSI导论"></a>0x01 SSI导论</h2><p>​    自我主权身份(SSI)是互联网上数字身份的一种新模式：即，<strong>我们如何向网站、服务和应用程序证明我们是谁，我们需要与这些网站、服务和应用程序建立信任关系，以访问或保护私人信息</strong>。</p>
+<span id="more"></span>
+<p>​    <strong>两种身份模型：</strong>The centralized identity model（中心化模型），The decentralized identity model（去中心化模型）。</p>
+<p>​    <strong>中心化模型包括：</strong>The federated identity model（联合身份模型，插入身份提供商IdP，如下图所示：）。还有联合身份管理(FIM)，例如chatGPT的<code>continue with google</code>一样。</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230302101712995.png" alt="image-20230302101712995" style="zoom:80%;" /></p>
+<p>​        <strong>去中心化模型：</strong>它基于个人与另一方之间的直接关系，即个人与另一方之间的对等关系。双方都不提供、控制或拥有与对方的关系。在点对点的关系中，双方都没有对方的账户。双方都不能完全拥有这种联系。这就像一根你们都握着的绳子—如果双方中的任何一人松开，绳子就会掉下来。但只要双方都想要，这种联系就会持续下去。如下图所示：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230302103057187.png" alt="image-20230302103057187" style="zoom:80%;" /></p>
+<p>​    双方直接交换公钥，以形成私有的、安全的连接，将这些公钥中的一部分存储在公共区块链上，以验证数字身份凭证(也称为可验证凭证)上的签名。双方可以交换这些<strong>数字身份凭证</strong>以提供真实身份的证明。类比于现实生活，就例如我们要买东西，就拿出钱包，展示我们从其他受信任的人那里获得的凭据（纸币）。</p>
+<p>​    <strong>自我主权身份（SSI）：</strong>自己做自己的主宰，自己管理自己的身份。</p>
+<p>​    <strong>SSI的应用：</strong>page15</p>
+<h2 id="0x02-SSI的基本构成要素"><a href="#0x02-SSI的基本构成要素" class="headerlink" title="0x02 SSI的基本构成要素"></a>0x02 SSI的基本构成要素</h2><p>​    <strong>注：</strong>distributed ledger technology (DLT：分布式账本技术)，SDS（Secure Data Storage）安全数据存储。</p>
+<p>​    <strong>注：区块链如何实现去中心化？</strong></p>
+<ol>
+<li>区块链的每一笔交易都是数字签名的。</li>
+<li>交易被分组到块中，这些块被加密地散列并链接到前一块。</li>
+<li>每个新块都会在区块链网络上的所有对等节点之间进行加密复制。</li>
+</ol>
+<p>​    <strong>注：SSI的实现基础。</strong></p>
+<p>​    全球分布式数据库如何在不受单点故障或攻击的情况下充当公钥的真实来源。</p>
+<p>​    <strong>七个基本构建块：</strong>可验证凭据（数字凭据）、信任三角（发行者issuer、持有者holder和验证者verifier）、数字钱包、数字代理、去中心化标识符(DID)、区块链和其他可验证的数据注册中心、治理框架(又称信任框架)。</p>
+<p>​    <strong>可验证凭据（Verifiable credentials）</strong>：分为四部分，第一部分是凭据的唯一标识符-就像您的驾照或护照上显示的唯一编号一样。第二部分是描述凭证本身的元数据，例如驾照的有效期。第三部分是凭证中包含的声明—例如其他数据项(姓名、出生日期、性别、头发颜色、眼睛颜色、身高、体重)。第四部分是凭证主体的签名。</p>
+<p>​    信任三角不必多说。数字钱包就是保存各种可验证凭据VC。</p>
+<p>​    <strong>数字代理（Digital agents）</strong>：人们通过数字代理，作为自己的手，拿出凭据给verifier看。</p>
+<p>​    <strong>去中心化标识符（DID）：</strong>它允许互联网上的任何设备与其他设备连接并向其发送数据分组，类似于身份证号，可以作为地址。DID可以<strong>注册到任何类型的分散网络或可验证数据注册中心，甚至可以进行对等交换</strong>。为什么可以应用到区块链，因为区块链是没有任何一方控制的高度防篡改的事务性分布式数据库。DID如下图所示：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230303102125903.png" alt="image-20230303102125903" style="zoom:80%;" /></p>
+<p>​    <strong>区块链和其他可验证的数据注册中心：</strong>是DID和公钥的来源。</p>
+<p>​    <strong>治理框架：</strong>如下图所示，相当于制定的一组业务、法律和技术规则。</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230303104803276.png" alt="image-20230303104803276" style="zoom:80%;" /></p>
+<p>​    总体的SSI基础设施（Trust Over IP stack：TOIP）如下所示，其中Public utilities表示用于DID的区块链或可验证数据注册中心。</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230303105601707.png" alt="image-20230303105601707" style="zoom:80%;" /></p>
+<h2 id="0x03-SSI的工作原理举例"><a href="#0x03-SSI的工作原理举例" class="headerlink" title="0x03  SSI的工作原理举例"></a>0x03  SSI的工作原理举例</h2><p>​    略，大致看了一下，讲了6个例子。</p>
+<h2 id="0x04-SSI记分卡：SSI的主要功能和优势"><a href="#0x04-SSI记分卡：SSI的主要功能和优势" class="headerlink" title="0x04 SSI记分卡：SSI的主要功能和优势"></a>0x04 SSI记分卡：SSI的主要功能和优势</h2><p>​    SSI积分卡意思就是：将SSI的功能和优势列成一个表格。</p>
+<p>​    略。</p>
+<h2 id="0x05-SSI架构总览"><a href="#0x05-SSI架构总览" class="headerlink" title="0x05 SSI架构总览"></a>0x05 SSI架构总览</h2><p>​    <strong>SSI堆栈</strong>：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230303122231578.png" alt="image-20230303122231578" style="zoom:80%;" /></p>
+<p>​    下面两层主要是技术信任，上面两层主要是人类信任。</p>
+<h3 id="第1层：标识符和公钥"><a href="#第1层：标识符和公钥" class="headerlink" title="第1层：标识符和公钥"></a>第1层：标识符和公钥</h3><p>​    第一层确保（1）所有利益相关者都同意关于标识符指什么以及如何使用加密密钥证明对该标识符控制权.（2）保证生态系统中的每一方在不依赖或不受中心化干预的情况下读写数据，即抵制审查（censorship resistance）。</p>
+<p>​    确保上述功能的最佳办法是：可验证的数据注册机构（DID机构或DID网络，用来提供DID）。每个DID机构都有DID方法，该方法定义与DID机构交互的协议。</p>
+<h4 id="区块链作为DID机构"><a href="#区块链作为DID机构" class="headerlink" title="区块链作为DID机构"></a>区块链作为DID机构</h4><p>​    注：decentralized public key infrastructure (DPKI)-去中心化基础设施；Key Event Receipt Infrastructure(KERI)-关键事件接收基础设施。</p>
+<p><strong>为什么不使用区块链？</strong></p>
+<p>（1）区块链可能成本比较高昂，可能太慢。</p>
+<p>（2）区块链可能无法阻止抵制审查（censorship resistance）。</p>
+<p><strong>公共区块链</strong></p>
+<p>​    支付地址（不透明的字符串）作为DID。<strong>但是，支付地址没有丰富的元数据，也没有提供联系地址持有人的明显方式。</strong></p>
+<p><strong>专门为SSI准备的区块链</strong></p>
+<p>​    Hyperledger Indy、Veres One。除了DID还支持其他，例如零知识证明ZKP等。注意：区块链上没有任何私人数据，尽管早期基于区块链的身份实验是将个人的凭据直接加密放在区块链上，但这不是一个好主意，原因如下：</p>
+<p>（1）所有加密都有有限的寿命（可以被破解），因此将私人数据写入一成不变的公共分类账存在最终可能被破解的风险。</p>
+<p>（2）即使是加密的数据，仅仅通过观察谁写和读它就会影响隐私。</p>
+<p>（3）数据主体的”擦除权”。</p>
+<h4 id="其他技术作为DID机构"><a href="#其他技术作为DID机构" class="headerlink" title="其他技术作为DID机构"></a>其他技术作为DID机构</h4><p><strong>传统数据库</strong></p>
+<p>​    看上去与去中心化相反。但是这样的数据库既不是自助服务的，也不是抵制审查的。</p>
+<p><strong>点对点协议（peer-to-peer protocol）</strong></p>
+<p>​    <strong>KERI是对等DID的架构。</strong></p>
+<p>​    <strong>方案1：DID:Peer</strong></p>
+<p>​    有一类DID不需要在后端区块链或数据库中注册，这些DID和DID文档可以在需要它们来识别和验证彼此的<strong>对等体之间直接生成和交换</strong>。</p>
+<p>​    此时，DID机构是其他人的数字钱包。好处是：<strong>DID、公钥等信息是完全私有的，不用在公共区块链上共享。</strong>对等体DID直接在涉及的两个对等体的数字钱包中生成，并使用其数字代理进行交换，因此在现实中，<strong>对等体DID是完全在SSI堆栈的第2层实现的第1层解决方案</strong>。</p>
+<p>​    <strong>方案2：三重签名收据（Triple-Signed Receipts）</strong></p>
+<p>​    协议中的每一方都签署了一项交易，其中不仅包括输入，还包括输出(结果余额)。一名外部审计员也会签署。一旦所有三个签名都累积起来，交易的真实性就不存在问题了-这是因为签名数据除了输入之外还包括结果余额，所以不需要参考以前的交易来了解交易的效果。</p>
+<h3 id="第2层：安全通信与接口"><a href="#第2层：安全通信与接口" class="headerlink" title="第2层：安全通信与接口"></a>第2层：安全通信与接口</h3><p>​    第1层是关于分布式的信任根，无论是可公开验证的还是对等的；第2层是在对等体之间建立可信通信。</p>
+<h4 id="协议设计"><a href="#协议设计" class="headerlink" title="协议设计"></a>协议设计</h4><p>​    协议定义了代理、钱包和集线器通信所依据的规则。</p>
+<p><strong>基于网络的协议设计，基于HTTP传输</strong></p>
+<p>​    HTTP传输的TLS。</p>
+<p>​    缺点：（1）需要直接的请求-响应交互，双方同时在线。（2）TLS的安全模型是不对称的：服务器使用X.509数字证书，客户端使用密码、API密钥等。这往往会使权力失衡永久化，在这种情况下，拥有高信誉服务器证书的组织决定了低信誉客户端的行为。<strong>这与SSI中的对等去中心化哲学是对立的。它还使DID及其加密密钥的控制成为次要（甚至是冗余）问题。</strong>（3）etc</p>
+<p><strong>基于消息的协议设计，类似于电子邮件</strong></p>
+<p>​    DIDComm。</p>
+<h4 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h4><p>​    接口设计描述了如何为开发人员提供编程使用，例如对于基于web的客户端/服务器协议，使用Swagger风格的API接口；使用DIDComm协议的话，就是用对等协议相应接口。</p>
+<p><strong>基于钱包Dapps的面向API接口设计</strong></p>
+<p><strong>使用身份中心（加密数据库）的面向数据的接口设计</strong></p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304110853899.png" alt="image-20230304110853899" style="zoom:80%;" /></p>
+<p><strong>使用代理进行面向消息的接口设计</strong></p>
+<h3 id="第3层：凭据"><a href="#第3层：凭据" class="headerlink" title="第3层：凭据"></a>第3层：凭据</h3><p>​    第3层目标是支持可互操作的可验证凭证，这些凭证可以在所有这些身份中使用。</p>
+<p>​    主要问题：（1）双方将交换何种格式的可验证凭证？（JWT，Blockcerts，W3C可验证凭据等）（2）双方将使用什么协议进行交换？</p>
+<p>​    <strong>JWT（Json web token）</strong>，但是它无法解释凭证中的元数据，且会显示签名文档中的所有内容（没有选择选择性地披露凭证持有人的能力）。</p>
+<p>​    <strong>Blockcerts（区块证书）</strong>，这是一种证书标准。区块证书是数字签名的JSON文档，对凭证持有者的属性进行编码。它们被发送到必须由持有者控制的支付地址，并且支付地址被嵌入到区块证书中。然后，持有者可以通过证明他们控制支付地址的私钥来证明凭证属于他们。区块证书通常是分批颁发的。每个blockcert都被散列，然后将批中所有证书的散列组合在Merkle树中，并将批的根散列记录在区块链上，如下图所示：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304122229988.png" alt="image-20230304122229988" style="zoom:80%;" /></p>
+<p>​    <strong>W3C可验证凭据格式。</strong>可验证凭据数据模型1.0作为W3C推荐标准。面临的问题：（1）W3C凭证不可变，当它由其他人随意分享怎么办，此时证书持有者不知道这些分享行为。（2）W3C凭证里面包含了指向所有者的DID，关联性太强了。而零知识证明（ZKP）可以解决这些问题。</p>
+<h4 id="凭证交换协议"><a href="#凭证交换协议" class="headerlink" title="凭证交换协议"></a>凭证交换协议</h4><p>​    如果是静态数据（保密性低，不常变化），那么就放到hub上。凭证持有者可以将凭证留在hub上，并有一项政策告诉告诉在向任何提出要求的人提供凭证之前必须满足哪些条件。如果强调隐私，那么就使用代理和DIDComm等对等凭证交换协议。</p>
+<h3 id="第4层：治理框架"><a href="#第4层：治理框架" class="headerlink" title="第4层：治理框架"></a>第4层：治理框架</h3><h2 id="0x06-SSI的基本密码技术"><a href="#0x06-SSI的基本密码技术" class="headerlink" title="0x06 SSI的基本密码技术"></a>0x06 SSI的基本密码技术</h2><h3 id="可验证的数据结构"><a href="#可验证的数据结构" class="headerlink" title="可验证的数据结构"></a>可验证的数据结构</h3><p>​    <strong>密码累加器。</strong>对一组数字集合进行计算，得到单个数字（累加值）。知道累加值的人可以证明他们的数字是集合的成员，或者证明他们的数字不包含在集合中。</p>
+<p>​    <strong>Merkle树。</strong>一种非常紧凑且计算效率高的方法来验证即使是非常大的数据集的完整性。</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304125344979.png" alt="image-20230304125344979" style="zoom:80%;" /></p>
+<p>​    <strong>Patricia tries</strong>。首先介绍什么是radix trie？在radix trie中，节点不存储任何信息；它们是trie中位置的指示符，如下所示：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304125914664.png" alt="image-20230304125914664" style="zoom:80%;" /></p>
+<p>​    Patricia tries是radix trie的变体。</p>
+<p>​    <strong>Merkle Patricia trie。</strong>例如以太坊使用的modified Merkle Patricia trie (MPT) ，将Patricia trie与Merkle Tree结合起来。举例：</p>
+<p>​    假设我们要存储一组字符串键值对：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">jsonCopy code&#123;</span><br><span class="line">  &quot;apple&quot;: &quot;red&quot;,</span><br><span class="line">  &quot;banana&quot;: &quot;yellow&quot;,</span><br><span class="line">  &quot;cherry&quot;: &quot;red&quot;,</span><br><span class="line">  &quot;grape&quot;: &quot;purple&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    MPT将这些键值对存储在一个树状结构中。在这个结构中，每个节点都代表一个字符串前缀，节点的键是该前缀的哈希值，节点的值是该前缀下所有键值对的哈希值。</p>
+<p>​    首先，我们将所有的键值对存储在叶子节点上：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pythonCopy code         (hash1)</span><br><span class="line">         /     \</span><br><span class="line">   &quot;apple&quot;    &quot;banana&quot;</span><br><span class="line">     / \         / \</span><br><span class="line">&quot;red&quot; (hash2) &quot;yellow&quot; (hash3)</span><br></pre></td></tr></table></figure>
+<p>​    这里，<code>hash1</code>是节点 <code>(hash(&quot;apple&quot;) + hash(&quot;banana&quot;))</code> 的哈希值，<code>hash2</code>是 <code>(hash(&quot;apple&quot;) + hash(&quot;red&quot;))</code> 的哈希值，<code>hash3</code>是 <code>(hash(&quot;banana&quot;) + hash(&quot;yellow&quot;))</code> 的哈希值。注意，这些哈希值是通过将子节点的哈希值连接起来并散列得到的。</p>
+<p>​    接下来，我们为 <code>cherry</code> 和 <code>grape</code> 创建新的叶子节点：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pythonCopy code         (hash1)</span><br><span class="line">         /     \</span><br><span class="line">   &quot;apple&quot;    &quot;banana&quot;</span><br><span class="line">     / \         / \</span><br><span class="line">&quot;red&quot; (hash2) &quot;yellow&quot; (hash3)</span><br><span class="line">             /         \</span><br><span class="line">        &quot;cherry&quot;     &quot;grape&quot;</span><br><span class="line">          / \           / \</span><br><span class="line">     &quot;red&quot; (hash4) &quot;purple&quot; (hash5)</span><br></pre></td></tr></table></figure>
+<p>​    这里，<code>hash4</code>是 <code>(hash(&quot;cherry&quot;) + hash(&quot;red&quot;))</code> 的哈希值，<code>hash5</code>是 <code>(hash(&quot;grape&quot;) + hash(&quot;purple&quot;))</code> 的哈希值。我们可以看到，每个节点现在都有一个键和一个值，键是该节点表示的字符串前缀的哈希值，值是该前缀下所有键值对的哈希值。</p>
+<p>​    现在，我们可以通过根节点 <code>(hash1)</code> 访问所有的键值对。要查找一个键的值，我们可以按顺序遍历树上的节点，将每个节点的键和目标键进行比较，然后进入匹配的子节点。如果找到了目标键，则返回该节点的值；否则，返回空值。</p>
+<p>​    <strong>ZKP零知识证明。</strong>ZKP可以非常有用地证明有关个人证件的信息，而不必完全披露其他敏感的个人身份信息。我们需要证明一个人有权访问服务，而不需要披露更多的个人数据，这是ZKP的潜在应用。使用传统的公钥/私钥密码，数字签名的每一位都与公钥一样可相关，而零知识加密方法不会显示实际签名。<strong>相反，它们只显示有效签名的密码证明。只有签名持有人才具有向验证者出示凭证所需的信息。这意味着ZKP签名不会增加签名者的相关风险，并自动保护签名者免受假冒。</strong></p>
+<p>​    区块链技术中使用的加密属性无法帮助系统知道什么是真的什么是假的，只能知道存储了什么和何时存储。密码学是SSI的基础，因为它<strong>能够验证数据的完整性或可追溯性，但不能验证准确性或有效性。无论密码证明多么尖端或复杂，它仍然只能证明关于数据的计算事实。它不能证明真实世界的事实—只有人类才能证明这一点</strong>。</p>
+<h2 id="0x07-可验证的凭证（Verifiable-credentials：VC）"><a href="#0x07-可验证的凭证（Verifiable-credentials：VC）" class="headerlink" title="0x07 可验证的凭证（Verifiable credentials：VC）"></a>0x07 可验证的凭证（Verifiable credentials：VC）</h2><p>​    可验证凭据(VC)是SSI体系结构的核心。</p>
+<p>​    基本的VC属性：</p>
+<p> <img src="/images/Self-Sovereign-Identity/image-20230304140229725.png" alt="image-20230304140229725" style="zoom:80%;" /></p>
+<p>​    其中，context告诉我们使用了哪些词汇集来构造这个VC；type属性包含一个URI列表，这些URI说明VC什么类型的；id属性是此VC的唯一标识符，由颁发者创建；Issuer属性唯一标识颁发者；Credential subject表示颁发者断言的有关主体的属性集；Proof证明此VC未被篡改。举例，以下是一个VC：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304141155021.png" alt="image-20230304141155021" style="zoom:80%;" /></p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304141203912.png" alt="image-20230304141203912" style="zoom:80%;" /></p>
+<p>​    一个VC可以有多个claim。</p>
+<p>​    好多VC放到Verifiable presentations（VP）里，可以理解为1组VC。</p>
+<h2 id="0x08-去中心化的标识符（Decentralized-identifiers）"><a href="#0x08-去中心化的标识符（Decentralized-identifiers）" class="headerlink" title="0x08 去中心化的标识符（Decentralized identifiers）"></a>0x08 去中心化的标识符（Decentralized identifiers）</h2><p>​    去中心化标识符（DID）是可验证凭证（VC）的加密对应物。有好多类型的DID。</p>
+<h4 id="概念理解：什么是DID？"><a href="#概念理解：什么是DID？" class="headerlink" title="概念理解：什么是DID？"></a>概念理解：什么是DID？</h4><p>​    DID是标识资源的字符串，是统一资源标识符（Uniform Resource Identifier：URI）。例如，统一资源定位器（Uniform Resource Locator：URL）是一个URI，可用于在web上查找该资源的表示。URL可以改变，还有一个概念是URN，URN不可以被改变。DID如下图所示：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304145510852.png" alt="image-20230304145510852" style="zoom:80%;" /></p>
+<p>​    DID的四个基本属性：（1）永久标识符，不会改变。（2）可解析，可以查找它来发现元数据。（3）密码可验证性。（4）无需中心登记机构。</p>
+<p>​    <strong>因此，拥有适当软件的任何人都可以根据特定DID方法生成DID，并立即开始使用，而无需任何中央注册机构的授权或参与。这与在比特币或以太坊区块链上创建公共地址的过程相同，这是DID去中心化的本质。</strong></p>
+<h4 id="DID如何运行？"><a href="#DID如何运行？" class="headerlink" title="DID如何运行？"></a>DID如何运行？</h4><p><strong>DID文档</strong></p>
+<p>​    每一个DID都有对应的DID文档。例如，一个人（DID主体）的DID具有相关的DID文档，该文档通常包含密码密钥、身份验证方法和描述如何与该人进行可信交互的其他元数据。控制DID及其相关DID文档的实体称为DID控制器。</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304153417653.png" alt="image-20230304153417653" style="zoom:80%;" /></p>
+<p>​    上图是DID文档，DID对象与DID之间的关系。</p>
+<p><strong>DID方法</strong></p>
+<p>​    DID方法指的是：创建DID的方法，如何创建DID。举例，以下是5种常见的DID方法：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304155037309.png" alt="image-20230304155037309" style="zoom:80%;" /></p>
+<p><strong>DID resolution(DID解析)</strong></p>
+<p>​    获取与DID相关联的DID文档的过程称为DID解析。如下所示：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304161521819.png" alt="image-20230304161521819" style="zoom:67%;" /></p>
+<h4 id="DID为什么能工作？"><a href="#DID为什么能工作？" class="headerlink" title="DID为什么能工作？"></a>DID为什么能工作？</h4><p>​    控制器的数字标识符将控制器（实体，例如人）与公钥绑定。如下所示：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304165533963.png" alt="image-20230304165533963" style="zoom:80%;" /></p>
+<p>​    如何绑定？有以下解决方案。</p>
+<p>（1）传统的PKI绑定了Identifier（数字标识符）与public key（公钥）。</p>
+<p>（2）信任网络模型，还在研究。</p>
+<p>（3）基于公钥的标识符，基于公钥生成控制器的标识符，如下图所示，但当密钥发生变化时，标识符也要变化。</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304170010981.png" alt="image-20230304170010981" style="zoom:80%;" /></p>
+<p>（4）DID与DID文档。是（3）的延申。</p>
+<h2 id="0x09-数字钱包和代理"><a href="#0x09-数字钱包和代理" class="headerlink" title="0x09 数字钱包和代理"></a>0x09 数字钱包和代理</h2><p>​    数字钱包由软件（以及可选的硬件）组成，使钱包的控制器能够生成、存储、管理和保护加密密钥、机密和其他敏感的私人数据，里面有各种DID与VC。<strong>数字代理对于数字钱包就像操作系统对于计算机或智能手机一样。</strong>它是一种软件，使人们能够采取行动、执行通信、存储信息和跟踪数字钱包的使用情况。如下所示</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304175724708.png" alt="image-20230304175724708" style="zoom:80%;" /></p>
+<h2 id="0x10-分散密钥管理"><a href="#0x10-分散密钥管理" class="headerlink" title="0x10 分散密钥管理"></a>0x10 分散密钥管理</h2><h4 id="分散密钥管理的挑战"><a href="#分散密钥管理的挑战" class="headerlink" title="分散密钥管理的挑战"></a>分散密钥管理的挑战</h4><p>​    DKMS代表分散密钥管理系统（decentralized key management system）</p>
+<h3 id="VC，DID与SSI给分布式密钥管理带来的贡献"><a href="#VC，DID与SSI给分布式密钥管理带来的贡献" class="headerlink" title="VC，DID与SSI给分布式密钥管理带来的贡献"></a>VC，DID与SSI给分布式密钥管理带来的贡献</h3><h4 id="身份验证与公钥验证分开"><a href="#身份验证与公钥验证分开" class="headerlink" title="身份验证与公钥验证分开"></a>身份验证与公钥验证分开</h4><p>​    DKMS的主要创新是DID能够将DID控制器的公钥验证与其他身份属性（如控制器的法定名称、URL、地址、政府ID号等）的验证分开，传统的PKI则是将这两个步骤结合在一起。例如，PKI是这样的：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304182323930.png" alt="image-20230304182323930" style="zoom:80%;" /></p>
+<p>​    而DID是这样的：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304182856707.png" alt="image-20230304182856707" style="zoom:80%;" /></p>
+<p>​    Public key与Private key可以改变，由Controller生成，而DID可以解析为DID文档，里面由控制器的各种属性。<strong>DID不可变，所以所有DID方法定义DID控制器如何通过发布对相关联的DID文档的更新来改变与DID相关联的公钥/私钥对。</strong></p>
+<h4 id="使用VC证明身份"><a href="#使用VC证明身份" class="headerlink" title="使用VC证明身份"></a>使用VC证明身份</h4><p>​    <strong>VC的作用：传递DID控制器的真实身份属性的第三方证明。</strong></p>
+<h3 id="使用基于帐本的DID方法进行密钥管理-信任的算法根-（啥意思？？）"><a href="#使用基于帐本的DID方法进行密钥管理-信任的算法根-（啥意思？？）" class="headerlink" title="使用基于帐本的DID方法进行密钥管理(信任的算法根)（啥意思？？）"></a>使用基于帐本的DID方法进行密钥管理(信任的算法根)（啥意思？？）</h3><p>​    所有的DID生成方法都需要信任根。DID方法使用私钥在账本中对交易进行签名，以记录DID与初始关联公钥。这意味着验证者必须与帐本核对，以验证当前公钥和与DID相关联的DID文档的任何其他内容。也就是，验证者必须信任：（<strong>DID的信任根</strong>）</p>
+<p>（1）共识算法和特定账本的操作：即其抵御51%攻击或任何其他形式的破坏或攻击的能力</p>
+<p>（2）用于访问账本上记录的解析器的安全性</p>
+<h3 id="使用基于对等的DID方法进行密钥管理（自我认证信任根）"><a href="#使用基于对等的DID方法进行密钥管理（自我认证信任根）" class="headerlink" title="使用基于对等的DID方法进行密钥管理（自我认证信任根）"></a>使用基于对等的DID方法进行密钥管理（自我认证信任根）</h3><h3 id="使用密钥事件接收基础设施（KERI）进行完全自主的去中心化密钥管理（重点）"><a href="#使用密钥事件接收基础设施（KERI）进行完全自主的去中心化密钥管理（重点）" class="headerlink" title="使用密钥事件接收基础设施（KERI）进行完全自主的去中心化密钥管理（重点）"></a>使用密钥事件接收基础设施（KERI）进行完全自主的去中心化密钥管理（重点）</h3><p>​    对等DID方法通过使用简单类型的自我认证标识符（SCID）来应用此架构。SCID是使用一个或多个加密单向函数应用程序从公钥/私钥对导出的。SCID现在绑定到该密钥对，只有私钥的持有者才能证明对SCID的控制。</p>
+<p>​    许多其他区块链使用基于公钥的标识符的相同概念。例如，这就是比特币用户如何证明对比特币地址的控制。不同之处在于SCID不需要区块链或任何其他基础设施来验证与公钥的绑定。<strong>任何拥有SCID和公钥的人都可以单独使用密码学验证绑定，这就是自我证明的含义</strong>。</p>
+<p>​    Keri体系结构的起点是自认证标识符(self-certifying identifiers：SCID)，自证明标识符(SCID)直接从公钥/私钥对生成控制器的标识符，<strong>而不需要任何外部管理员或算法信任根</strong>。基本概念如下图所示：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304192055213.png" alt="image-20230304192055213" style="zoom:80%;" /></p>
+<p>​    该标识符是自我证明的，因为在给定相关公钥的情况下，任何人都可以使用诸如散列函数的单向函数来立即验证该标识符是从公钥/私钥对中生成的。然后，数字钱包生成密码密钥对。最后，数字钱包从密钥对中获取标识符(SCID)。结果是一个SCID，其与公钥的绑定可以仅使用密码学立即验证（不需要账本、管理员等）。</p>
+<p>​    使用Keri，每次对与SCID关联的密钥对进行轮换都会生成一个新的密钥事件。KERI协议规定了密钥事件的确切结构，每个密钥事件消息都包括一个序列号。除了第一个密钥事件消息(初始事件)之外，每个密钥事件消息还包括前一个密钥事件消息的哈希。然后，控制器用新私钥对新密钥事件消息进行数字签名，产生密钥事件收据Key event receipt。</p>
+<p>​    其结果是一个有序的密钥事件接收序链，称为密钥事件日志，任何人都可以用与验证区块链上的交易序列大致相同的方式进行验证(但不需要信任的算法根)。下图说明了密钥事件日志中的密钥事件消息序列：</p>
+<p><img src="/images/Self-Sovereign-Identity/image-20230304193106553.png" alt="image-20230304193106553" style="zoom:80%;" /></p>
+<h4 id="密钥事件日志的见证"><a href="#密钥事件日志的见证" class="headerlink" title="密钥事件日志的见证"></a>密钥事件日志的见证</h4><p>​    除了控制器之外，其他各方也可以对密钥事件消息进行数字签名。这些当事人之所以被称为证人，是因为他们“见证”控制人在密钥事件消息上的数字签名，就像他们见证一个人在纸质文件上的实际签名一样。</p>
+<h4 id="初始密钥轮换是对密钥的保护"><a href="#初始密钥轮换是对密钥的保护" class="headerlink" title="初始密钥轮换是对密钥的保护"></a>初始密钥轮换是对密钥的保护</h4><p>​    控制器不仅发布新的公钥，而且发布对下一个公钥的加密承诺(称为预轮换公钥)。该承诺是预循环公钥的哈希，包含在建立新的密钥事件消息中。这意味着拿到当前私钥的攻击者将不能通过轮换到新的公钥来接管SCID，因为下一个公钥已经被承诺。</p>
+<p>​    但是，如果攻击者已知现有的私钥，攻击者立即发一个新的预轮换密钥对，那么攻击者可以控制该私钥吗？如果控制器已经有一个或多个见证者见证控制器先前的密钥轮换事件消息，则不会。这些目击者会识别出重复的序列号，并拒绝攻击者随后的密钥轮换事件消息。</p>
+<p>​    如果控制器是恶意的呢？每个消息具有相同的序列号和时间戳，但具有两个不同的预旋转密钥对摘要？同样，证人（或任何验证者）可以看到这些口是心非的事件，并将SCID标记为不再可信。</p>
+<h4 id="系统独立验证"><a href="#系统独立验证" class="headerlink" title="系统独立验证"></a>系统独立验证</h4><p>​    依赖于算法信任根（如分布式账本）的DID方法产生的DID只能通过引用该信任根进行验证，这种依赖称为账本锁。而由于KERI是自认证的，因此拥有副本的证人与控制器可以自己直接验证DID。</p>
+<p>能做委派，也能兼容被遗忘权。</p>
+<h3 id="关键要点"><a href="#关键要点" class="headerlink" title="关键要点"></a>关键要点</h3><p>（1）密钥管理责任现在直接落在了自主权个人的肩上，因为有了SSI，就没有更高的权力。</p>
+<p>（2）去中心化密钥管理系统（DKMS），该系统最初是一个与供应商无关的开放标准，使数字钱包能够跨供应商、设备、系统和网络进行移植。</p>
+<p>（3）DID、VC和SSI带来了新的工具来帮助实现分散密钥管理，包括将密钥验证与身份验证分开，使用VC进行身份验证，自动密钥轮换，自动备份和恢复方法，以及数字监护。</p>
+<p>（4）绝大多数的DID方法目前使用区块链或分布式账本作为信任的算法根，但这些DID是账本锁定的（不可移植），可能与GDPR被遗忘权冲突。</p>
+<p>（5）对等DID不使用账本，而是使用简单形式的自我认证标识符（SCID），该标识符仅依赖于自我认证的信任根（数字钱包），并直接在对等方共享，每个对等方都可以验证它们。它们还具有高度的可扩展性和隐私保护性。</p>
+<p>（6）KERI（密钥事件接收基础设施）使用SCID的通用方法，为任何应用程序提供一个完整的去中心化密钥管理基础设施。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/03/06/Assembly-5/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/02/28/geekpwn-webrtc/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-03-02 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/crypto/">crypto<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

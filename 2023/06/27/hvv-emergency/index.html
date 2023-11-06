@@ -1,0 +1,450 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>hvv-emergency | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Some knowledge points of hvv emergency response. It mainly includes webshell event handling process, linux, windows emergency response troubleshooting steps, etc.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="hvv-emergency"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> hvv-emergency</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> Some knowledge points of hvv emergency response. It mainly includes webshell event handling process, linux, windows emergency response troubleshooting steps, etc.
+		 </div> <!-- alert -->
+	  		
+
+	  <h1 id="webshell应急响应"><a href="#webshell应急响应" class="headerlink" title="webshell应急响应"></a>webshell应急响应</h1><h4 id="攻击的两种方式"><a href="#攻击的两种方式" class="headerlink" title="攻击的两种方式"></a>攻击的两种方式</h4><p>&emsp;钓鱼、0day</p>
+<h4 id="webshell事件处理流程"><a href="#webshell事件处理流程" class="headerlink" title="webshell事件处理流程"></a>webshell事件处理流程</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">（a）现场访谈确定范围</span><br><span class="line">（b）分析日志：</span><br><span class="line">	（1）日志存在：确定攻击事件-&gt;攻击特征-&gt;定位特征文件-&gt;确定攻击者IP-&gt;攻击复现</span><br><span class="line">	（2）日志不存在：黑盒发掘漏洞并查看相关配置文件是否存在弱口令，如tomcat的tomcat-userxml，反共黑客喜欢用的struts2漏洞</span><br><span class="line">（c）根除webshell</span><br><span class="line">（d）后门排查根除</span><br><span class="line">（e）漏洞修补</span><br><span class="line">（f）输出文档与建议</span><br></pre></td></tr></table></figure>
+<h4 id="webshell事件表现"><a href="#webshell事件表现" class="headerlink" title="webshell事件表现"></a>webshell事件表现</h4><p>&emsp;安全设备报警、被上级部门通报、被挂黑链、被篡改首页</p>
+<span id="more"></span>
+<h4 id="webshell事件发现时间"><a href="#webshell事件发现时间" class="headerlink" title="webshell事件发现时间"></a>webshell事件发现时间</h4><p>&emsp;根据客户发现的时间去定位日志时间</p>
+<h4 id="了解系统架构，如服务器类型、业务架构、网络拓扑等"><a href="#了解系统架构，如服务器类型、业务架构、网络拓扑等" class="headerlink" title="了解系统架构，如服务器类型、业务架构、网络拓扑等"></a>了解系统架构，如服务器类型、业务架构、网络拓扑等</h4><p>&emsp;服务器类型：windows、linux etc..</p>
+<p>&emsp;cms：dedecms、phpcms、trs cms etc..</p>
+<p>&emsp;中间件、容器、框架、数据库：tomcat、iis、apache、weblogic、struts、mysql etc..</p>
+<p>&emsp;脚本语言：asp、php、jsp etc..</p>
+<p>&emsp;业务架构：如前端网页内容是否是后端通过ftp上传的（新闻网偏多） etc..</p>
+<h4 id="windows检测webshell"><a href="#windows检测webshell" class="headerlink" title="windows检测webshell"></a>windows检测webshell</h4><p>&emsp;查看用户信息：<code>net user</code>。</p>
+<p>&emsp;查看隐藏用户：<code>cmd – compmgmt.msc – 本地用户和组 – 用户</code>。</p>
+<p>&emsp;注册表查看用户：<code>cmd – regedit – HKEY_LOCAL_MACHINE\SAM，为该项添加权限 – 打开：HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users – 导出所有以00000开头的项，将所有导出项与000001F4（该项对应administrator用户）导出内容做比较，若其中“F”值内容相同，则可能为克隆用户</code>。</p>
+<p>&emsp;LP_Check.exe</p>
+<h4 id="windows查看进程、服务、驱动信息、网络连接"><a href="#windows查看进程、服务、驱动信息、网络连接" class="headerlink" title="windows查看进程、服务、驱动信息、网络连接"></a>windows查看进程、服务、驱动信息、网络连接</h4><p>&emsp;进程：打开cmd – msinfo32 – 软件环境 – 正在运行任务，在此可查看进程名及其对应的执行文件；</p>
+<p>&emsp;服务：打开cmd – msinfo32 – 软件环境 – 服务，在此可查看服务的启动情况及其对应的启动文件；</p>
+<p>&emsp;驱动：打开cmd – msinfo32 – 软件环境 – 系统驱动程序，在此可查看驱动的启动情况及其对应的驱动文件；</p>
+<p>&emsp;模块：打开cmd – msinfo32 – 软件环境 – 加载的模块，在此可查看被加载的DLL文件及其对应的文件路径；</p>
+<p>&emsp;启动项：打开cmd – msinfo32 – 软件环境 – 启动程序，在此查看启动程序名及其对应的启动文件路径；</p>
+<p>&emsp;PCHunter.exe工具查看也可以查看进程、服务、驱动、启动项；</p>
+<p>&emsp;<code>netstat -ano | findstr &quot;ESTABLISHED&quot;</code> -&gt; 查看目前的网络连接，定位可疑的ESTABLISHED -&gt; <code>tasklist /svc|find &quot;xxx&quot;</code>。</p>
+<p>&emsp;有的后门不能通过查看启动项来发现，比如通过Bitsadmin，就不能通过启动项发现这时候需要通过如下命令查找后门<code>bitsadmin /list /allusers /verbose</code>。</p>
+<h4 id="linux查看用户信息"><a href="#linux查看用户信息" class="headerlink" title="linux查看用户信息"></a>linux查看用户信息</h4><p>&emsp;<code>cat /etc/passwd</code>。各列由冒号隔开，分别表示“用户名”“密码加密”“用户ID”“用户组ID”“注释”“用户主目录”“默认登录shell”。</p>
+<p>&emsp;检查中需要与管理员确认是否有可疑用户，“用户ID”列中，一般情况下应该只有root的ID是0，其他用户的ID如果设置为0，即拥有root权限。UID为0的帐号也不一定都是可疑帐号，Freebsd默认存在toor帐号，且uid为0（toor 在BSD官网解释为root替代帐号，属于可信帐号）。</p>
+<p>&emsp;<code>cat /etc/passwd</code> 分析可疑帐号，可登录帐号。</p>
+<p>&emsp;查看UID为0的帐号：<code>awk -F: &#39;&#123;if($3==0)print $1&#125;&#39; /etc/passwd</code>。</p>
+<p>&emsp;查看能够登录的帐号：<code>cat /etc/passwd|grep -v &quot;nologin&quot; |grep -v &quot;false&quot;</code>。</p>
+<p>&emsp;<code>lastlog</code>命令，查看系统中所有用户最近一次登录信息。</p>
+<p>&emsp;<code>lastb</code>命令，查看显示用户错误的登录列表</p>
+<p>&emsp;<code>last</code>命令，查看显示用户最近登录信息（数据源为<code>/var/log/wtmp</code>，<code>var/log/btmp</code>）。<code>utmp</code>文件中保存的是当前正在本系统中的用户的信息。<code>wtmp</code>文件中保存的是登录过本系统的用户的信息。<code>/var/log/wtmp</code> 文件结构和<code>/var/run/utmp</code> 文件结构一样。</p>
+<p>&emsp;<code>who</code>命令，查看当前用户登录系统的情况</p>
+<p>&emsp;<code>awk -F: &#39;length($2)==0 &#123;print $1&#125;&#39; /etc/shadow</code>命令，查看是否存在空口令账号</p>
+<h4 id="linux查看进程、服务、网络连接"><a href="#linux查看进程、服务、网络连接" class="headerlink" title="linux查看进程、服务、网络连接"></a>linux查看进程、服务、网络连接</h4><p>&emsp;查看系统进程可以使用命令<code>ps aux</code>。“USER”列表示启动进程的用户名、“PID”列表示进程的PID值、“TIME”列表示进程已经运行的时间、“CMD”列表示启动进程的命令。</p>
+<p>&emsp;强制结束进程可以使用命令kill -9（数字九） 进程的PID值，如<code>kill -9 2535</code>。</p>
+<p>&emsp;<code>netstat –anp</code>命令查看进程、端口及对应的pid。之后根据pid，利用<code>ls –alh /proc/pid</code>命令查看其对应的可执行程序，也可以利用<code>lsof –p pid</code>查看pid对应的可执行程序</p>
+<p>&emsp;如果是恶意进程，可以使用<code>kill -9</code>（数字九） 进程的PID值命令来结束进程，如<code>kill -9 2535</code>，然后使用<code>rm -rf filename</code>来删除木马，如果root用户都无法删除相关文件，很可能文件被加上了<code>i</code>属性，使用<code>lsatter filename</code>命令来查看文件属性，然后使用<code>chattr -i filename</code>命令来移除i属性继而删除文件。</p>
+<p>&emsp;<code>lsof -i:port</code> 查看指定端口对应的程序。</p>
+<p>&emsp;<code>top</code>命令根据cpu占用率查看可疑进程。</p>
+<p>&emsp;查看隐藏进程，依次执行：<code>ps -ef | awk &#39;&#123;print&#125;&#39; | sort -n | uniq &gt;1</code>、<code>ls /proc | sort -n |uniq &gt;2</code>、<code>diff 1 2</code>。</p>
+<p>&emsp;<code>chkconfig –list</code>命令可以查看系统运行的服务</p>
+<p>&emsp;<code>ip link</code>命令查看是否有恶意网卡，是否存在sniffer</p>
+<p>&emsp;<code>arp –a</code>命令查看arp记录是否正常。</p>
+<p>&emsp;<code>ls ps</code>很可能被黑客恶意替换，所以可以去命令目录查看相关系统命令的修改时间，如使用<code>ls -alt /bin</code>命令。可以查看相关文件的大小，如果大小明显偏大则很可能被替换，如使用<code>ls -alh /bin</code>。<code>rpm -Va</code>命令查看发生过变化的软件包，如果一切均校验正常将不会产生任何输出。使用第三方查杀工具如<code>chkrootkit</code>、<code>rkhunter</code>进行查杀，来检测命令是否修改过。使用<code>chkrootkit</code>，如果出现<code>INFECTED</code>，说明检测出系统后门可以直接用<code>./chkrootkit -q | grep INFECTED</code>命令检测并筛选出存在<code>INFECTED</code>的内容。</p>
+<h4 id="windows系统日志"><a href="#windows系统日志" class="headerlink" title="windows系统日志"></a>windows系统日志</h4><p>&emsp;默认情况下，Window的系统日志存放在<code>%SystemRoot%\System32\Winevt\Logs</code>，分别为：Application.evtx（应用程序日志）；Security.evtx（安全性日志）；System.evtx（系统日志）；</p>
+<p>&emsp;可以使用系统自带的“事件查看器”查看。打开<code>事件查看器–window日志–安全</code>，查看安全性日志，是否存在大量审核失败的日志（暴力破解）。若该帐号本身已被删除，则“用户”处将不会显示帐号名，而是显示一串帐号的SID值。多关注安全性日志中的特殊事件，比如说id为4728为把用户添加进安全全局组，如administrators组。</p>
+<p>&emsp;这里列举一些有关检测时常见的事件ID：</p>
+<p>（1）4726:把用户添加进安全全局组，如administrators组</p>
+<p>（2）4624:大部分登录事件成功时会产生的日志</p>
+<p>（3）4625:大部分登录事件失败时会产生的日志(解锁屏幕并不会产生这个日志)</p>
+<p>（4）4672: 特权用户登录成功时会产生的日志，例如我们登录”administrator”，一般会看到一条4624和4672日志一起出现</p>
+<p>（5）4648: 一些其他的登录情况，如使用 runas /user 登录除当前以外的其他用户运行程序时，会产生这样的日志。（不过runas命令执行时同时也会产生一条4624日志）</p>
+<h4 id="windows计划任务日志"><a href="#windows计划任务日志" class="headerlink" title="windows计划任务日志"></a>windows计划任务日志</h4><p>&emsp;计划任务日志存放在<code>C:\Windows\System32\Tasks</code></p>
+<h4 id="linux计划任务日志"><a href="#linux计划任务日志" class="headerlink" title="linux计划任务日志"></a>linux计划任务日志</h4><p>&emsp;<code>crontab -l</code>命令查看当前的任务计划有哪些</p>
+<p>&emsp;<code>ls /etc/cron*</code> 命令查看etc目录任务计划相关文件</p>
+<p>&emsp;<code>cat /var/log/cron</code>查看计划任务日志</p>
+<p>&emsp;<code>ls /var/spool/mail</code>命令查看相关日志记录文件</p>
+<h4 id="linux自启动日志"><a href="#linux自启动日志" class="headerlink" title="linux自启动日志"></a>linux自启动日志</h4><p>&emsp;<code>cat /etc/init.d/rc.local</code>、<code>cat/etc/rc.local</code>、<code>ls -alt /etc/init.d/</code>、<code>ls -alt /etc/rc.d/init.d</code> 、<code>ls -alt /etc/rc.d/rcx.d</code>、<code>ls -alt /etc/rcx.d</code>（x为数字0-6）、<code>chkconfig</code>命令查看开机启动程序(一般看到S97DbSecuritySpt肯定是中挖矿木马了)</p>
+<h4 id="linux系统日志"><a href="#linux系统日志" class="headerlink" title="linux系统日志"></a>linux系统日志</h4><p>&emsp;<code>cat /var/log/messages</code>命令查看整体系统信息，其中也记录某个用户切换到root权限的日志</p>
+<p>&emsp;<code>cat /var/log/secure</code>命令查看验证和授权方面信息。例如sshd会将所有信息记录（其中包括失败登录）在这里。</p>
+<p>&emsp;<code>cat /var/log/lastlog</code>命令查看所有用户的最近信息。二进制文件，因此需要用lastlog命令查看内容。</p>
+<p>&emsp;<code>cat /var/log/btmp</code>命令查看所有失败登录信息。使用last命令可查看btmp文件。例如<code>last -f /var/log/btmp | more</code>。</p>
+<p>&emsp;<code>cat /var/log/maillog</code>命令查看系统运行电子邮件服务器的日志信息。例如sendmail日志信息就送到这个文件中。<code>cat /var/log/mail/</code>命令查看包含邮件服务器的额外日志。</p>
+<p>&emsp;<code>cat /var/log/wtmp</code>或<code>cat /var/log/utmp</code>命令查看登录信息。二进制文件，须用last来读取内容</p>
+<p>&emsp;<code>cat ~/.bash_history</code>查看shell日志，查看之前使用过的命令。</p>
+<h4 id="windows文档日志"><a href="#windows文档日志" class="headerlink" title="windows文档日志"></a>windows文档日志</h4><p>&emsp;各个盘下的temp(tmp)相关目录下查看有无异常文件</p>
+<p>&emsp;有的时候黑客也会写入mof来进行提权，需要排查下mof是否异常，路径如下：<code>c:/windows/system32/wbem/mof/</code></p>
+<p>&emsp;查看用户recent相关文件，通过分析最近打开分析可疑文件</p>
+<p>  a) C:\Documents and Settings\Administrator\Recent</p>
+<p>  b) C:\Documents and Settings\Default User\Recent</p>
+<p>  c) 开始,运行%UserProfile%\Recent</p>
+<p>&emsp;根据文件夹内文件列表时间进行排序，查找可疑文件</p>
+<p>&emsp;通过确定后的入侵时间，以及webshell或js文件的关键字（比如博彩类），可以在web日志中进行过滤匹配，比如经常使用:</p>
+<p>（a）知道是上传目录，在web log 中查看指定时间范围包括上传文件夹的访问请求：<code>findstr /s /m /I “UploadFiles” *.log</code></p>
+<p>（b）某博彩事件中的六合彩信息是six.js：<code>findstr /s /m /I “six.js” *.aspx</code></p>
+<p>（c）根据shell名关键字去搜索D盘spy相关的文件有哪些：<code>for /r d:\ %i in (*spy*.aspx) do @echo %i</code></p>
+<h4 id="linux文档排查"><a href="#linux文档排查" class="headerlink" title="linux文档排查"></a>linux文档排查</h4><p>&emsp;<code>md5sum -b filename</code>　命令查看文件的md5值</p>
+<p>&emsp;<code>ls -al</code>查看隐藏的文件</p>
+<p>&emsp;<code>find / -mtime 0</code>命令查看最近24小时内修改过的文件</p>
+<p>&emsp;<code>find / -name &#39;*.php&#39; -mmin -30</code>命令查看最近30分钟修改的过的.php文件</p>
+<p>&emsp;<code>stat filename</code>命令查看文件的修改、创建、访问日期</p>
+<p>&emsp;<code>ls -alh /tmp</code>命令查看/tmp目录</p>
+<p>&emsp;<code>ls –alh /root/.ssh/</code>命令查看有没有恶意的ssh公钥</p>
+<h4 id="windows-web日志排查"><a href="#windows-web日志排查" class="headerlink" title="windows web日志排查"></a>windows web日志排查</h4><p>各容器日志默认路径如下：</p>
+<p>&emsp;apache：<code>apache\logs\error.log、apache\logs\access.log</code></p>
+<p>&emsp;iis：<code>C:\inetpub\logs\LogFiles</code>、<code>C:\Windows\System32\LogFiles\W3SVC2</code></p>
+<p>&emsp;tomcat：<code>tomcat\access_log</code></p>
+<p>&emsp;可以利用D盾webshell查杀工具对网站服务器进行全盘扫描，来发现webshell木马文件</p>
+<h4 id="linux-web日志排查"><a href="#linux-web日志排查" class="headerlink" title="linux web日志排查"></a>linux web日志排查</h4><p>各容器日志默认路径如下：</p>
+<p>&emsp;apache：<code>/etc/httpd/logs/access_log</code>、<code>/var/log/httpd/access_log</code></p>
+<p>&emsp;nginx：<code>/usr/local/nginx/logs</code></p>
+<p>&emsp;使用<code>find . access_log |grep xargs ip</code>、<code>find . access_log| grep xargs filename</code>命令来定位相关黑客攻击行为。</p>
+<p>&emsp;使用<code>cat access.log | cut -f1 -d &quot; &quot; | sort | uniq -c | sort -k 1 -r | head -10</code>命令查看页面访问排名前十的IP</p>
+<p>&emsp;使用<code>cat access.log | cut -f4 -d &quot; &quot; | sort | uniq -c | sort -k 1 -r | head -10</code>命令查看页面访问排名前十的URL</p>
+<p>&emsp;使用<code>find /site/* -type f -name &quot;*.jsp&quot; |xargs grep &quot;exec(&quot;</code>命令来查找常规的webshell, 命令的意思是，搜索/site/目录下所有后缀为.jsp的文件，查看内容是否有”exec(“，”exec(“是jsp函数，很多一句话木马和大马都有这个函数。其他脚本的网站类似： <code>find /site/* -type f -name “*.php” |xargs grep &quot;eval(&quot;</code>、<code>find /site/* -type f -name “*.asp” |xargs grep &quot;execute(&quot;</code>、<code>find /site/* -type f -name “*.aspx” |xargs grep &quot;eval(&quot;</code>。</p>
+<p>&emsp;如果木马做了免杀处理，可以查看是否使用加密函数</p>
+<p><code>find /site/* -type f -name “*.php” |xargs grep &quot;base64_decode&quot;</code></p>
+<p>&emsp;查看是否做了拼接处理</p>
+<p><code>find /site/* -type f -name “*.php” |xargs grep &quot;@$&quot;</code></p>
+<p>&emsp;对搜索到的内容，手动查看是否是木马，可以在本地打开脚本文件，查看网页生成时间等。</p>
+<p>&emsp;使用<code>grep -i select%20 *.log | grep 500 | grep -i \.php</code>命令查找后缀为”.log” 文件，搜索关键字为”select%20”，筛选存在”500”的行，此命令可以拿来搜索有没有sql注入攻击</p>
+<p>&emsp;使用<code>grep -i sqlmap *.log sqlmap</code>命令查看存在sqlmap的行，可以发现sqlmap拖库的痕迹。</p>
+<p>&emsp;使用<code>grep -i &quot;script&quot; *.log</code>命令查找存在script的行，此命令可以拿来搜索有没有xss攻击。</p>
+<p>&emsp;使用<code>grep -i acunetix *.log</code>命令查找存在acunetix的行，此命令可以拿来搜索有没有awvs扫描攻击。</p>
+<p>&emsp;使用<code>grep \[07/Jul/2016:24:00:* *.log</code>命令可以结合入侵时间搜索相关请求，文件修改时间不可作为依据，菜刀上就可以修改文件时间属性。</p>
+<p>&emsp;使用<code>grep ^192.168.1.* *.log</code>命令搜索包含“192.168.1.”字符串开头的行。</p>
+<p>&emsp;使用<code>grep -v ^192.168.10.* *.log</code>命令不搜索包含“192.168.10.”字符串开头的行。</p>
+<h4 id="数据库日志排查：linux-windows"><a href="#数据库日志排查：linux-windows" class="headerlink" title="数据库日志排查：linux+windows"></a>数据库日志排查：linux+windows</h4><p>&emsp;MYSQL：windows默认配置路径为<code>c:\windows\my.ini</code>、<code>mysql\my.ini</code>；linux默认配置路径<code>/etc/mysql/my.cnf</code>，查看是否开启日志审计，如开启将显示日志路径。</p>
+<p>&emsp;Windows常规mysql日志记录配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">log-error=&quot;E:/PROGRA~1/EASYPH~1.0B1/mysql/logs/error.log&quot;  </span><br><span class="line">log=&quot;E:/PROGRA~1/EASYPH~1.0B1/mysql/logs/mysql.log&quot;  </span><br><span class="line">long_query_time=2  </span><br><span class="line">log-slow-queries= &quot;E:/PROGRA~1/EASYPH~1.0B1/mysql/logs/slowquery.log&quot;</span><br></pre></td></tr></table></figure>
+<p>&emsp;Linux常规mysql日志记录配置如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">log-error=/usr/local/mysql/log/error.log  </span><br><span class="line">log=/usr/local/mysql/log/mysql.log  </span><br><span class="line">long_query_time=2  </span><br><span class="line">log-slow-queries= /usr/local/mysql/log/slowquery.log  </span><br></pre></td></tr></table></figure>
+<p>&emsp;<strong>注意查看当前木马运行的当前用户，比如是mysql，很可能是通过mysql漏洞进来的，如果是httpd，很可能是通过web进来的。Mysql提权很可能利用udf进行提权，导出dll到mysql目录下的plugin目录。</strong></p>
+<h4 id="流量日志排查：windows-linux"><a href="#流量日志排查：windows-linux" class="headerlink" title="流量日志排查：windows+linux"></a>流量日志排查：windows+linux</h4><p>&emsp;wireshark抓包，利用“ip.addr == ip”可以指定只抓取某个ip的对内对外（包括来源与目的地）流量信息</p>
+<p>&emsp;如果黑客利用msf中的 reverse_tcp进行上线，wireshark数据包中一般会有push标志位</p>
+<p>&emsp;数据包中带有z0、eval、base64_decode，很可能就是中国菜刀连接时产生的数据包</p>
+<p>&emsp;数据包中带有特殊的referer和Accept-Language，一般是黑客利用weevely webshell工具连接产生的</p>
+<p>&emsp;linux下执行tcpdump可以抓取所有数据流量，“tcpdump host xx”抓取指定ip的流量信息，tcpdump port xx”抓取指定端口的流量信息</p>
+<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>&emsp;内存马只能重启</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/07/03/go-bin-re-study-2/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/06/19/matrix-review-question/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-06-27 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/web/">web<span>9</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

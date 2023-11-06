@@ -1,0 +1,377 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>zpoline | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="zpoline"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> zpoline</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="zpoline：基于二进制重写的系统调用钩子机制"><a href="#zpoline：基于二进制重写的系统调用钩子机制" class="headerlink" title="zpoline：基于二进制重写的系统调用钩子机制"></a>zpoline：基于二进制重写的系统调用钩子机制</h1><p>&emsp;优势：钩子开销低、不会覆盖不应修改的指令、无需更改内核（什么意思？）、不需要用户态程序的源代码、不需要依赖特定的标准库、可用于系统调用仿真、详尽的钩子（exhaustive hooking）。</p>
+<span id="more"></span>
+<p>&emsp;主要难点在于：<strong>很难用 <code>jmp/call</code> 替换 <code>syscall/sysenter</code> 来跳转到任意钩子函数，因为 <code>syscall</code> 和 <code>sysenter</code> 是两字节指令，并且通常需要更多字节来指定任意钩子函数地址。</strong></p>
+<p>&emsp;zpoline用两字节 <code>callq *%rax</code> 指令替换了 <code>syscall/sysenter</code>，并在虚拟地址 0 处实例化了 Trampoline 代码。与现有机制相比，zpoline 的开销降低了 <code>28.1~761.0</code> 倍，现有机制确保了详尽的钩子、不覆盖不应修改的指令。由 zpoline 绑定的 Redis 和用户态网络与传统机制相比，性能仅降低了 <code>5.2%</code>，而现有机制会降低 <code>72.3%~98.8%</code> 的性能。</p>
+<p>&emsp;由于用户态程序总是通过系统调用来执行重要操作，因此系统调用钩子可以成为跟踪和更改程序行为的有效位置。因此，此钩子可以用在trace、沙箱、OS仿真、新操作系统子系统的二进制兼容性支持中。很多研究表明，由内核旁路框架（<code>kernel-bypass frameworks</code>）支持的用户空间操作系统子系统性能很优秀。原则上，系统调用钩子使我们能够透明地将用户态OS子系统应用到遗留软件工件（<code>legacy software artifacts</code>），并且透明度是用户态OS子系统适用性的重要因素（不太懂）。</p>
+<p>&emsp;注：</p>
+<ul>
+<li>用户态OS子系统是运行在用户空间中的操作系统组件或服务。</li>
+<li><code>exhaustive hooking（详尽的钩子）</code>是一种对内核进行全面钩子的技术，允许用户空间程序对内核的各个部分进行监控和操作。这种技术使得用户空间程序可以拦截和修改内核的函数调用、系统调用、中断处理等操作。</li>
+</ul>
+<p>&emsp;现有的系统调用钩子有：</p>
+<p>（1）<code>Syscall User Dispatch (SUD)</code>、<code>int3</code>的传统二进制重写、现有内核支持等技术，会导致极大的性能下降。</p>
+<p>（2）二进制重写技术如<code>instruction punning</code>、<code>E9Patch</code>，函数调用替换（<code>LD_PRELOAD</code>）不能达到<code>详尽的钩子</code>这样一个目标（为什么？），因此不能用于需要可靠性的系统。</p>
+<p>（3）二进制重写技术如<code>Detours</code>只能重写不该被修改的指令。</p>
+<p>（4）针对内核的特定修改如<code>Dune</code>是硬件的不同，应用程序很难移植到上面。</p>
+<p>（5）需要重新编译源代码，例如<code>Unikernel</code>，不太实用，很多情况下无法访问程序源代码。</p>
+<p>（6）链接经过修改的<code>libc</code>，将系统调用替换为特定OS子系统的函数调用，无法钩取所有的调用，且无法钩取发生在外部标准库中的系统调用。</p>
+<p>（7）<code>BPF/eBPF</code>允许用户钩取内核态函数，它们不能在没有修改内核源代码的同时模拟系统调用。</p>
+<p>&emsp;注：</p>
+<ul>
+<li><code>syscall</code> 和 <code>sysenter</code> 这两个字节指令（分别为 <code>0x0f 0x05</code> 和 <code>0x0f 0x34</code>）。</li>
+<li>系统调用的原理：当用户态程序执行<code>syscall/sysenter</code>时，上下文会切换到内核，然后系统调用处理程序。为了切换到内核，执行特定的系统调用，用户态程序在触发系统调用前将系统调用号（例如，0 表示读取，1 表示写入，2 表示打开）存放到到<code>rax</code>，在内核中，系统调用处理程序根据<code>rax</code>寄存器的值执行其中一个系统调用。</li>
+</ul>
+<h2 id="0x00-原理"><a href="#0x00-原理" class="headerlink" title="0x00 原理"></a>0x00 原理</h2><p>&emsp;在本文中，将<code>syscall/sysenter</code>用<code>callq *%rax(0xff 0xd0)</code>代替，其中<code>*</code>表示间接引用，即访问<code>%rax</code>寄存器中的值所指向的地址。为什么不用<code>callq *%rax</code>？这是因为它仅占1字节。正常情况下，<code>rax</code>存放的是系统调用号，因此，此指令会跳转到虚拟地址<code>0-&gt;500</code>。</p>
+<p>&emsp;<strong>要重定向到用户定义的钩子函数，zpoline 在虚拟地址 0 处实例化了 Trampoline 代码（即0到最大系统调用数之间的虚拟地址被单字节<code>nop</code>指令填充），并且在最后一个<code>nop</code>指令后，有一段跳转到特定钩子函数的代码。</strong></p>
+<p>&emsp;在trampoline代码实例化和二进制重写完成后，重写的部分（<code>callq *%rax</code>）将跳转到trampoline代码中的<code>nop</code>之一，同时将调用者的地址压入堆栈。执行会向下滑动后续的<code>nop</code>；执行完最后一个<code>nop</code>后，跳转到钩子函数。这里，钩子函数将具有与内核空间系统调用处理程序相同的寄存器状态。最后，钩子函数的返回跳转回<code>callq *%rax</code>压入栈的调用者地址。</p>
+<p><img src="/images/zpoline/image-20230908112203755.png" alt="image-20230908112203755" style="zoom:67%;" /></p>
+<p>&emsp;注：zpoline 本身并不提供安全增强功能。如果用户希望提高zpoline应用系统的安全性，可以采用现有的机制。例如，<code>seccomp</code>可以过滤由 zpoline 的用户空间程序触发的内核空间系统调用的执行，而 CPU 支持（例如内存保护密钥MPK）可以隔离钩子函数的实现。</p>
+<h2 id="0x01-实现过程"><a href="#0x01-实现过程" class="headerlink" title="0x01 实现过程"></a>0x01 实现过程</h2><p>（1）使用<code>mmap</code>分配虚拟地址为0的内存。注：默认情况下，仅允许root用户映射到虚拟地址0的内存，但可以通过将<code>/proc/sys/vm/mmap_min_addr</code>设置为0来允许所有非root用户映射到虚拟地址0。接着，将<code>0-500</code>存入<code>nop</code>，然后在后面存放跳转到钩子函数的代码。并在相应位置存放钩子函数。</p>
+<p>（2）遍历可执行内存区域，将<code>`syscall/sysenter</code>用<code>callq *%rax(0xff 0xd0)</code>代替。</p>
+<p>&emsp;注：此实现不会更改用户态程序的二进制文件，因为二进制重写是在加载到内存的代码二进制上完成的。上述过程是通过导入库<code>libzpoline.so</code>完成的。</p>
+<h2 id="0x02-进一步优化"><a href="#0x02-进一步优化" class="headerlink" title="0x02 进一步优化"></a>0x02 进一步优化</h2><h3 id="优化1"><a href="#优化1" class="headerlink" title="优化1"></a>优化1</h3><p>&emsp;如果要修改钩子函数的代码，就要修改<code>libzpoline.so</code>。然而，若钩子函数中如果也执行有<code>syscall/sysenter</code>，就会陷入无限循环。为了避免这种情况，使用了<code>dlmopen</code>（<code>dlopen</code>的扩展）。<code>dlopen</code>用于向用户态程序加载库文件，而<code>dlmopen</code>允许用户指定加载库的命名空间，并在同一个命名空间中进行关联。</p>
+<p>&emsp;因此，<code>dlmopen</code>可以帮我们屏蔽导入的<code>libzpoline.so</code>中的钩子函数。使用<code>dlmopen</code>打开<code>libzpoline.so</code>，且使用<code>dlsym</code>（动态链接库操作句柄与符号，返回符号对应的地址）获得钩子函数的指针。钩子函数在<code>libzpoline.so</code>中实现，并通过指针来调用它。</p>
+<h3 id="优化2"><a href="#优化2" class="headerlink" title="优化2"></a>优化2</h3><p>&emsp;通常虚拟地址0是null指针，你占掉不太合适吧，这会导致null访问终止无法进行下去。null访问终止是一种保护机制，当变量为null时，就会触发此机制。为了让此机制继续运行下去，做了如下优化：</p>
+<p>（1）为了终止null的读写，zpoline将trampoline代码配置为<code>eXecute-Only Memory (XOM)</code>；用户态程序要读写XOM处的内存时会显示错误。</p>
+<p>&emsp;注：在支持内存保护密钥MPK的CPU上运行Linux，<code>mprotect</code>系统调用当参数为<code>PROT_EXEC</code>时，会配置为XOM（仅执行，不可读写）。</p>
+<p>（2）为了终止null的执行，zpoline收集所有<code>syscall/sysenter</code>地址，并检查调用钩子函数的是替换<code>syscall/sysenter</code>的地址来的，还是由于null执行来的。如果是null执行来的就终止。地址可以由bitmap存储，虽然看似占据很大空间，但是物理内存消耗很小，因为所有位都清零的虚拟地址页不需要底层物理内存页。</p>
+<h2 id="0x03-约束（此方案的缺陷）"><a href="#0x03-约束（此方案的缺陷）" class="headerlink" title="0x03 约束（此方案的缺陷）"></a>0x03 约束（此方案的缺陷）</h2><p>（1）此方案无法钩取<code>libzpoline.so</code>初始化之后出现的<code>syscall/sysenter</code>，可以通过借用<code>X-Containers</code>中提出的在线二进制重写的思想来解决这个问题（具体思想是啥俺也不懂，没看还）。</p>
+<p>（2）内核可以通过vDSO（虚拟动态共享对象），使得用户态程序使用多种系统调用。zpoline无法钩取基于vDSO的系统，但是我们能禁用vDSO呀。</p>
+<p>（3）如果虚拟地址0不可用的话，那么zpoline将无效。例如虚拟地址0已经被其他用途使用，或者内核不许映射到0。</p>
+<p>（4）windows不可使用zpoline，这是因为最小可分配虚拟地址不得小于<code>0x10000</code>。但是windows提供了针对linux的兼容层，叫做<code>Windows Subsustem for Linux(WSL)</code>。zpoline是可以运行在WSL2中的。macos也不能使用zpoline，因为虚拟地址0被特殊的段<code>__PAGEZERO</code>所占据。</p>
+<p>（5）某些CPU架构也不能使用zpoline，这些CPU架构特点为：指令长度固定，而且跳转地址必须为某值的倍数，例如arm就不能用zpoline。这是因为，跳转可能为虚拟地址<code>0-500</code>的任意值。</p>
+<h2 id="0x04-其他挂钩机制的原理"><a href="#0x04-其他挂钩机制的原理" class="headerlink" title="0x04 其他挂钩机制的原理"></a>0x04 其他挂钩机制的原理</h2><h3 id="ptrace"><a href="#ptrace" class="headerlink" title="ptrace"></a>ptrace</h3><p>&emsp;这是UNIX系统的机制，跟踪器进程可以钩取被跟踪进程尝试运行的系统调用。由于<code>ptrace</code>是内核的特征，因此它可以实现<code>详尽的钩子</code>。但是由于跟踪器进程与被跟踪进程之间的上下文切换，它的钩子开销是巨大的。</p>
+<h3 id="int3-信号"><a href="#int3-信号" class="headerlink" title="int3 信号"></a>int3 信号</h3><p>&emsp;int3可以导致软件中断，内核处理它并向执行 int3 的用户态进程发出<code>SIGTRAP</code>。使用int3代替<code>syscall/sysenter</code>，并将<code>SIGTRAP</code>的handler当作钩子函数。它的开销也是巨大的，因为它涉及内核的上下文操作。</p>
+<h3 id="Syscall-User-Dispatch-SUD"><a href="#Syscall-User-Dispatch-SUD" class="headerlink" title="Syscall User Dispatch(SUD)"></a>Syscall User Dispatch(SUD)</h3><p>&emsp;最初目的是在linux上运行windows游戏时兼容性更高，可以直接使用系统调用调用ring3的函数。它提供了一种重定向到任意用户态代码的方式。内核在系统调用的入口实现了钩子，<strong>当SUD启用时，挂钩点向用户态进程发送<code>SIGSYS</code>信号，从而使用户态程序使用<code>SIGSYS</code>的handler当作系统调用的钩子（类似于int3）。</strong>由于handler处理需要时间，因此也会造成性能损失。</p>
+<h3 id="利用LD-PRELOAD的函数替换"><a href="#利用LD-PRELOAD的函数替换" class="headerlink" title="利用LD_PRELOAD的函数替换"></a>利用LD_PRELOAD的函数替换</h3><p>&emsp;<code>ld.so</code>提供的<code>LD_PRELOAD</code>特性使得在程序main函数执行前加载特定共享库，这样的话就可以选择性的重写共享库中的函数调用。此机制性能损失很小，因为钩子只需要函数指针重写后就可部署。</p>
+<p>&emsp;函数调用的钩子与系统调用钩子不同。此方法只能钩取函数，而对于没有包装函数（或者内部函数包装的）的<code>syscall/sysenter</code>则无法钩取（例如<code>glibc</code>），即无法实现<code>详尽的钩子</code>，即，不是将用户态OS子系统应用于现有用户态程序的适当选项；例如，如果系统调用未正确挂钩，则由用户态OS子系统打开的文件描述符将被传递到内核态OS子系统，并导致系统出现异常行为。</p>
+<h2 id="0x05-项目注释-链接"><a href="#0x05-项目注释-链接" class="headerlink" title="0x05 项目注释+链接"></a>0x05 项目注释+链接</h2><p><a target="_blank" rel="noopener" href="https://github.com/WD-2711/zpoline">https://github.com/WD-2711/zpoline</a></p>
+<p>Done!</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/09/14/CLIFuzzer/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/09/06/KCTF-2023/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-09-07 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/papers/">papers<span>8</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

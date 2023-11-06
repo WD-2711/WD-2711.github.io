@@ -1,0 +1,495 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>about-lua | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="关于lua的一切。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="about-lua"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> about-lua</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> 关于lua的一切。
+		 </div> <!-- alert -->
+	  		
+
+	  <h1 id="lualualua"><a href="#lualualua" class="headerlink" title="lualualua"></a>lualualua</h1><p>&emsp;最近geekpwn做到了一道lua的题目，正好之前从未做过，因此整理学习一下相关资料咯。</p>
+<span id="more"></span>
+<h2 id="0x00-Background-knowledge"><a href="#0x00-Background-knowledge" class="headerlink" title="0x00 Background knowledge"></a>0x00 Background knowledge</h2><h3 id="What-is-lua"><a href="#What-is-lua" class="headerlink" title="What is lua"></a>What is lua</h3><p>&emsp;Lua是一个脚本语言，代码一共2W余行。很多应用程序、游戏使用Lua作为自己的嵌入式脚本语言。类似于 Java、Python，Lua是运行在虚拟机上的，而虚拟机则屏蔽了底层不同的硬件，从而使得Lua程序可以跨平台执行。</p>
+<p>&emsp;Lua 的代码可以被编译，它可将源程序编译成为字节码，然后交由虚拟机解释执行。在 Lua 中，每个函数编译器都将创建一个原型(prototype)，它由一组指令及其使用到的常量组成。<strong>最初的 Lua 虚拟机是基于栈的，到 1993 年，Lua5.0 版本，采用了基于寄存器的虚拟机，使得 Lua 的解释效率得到提升。</strong></p>
+<p>&emsp;Lua是一种动态类型（定义的变量中不包含类型信息，只有相应的值才包含类型信息，类似于python）的语言。</p>
+<h3 id="VM-class"><a href="#VM-class" class="headerlink" title="VM class"></a>VM class</h3><p>&emsp;根据指令获取操作数的方式不同，可以把虚拟机分为<strong>基于栈的虚拟机</strong>和<strong>基于寄存器的虚拟机</strong>。</p>
+<p>&emsp;JVM与python使用基于栈的虚拟机，该虚拟机是在当前栈中获取和保存操作数。例如：<code>a=b+c</code>，其相应指令为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">push b</span><br><span class="line">push c</span><br><span class="line">add</span><br><span class="line">pop a</span><br></pre></td></tr></table></figure>
+<p>&emsp;其实现起来比较简单，每条指令占用的存储空间也小。但是，对于运算而言（例如加法），这需要4条指令才能完成，这会对效率有很大影响。</p>
+<p>&emsp;Lua目前采用基于寄存器的虚拟机，例如：<code>a=b+c</code>，其相应指令为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add a b c</span><br></pre></td></tr></table></figure>
+<p>&emsp;提高了效率。但是，每条指令占用的存储空间也增加了，在编译器设计上也增加了复杂度（例如需要用图着色算法对寄存器进行分配，详见<a href="https://wd-2711.tech/2023/07/03/vmp-analysis/">VMPROTECT逆向与还原浅析</a>）。</p>
+<h2 id="0x01-Details-about-lua"><a href="#0x01-Details-about-lua" class="headerlink" title="0x01 Details about lua"></a>0x01 Details about lua</h2><h3 id="Lua语言本身"><a href="#Lua语言本身" class="headerlink" title="Lua语言本身"></a>Lua语言本身</h3><h4 id="类型定义"><a href="#类型定义" class="headerlink" title="类型定义"></a>类型定义</h4><p>&emsp;Lua有8种类型：nil、boolean、number、string、function、userdata、thread 和 table，他们都在<code>src/lua.h</code>中定义。例如，string对应<code>LUA_TSTRING</code>，function对应<code>LUA_TFUNCTIOIN</code>。而userdata比较特殊，它对应<code>LUA_TLIGHTUSERDATA</code> 和 <code>LUA_TUSERDATA</code>。<code>LUA_TLIGHTUSERDATA</code>是由 Lua 外部的使用者来完成，<code>LUA_TUSERDATA</code>则是通过 Lua 内部来完成，也就是说，<code>LUA_TLIGHTUSERDATA</code>是通过用户来维护其生命周期。</p>
+<p>&emsp;Lua有垃圾回收机制，string、function、userdata、thread 和 table都需要gc。需要 gc 的数据类型，都会有一个 CommonHeader 成员。</p>
+<p>&emsp;Lua中类型的值是由TValue结构体表示（这里简略了）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> <span class="title class_">Value</span> &#123;</span><br><span class="line">  GCObject *gc;    <span class="comment">/* collectable objects */</span></span><br><span class="line">  <span class="type">void</span> *p;         <span class="comment">/* light userdata */</span></span><br><span class="line">  <span class="type">int</span> b;           <span class="comment">/* booleans */</span></span><br><span class="line">  lua_CFunction f; <span class="comment">/* light C functions */</span></span><br><span class="line">  lua_Integer i;   <span class="comment">/* integer numbers */</span></span><br><span class="line">  lua_Number n;    <span class="comment">/* float numbers */</span></span><br><span class="line">&#125; TValue;</span><br></pre></td></tr></table></figure>
+<p>&emsp;其中，gc 表示需要垃圾回收的一些值，如 string、table 等；p 表示 light userdata，不会被 gc。</p>
+<h5 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h5><p>&emsp;Table是Lua中唯一表示数据结构的类型，他是一个混合数据结构。其中的函数环境 (env)、元表 (metatable)、模块 (module) 和注册表 (registery) 等都是通过 table 表示。Lua-5.0 后，table 包含一个哈希表部分和一个数组部分，哈希部分发生冲突就用链表解决。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">Table</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> sizearray;</span><br><span class="line">  TValue *array;</span><br><span class="line">  lu_byte lsizenode;</span><br><span class="line">  Node *node;</span><br><span class="line">  ...</span><br><span class="line">&#125; Table;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">  TValue i_val;</span><br><span class="line">  TKey i_key;</span><br><span class="line">&#125; Node;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> <span class="title class_">TKey</span> &#123;</span><br><span class="line">  <span class="keyword">struct</span> &#123;</span><br><span class="line">    TValuefields;</span><br><span class="line">    <span class="type">int</span> next;</span><br><span class="line">  &#125; nk;</span><br><span class="line">  TValue tvk;</span><br><span class="line">&#125; TKey;</span><br></pre></td></tr></table></figure>
+<p>&emsp;array、sizearray 用于表示数组部分及其大小，node、lsizenode 表示哈希部分与大小。</p>
+<p>&emsp;当查找table中的数据时，其逻辑如下：</p>
+<p>（1）对于字符串类型，通过 <code>luaH_getstr()</code> 先获得相应字符串在哈希表中的链表，然后遍历这个链表，采用内存地址比较字符串，若找到则返回相应的值，否则 <code>nil</code> 。</p>
+<p>（2）如果是整型，则调用 <code>luaH_getint()</code> 查找，如果 key 的值小于等于数组大小，则直接返回相应的值，否则去哈希表中去查找。</p>
+<p>（3）对应其他类型，统一调用 <code>getgeneric()</code>，也就是计算 hash 值并在链表中查找，通过 <code>luaV_equalobj()</code> 对各种类型进行比较。</p>
+<h4 id="lua解释器体系结构"><a href="#lua解释器体系结构" class="headerlink" title="lua解释器体系结构"></a>lua解释器体系结构</h4><p><img src="/images/about-lua/image-20230802112721783.png" alt="image-20230802112721783" style="zoom:67%;" /></p>
+<p>&emsp;其中，stack 成员用于指向栈底，而 base 指向当前正在执行的函数的第一个参数，而 top 指向栈顶。寄存器实际上是栈上元素的别名。pc 来指向下一条要执行的指令。</p>
+<h5 id="Lua字节码"><a href="#Lua字节码" class="headerlink" title="Lua字节码"></a>Lua字节码</h5><p>&emsp;Lua 的指令使用 32bit 的无符号整型表示，可以通过<code>luac</code>编译成字节码。</p>
+<p>&emsp;例如，查看<code>lua5.1</code>编译后的字节码文件，文件头部12字节为：<code>1b4c 7561 5100 0104 0804 0800</code>。其中，<code>1b4c 7561</code>为<code>\033Lua</code>；<code>51</code>表示Lua版本为5.1；<code>00</code>为保留位；<code>01</code>表示字节序为小端；<code>04</code>表示int大小为4字节；<code>08</code>表示<code>size_t</code>的大小为8字节；<code>04</code>表示内部指令的大小为4字节；<code>08</code>代表lua中数字的大小为8字节。</p>
+<h5 id="执行流程"><a href="#执行流程" class="headerlink" title="执行流程"></a>执行流程</h5><p>&emsp;Lua虚拟机最后会调用<code>luaV_execute()</code>函数，其主要逻辑就是取指令、递增PC、根据指令操作码进行<code>switch...case...</code>。</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>（1）Lua 语言本身是支持闭包（closure）的（把几个值和函数绑定在一起），在 Lua 中，这些值被称为 upvalues；而且，每个函数和一个函数环境（env）绑定。</p>
+<p>（2）Lua编译系统的工作就是将符合语法规则的代码转换成可运行的闭包，闭包对象是 Lua 运行中一个函数的实例对象。</p>
+<p>（3）每个闭包都对应着自己的 proto，而在运行期间，一个 proto 可以产生多个闭包来代表这个函数实例。</p>
+<h3 id="Lua中重要的API"><a href="#Lua中重要的API" class="headerlink" title="Lua中重要的API"></a>Lua中重要的API</h3><h4 id="常用API函数"><a href="#常用API函数" class="headerlink" title="常用API函数"></a>常用API函数</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>API name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>void lua_pushcclosure (lua_State, lua_CFunction, int)</td>
+<td>注册C函数，fn为要注册的函数指针</td>
+</tr>
+<tr>
+<td>#define luaL_dofile (luaL_loadfile(L, filename) or lua_pcall(L, 0, LUA_MULTRET, 0))</td>
+<td>加载并运行指定的文件</td>
+</tr>
+<tr>
+<td>int luaL_loadfilex (lua_State, const char, const char)</td>
+<td>把文件加载为 Lua 代码，代码块的名字为name</td>
+</tr>
+<tr>
+<td>int lua_load (lua_State,lua_Reader,void,const char,const char)</td>
+<td>加载一段 Lua 代码块，但不运行它。 把一个编译好的代码块作为一个 Lua 函数压到栈顶。 否则，压入错误消息参数 reader 。 chunkname是一个字符串，标识了正在加载的块名。mode是一个字符串，指定如何编译数据块。可能取值为：（1）”b”：该块是预编译的二进制块。（2）”t”：预编译的文本块。</td>
+</tr>
+<tr>
+<td>const char *lua_pushfstring (lua_State, const char, …)</td>
+<td>把一个格式化的字符串压栈，然后返回这个字符串的指针，类似于sprintf</td>
+</tr>
+<tr>
+<td>const char *lua_tolstring (lua_State, int, size_t)</td>
+<td>将给定索引处的 Lua 值转换为一个 C 字符串，它还把字符串长度赋值到 *len中。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="LuaU-undump函数"><a href="#LuaU-undump函数" class="headerlink" title="LuaU_undump函数"></a>LuaU_undump函数</h4><p>&emsp;此函数用于lua文件头的检测。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LClosure *<span class="title">luaU_undump</span><span class="params">(lua_State *L, ZIO *Z, <span class="type">const</span> <span class="type">char</span> *name)</span> </span>&#123;</span><br><span class="line">    LoadState S;</span><br><span class="line">    ...</span><br><span class="line">    S.L = L;</span><br><span class="line">    S.Z = Z;</span><br><span class="line">    <span class="built_in">checkHeader</span>(&amp;S);</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LUA_SIGNATURE <span class="string">&quot;\x1bLua&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LUAC_FORMAT   0</span></span><br><span class="line"><span class="comment">// LUA_VERSION_MAJOR为主版本号，LUA_VERSION_MINOR为子版本号</span></span><br><span class="line"><span class="comment">// 例如Lua版本为5.3，则 LUAC_VERSION=83=0x53</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MYINT(s)      (s[0]-<span class="string">&#x27;0&#x27;</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LUAC_VERSION  (MYINT(LUA_VERSION_MAJOR)*16+MYINT(LUA_VERSION_MINOR))</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">checkHeader</span> <span class="params">(LoadState *S)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">checkliteral</span>(S, LUA_SIGNATURE + <span class="number">1</span>, <span class="string">&quot;not a&quot;</span>);  <span class="comment">// 检查头部签名</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">LoadByte</span>(S) != LUAC_VERSION)              <span class="comment">// 检查luac版本号</span></span><br><span class="line">    	<span class="built_in">error</span>(S, <span class="string">&quot;version mismatch in&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">LoadByte</span>(S) != LUAC_FORMAT)               <span class="comment">// 检查格式号，一般为0</span></span><br><span class="line">    	<span class="built_in">error</span>(S, <span class="string">&quot;format mismatch in&quot;</span>);</span><br><span class="line">    <span class="built_in">checkliteral</span>(S, LUAC_DATA, <span class="string">&quot;corrupted&quot;</span>);      <span class="comment">// 检查头部的6-11字节</span></span><br><span class="line">    <span class="built_in">checksize</span>(S, <span class="type">int</span>);                            <span class="comment">// 检查头部的12-16字节</span></span><br><span class="line">    <span class="built_in">checksize</span>(S, <span class="type">size_t</span>);</span><br><span class="line">    <span class="built_in">checksize</span>(S, Instruction);</span><br><span class="line">    <span class="built_in">checksize</span>(S, lua_Integer);</span><br><span class="line">    <span class="built_in">checksize</span>(S, lua_Number);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">LoadInteger</span>(S) != LUAC_INT)</span><br><span class="line">    	<span class="built_in">error</span>(S, <span class="string">&quot;endianness mismatch in&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">LoadNumber</span>(S) != LUAC_NUM)</span><br><span class="line">    	<span class="built_in">error</span>(S, <span class="string">&quot;float format mismatch in&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Lua文件读取-amp-解析的调用链示例"><a href="#Lua文件读取-amp-解析的调用链示例" class="headerlink" title="Lua文件读取&amp;解析的调用链示例"></a>Lua文件读取&amp;解析的调用链示例</h3><p><img src="/images/about-lua/image-20230802135816577.png" alt="image-20230802135816577" style="zoom:67%;" /></p>
+<p>&emsp;其中，<code>luaX_next</code>主要用于语法TOKEN的分割，而<code>statlist</code>主要根据分割出来的TOKEN，组装成语法块语句，最后将语句组装成语法树。</p>
+<h2 id="0x02-例题1-picStore"><a href="#0x02-例题1-picStore" class="headerlink" title="0x02 例题1-picStore"></a>0x02 例题1-picStore</h2><p>&emsp;题目与题解来自RCTF，参考链接为：<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-275620.htm">picStore</a></p>
+<p>&emsp;题目中给出了一个ELF文件与一个bin文件，经过运行发现ELF文件加载了bin文件并作处理。使用IDA打开，发现是lua。</p>
+<p>&emsp;这道题的思路很重要，其实主要逻辑就是：<strong>ELF文件是一个魔改的luac程序，而bin文件是lua源代码使用魔改luac编译后的bytecode。</strong>那就有两种做法：（1）分析题目给出的ELF相对于luac哪里做了修改，对luac源码做同样的修改，之后重新编译luac，最后将bin文件反编译。（2）分析bin文件的哪些部分与正常luac编译出来的bytecode不同，对bin文件进行修复，最后将bin文件进行反编译。</p>
+<h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p><strong>Step1：分析题目给出的ELF相对于luac哪里做了修改。</strong></p>
+<p>&emsp;由于是读入bin文件并转成可运行的lua字节码，因此很容易想到<code>luaU_undump</code>，此函数会读入luac字节码并转为可执行的lua函数。</p>
+<p>&emsp;&emsp;（1）定位<code>luaU_undump</code>。根据<code>binary string</code>字符串定位此函数。下图是<code>luaU_dump</code>源代码与<code>ida</code>反编译的对比：</p>
+<p><img src="/images/about-lua/image-20230802151720262.png" alt="image-20230802151720262" style="zoom:67%;" /></p>
+<p>&emsp;&emsp;（2）找到魔改的地方。可以看到，反编译结果将<code>checkHeader</code>函数融合到了<code>lua_undump</code>函数中。再来对比<code>checksize</code>函数：</p>
+<p><img src="/images/about-lua/image-20230802153656313.png" alt="image-20230802153656313" style="zoom:67%;" /></p>
+<p>&emsp;可以清楚地发现，加入了红框所示的代码。其中，<code>v2</code>代表size的大小。若<code>v2&lt;0xFE</code>，则返回取反的值。在<code>loadInteger</code>与<code>loadNumber</code>也发现了类似的情况：</p>
+<p><img src="/images/about-lua/image-20230802153623538.png" alt="image-20230802153623538" style="zoom:67%;" /></p>
+<p>&emsp;不难猜到，在<code>undump</code>（也就是load）上做的这些改动，在<code>dump</code>相关的函数上同样会发生。但是，由于我们要将二进制文件（lua字节码文件）加载并反编译，因此，只需改动<code>undump</code>相关函数即可。</p>
+<p><strong>Step2：对luac源码进行修改并进行反编译。</strong></p>
+<p>&emsp;需要说明的是，Step1中关于luac的源码我摘抄自<code>lua5.4.6</code>，是有问题的。最终是在<code>lua5.3.3</code>上进行的修改。如下所示：</p>
+<p><img src="/images/about-lua/image-20230802163352568.png" alt="image-20230802163352568" style="zoom:67%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/viruscamp/luadec</span><br><span class="line">cd luadec</span><br><span class="line">git submodule update --init lua-5.3</span><br><span class="line">cd lua-5.3</span><br><span class="line"># 更改lua-5.3的源码</span><br><span class="line">make linux</span><br><span class="line">cd ../luadec</span><br><span class="line">make LUAVER=5.3</span><br></pre></td></tr></table></figure>
+<p>&emsp;但是，我没有复现成功，一直显示：<code>format mismatch in precompiled chunk</code>。</p>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p><strong>Step1：查找哪些字节码文件中哪些字节被修改了。</strong></p>
+<p>&emsp;直接抛出结论：<strong>程序load代码块的核心函数有且只有一个函数（<code>LoadBlock</code>）。程序dump代码块的核心函数有且只有一个函数（DumpBlock）。</strong>那么，只需要记录 LoadBlock 和 DumpBlock 函数的执行次数和函数参数，就可以知道到哪些字节被改变了。</p>
+<p>&emsp;wp使用了gdb自动化脚本进行调试，脚本如下（文中说frida hook不到dumpBlock函数，但我没有尝试）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">gdb ./picStore</span></span><br><span class="line"><span class="string">source wp.py</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> gdb</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">startt = time.time()</span><br><span class="line">fp = <span class="built_in">open</span>(<span class="string">r&quot;./log.log&quot;</span>,<span class="string">&quot;w&quot;</span>)</span><br><span class="line">strr = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pt</span>(<span class="params">p</span>):</span><br><span class="line">    <span class="keyword">global</span> strr</span><br><span class="line">    strr += p + <span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line">Esp = <span class="number">0</span></span><br><span class="line">gdb.execute(<span class="string">&#x27;b *0x55555559C078&#x27;</span>)    <span class="comment"># LoadBlock 断点</span></span><br><span class="line">gdb.execute(<span class="string">&#x27;b *0x55555559C184&#x27;</span>)    <span class="comment"># LoadByte</span></span><br><span class="line">gdb.execute(<span class="string">&#x27;b *0x55555559C1D1&#x27;</span>)    <span class="comment"># LoadInt</span></span><br><span class="line">gdb.execute(<span class="string">&#x27;b *0x55555559C111&#x27;</span>)    <span class="comment"># LoadNumber</span></span><br><span class="line">gdb.execute(<span class="string">&#x27;b *0x55555559C0A1&#x27;</span>)    <span class="comment"># LoadInteger</span></span><br><span class="line"></span><br><span class="line">gdb.execute(<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">    frame = gdb.selected_frame()</span><br><span class="line">    rip = frame.read_register(<span class="string">&quot;rip&quot;</span>)</span><br><span class="line">    <span class="comment"># 因为不只有LoadByte、LoadInt、LoadNumber、LoadInteger函数调用LoadBlock</span></span><br><span class="line">    <span class="keyword">if</span> rip == <span class="number">0x55555559C078</span> :</span><br><span class="line">        <span class="comment"># rdx为LoadBlock的size参数</span></span><br><span class="line">        rdx = frame.read_register(<span class="string">&quot;rdx&quot;</span>)</span><br><span class="line">        Esp += rdx</span><br><span class="line">    <span class="comment"># LoadByte</span></span><br><span class="line">    <span class="keyword">elif</span> rip == <span class="number">0x55555559C184</span>:</span><br><span class="line">        pt(<span class="string">f&quot;<span class="subst">&#123;<span class="built_in">hex</span>(Esp).ljust(<span class="number">10</span>,<span class="string">&#x27; &#x27;</span>)&#125;</span> =&gt; 1&quot;</span>)</span><br><span class="line">    <span class="comment"># LoadInt</span></span><br><span class="line">    <span class="keyword">elif</span> rip == <span class="number">0x55555559C1D1</span>:</span><br><span class="line">        pt(<span class="string">f&quot;<span class="subst">&#123;<span class="built_in">hex</span>(Esp).ljust(<span class="number">10</span>,<span class="string">&#x27; &#x27;</span>)&#125;</span> =&gt; 4&quot;</span>)</span><br><span class="line">    <span class="comment"># LoadNumber</span></span><br><span class="line">    <span class="keyword">elif</span> rip == <span class="number">0x55555559C111</span>:</span><br><span class="line">        pt(<span class="string">f&quot;<span class="subst">&#123;<span class="built_in">hex</span>(Esp).ljust(<span class="number">10</span>,<span class="string">&#x27; &#x27;</span>)&#125;</span> =&gt; 8&quot;</span>)</span><br><span class="line">    <span class="comment"># LoadInteger</span></span><br><span class="line">    <span class="keyword">elif</span> rip == <span class="number">0x55555559C0A1</span>:</span><br><span class="line">        pt(<span class="string">f&quot;<span class="subst">&#123;<span class="built_in">hex</span>(Esp).ljust(<span class="number">10</span>,<span class="string">&#x27; &#x27;</span>)&#125;</span> =&gt; 8&quot;</span>)</span><br><span class="line">    <span class="comment"># 0x19f0是lua字节码文件的大小</span></span><br><span class="line">    <span class="keyword">if</span> Esp == <span class="number">0x19f0</span>:</span><br><span class="line">        fp.write(strr)</span><br><span class="line">        fp.close()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;finish!!!&quot;</span>)</span><br><span class="line">        enddd = time.time()</span><br><span class="line">        <span class="built_in">print</span>(enddd - startt)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    gdb.execute(<span class="string">&#x27;c&#x27;</span>)      </span><br></pre></td></tr></table></figure>
+<p>&emsp;输出结果<code>log.log</code>如下：</p>
+<p><img src="/images/about-lua/image-20230802194030503.png" alt="image-20230802194030503" style="zoom:67%;" /></p>
+<p>&emsp;其中，<code>0x10=&gt;8</code>表示为地址0x10之后8字节都取反。</p>
+<p><strong>Step2：修复并得到正确的字节码文件。</strong></p>
+<p>&emsp;根据<code>log.log</code>，可以修复题目中给的字节码文件，脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> struct</span><br><span class="line">fp = <span class="built_in">open</span>(<span class="string">r&quot;C:\\Users\\23957\\Desktop\\pic\\log.log&quot;</span>,<span class="string">&quot;r&quot;</span>)</span><br><span class="line">fps = <span class="built_in">open</span>(<span class="string">r&quot;C:\\Users\\23957\\Desktop\\pic\\picStore.bin&quot;</span>,<span class="string">&quot;rb&quot;</span>)</span><br><span class="line">fix_bin = <span class="built_in">open</span>(<span class="string">r&quot;C:\\Users\\23957\\Desktop\\pic\\fix_picStore.bin&quot;</span>,<span class="string">&quot;wb&quot;</span>)</span><br><span class="line"><span class="comment"># data为要修改的地方，data_bin为原始文件</span></span><br><span class="line">data = fp.readlines()</span><br><span class="line">data_bin = fps.read()</span><br><span class="line">fix_data = <span class="string">b&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">ans = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(data)):</span><br><span class="line">    op_str = data[i]</span><br><span class="line">    <span class="comment"># loa为addr，step为字节数</span></span><br><span class="line">    loa = <span class="built_in">int</span>(op_str[<span class="number">2</span>:<span class="number">6</span>],<span class="number">16</span>) + <span class="number">1</span></span><br><span class="line">    step = <span class="built_in">int</span>(op_str[<span class="number">14</span>:<span class="number">15</span>],<span class="number">16</span>)  </span><br><span class="line">    <span class="comment"># 将要修改的addr之前的内容加入到fix_data里，这部分并没有被修改</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(ans, loa):</span><br><span class="line">        fix_data += struct.pack(<span class="string">&quot;B&quot;</span>,data_bin[j])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(loa, loa + step):</span><br><span class="line">        <span class="keyword">if</span> data_bin[j] != <span class="number">0</span> <span class="keyword">and</span> data_bin[j] != <span class="number">0xff</span>:</span><br><span class="line">            <span class="comment"># 取反</span></span><br><span class="line">            t = data_bin[j] ^ <span class="number">0xff</span></span><br><span class="line">            fix_data += struct.pack(<span class="string">&quot;B&quot;</span>, t)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 若为0或0xff就不去反，为什么？</span></span><br><span class="line">            fix_data += struct.pack(<span class="string">&quot;B&quot;</span>, data_bin[j])</span><br><span class="line">    ans = loa + step</span><br><span class="line">fix_bin.write(fix_data)</span><br><span class="line">fix_bin.close()</span><br></pre></td></tr></table></figure>
+<p>&emsp;上述脚本有一个难理解的地方，即，脚本中逻辑为：若某字节不为0或0xff，就取反，否则不取反。这与：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> v[i]-<span class="number">1</span> &lt;= <span class="number">0xfd</span>:</span><br><span class="line">	v[i] = ~v[i]</span><br></pre></td></tr></table></figure>
+<p>&emsp;是等价的。最终得到修复后的<code>fix_picStore.bin</code>字节码文件。</p>
+<p><strong>Step3：字节码反编译成lua。</strong></p>
+<p>&emsp;一般的lua字节码文件，可以使用<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/unluac/"><code>unluac</code></a>、<a target="_blank" rel="noopener" href="https://github.com/viruscamp/luadec"><code>LuaDec</code></a>等工具进行反编译。在此使用<code>unluac</code>，运行<code>java -jar ./unluac.jar ./fix_picStore.bin &gt; ./oplua.lua</code>。</p>
+<p><strong>Step4：z3约束求解。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line">solver = Solver()</span><br><span class="line"></span><br><span class="line"><span class="comment"># chk_23函数</span></span><br><span class="line">a1 = [Int(<span class="string">f&#x27;c<span class="subst">&#123;i&#125;</span>&#x27;</span>) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>)]</span><br><span class="line">v1 = a1[<span class="number">0</span>]</span><br><span class="line">v2 = a1[<span class="number">1</span>]</span><br><span class="line">v3 = a1[<span class="number">2</span>]</span><br><span class="line">v4 = a1[<span class="number">3</span>]</span><br><span class="line">v5 = a1[<span class="number">4</span>]</span><br><span class="line">v6 = a1[<span class="number">5</span>]</span><br><span class="line">v7 = a1[<span class="number">6</span>]</span><br><span class="line">v8 = a1[<span class="number">7</span>]</span><br><span class="line">v10 = a1[<span class="number">8</span>]</span><br><span class="line">v24 = a1[<span class="number">9</span>]</span><br><span class="line">v25 = a1[<span class="number">10</span>]</span><br><span class="line">v26 = a1[<span class="number">11</span>]</span><br><span class="line">v27 = a1[<span class="number">12</span>]</span><br><span class="line">v28 = a1[<span class="number">13</span>]</span><br><span class="line">v29 = a1[<span class="number">14</span>]</span><br><span class="line">v30 = a1[<span class="number">15</span>]</span><br><span class="line">v31 = a1[<span class="number">16</span>]</span><br><span class="line">v32 = a1[<span class="number">17</span>]</span><br><span class="line">v33 = a1[<span class="number">18</span>]</span><br><span class="line">v34 = a1[<span class="number">19</span>]</span><br><span class="line">v35 = a1[<span class="number">20</span>]</span><br><span class="line">v36 = a1[<span class="number">21</span>]</span><br><span class="line">v37 = a1[<span class="number">22</span>]</span><br><span class="line">v38 = a1[<span class="number">23</span>]</span><br><span class="line">v39 = a1[<span class="number">24</span>]</span><br><span class="line">v40 = a1[<span class="number">25</span>]</span><br><span class="line">v20 = a1[<span class="number">26</span>]</span><br><span class="line">v41 = a1[<span class="number">27</span>]</span><br><span class="line">v22 = a1[<span class="number">28</span>]</span><br><span class="line">solver.add(<span class="number">255036</span>*v7+-<span class="number">90989</span>*v3+-<span class="number">201344</span>*v4+<span class="number">122006</span>*v5+-<span class="number">140538</span>*v6+<span class="number">109859</span>*v2-<span class="number">109457</span>*v1-<span class="number">9396023</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">277432</span>*v6+<span class="number">110191</span>*v3+-<span class="number">186022</span>*v4+<span class="number">175123</span>*v2-<span class="number">75564</span>*v5-<span class="number">252340</span>*v1-<span class="number">12226612</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">127326</span>*v4+<span class="number">260948</span>*v2+-<span class="number">102835</span>*v1+<span class="number">225038</span>*v5-<span class="number">129683</span>*v3-<span class="number">45564209</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">170345</span>*v2+<span class="number">217412</span>*v3-<span class="number">26668</span>*v1+<span class="number">38500</span>*v4-<span class="number">27440782</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">25295</span>*v2+<span class="number">69369</span>*v3+<span class="number">191287</span>*v1-<span class="number">24434293</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">72265</span>*v1-<span class="number">2384745</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">264694</span>*v1-<span class="number">190137</span>*v2+<span class="number">19025100</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">101752</span>*v24+<span class="number">67154</span>*v8+-<span class="number">20311</span>*v1+-<span class="number">30496</span>*v6+-<span class="number">263329</span>*v7+-<span class="number">99420</span>*v10+<span class="number">255348</span>*v3+<span class="number">169511</span>*v4-<span class="number">121471</span>*v2+<span class="number">231370</span>*v5-<span class="number">33888892</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">17253</span>*v8+-<span class="number">134891</span>*v7+<span class="number">144501</span>*v4+<span class="number">220594</span>*v2+<span class="number">263746</span>*v3+<span class="number">122495</span>*v6+<span class="number">74297</span>*v10+<span class="number">205480</span>*v1-<span class="number">32973</span>*v5-<span class="number">115484799</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">251337</span>*v3+-<span class="number">198187</span>*v6+-<span class="number">217900</span>*v2+-<span class="number">62192</span>*v8+-<span class="number">138306</span>*v7+-<span class="number">165151</span>*v4-<span class="number">118227</span>*v1-<span class="number">22431</span>*v5+<span class="number">72699617</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">243012</span>*v27+-<span class="number">233931</span>*v4+<span class="number">66595</span>*v7+-<span class="number">273948</span>*v5+-<span class="number">266708</span>*v24+<span class="number">75344</span>*v8-<span class="number">108115</span>*v3-<span class="number">17090</span>*v25+<span class="number">240281</span>*v10+<span class="number">202327</span>*v1-<span class="number">253495</span>*v2+<span class="number">233118</span>*v26+<span class="number">154680</span>*v6+<span class="number">25687761</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">41011</span>*v8+-<span class="number">198187</span>*v1+-<span class="number">117171</span>*v7+-<span class="number">178912</span>*v3+<span class="number">9797</span>*v24+<span class="number">118730</span>*v10-<span class="number">193364</span>*v5-<span class="number">36072</span>*v6+<span class="number">10586</span>*v25-<span class="number">110560</span>*v4+<span class="number">173438</span>*v2-<span class="number">176575</span>*v26+<span class="number">54358815</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">250878</span>*v24+<span class="number">108430</span>*v1+-<span class="number">136296</span>*v5+<span class="number">11092</span>*v8+<span class="number">154243</span>*v7+-<span class="number">136624</span>*v3+<span class="number">179711</span>*v4+-<span class="number">128439</span>*v6+<span class="number">22681</span>*v25-<span class="number">42472</span>*v10-<span class="number">80061</span>*v2+<span class="number">34267161</span> == <span class="number">0</span>)  </span><br><span class="line">solver.add(<span class="number">65716</span>*v30+-<span class="number">18037</span>*v26+-<span class="number">42923</span>*v7+-<span class="number">33361</span>*v4+<span class="number">161566</span>*v6+<span class="number">194069</span>*v25+-<span class="number">154262</span>*v2+<span class="number">173240</span>*v3-<span class="number">31821</span>*v27-<span class="number">80881</span>*v5+<span class="number">217299</span>*v8-<span class="number">28162</span>*v10+<span class="number">192716</span>*v1+<span class="number">165565</span>*v24+<span class="number">106863</span>*v29-<span class="number">127658</span>*v28-<span class="number">75839517</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">236487</span>*v24+-<span class="number">45384</span>*v1+<span class="number">46984</span>*v26+<span class="number">148196</span>*v7+<span class="number">15692</span>*v8+-<span class="number">193664</span>*v6+<span class="number">6957</span>*v10+<span class="number">103351</span>*v29-<span class="number">217098</span>*v28+<span class="number">78149</span>*v4-<span class="number">237596</span>*v5-<span class="number">236117</span>*v3-<span class="number">142713</span>*v25+<span class="number">24413</span>*v27+<span class="number">232544</span>*v2+<span class="number">78860648</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">69129</span>*v10+-<span class="number">161882</span>*v3+-<span class="number">39324</span>*v26+<span class="number">106850</span>*v1+<span class="number">136394</span>*v5+<span class="number">129891</span>*v2+<span class="number">15216</span>*v27+<span class="number">213245</span>*v24-<span class="number">73770</span>*v28+<span class="number">24056</span>*v25-<span class="number">123372</span>*v8-<span class="number">38733</span>*v7-<span class="number">199547</span>*v4-<span class="number">10681</span>*v6+<span class="number">57424065</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">268870</span>*v30+<span class="number">103546</span>*v24+-<span class="number">124986</span>*v27+<span class="number">42015</span>*v7+<span class="number">80222</span>*v2+-<span class="number">77247</span>*v10+-<span class="number">8838</span>*v25+-<span class="number">273842</span>*v4+-<span class="number">240751</span>*v28-<span class="number">187146</span>*v26-<span class="number">150301</span>*v6-<span class="number">167844</span>*v3+<span class="number">92327</span>*v8+<span class="number">270212</span>*v5-<span class="number">87705</span>*v33-<span class="number">216624</span>*v1+<span class="number">35317</span>*v31+<span class="number">231278</span>*v32-<span class="number">213030</span>*v29+<span class="number">114317949</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">207225</span>*v1+-<span class="number">202035</span>*v3+<span class="number">81860</span>*v27+-<span class="number">114137</span>*v5+<span class="number">265497</span>*v30+-<span class="number">216722</span>*v8+<span class="number">276415</span>*v28+-<span class="number">201420</span>*v10-<span class="number">266588</span>*v32+<span class="number">174412</span>*v6+<span class="number">249222</span>*v24-<span class="number">191870</span>*v4+<span class="number">100486</span>*v2+<span class="number">37951</span>*v25+<span class="number">67406</span>*v26+<span class="number">55224</span>*v31+<span class="number">101345</span>*v7-<span class="number">76961</span>*v29+<span class="number">33370551</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">175180</span>*v29+<span class="number">25590</span>*v4+-<span class="number">35354</span>*v30+-<span class="number">173039</span>*v31+<span class="number">145220</span>*v25+<span class="number">6521</span>*v7+<span class="number">99204</span>*v24+<span class="number">72076</span>*v27+<span class="number">207349</span>*v2+<span class="number">123988</span>*v5-<span class="number">64247</span>*v8+<span class="number">169099</span>*v6-<span class="number">54799</span>*v3+<span class="number">53935</span>*v1-<span class="number">223317</span>*v26+<span class="number">215925</span>*v10-<span class="number">119961</span>*v28-<span class="number">83559622</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">43170</span>*v3+-<span class="number">145060</span>*v2+<span class="number">199653</span>*v6+<span class="number">14728</span>*v30+<span class="number">139827</span>*v24+<span class="number">59597</span>*v29+<span class="number">2862</span>*v10+-<span class="number">171413</span>*v31+-<span class="number">15355</span>*v25-<span class="number">71692</span>*v7-<span class="number">16706</span>*v26+<span class="number">264615</span>*v1-<span class="number">149167</span>*v33+<span class="number">75391</span>*v27-<span class="number">2927</span>*v4-<span class="number">187387</span>*v5-<span class="number">190782</span>*v8-<span class="number">150865</span>*v28+<span class="number">44238</span>*v32-<span class="number">276353</span>*v34+<span class="number">82818982</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">3256</span>*v27+-<span class="number">232013</span>*v25+-<span class="number">261919</span>*v29+-<span class="number">151844</span>*v26+<span class="number">11405</span>*v4+<span class="number">159913</span>*v32+<span class="number">209002</span>*v7+<span class="number">91932</span>*v34+<span class="number">270180</span>*v10+-<span class="number">195866</span>*v3-<span class="number">135274</span>*v33-<span class="number">261245</span>*v1+<span class="number">24783</span>*v35+<span class="number">262729</span>*v8-<span class="number">81293</span>*v24-<span class="number">156714</span>*v2-<span class="number">93376</span>*v28-<span class="number">163223</span>*v31-<span class="number">144746</span>*v5+<span class="number">167939</span>*v6-<span class="number">120753</span>*v30-<span class="number">13188886</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">240655</span>*v35+<span class="number">103437</span>*v30+<span class="number">236610</span>*v27+<span class="number">100948</span>*v8+<span class="number">82212</span>*v6+-<span class="number">60676</span>*v5+-<span class="number">71032</span>*v3+<span class="number">259181</span>*v7+<span class="number">100184</span>*v10+<span class="number">7797</span>*v29+<span class="number">143350</span>*v24+<span class="number">76697</span>*v2-<span class="number">172373</span>*v25-<span class="number">110023</span>*v37-<span class="number">13673</span>*v4+<span class="number">129100</span>*v31+<span class="number">86759</span>*v1-<span class="number">101103</span>*v33-<span class="number">142195</span>*v36+<span class="number">28466</span>*v32-<span class="number">27211</span>*v26-<span class="number">269662</span>*v34+<span class="number">9103</span>*v28-<span class="number">96428951</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">92750</span>*v28+-<span class="number">151740</span>*v27+<span class="number">15816</span>*v35+<span class="number">186592</span>*v24+-<span class="number">156340</span>*v29+-<span class="number">193697</span>*v2+-<span class="number">108622</span>*v8+-<span class="number">163956</span>*v5+<span class="number">78044</span>*v4+-<span class="number">280132</span>*v36-<span class="number">73939</span>*v33-<span class="number">216186</span>*v3+<span class="number">168898</span>*v30+<span class="number">81148</span>*v34-<span class="number">200942</span>*v32+<span class="number">1920</span>*v1+<span class="number">131017</span>*v26-<span class="number">229175</span>*v10-<span class="number">247717</span>*v31+<span class="number">232852</span>*v25+<span class="number">25882</span>*v7+<span class="number">144500</span>*v6+<span class="number">175681562</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">234452</span>*v34+-<span class="number">23111</span>*v29+-<span class="number">40957</span>*v2+-<span class="number">147076</span>*v8+<span class="number">16151</span>*v32+-<span class="number">250947</span>*v35+-<span class="number">111913</span>*v30+-<span class="number">233475</span>*v24+-<span class="number">2485</span>*v28+<span class="number">207006</span>*v26+<span class="number">71474</span>*v3+<span class="number">78521</span>*v1-<span class="number">37235</span>*v36+<span class="number">203147</span>*v5+<span class="number">159297</span>*v7-<span class="number">227257</span>*v38+<span class="number">141894</span>*v25-<span class="number">238939</span>*v10-<span class="number">207324</span>*v37-<span class="number">168960</span>*v33+<span class="number">212325</span>*v6+<span class="number">152097</span>*v31-<span class="number">94775</span>*v27+<span class="number">197514</span>*v4+<span class="number">62343322</span> == <span class="number">0</span>) </span><br><span class="line">solver.add(-<span class="number">142909</span>*v34+-<span class="number">111865</span>*v31+<span class="number">258666</span>*v36+-<span class="number">66780</span>*v2+-<span class="number">13109</span>*v35+-<span class="number">72310</span>*v25+-<span class="number">278193</span>*v26+-<span class="number">219709</span>*v24+<span class="number">40855</span>*v8+-<span class="number">270578</span>*v38+<span class="number">96496</span>*v5+-<span class="number">4530</span>*v1+<span class="number">63129</span>*v28-<span class="number">4681</span>*v7-<span class="number">272799</span>*v30-<span class="number">225257</span>*v10+<span class="number">128712</span>*v37-<span class="number">201687</span>*v39+<span class="number">273784</span>*v3+<span class="number">141128</span>*v29+<span class="number">93283</span>*v32+<span class="number">128210</span>*v33+<span class="number">47550</span>*v6-<span class="number">84027</span>*v4+<span class="number">52764</span>*v40-<span class="number">140487</span>*v27+<span class="number">105279220</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">216020</span>*v38+-<span class="number">248561</span>*v29+-<span class="number">86516</span>*v33+<span class="number">237852</span>*v26+-<span class="number">132193</span>*v31+-<span class="number">101471</span>*v3+<span class="number">87552</span>*v25+-<span class="number">122710</span>*v8+<span class="number">234681</span>*v5+-<span class="number">24880</span>*v7+-<span class="number">245370</span>*v1+-<span class="number">17836</span>*v36-<span class="number">225714</span>*v34-<span class="number">256029</span>*v4+<span class="number">171199</span>*v35+<span class="number">266838</span>*v10-<span class="number">32125</span>*v24-<span class="number">43141</span>*v32-<span class="number">87051</span>*v30-<span class="number">68893</span>*v39-<span class="number">242483</span>*v28-<span class="number">12823</span>*v2-<span class="number">159262</span>*v27+<span class="number">123816</span>*v37-<span class="number">180694</span>*v6+<span class="number">152819799</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">116890</span>*v3+<span class="number">67983</span>*v27+-<span class="number">131934</span>*v4+<span class="number">256114</span>*v40+<span class="number">128119</span>*v24+<span class="number">48593</span>*v33+-<span class="number">41706</span>*v2+-<span class="number">217503</span>*v26+<span class="number">49328</span>*v6+<span class="number">223466</span>*v7+-<span class="number">31184</span>*v5+-<span class="number">208422</span>*v36+<span class="number">261920</span>*v1+<span class="number">83055</span>*v20+<span class="number">115813</span>*v37+<span class="number">174499</span>*v29-<span class="number">188513</span>*v35+<span class="number">18957</span>*v25+<span class="number">15794</span>*v10-<span class="number">2906</span>*v28-<span class="number">25315</span>*v8+<span class="number">232180</span>*v32-<span class="number">102442</span>*v39-<span class="number">116930</span>*v34-<span class="number">192552</span>*v38-<span class="number">179822</span>*v31+<span class="number">265749</span>*v30-<span class="number">54143007</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">215996</span>*v4+-<span class="number">100890</span>*v40+-<span class="number">177349</span>*v7+-<span class="number">159264</span>*v6+-<span class="number">227328</span>*v27+-<span class="number">91901</span>*v24+-<span class="number">28939</span>*v10+<span class="number">206392</span>*v41+<span class="number">6473</span>*v25+-<span class="number">22051</span>*v20+-<span class="number">112044</span>*v34+-<span class="number">119414</span>*v30+-<span class="number">225267</span>*v35+<span class="number">223380</span>*v3+<span class="number">275172</span>*v5+<span class="number">95718</span>*v39-<span class="number">115127</span>*v29+<span class="number">85928</span>*v26+<span class="number">169057</span>*v38-<span class="number">204729</span>*v1+<span class="number">178788</span>*v36-<span class="number">85503</span>*v31-<span class="number">121684</span>*v2-<span class="number">18727</span>*v32+<span class="number">109947</span>*v33-<span class="number">138204</span>*v8-<span class="number">245035</span>*v28+<span class="number">134266</span>*v37+<span class="number">110228962</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(-<span class="number">165644</span>*v32+<span class="number">4586</span>*v39+<span class="number">138195</span>*v25+<span class="number">155259</span>*v35+-<span class="number">185091</span>*v3+-<span class="number">63869</span>*v31+-<span class="number">23462</span>*v30+<span class="number">150939</span>*v41+-<span class="number">217079</span>*v8+-<span class="number">122286</span>*v6+<span class="number">5460</span>*v38+-<span class="number">235719</span>*v7+<span class="number">270987</span>*v26+<span class="number">157806</span>*v34+<span class="number">262004</span>*v29-<span class="number">2963</span>*v28-<span class="number">159217</span>*v10+<span class="number">266021</span>*v33-<span class="number">190702</span>*v24-<span class="number">38473</span>*v20+<span class="number">122617</span>*v2+<span class="number">202211</span>*v36-<span class="number">143491</span>*v27-<span class="number">251332</span>*v4+<span class="number">196932</span>*v5-<span class="number">155172</span>*v22+<span class="number">209759</span>*v40-<span class="number">146511</span>*v1+<span class="number">62542</span>*v37+<span class="number">185928391</span> == <span class="number">0</span>)</span><br><span class="line">solver.add(<span class="number">57177</span>*v24+<span class="number">242367</span>*v39+<span class="number">226332</span>*v31+<span class="number">15582</span>*v26+<span class="number">159461</span>*v34+-<span class="number">260455</span>*v22+-<span class="number">179161</span>*v37+-<span class="number">251786</span>*v32+-<span class="number">66932</span>*v41+<span class="number">134581</span>*v1+-<span class="number">65235</span>*v29+-<span class="number">110258</span>*v28+<span class="number">188353</span>*v38+-<span class="number">108556</span>*v6+<span class="number">178750</span>*v40+-<span class="number">20482</span>*v25+<span class="number">127145</span>*v8+-<span class="number">203851</span>*v5+-<span class="number">263419</span>*v10+<span class="number">245204</span>*v33+-<span class="number">62740</span>*v20+<span class="number">103075</span>*v2-<span class="number">229292</span>*v36+<span class="number">142850</span>*v30-<span class="number">1027</span>*v27+<span class="number">264120</span>*v3+<span class="number">264348</span>*v4-<span class="number">41667</span>*v35+<span class="number">130195</span>*v7+<span class="number">127279</span>*a1[<span class="number">29</span>]-<span class="number">51967523</span> == <span class="number">0</span>)</span><br><span class="line"><span class="comment"># z3约束器求解</span></span><br><span class="line"><span class="keyword">assert</span> solver.check() == sat</span><br><span class="line">flag2 = []</span><br><span class="line">mol = solver.model()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> a1:</span><br><span class="line">    flag2.append(mol[i].as_long())</span><br><span class="line"></span><br><span class="line">mappp = [<span class="number">105</span>, <span class="number">244</span>, <span class="number">63</span>, <span class="number">10</span>, <span class="number">24</span>, <span class="number">169</span>, <span class="number">248</span>, <span class="number">107</span>, <span class="number">129</span>, <span class="number">138</span>, <span class="number">25</span>, <span class="number">182</span>, <span class="number">96</span>, <span class="number">176</span>, <span class="number">14</span>, <span class="number">89</span>, <span class="number">56</span>, <span class="number">229</span>, <span class="number">206</span>, <span class="number">19</span>, <span class="number">23</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">198</span>, <span class="number">179</span>, <span class="number">167</span>, <span class="number">152</span>, <span class="number">66</span>, <span class="number">28</span>, <span class="number">201</span>, <span class="number">213</span>, <span class="number">80</span>, <span class="number">162</span>, <span class="number">151</span>, <span class="number">102</span>, <span class="number">36</span>, <span class="number">91</span>, <span class="number">37</span>, <span class="number">50</span>, <span class="number">17</span>, <span class="number">170</span>, <span class="number">41</span>, <span class="number">3</span>, <span class="number">84</span>, <span class="number">85</span>, <span class="number">226</span>, <span class="number">131</span>, <span class="number">38</span>, <span class="number">71</span>, <span class="number">32</span>, <span class="number">18</span>, <span class="number">142</span>, <span class="number">70</span>, <span class="number">39</span>, <span class="number">112</span>, <span class="number">220</span>, <span class="number">16</span>, <span class="number">219</span>, <span class="number">159</span>, <span class="number">222</span>, <span class="number">11</span>, <span class="number">119</span>, <span class="number">99</span>, <span class="number">203</span>, <span class="number">47</span>, <span class="number">148</span>, <span class="number">185</span>, <span class="number">55</span>, <span class="number">93</span>, <span class="number">48</span>, <span class="number">153</span>, <span class="number">113</span>, <span class="number">1</span>, <span class="number">237</span>, <span class="number">35</span>, <span class="number">75</span>, <span class="number">67</span>, <span class="number">155</span>, <span class="number">161</span>, <span class="number">74</span>, <span class="number">108</span>, <span class="number">76</span>, <span class="number">181</span>, <span class="number">233</span>, <span class="number">186</span>, <span class="number">44</span>, <span class="number">125</span>, <span class="number">232</span>, <span class="number">88</span>, <span class="number">8</span>, <span class="number">95</span>, <span class="number">163</span>, <span class="number">200</span>, <span class="number">249</span>, <span class="number">120</span>, <span class="number">243</span>, <span class="number">174</span>, <span class="number">212</span>, <span class="number">252</span>, <span class="number">234</span>, <span class="number">58</span>, <span class="number">101</span>, <span class="number">228</span>, <span class="number">86</span>, <span class="number">109</span>, <span class="number">144</span>, <span class="number">104</span>, <span class="number">121</span>, <span class="number">117</span>, <span class="number">87</span>, <span class="number">15</span>, <span class="number">132</span>, <span class="number">12</span>, <span class="number">20</span>, <span class="number">165</span>, <span class="number">115</span>, <span class="number">136</span>, <span class="number">135</span>, <span class="number">118</span>, <span class="number">69</span>, <span class="number">68</span>, <span class="number">2</span>, <span class="number">82</span>, <span class="number">123</span>, <span class="number">250</span>, <span class="number">251</span>, <span class="number">53</span>, <span class="number">255</span>, <span class="number">51</span>, <span class="number">221</span>, <span class="number">211</span>, <span class="number">195</span>, <span class="number">145</span>, <span class="number">140</span>, <span class="number">254</span>, <span class="number">0</span>, <span class="number">116</span>, <span class="number">43</span>, <span class="number">29</span>, <span class="number">217</span>, <span class="number">197</span>, <span class="number">183</span>, <span class="number">168</span>, <span class="number">188</span>, <span class="number">34</span>, <span class="number">218</span>, <span class="number">146</span>, <span class="number">147</span>, <span class="number">98</span>, <span class="number">149</span>, <span class="number">246</span>, <span class="number">180</span>, <span class="number">103</span>, <span class="number">33</span>, <span class="number">40</span>, <span class="number">207</span>, <span class="number">208</span>, <span class="number">192</span>, <span class="number">143</span>, <span class="number">26</span>, <span class="number">154</span>, <span class="number">225</span>, <span class="number">100</span>, <span class="number">141</span>, <span class="number">175</span>, <span class="number">124</span>, <span class="number">230</span>, <span class="number">62</span>, <span class="number">177</span>, <span class="number">205</span>, <span class="number">110</span>, <span class="number">202</span>, <span class="number">253</span>, <span class="number">173</span>, <span class="number">46</span>, <span class="number">52</span>, <span class="number">114</span>, <span class="number">164</span>, <span class="number">166</span>, <span class="number">137</span>, <span class="number">158</span>, <span class="number">122</span>, <span class="number">13</span>, <span class="number">83</span>, <span class="number">178</span>, <span class="number">133</span>, <span class="number">189</span>, <span class="number">187</span>, <span class="number">7</span>, <span class="number">184</span>, <span class="number">77</span>, <span class="number">245</span>, <span class="number">216</span>, <span class="number">190</span>, <span class="number">194</span>, <span class="number">72</span>, <span class="number">157</span>, <span class="number">172</span>, <span class="number">171</span>, <span class="number">199</span>, <span class="number">160</span>, <span class="number">45</span>, <span class="number">49</span>, <span class="number">27</span>, <span class="number">204</span>, <span class="number">81</span>, <span class="number">6</span>, <span class="number">92</span>, <span class="number">59</span>, <span class="number">209</span>, <span class="number">239</span>, <span class="number">130</span>, <span class="number">97</span>, <span class="number">61</span>, <span class="number">214</span>, <span class="number">215</span>, <span class="number">73</span>, <span class="number">90</span>, <span class="number">126</span>, <span class="number">42</span>, <span class="number">30</span>, <span class="number">240</span>, <span class="number">79</span>, <span class="number">224</span>, <span class="number">78</span>, <span class="number">223</span>, <span class="number">111</span>, <span class="number">60</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">196</span>, <span class="number">231</span>, <span class="number">106</span>, <span class="number">64</span>, <span class="number">139</span>, <span class="number">235</span>, <span class="number">150</span>, <span class="number">227</span>, <span class="number">238</span>, <span class="number">191</span>, <span class="number">127</span>, <span class="number">31</span>, <span class="number">156</span>, <span class="number">54</span>, <span class="number">241</span>, <span class="number">242</span>, <span class="number">134</span>, <span class="number">247</span>, <span class="number">128</span>, <span class="number">65</span>, <span class="number">94</span>, <span class="number">57</span>, <span class="number">210</span>, <span class="number">236</span>, <span class="number">9</span>, <span class="number">193</span>]</span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(flag2)):</span><br><span class="line">    ttt = mappp.index(flag2[i])</span><br><span class="line">    ttt &amp;= <span class="number">0xFF</span></span><br><span class="line">    flag += <span class="built_in">chr</span>(ttt ^ <span class="number">0xFF</span> ^ i)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"><span class="comment"># flag&#123;U_90t_th3_p1c5t0re_fl49!&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="0x03-Luajit-details"><a href="#0x03-Luajit-details" class="headerlink" title="0x03 Luajit details"></a>0x03 Luajit details</h2><p>&emsp;<code>Luajit</code>将原生Lua进行了扩展，使它支持JIT方式编译运行，<code>Luajit</code>有如下特点：（1）运行时编译。（2）兼容AOT编译。（3）引入了中间表示IR。</p>
+<h3 id="Luajit文件格式"><a href="#Luajit文件格式" class="headerlink" title="Luajit文件格式"></a>Luajit文件格式</h3><p>&emsp;Luajit官方并没有直接给出<code>Luajit</code>字节码文件的格式文档，但可以通过阅读Luajit源码中加载与生成<code>Luajit</code>字节码文件的函数，来单步跟踪分析出它的文件格式，这两个函数分别是<code>lj_bcread()</code>与<code>lj_bcwrite()</code>。</p>
+<p>&emsp;从这两个函数调用的<code>bcread_header()</code>、<code>bcread_proto()</code>、<code>bcwrite_header()</code>、<code>bcwrite_proto()</code>等子函数，因此，可以了解到：<strong><code>Luajit</code>字节码文件与<code>Luac</code>一样，将文件格式分为头部分信息Header与函数信息Proto两部分。</strong></p>
+<p>&emsp;Luajit字节码文件的header可以定义为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="type">char</span> signature[<span class="number">3</span>];</span><br><span class="line">    uchar version;</span><br><span class="line">    GlobalHeaderFlags flags;</span><br><span class="line">    <span class="keyword">if</span> (!is_stripped) &#123;</span><br><span class="line">        uleb128 length;</span><br><span class="line">        <span class="type">char</span> chunkname[<span class="built_in">uleb128_value</span>(length)];</span><br><span class="line">    &#125;</span><br><span class="line">&#125; GlobalHeader;</span><br></pre></td></tr></table></figure>
+<p>&emsp;上述header解释如下：</p>
+<p>（1）luajit字节码文件的头3个字节必须为<code>0x1b4c4a</code>，这是它的Magic Number（signature）。</p>
+<p>（2）version是luajit字节码文件的版本号，占1个字节。</p>
+<p>（3）flags是文件的标志位，采用uleb128编码（可变长）。其中包含3个字段：</p>
+<p>&emsp;&emsp;（a）<code>FLAG_IS_BIG_ENDIAN</code>表示大端序还是小端序。</p>
+<p>&emsp;&emsp;（b）<code>FLAG_IS_STRIPPED</code>表示是否去除调试信息。如果包含调试信息，即<code>FLAG_IS_STRIPPED</code>没有被置位，那么会多出两个字段：<code>length</code>（字符串长度），<code>chunkname</code>（Luajit文件的源文件名字符串）。</p>
+<p>&emsp;&emsp;（c）<code>FLAG_HAS_FFI</code>表示是否有外部函数接口。</p>
+<p>&emsp;Luajit字节码文件的Proto中有<code>ProtoHeader</code>字段，它描述了Proto的头部信息，如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    uleb128 size;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">uleb128_value</span>(size) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        ProtoFlags flags;</span><br><span class="line">        uchar arguments_count;</span><br><span class="line">        uchar framesize;</span><br><span class="line">        uchar upvalues_count;</span><br><span class="line">        uleb128 complex_constants_count;</span><br><span class="line">        uleb128 numeric_constants_count;</span><br><span class="line">        uleb128 instructions_count;</span><br><span class="line">        <span class="keyword">if</span> (!is_stripped) &#123;</span><br><span class="line">            uleb128 debuginfo_size;</span><br><span class="line">            uleb128 first_line_number;</span><br><span class="line">            uleb128 lines_count;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; ProtoHeader;</span><br></pre></td></tr></table></figure>
+<p>&emsp;上述<code>ProtoHeader</code>解释如下：</p>
+<p>（1）size表示proto结构体的大小。</p>
+<p>（2）flags是<code>ProtoHeader</code>的标志位，有以下几部分组成：</p>
+<p>&emsp;&emsp;（a）<code>FLAG_HAS_CHILD</code>标识当前proto是一个子函数，也就是闭包（closure）。举个例子来理解一下：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Create</span><span class="params">(n)</span></span> </span><br><span class="line">	<span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">foo1</span><span class="params">()</span></span></span><br><span class="line">		<span class="built_in">print</span>(n)</span><br><span class="line">        <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">foo2</span><span class="params">()</span></span></span><br><span class="line">            n = n + <span class="number">10</span> </span><br><span class="line">		    <span class="built_in">print</span>(n)</span><br><span class="line">            <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">foo3</span><span class="params">()</span></span></span><br><span class="line">                n = n + <span class="number">100</span></span><br><span class="line">                <span class="built_in">print</span>(n)</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line">	<span class="keyword">return</span> foo1,foo2,foo3</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">f1,f2,f3 = Create(<span class="number">1000</span>)</span><br><span class="line">f1()</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;&emsp;上述代码中，最外层的<code>Create()</code>向内，每个function都包含一个<code>Closure</code>。在Luac文件格式中，每个<code>Proto</code>都有一个<code>Protos</code>字段，它用来描述<code>Proto</code>与<code>Closure</code>之间的层次信息，<code>Proto</code>采用从外向内的递归方式进行存储。<strong>而<code>Luajit</code>则采用线性的从内向外的同级结构进行存储，<code>Proto</code>与<code>Closure</code>之前的层级关系使用<code>flags</code>字段的<code>FLAG_HAS_CHILD</code>标志位进行标识，当<code>flags</code>字段的<code>FLAG_HAS_CHILD</code>标志位被置位，则表示当前层的<code>Proto</code>是上一层<code>Proto</code>的<code>Closure</code>。</strong>上述代码在Luajit的文件结构如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Luajit</span> lj;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">GlobalHeader</span> header;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Proto</span> proto[<span class="number">0</span>];  <span class="comment">//foo3()</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Proto</span> proto[<span class="number">1</span>];  <span class="comment">//foo2()</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Proto</span> proto[<span class="number">2</span>];  <span class="comment">//foo1()</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Proto</span> proto[<span class="number">3</span>];  <span class="comment">//Create()</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Proto</span> proto[<span class="number">4</span>];  <span class="comment">//Full file</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">Proto</span> proto[<span class="number">5</span>];  <span class="comment">//empty</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;&emsp;从存局中可以看出，最内层的<code>foo3()</code>位于<code>Proto</code>的最外层，<strong>它与<code>Luac</code>的布局是相反的</strong>，而<code>proto[4]</code>表示了整个Lua文件，它是<code>Proto</code>的最上层。最后的<code>proto[5]</code>，它在读取其<code>ProtoHeader</code>的<code>size</code>字段时，由于其值为0，而中止了整个文件的解析。即它的内容为空。</p>
+<p>&emsp;&emsp;（b）<code>FLAG_IS_VARIADIC</code>标识了当前<code>Proto</code>是否返回多个值，上面的代码中，只有<code>Create()</code>的<code>flags</code>字段会对该标志置位（因为只有它有返回值）。</p>
+<p>&emsp;&emsp;（c）<code>FLAG_HAS_FFI</code>同上。</p>
+<p>&emsp;&emsp;（d）<code>FLAG_JIT_DISABLED</code>标识当前<code>Proto</code>是否禁用JIT，对于包含了具体代码的<code>Proto</code>，它的值通常没有没有被置位，表示有JIT代码。</p>
+<p>&emsp;&emsp;（e）<code>FLAG_HAS_ILOOP</code>标识了当前<code>Proto</code>是否包含了<code>ILOOP</code>与<code>JLOOP</code>等指令，编译器好进行优化。</p>
+<p>（3）<code>arguments_count</code>表示当前<code>Proto</code>有几个参数。</p>
+<p>（4）<code>framesize</code>标识了<code>Proto</code>使用的栈大小。</p>
+<p>（5）<code>upvalues_count</code>、<code>complex_constants_count</code>、<code>numeric_constants_count</code>、<code>instructions_count</code>分别表示UpValue个数、复合常数个数、数值常数个数、指令条数等信息。</p>
+<p>&emsp;UpValue：当一个函数引用了一个外部函数的局部变量时，这个局部变量就成为了 Upvalue。Upvalue 会在堆上被创建并持续存活，直到没有任何函数引用它为止。当一个函数被垃圾回收时，它所引用的 Upvalue 也会被垃圾回收。</p>
+<p>（6）如果包含调试信息，那么会有<code>debuginfo_size</code>、<code>first_line_number</code>、<code>lines_count</code>，分别表示<code>DebugInfo</code>结构体占用的字节大小、当前<code>Proto</code>在源文件中的起始行、当前<code>Proto</code>在源文件中所占的行数。</p>
+<p>&emsp;下面就到了proto的主体部分：</p>
+<p>（1）指令<code>Instruction</code>数组，每条指令长度与<code>Luac</code>一样，占用32位，但使用的指令格式完全不同。</p>
+<p>（2）常量信息，主要包含3个数组，分别是<code>upvalues</code>、<code>complex_constants</code>、<code>numeric_constants</code>数组。<code>complex_constants</code>可以保存字符串、整型、浮点型、TAB表等信息。</p>
+<p>（3）<code>debuginfo</code>调试信息。分为<code>LineInfo</code>与<code>VarInfos</code>两部分，前者是存储的一条条的行信息，后者是局部变量信息，包括变量类型、名称、以及它的作用域起始地址与结束地址。</p>
+<h3 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a>其他</h3><p>&emsp;<code>Luajit</code>的线性结构解析起来比<code>Luac</code>简单，只需要按序解析<code>Proto</code>，直接读取到字节0结束即可。</p>
+<h2 id="0x04-Luajit字节码"><a href="#0x04-Luajit字节码" class="headerlink" title="0x04 Luajit字节码"></a>0x04 Luajit字节码</h2><p>&emsp;Luajit的字节码设计与原生Lua有很多不同，最终到的效果是：<strong>字节码的编码实现更加简单，执行效率也比原生Luac指令更加高效。</strong></p>
+<p>&emsp;Lua指令的参考文档为：<a target="_blank" rel="noopener" href="http://wiki.luajit.org/Bytecode-2.0">参考文档</a>。</p>
+<p>&emsp;每条指令都为32位，指令分为opcode与操作数两部分。Lua原生指令是不对齐的，即不同的域（A、B、C等）不一定为8位或16位，而Luajit的每个域都为8位或16位。</p>
+<p>&emsp;Luajit的指令由5部分组成，分别为：指令名称name、3个操作数域ma/mb/mc、指令类型mt。</p>
+<p>&emsp;指令名称例如：ISLT、ADDVV、USETS、TGETV。它们有些有前后缀，后缀有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">V variable slot。变量槽。</span><br><span class="line">S string constant。字符串常量。</span><br><span class="line">N number constant。数值常量。</span><br><span class="line">P primitive type。原始类型。</span><br><span class="line">B unsigned byte literal。无符号字节字面量。</span><br><span class="line">M multiple arguments/results。多参数与返回值。</span><br></pre></td></tr></table></figure>
+<p>&emsp;前缀有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">T table。表。</span><br><span class="line">F function。函数。</span><br><span class="line">U UpValue。上值。</span><br><span class="line">K constant。常量。</span><br><span class="line">G global。全局。</span><br></pre></td></tr></table></figure>
+<p>&emsp;那么，USETS代表为UpValue设置字符串值，TGETV代表获取一个表结构中指定索引的数据。</p>
+<h2 id="0x05-例题2-ezlua"><a href="#0x05-例题2-ezlua" class="headerlink" title="0x05 例题2-ezlua"></a>0x05 例题2-ezlua</h2><p>&emsp;ezlua这道题与picStore感觉差不多，具体看geekpwn2023。</p>
+<h2 id="0x06-例题3-super-flagio"><a href="#0x06-例题3-super-flagio" class="headerlink" title="0x06 例题3-super_flagio"></a>0x06 例题3-super_flagio</h2><p>&emsp;其实第七期分享会的内容是0x00-0x05，0x06是后来加的。这道题是XCTF final的一道逆向，看上去很有复现意义（也好难呜呜…）。</p>
+<p>&emsp;所以0x06就是对这道题的复现啦。它的hint有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[flagio] “I can see the flag!”</span><br><span class="line">&lt;system&gt; A wild Goomca has appeared!</span><br><span class="line">[Goomca] “Try your best to beat me! Ahhhh!!!”</span><br><span class="line">[flagio] “I have to find the mushroom to gain more power. But how can I solve this puzzle?”</span><br></pre></td></tr></table></figure>
+<h2 id="0x07-Reference"><a href="#0x07-Reference" class="headerlink" title="0x07 Reference"></a>0x07 Reference</h2><p>[1] <a target="_blank" rel="noopener" href="https://dun.163.com/news/p/d937c7174124424ca80bcb888a604ac8">https://dun.163.com/news/p/d937c7174124424ca80bcb888a604ac8</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://gohalo.me/post/lua-sourcecode.html">https://gohalo.me/post/lua-sourcecode.html</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/dmeng2009/p/11329406.html">https://www.cnblogs.com/dmeng2009/p/11329406.html</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="https://www.52pojie.cn/forum.php?mod=viewthread&amp;tid=664517">https://www.52pojie.cn/forum.php?mod=viewthread&amp;tid=664517</a></p>
+<p>[5] <a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-275620.htm">https://bbs.kanxue.com/thread-275620.htm</a></p>
+<p>[6] <a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9004">https://xz.aliyun.com/t/9004</a></p>
+<p>[7] <a target="_blank" rel="noopener" href="https://github.com/feicong/lua_re/blob/master/lua/lua_re3.md">https://github.com/feicong/lua_re/blob/master/lua/lua_re3.md</a></p>
+<p>[8] <a target="_blank" rel="noopener" href="https://in1t.top/2023/04/02/7th-xctf-final-super-flagio/">https://in1t.top/2023/04/02/7th-xctf-final-super-flagio/</a></p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/08/02/tp-link-wr740-backdoor-vul/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/08/01/useful-scripts/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-08-02 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re/">re<span>35</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

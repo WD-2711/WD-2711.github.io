@@ -1,0 +1,556 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Assembly_1 | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Assembly_1"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Assembly_1</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="汇编语言学习笔记-1"><a href="#汇编语言学习笔记-1" class="headerlink" title="汇编语言学习笔记-1"></a>汇编语言学习笔记-1</h1><h2 id="0x00-存储器的存储结构"><a href="#0x00-存储器的存储结构" class="headerlink" title="0x00 存储器的存储结构"></a>0x00 存储器的存储结构</h2><p><img src="/images/Assembly-1/image-20230211201707096.png" alt="image-20230211201707096" style="zoom:75%;" /></p>
+<p>​    1TB=1024GB，1GB=1024MB，1MB=1024KB，1KB=1024B，1B=1字节（8位）。</p>
+<p>​    CPU想要对存储介质上的数据进行操作，就必须通过总线，总线分为<strong>地址总线、控制总线、数据总线</strong>。例如，CPU在内存中读数据，图示如下：</p>
+<span id="more"></span>
+<p><img src="/images/Assembly-1/image-20230211202158567.png" alt="image-20230211202158567" style="zoom:67%;" /></p>
+<p>​    可以看到，CPU是通过地址总线来指定存储单元的。<strong>地址总线上能传送多少个不同的信息， CPU 就可以对多少个存储单元进行寻址。</strong>如果一个 CPU 有 N 根地址总线，即地址总线宽度为 N，那么就可以寻址<code>2^N</code>个内存单元。</p>
+<p>​    数据总线宽度关系到了 CPU 和外界的数据传送速度。下面展示了8位和16位数据总线在传输<code>0x89D8</code>时候的不同：</p>
+<p><img src="/images/Assembly-1/image-20230211202643679.png" alt="image-20230211202643679" style="zoom:67%;" /></p>
+<p><img src="/images/Assembly-1/image-20230211202703867.png" alt="image-20230211202703867" style="zoom:67%;" /></p>
+<p>​    可以看到，8位需要传两次，16位传一次即可。</p>
+<p>​    <strong>小结：</strong></p>
+<ol>
+<li>每一种 CPU 都有自己的汇编指令集。</li>
+<li>一个存储单元可以存储 8 个 bits，即 8 位二进制数。</li>
+</ol>
+<h2 id="0x01-内存地址空间"><a href="#0x01-内存地址空间" class="headerlink" title="0x01 内存地址空间"></a>0x01 内存地址空间</h2><p>​    <strong>什么是内存地址空间？</strong>一个 CPU 的地址线宽度为 10 ，那么可以寻址 1024 个内存单元，这 1024 个可寻到的内存单元就构成这个CPU 的内存地址空间。</p>
+<p>​    存储器包括随机存储器（RAM）与只读存储器（ROM）。随机存储器可读可写，但是关机后储存内容就会消失。只读存储器只能读取，关机后储存内容不会消失。例如，BIOS就储存在ROM中。这和磁盘什么的没啥关系哈，RAM与ROM都是主板上的。</p>
+<p>​    可以将各类存储器看作一个逻辑存储器。如下图所示：</p>
+<p><img src="/images/Assembly-1/image-20230211211247444.png" alt="image-20230211211247444" style="zoom:67%;" /></p>
+<h2 id="0x02-寄存器"><a href="#0x02-寄存器" class="headerlink" title="0x02 寄存器"></a>0x02 寄存器</h2><p>​    CPU由运算器 、 控制器 、 寄存器组成，内部总线实现 CPU 内部各个器件之间的联系，外部总线实现 CPU 和主板上其它器件的联系。</p>
+<p>​    8086CPU 所有寄存器都是 16 位 ，可存放两个字节，AX、BX、CX、DX被称为通用寄存器。8086 上一代 CPU 中的寄存器都是 8 位的，为保证兼容性，AX可以分为AH与AL。BX、CX、DX也可以这样分。</p>
+<p>​    字节为8位，字为16位（2个字节）。</p>
+<p>​    以下是简单的汇编指令举例：<strong>（注：汇编指令不区分大小写）</strong></p>
+<p><img src="/images/Assembly-1/image-20230212095143497.png" alt="image-20230212095143497" style="zoom:80%;" /></p>
+<p>​    再来看两个特殊情况：</p>
+<p><img src="/images/Assembly-1/image-20230212095304217.png" alt="image-20230212095304217" style="zoom:80%;" /></p>
+<p><img src="/images/Assembly-1/image-20230212095407920.png" alt="image-20230212095407920" style="zoom:67%;" /></p>
+<p>​    可以看到，上述两个图中的红色问号部分都有进位，不同的是第一个图是AX的进位，第二个图是AL的进位。<strong>第二张图中，此时CPU 把 al 和 ah 看作 8 位的寄存器上的独立的寄存器，产生的进位不会存储在 ah 中。</strong>第一张图也是类似，因此，第一张图中的问号填<strong>044CH</strong>，第二张图的问号填<strong>58H</strong>。</p>
+<h3 id="16位结构的CPU体现在哪里？"><a href="#16位结构的CPU体现在哪里？" class="headerlink" title="16位结构的CPU体现在哪里？"></a>16位结构的CPU体现在哪里？</h3><ol>
+<li>运算器一次最多可以处理 16 位的数据。</li>
+<li>寄存器的最大宽度为 16 位。</li>
+<li>寄存器和运算器之间的通路是 16 位的。</li>
+</ol>
+<h3 id="8086CPU是如何找物理地址的？"><a href="#8086CPU是如何找物理地址的？" class="headerlink" title="8086CPU是如何找物理地址的？"></a>8086CPU是如何找物理地址的？</h3><p>​    <strong>存在这样一种矛盾，8086 有 20 位地址总线，可传送 20 位地址，寻址能力为 1MB 。而8086 内部为 16 位结构，它只能传送 16 位的地址，表现出的寻址能力却只有 64KB 。</strong>为解决这种矛盾，8086CPU 采用一种在内部<strong>用两个16 位地址合成的方法来形成一个 20 位的物理地址</strong>。具体公式为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">物理地址 = 段地址 × 16 + 偏移地址</span><br></pre></td></tr></table></figure>
+<p>​    图像解释如下：</p>
+<p><img src="/images/Assembly-1/image-20230212101019883.png" alt="image-20230212101019883" style="zoom:67%;" /></p>
+<p><img src="/images/Assembly-1/image-20230212101118772.png" alt="image-20230212101118772" style="zoom:67%;" /></p>
+<h3 id="分段"><a href="#分段" class="headerlink" title="分段"></a>分段</h3><p>​    内存并没有分段，段的划分来自于 CPU（就是因为上面的公式）。</p>
+<ol>
+<li>段地址 × 16 必然是 16 的倍数，所以一个段的起始地址也一定是 16 的倍数。</li>
+<li>偏移地址为 16 位， 16 位地址的寻址能力为 64K，所以一个段的长度最大为 64K 。</li>
+</ol>
+<p>​    再给出如下结论：</p>
+<ul>
+<li><strong>CPU 可以用不同的段地址和偏移地址形成同一个物理地址 。</strong>如下所示：</li>
+</ul>
+<p><img src="/images/Assembly-1/image-20230212101908369.png" alt="image-20230212101908369" style="zoom:67%;" /></p>
+<ul>
+<li>偏移地址 16 位，变化范围为 0-FFFFH ，仅用偏移地址来寻址最多可寻 64K 个内存单元。例如，给定段地址 1000H ，用偏移地址寻址 CPU 的寻址范围为： 10000H-1FFFFH 。</li>
+</ul>
+<h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><p>​    段寄存器就是提供段地址的。<strong>8086CPU中有 4 个段寄存器：CS、DS、SS、ES。</strong></p>
+<p>​    <strong>CS（代码段寄存器 ）和 IP（指令指针寄存器 ）是8086CPU 中最关键的寄存器，它们指示了 CPU 当前要读取指令的指令地址。</strong>具体可以看《汇编语言第三版》P26-P31。最终，可以总结出8086CPU的工作流程：</p>
+<ol>
+<li>从 CS:IP 指向内存单元读取指令，读取的指令进入指令缓冲器；</li>
+<li>IP = IP + <strong>所读取指令的长度</strong> ，从而指向下一条指令；</li>
+<li>执行指令。 转到步骤 1 重复这个过程。</li>
+</ol>
+<p>​    8086CPU刚刚开机时，CS=FFFFH，IP=0000H，<strong>所以CPU 从内存 FFFF0H 单元中读取指令执行，这是开机后执行的第一条指令</strong> 。内存中指令和数据没有任何区别，都是二进制信息，但是<strong>CPU将 CS:IP 指向的内存单元中的内容看作指令</strong>。</p>
+<h3 id="控制CS-IP跳转到目标地址"><a href="#控制CS-IP跳转到目标地址" class="headerlink" title="控制CS:IP跳转到目标地址"></a>控制CS:IP跳转到目标地址</h3><p>​    在CPU中，程序员能够用指令 读写的部件只有寄存器，<strong>程序员可以通过改变寄存器中的内容实现对CPU的控制</strong>。</p>
+<ul>
+<li>同时控制CS与IP。</li>
+</ul>
+<p><img src="/images/Assembly-1/image-20230212104023385.png" alt="image-20230212104023385" style="zoom:80%;" /></p>
+<ul>
+<li>仅仅控制IP。<strong>可以看到直接<code>jmp ax</code>控制的其实是偏移地址。</strong></li>
+</ul>
+<p><img src="/images/Assembly-1/image-20230212104118120.png" alt="image-20230212104118120" style="zoom:80%;" /></p>
+<p>​    <strong>注意：<code>jmp ax</code>等价于<code>mov IP, ax</code>。<code>jmp 3:01B6</code>等价于<code>mov cs, 3; mov ip, 01B6</code>。你懂得~</strong></p>
+<h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><p><img src="/images/Assembly-1/image-20230212104418722.png" alt="image-20230212104418722" style="zoom:80%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 6622H</span><br><span class="line">jmp 1000:3</span><br><span class="line">mov ax, 0000</span><br><span class="line">mov bx, ax</span><br><span class="line">jmp bx</span><br><span class="line">mov ax, 0123H</span><br><span class="line">之后又转到mov ax, 0000 ...</span><br></pre></td></tr></table></figure>
+<h3 id="代码段"><a href="#代码段" class="headerlink" title="代码段"></a>代码段</h3><p>​    CS:IP指向的内容就是代码段。就类似于上述的Q&amp;A中的示例，就是代码段。代码段举例（123B0H-123B9H）：</p>
+<p><img src="/images/Assembly-1/image-20230212104759149.png" alt="image-20230212104759149" style="zoom:67%;" /></p>
+<p>​    可以认为<strong>上述代码是段地址是123BH，长度为10字节的代码段</strong>。</p>
+<h2 id="0x03-实验-1"><a href="#0x03-实验-1" class="headerlink" title="0x03 实验 1"></a>0x03 实验 1</h2><p>​    见《汇编语言第三版》P35。</p>
+<h3 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h3><ul>
+<li>Debug是DOS、Windows提供的调试工具，可以查看CPU寄存器中的内容。</li>
+<li>Debug常用命令。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">R // 查看、改变寄存器中的内容</span><br><span class="line">D // 查看内存</span><br><span class="line">E // 改写内存</span><br><span class="line">U // 将机器指令翻译成汇编指令</span><br><span class="line">T // 执行一条机器指令（步进）</span><br><span class="line">P // 与T不同的是，P不会跟踪进入子程序（步过）</span><br><span class="line">G // 运行到断点</span><br><span class="line">A // 以汇编指令的格式在内存中写入一条机器指令</span><br></pre></td></tr></table></figure>
+<p>​    <strong>查看并修改寄存器中的内容：</strong></p>
+<p><img src="/images/Assembly-1/image-20230212121108518.png" alt="image-20230212121108518" style="zoom:80%;" /></p>
+<p>​    <strong>查看内存<code>0AD40H</code>及其之后的内容：</strong></p>
+<p><img src="/images/Assembly-1/image-20230212121328140.png" alt="image-20230212121328140" style="zoom:80%;" /></p>
+<p>​    <strong>改写内存<code>10000H</code>的内容：</strong></p>
+<p>​    一块修改</p>
+<p><img src="/images/Assembly-1/image-20230212121946937.png" alt="image-20230212121946937" style="zoom:80%;" /></p>
+<p>​    逐位修改</p>
+<p><img src="/images/Assembly-1/image-20230212122216299.png" alt="image-20230212122216299" style="zoom:80%;" /></p>
+<p>​    写入字符串</p>
+<p><img src="/images/Assembly-1/image-20230212122435957.png" alt="image-20230212122435957" style="zoom:80%;" /></p>
+<p>​    写入机器码并展示</p>
+<p><img src="/images/Assembly-1/image-20230212122641720.png" alt="image-20230212122641720" style="zoom:80%;" /></p>
+<p>​    执行刚刚写入的机器码（需要预先修改CS与IP）</p>
+<p><img src="/images/Assembly-1/image-20230212162049686.png" alt="image-20230212162049686" style="zoom:80%;" /></p>
+<p>​    直接写入汇编指令</p>
+<p><img src="/images/Assembly-1/image-20230212162312637.png" alt="image-20230212162312637" style="zoom:80%;" /></p>
+<h2 id="0x04-寄存器（内存访问）"><a href="#0x04-寄存器（内存访问）" class="headerlink" title="0x04 寄存器（内存访问）"></a>0x04 寄存器（内存访问）</h2><p>​    小端序与大端序，如下图所示：</p>
+<p><img src="/images/Assembly-1/image-20230212163332475.png" alt="image-20230212163332475" style="zoom:80%;" /></p>
+<p>​    之前我们知道：物理地址 = 段地址 × 16 + 偏移地址。<strong>代码段的短地址保存在CS寄存器中，数据段的段地址保存在DS寄存器中。</strong></p>
+<p>​    使用mov指令可以读取内存，其格式为<code>mov 寄存器名 [address]</code>，其中address为偏移地址，<strong>执行此命令时，8086CPU会自动取DS作为段地址</strong>。</p>
+<p>​    <strong>内存到寄存器</strong>。使用mov指令从10000H中读取1个字节放到AL中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov bx, 1000H</span><br><span class="line">mov ds, bx</span><br><span class="line">mov al, [0]</span><br></pre></td></tr></table></figure>
+<p>​    注：<strong>8086CPU不支持将数据直接送入段寄存器的操作，而物理地址10000H可以看作<code>段地址:偏移地址=1000H:0H</code>。</strong></p>
+<p>​    寄存器到内存差不多，举一个例子：</p>
+<p><img src="/images/Assembly-1/image-20230212165556693.png" alt="image-20230212165556693" style="zoom:80%;" /></p>
+<p><img src="/images/Assembly-1/image-20230212165800075.png" alt="image-20230212165800075" style="zoom:80%;" /></p>
+<p>​    对于8086CPU来说，累加123B0H的前三个单元的数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 累加字节数据</span><br><span class="line">mov ax, 123BH</span><br><span class="line">mov ds, ax</span><br><span class="line">mov al, 0</span><br><span class="line">add al, [0]</span><br><span class="line">add al, [1]</span><br><span class="line">add al, [2]</span><br><span class="line"></span><br><span class="line">// 累加字数据</span><br><span class="line">mov ax, 123BH</span><br><span class="line">mov ds, ax</span><br><span class="line">mov ax, 0</span><br><span class="line">add ax, [0]</span><br><span class="line">add ax, [2]</span><br><span class="line">add ax, [4]</span><br></pre></td></tr></table></figure>
+<h2 id="0x05-栈"><a href="#0x05-栈" class="headerlink" title="0x05 栈"></a>0x05 栈</h2><p>​    8086CPU的<strong>入/出栈操作都是以字（两个字节）为单位</strong>进行的。<strong>栈的增长方向是由高地址往低地址</strong>。栈操作举例：</p>
+<p><img src="/images/Assembly-1/image-20230212171247365.png" alt="image-20230212171247365" style="zoom:67%;" /></p>
+<p>​    类似于CS:IP，存放着指令的段地址与偏移地址，<strong>SS:SP存放着栈顶的段地址与偏移地址</strong>。SS：Stack Segment、SP：Stack Pointer。</p>
+<p>​    push指令的执行过程，以<code>push ax</code>为例：</p>
+<ol>
+<li><p>SP=SP–2。</p>
+</li>
+<li><p>将ax中的内容送入SS:SP指向的内存单元处，SS:SP此时指向新栈顶。</p>
+</li>
+</ol>
+<p><img src="/images/Assembly-1/image-20230212171757043.png" alt="image-20230212171757043" style="zoom:80%;" /></p>
+<p>​    pop指令的执行过程，以<code>pop ax</code>为例：</p>
+<ol>
+<li>将SS:SP指向的内存单元处的数据送入ax中。</li>
+<li>SP = SP+2，SS:SP指向当前栈顶下面的单元，以当前栈顶下面的单元为新的栈顶。</li>
+</ol>
+<p><strong>Q&amp;A</strong></p>
+<p>Q1：将10000H-1000FH 这段空间当作栈，初始状态是空的，将 AX、BX、DS中的数据入栈。</p>
+<p>A1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov cx, 1000H</span><br><span class="line">mov ss, cx</span><br><span class="line">mov sp, 10H</span><br><span class="line">push ax</span><br><span class="line">push bx</span><br><span class="line">push ds</span><br></pre></td></tr></table></figure>
+<p>Q2：将10000H-1000FH 这段空间当作栈，初始状态是空的；设置AX=001AH，BX=001BH；将AX、BX中的数据入栈；然后将AX、BX清零；从栈中恢复AX、BX原来的内容。</p>
+<p>A2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mov cx, 1000H</span><br><span class="line">mov ss, cx</span><br><span class="line">mov sp, 10H</span><br><span class="line">mov ax, 1AH</span><br><span class="line">mov bx, 1BH</span><br><span class="line">push ax</span><br><span class="line">push bx</span><br><span class="line">xor ax, ax</span><br><span class="line">xor ba, bx</span><br><span class="line">pop bx</span><br><span class="line">pop ax</span><br></pre></td></tr></table></figure>
+<p>Q3：将10000H-1000FH 这段空间当作栈，初始状态是空的；设置AX=002AH，BX=002BH；利用栈 ，交换 AX 和 BX 中的数据。</p>
+<p>A3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mov cx, 1000H</span><br><span class="line">mov ss, cx</span><br><span class="line">mov sp, 10H</span><br><span class="line">mov ax, 2AH</span><br><span class="line">mov bx, 2BH</span><br><span class="line">push ax</span><br><span class="line">push bx</span><br><span class="line">pop ax</span><br><span class="line">pop bx</span><br></pre></td></tr></table></figure>
+<p>Q4：我们如果要在10000H处写入字型数据2266H，可以用以下的代码完成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 1000H</span><br><span class="line">mov ds, ax</span><br><span class="line">mov ax, 2266H</span><br><span class="line">mov [0], ax</span><br></pre></td></tr></table></figure>
+<p>​    补全下列代码，完成同样功能。（不能使用<code>mov [内存单元],寄存器</code>）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">________</span><br><span class="line">________</span><br><span class="line">________</span><br><span class="line">mov ax, 2266H</span><br><span class="line">push ax</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 1000H</span><br><span class="line">mov ss, ax</span><br><span class="line">mov sp, 2H ;sp先减2，然后再写入</span><br><span class="line">mov ax, 2266H</span><br><span class="line">push ax</span><br></pre></td></tr></table></figure>
+<p>​    push、pop 实质上就是一种内存传送指令，可以在寄存器和内存之间传送数据，<strong>与mov指令不同的是，push和pop指令访问的内存单元的地址不是在指令中给出的，而是由SS:SP指出的。同时，push和pop指令还要改变 SP 中的内容</strong>。</p>
+<h2 id="0x06-实验2"><a href="#0x06-实验2" class="headerlink" title="0x06 实验2"></a>0x06 实验2</h2><p>​    Debug的使用技巧：</p>
+<p><img src="/images/Assembly-1/image-20230212180838625.png" alt="image-20230212180838625" style="zoom:80%;" /></p>
+<p><img src="/images/Assembly-1/image-20230212180848292.png" alt="image-20230212180848292" style="zoom:80%;" /></p>
+<p>​    注：<strong>Debug的T命令（运行一条汇编语句）在执行修改寄存器SS的指令时，下一条指令也紧接着被执行。</strong></p>
+<h2 id="0x07-第一个程序"><a href="#0x07-第一个程序" class="headerlink" title="0x07 第一个程序"></a>0x07 第一个程序</h2><h3 id="流程："><a href="#流程：" class="headerlink" title="流程："></a>流程：</h3><ol>
+<li>编写汇编<strong>源程序</strong>。</li>
+<li>对源程序进行编译连接。使用汇编语言编译程序对第一步的<strong>源程序</strong>进行编译，产生<strong>目标文件</strong>。再用连接程序对目标文件进行连接，生成<strong>可执行文件</strong>。</li>
+<li>运行可执行文件。</li>
+</ol>
+<h3 id="示例程序分析"><a href="#示例程序分析" class="headerlink" title="示例程序分析"></a>示例程序分析</h3><p>​    给出如下程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line">	mov ax, 0123H</span><br><span class="line">	mov bx, 0456H</span><br><span class="line">	add ax, bx</span><br><span class="line">	add ax, ax</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">codesg ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>​    汇编语言程序中包括汇编指令与伪指令。<strong>伪指令不被CPU执行，是由编译器来执行，编译器根据伪指令来进行相关的编译工作。</strong></p>
+<p>​    上述程序的伪指令有：</p>
+<ul>
+<li><code>段名 segment ... 段名 ends</code>。代表一个段，这个段用来存放代码。</li>
+<li><code>end</code>。汇编程序的结束标记，不要与<code>ends</code>搞混。</li>
+<li><code>assume</code>将有特定用途的段和相关的段寄存器关联起来，例如<code>assume cs:codesg</code>就是将codesg段与cs段寄存器关联起来，以说明codesg内存放的是代码。</li>
+</ul>
+<p>​    计算<code>2^3</code>的示例程序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">assume cs:abc</span><br><span class="line">abc segment</span><br><span class="line">	mov ax, 2</span><br><span class="line">	add ax, ax</span><br><span class="line">	add ax, ax</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">abc ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>​    在汇编后加入<code>mov ax, 4c00H; int 21H</code>就可以实现程序返回。在DOS中edit并保存为1.asm。接下来使用masm.exe对文件进行编译，生成1.obj。之后使用1.obj进行连接，使用link.exe生成1.exe。</p>
+<p>​    连接的作用：</p>
+<ul>
+<li><p>源程序很大时，将其分为多个源程序来编译，将源程序编译成目标文件后，再用连接程序将其连接到一起，生成一个exe。</p>
+</li>
+<li><p>将库文件与目标文件连接起来。</p>
+</li>
+</ul>
+<p>  <img src="/images/Assembly-1/image-20230218212118944.png" alt="image-20230218212118944" style="zoom: 67%;" /></p>
+<p>​    下图展示了DOS系统在<code>.EXE</code>文件中的程序加载过程：</p>
+<p><img src="/images/Assembly-1/image-20230218215152495.png" alt="image-20230218215152495" style="zoom:67%;" /></p>
+<ul>
+<li>程序加载后，ds存放程序内存区的段地址，内存区偏移地址为0，程序所在内存区的地址为<code>ds:0</code>。</li>
+<li>内存区的前256字节存放PSP（DOS用来和程序来进行通信），从256字节处向后的空间存放的是程序。</li>
+</ul>
+<p>​    调试显示：</p>
+<p><img src="/images/Assembly-1/image-20230218224403916.png" alt="image-20230218224403916" style="zoom:80%;" /></p>
+<p>​    <code>DS=0B14</code>可以看到PSP的段地址<code>SA=0B14</code>，PSP的偏移地址为0，因此PSP的物理地址为<code>SA*16+0</code>，程序的物理地址为<code>SA*16+0+256=SA+10H:0=0B24H</code>，这也是CS指向的地址。</p>
+<p>​    再用u查看一下汇编代码，如下：</p>
+<p><img src="/images/Assembly-1/image-20230218224720512.png" alt="image-20230218224720512" style="zoom:80%;" /></p>
+<p>​    再p单步执行，执行到<code>INT 21</code>，结束。</p>
+<h2 id="0x07-BX-和内存单元的描述"><a href="#0x07-BX-和内存单元的描述" class="headerlink" title="0x07 [BX]和内存单元的描述"></a>0x07 [BX]和内存单元的描述</h2><h3 id="BX-是什么？"><a href="#BX-是什么？" class="headerlink" title="[BX]是什么？"></a>[BX]是什么？</h3><p>​    <code>[0]</code>表示一个内存单元时，0表示单元的偏移地址，段地址默认在DS中，而取出数据的长度由具体指令中的接收值的寄存器指出。<code>[BX]</code>也是同理，BX代表单元的偏移地址，其他与<code>[0]</code>类似。</p>
+<p>​    举例题目如下：</p>
+<p><img src="/images/Assembly-1/image-20230218230529558.png" alt="image-20230218230529558" style="zoom:67%;" /></p>
+<p>​    答案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">| BE |  21000H</span><br><span class="line">| 00 |  21001H</span><br><span class="line">| BE |  21002H</span><br><span class="line">| 00 |  21003H</span><br><span class="line">| BE |  21004H</span><br><span class="line">| BE |  21005H</span><br><span class="line">| BE |  21006H</span><br><span class="line">| 00 |  21007H</span><br></pre></td></tr></table></figure>
+<h3 id="一些补充"><a href="#一些补充" class="headerlink" title="一些补充"></a>一些补充</h3><ul>
+<li>我们用<code>()</code>来表示一个寄存器中的内容，举例<code>mov ax [2]</code>代表<code>(ax)=((ds)*16+2)</code>，<code>add ax, bx</code>代表<code>(ax)=(ax)+(bx)</code>，<strong><code>push ax</code>代表<code>(sp)=(sp)-2;((ss)*16+(sp))=(ax)</code></strong>。</li>
+<li>用<code>idata</code>表示常量。（不能向DS写常量，例如<code>mov DS, 1</code>）</li>
+</ul>
+<h3 id="Loop指令"><a href="#Loop指令" class="headerlink" title="Loop指令"></a>Loop指令</h3><pre><code>1. `(cx)=(cx)-1`
+1. 判断cx中的值是否为0，如果不为0则跳转到标号处执行，否则继续下个下执行。（**cx为循环次数**）
+</code></pre><p>​    程序示例：</p>
+<p><img src="/images/Assembly-1/image-20230219102425003.png" alt="image-20230219102425003" style="zoom:67%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">; 任务1</span><br><span class="line">assume cs:task1</span><br><span class="line">task1 segment</span><br><span class="line">	mov ax, 2</span><br><span class="line">	add ax, ax</span><br><span class="line">	mov ax, 4c00H ; 程序返回</span><br><span class="line">	int 21H</span><br><span class="line">task1 ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">; 任务2</span><br><span class="line">assume cs:task2</span><br><span class="line">task1 segment</span><br><span class="line">	mov ax, 2</span><br><span class="line">	add ax, ax</span><br><span class="line">	add ax, ax</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">task2 ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">; 任务3（loop的使用）</span><br><span class="line">assume cs:task3</span><br><span class="line">task3 segment</span><br><span class="line">	mov ax, 2</span><br><span class="line">	mov cx, 11</span><br><span class="line">loop1:</span><br><span class="line">	add ax, ax</span><br><span class="line">	loop loop1</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">task1 ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h4 id="Q-amp-A-1"><a href="#Q-amp-A-1" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h4><ul>
+<li>加法计算123*256，并将结果保存在A    X中。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">assume cs:addFunc</span><br><span class="line">addFunc segment</span><br><span class="line">	mov ax, 0</span><br><span class="line">	mov cx, 236</span><br><span class="line">loop1:</span><br><span class="line">	add ax, 123</span><br><span class="line">	loop loop1</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">addFunc ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<ul>
+<li>计算<code>ffff:0006</code>单元中的数乘3，结果保存在DX中。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">assume cs:func</span><br><span class="line">func segment</span><br><span class="line">	mov dx, 0</span><br><span class="line">	mov ax, 0ffffH ; 汇编程序中数据不能以字母开头，因此前面要加0</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov ax, 0</span><br><span class="line">	mov al, [6]</span><br><span class="line">	mov cx, 3</span><br><span class="line">loop1:</span><br><span class="line">	add dx, ax</span><br><span class="line">	loop loop1</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">func ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h3 id="Debug与Masm的不同处理"><a href="#Debug与Masm的不同处理" class="headerlink" title="Debug与Masm的不同处理"></a>Debug与Masm的不同处理</h3><p>​    Debug中直接用a写入汇编命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax, 2000</span><br><span class="line">mov ds, ax</span><br><span class="line">mov al, [0]</span><br><span class="line">mov bl, [1]</span><br><span class="line">mov cl, [2]</span><br><span class="line">mov dl, [3]</span><br></pre></td></tr></table></figure>
+<p>​    然后在debug中用u命令查看<strong>（debug的解释）</strong>：</p>
+<p><img src="/images/Assembly-1/image-20230219113718032.png" alt="image-20230219113718032" style="zoom:67%;" /></p>
+<p>​    和正常一样，但是如果用<code>edit</code>来写汇编程序的话<strong>（编译器的解释）</strong>，代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code </span><br><span class="line">code segment</span><br><span class="line">	mov ax,2000h</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov al,[0]</span><br><span class="line">	mov bl,[1]</span><br><span class="line">	mov cl,[2]</span><br><span class="line">	mov dl,[3]</span><br><span class="line">	mov ax,4c00h</span><br><span class="line">	int 21h</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>​    结果如下图所示<strong>（怎么与程序写的不一样???）</strong>：</p>
+<p><img src="/images/Assembly-1/image-20230219113657168.png" alt="image-20230219113657168" style="zoom:67%;" /></p>
+<p>​    那我们如何避免呢？那就需要这么写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code </span><br><span class="line">code segment</span><br><span class="line">	mov ax, 2000h</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov al, ds:[0] ;前面加入段寄存器</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>​    或者这么写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code </span><br><span class="line">code segment</span><br><span class="line">	mov ax, 2000h</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov bx, 0</span><br><span class="line">	mov al, [bx]</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p><strong>Q：计算<code>ffff:0-ffff:b</code>单元中的数据的和，结果存储在dx中</strong></p>
+<p><strong>A：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">assume cs:func</span><br><span class="line">func segment</span><br><span class="line">	mov ax, 0ffffH</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov bx, 0 ; 指针</span><br><span class="line">	mov dx, 0 ; 存储结果</span><br><span class="line">	mov cx, 0bH ; 循环次数</span><br><span class="line">	mov ax, 0 ;中间寄存器</span><br><span class="line">loop1:</span><br><span class="line">	mov al, [bx]</span><br><span class="line">	add dx, ax</span><br><span class="line">	inc bx</span><br><span class="line">	loop loop1</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">func ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h3 id="安全空间"><a href="#安全空间" class="headerlink" title="安全空间"></a>安全空间</h3><ul>
+<li>DOS方式下，<code>0:200-0:2FF</code>空间中没有系统或其他程序的程序，可以放心使用，其他的不确定，有可能存放重要代码。</li>
+<li>将内存<code>ffff:0-ffff:b</code>单元中的数据拷贝到<code>0:200-0:20b</code>单元中：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov cx, 0bH</span><br><span class="line">	mov bx, 0</span><br><span class="line">loop1:</span><br><span class="line">	mov ax, 0ffffH</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov dl, [bx]</span><br><span class="line">	mov ax, 20H</span><br><span class="line">	mov ds, ax	</span><br><span class="line">	mov [bx], dl</span><br><span class="line">	inc bx</span><br><span class="line">	loop loop1</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>​    改进如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">	mov ax, 0ffffH</span><br><span class="line">	mov ds, ax</span><br><span class="line">	mov ax, 20H</span><br><span class="line">	mov es, ax</span><br><span class="line">	mov bx, 0</span><br><span class="line">	mov cx, 12</span><br><span class="line">loop1:</span><br><span class="line">	mov dl, ds:[bx]</span><br><span class="line">	mov es:[bx], dl</span><br><span class="line">	inc bx</span><br><span class="line">	loop loop1</span><br><span class="line">	mov ax, 4c00H</span><br><span class="line">	int 21H</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/02/17/xxe-web/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/02/10/go-study/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-02-11 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Assembly/">Assembly<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

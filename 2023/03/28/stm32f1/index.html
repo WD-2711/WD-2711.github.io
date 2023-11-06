@@ -1,0 +1,537 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>stm32f1 | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="stm32f1"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> stm32f1</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="STM32视频笔记-1"><a href="#STM32视频笔记-1" class="headerlink" title="STM32视频笔记-1"></a>STM32视频笔记-1</h1><p>&emsp;视频链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bv4y1R7dp/?spm_id_from=333.999.0.0&amp;vd_source=270df07e19daab36f36e1863f3440455">https://www.bilibili.com/video/BV1bv4y1R7dp/?spm_id_from=333.999.0.0&amp;vd_source=270df07e19daab36f36e1863f3440455</a></p>
+<p>&emsp;单片机（SCM），就是微型计算机。CISC：复杂指令集计算机。RISC：精简指令集计算机。CISC目的是便于编程，且提高存储器的利用效率，RISC的目的是提高处理器的运行速度。CISC有：8051、X86；RISC有：ARM、MIPS、RISC-V。两种结构以及优缺点如下：</p>
+<span id="more"></span>
+<p><img src="/images/stm32f1/image-20230329161725412.png" alt="image-20230329161725412" style="zoom:67%;" /></p>
+<h2 id="Cortex-M介绍"><a href="#Cortex-M介绍" class="headerlink" title="Cortex-M介绍"></a>Cortex-M介绍</h2><p>&emsp;STM32是基于ARM架构。Cortex-M是ARM内核的型号。Cortex-A主打高性能（手机等），Cortex-R主打实时性（军工），Cortex-M主打低功耗（智能设备）。</p>
+<h2 id="STM32介绍"><a href="#STM32介绍" class="headerlink" title="STM32介绍"></a>STM32介绍</h2><p>&emsp;STM32命名规则：</p>
+<p><img src="/images/stm32f1/image-20230329170254825.png" alt="image-20230329170254825" style="zoom: 33%;" /></p>
+<p>&emsp;STM32ZET6引脚图：</p>
+<p><img src="/images/stm32f1/image-20230329172103776.png" alt="image-20230329172103776" style="zoom: 33%;" /></p>
+<p>&emsp;包括电源引脚（V开头），晶振引脚（8、9、23、24，提供稳定时钟信号），复位引脚（25），下载引脚，Boot引脚（48、138），GPIO引脚（P开头，通用性引脚）。</p>
+<p>&emsp;下载引脚如下，其中<strong>串口不能进行调试，建议使用SWD接口，因为其占用引脚少，且可以调试：</strong></p>
+<p><img src="/images/stm32f1/image-20230329172405895.png" alt="image-20230329172405895" style="zoom: 50%;" /></p>
+<p>&emsp;正点原子开发板如下：</p>
+<p><img src="/images/stm32f1/image-20230329174014783.png" alt="image-20230329174014783" style="zoom: 33%;" /></p>
+<p>&emsp;其中最小系统指的是：STM32F103、以及打对勾的电路，这些是可以保证MCU正常工作的最小电路组成单元。</p>
+<p>&emsp;STM32常用开发环境：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 集成开发环境IDE：MDK</span><br><span class="line">2. 仿真器：DAP、STLINK</span><br><span class="line">3. 串口调试助手：XCOM </span><br></pre></td></tr></table></figure>
+<p>&emsp;<strong>为什么要安装CH340 USB 虚拟串口驱动？</strong></p>
+<p><img src="/images/stm32f1/image-20230329194704126.png" alt="image-20230329194704126" style="zoom: 33%;" /></p>
+<p>&emsp;因为开发板STM32是CH340C协议，所以电脑上也要安装相应的CH340协议才能够解析相关信息。</p>
+<p>&emsp;USB虚拟串口的作用：（1）USB口可以当串口来使用。（2）如果USB连接的是串口1，那么可以下载程序到开发板上。（3）可以当供电口。</p>
+<p>&emsp;一些数据存储的位置：（1）Flash（闪存）：作为单片机运行程序存储的地方。（2）SRAM：存储单片机运行过程中，产生的临时数据。</p>
+<p>&emsp;在MDK写好程序后，使用flymcu软件（也叫做串口下载上位机），使用串口1来将程序下载到单片机：</p>
+<p><img src="/images/stm32f1/image-20230329203930170.png" alt="image-20230329203930170" style="zoom: 50%;" /></p>
+<p>&emsp;上述下载使用的是ISP下载（使用串口1），如下图所示：</p>
+<p><img src="/images/stm32f1/image-20230329204232443.png" alt="image-20230329204232443" style="zoom:50%;" /></p>
+<p>&emsp;就是使用ARM厂商的BootLoader程序来进行程序下载。注：串口1又叫做USART1。上述表格第二条是下载，第一条是程序运行。</p>
+<p>&emsp;之后是程序调试环节，是用正点原子的DAP调试器来完成的，具体配置看：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bv4y1R7dp/?p=10&amp;spm_id_from=333.880.my_history.page.click&amp;vd_source=270df07e19daab36f36e1863f3440455">https://www.bilibili.com/video/BV1bv4y1R7dp/?p=10&amp;spm_id_from=333.880.my_history.page.click&amp;vd_source=270df07e19daab36f36e1863f3440455</a></p>
+<h2 id="JTAG-SWD调试原理"><a href="#JTAG-SWD调试原理" class="headerlink" title="JTAG/SWD调试原理"></a>JTAG/SWD调试原理</h2><p>&emsp;Cortex-M内核含有硬件调试模块，该模块可在取指(指令断点)或访问数据(数据断点)时停止。内核停止时，可以查询内核的内部状态和系统的外部状态。完成查询后，可恢复程序执行。</p>
+<h2 id="MDK使用与调试"><a href="#MDK使用与调试" class="headerlink" title="MDK使用与调试"></a>MDK使用与调试</h2><p>&emsp;讲解软件如何使用，非常简单。注意：（1）调试停止在断点处时，只是内核停止，外设会继续运行。（2）断点的设置要有时间观念，考虑是否会打断正常通信。</p>
+<p>&emsp;程序编译时，Code、RO-Data、RW-Data占用Flash，而RW-Data、ZI-Data占用SRAM。</p>
+<p>&emsp;几个程序中的窗口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Call Stack 窗口:查看函数调用关系&amp;局部变量</span><br><span class="line">Watch窗口：（1）查看函数首地址&amp;变量值；（2）设置全局变量在被读或写后自动停止运行</span><br><span class="line">Memory窗口: 内存查看窗口</span><br><span class="line">Peripheral窗口: 查看寄存器的值</span><br></pre></td></tr></table></figure>
+<h2 id="几种小tricks"><a href="#几种小tricks" class="headerlink" title="几种小tricks"></a>几种小tricks</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TAB：选中代码段+shift+TAB，左移；选中代码段+TAB，右移。</span><br><span class="line">快速定位函数被定义的地方：先编译，选中函数+右键+Go to Definition of &quot;xx&quot;</span><br><span class="line">快速注释：选中代码段+上述//图标</span><br><span class="line">打开头文件：选中+右键+Open document</span><br><span class="line">窗口视图恢复默认状态方法：window -&gt; reset view to defaults -&gt; reset</span><br></pre></td></tr></table></figure>
+<h2 id="C语言复习"><a href="#C语言复习" class="headerlink" title="C语言复习"></a>C语言复习</h2><p>&emsp;<code>stdint.h</code>中定义了<code>int8_t</code>、<code>int16_t</code>等数据类型。</p>
+<h3 id="宏定义"><a href="#宏定义" class="headerlink" title="宏定义"></a>宏定义</h3><p>&emsp;宏定义可以：提高效率、可读性、易改性，核心是替换（简单粗暴的替换）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define 标识符 字符串（可以是常数、字符串等）</span><br></pre></td></tr></table></figure>
+<p>&emsp;带参数的宏定义：</p>
+<p>&emsp;例如，如下代码为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define foo(x) bar(x); baz(x)</span><br><span class="line">foo(wolf)</span><br></pre></td></tr></table></figure>
+<p> &emsp;这将被宏扩展为:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bar(wolf); baz(wolf);</span><br></pre></td></tr></table></figure>
+<p>&emsp;另外一个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#define LED1(x) do&#123; x?\</span><br><span class="line">    HAL_GPIO_WritePin(LED1_GPIO_PORT,LED1_GPIO_PIN, GPIO_PIN_SET): \</span><br><span class="line">    HAL_GPIO_WritePin(LED1_GPIO_PORT,LED1_GPIO_PIN,GPIO_PIN_RESET);</span><br><span class="line">&#125; while(0)</span><br></pre></td></tr></table></figure>
+<p>&emsp;意思就是LED1(x)是一个函数，函数内容为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">do&#123; x?\</span><br><span class="line">    HAL_GPIO_WritePin(LED1_GPIO_PORT,LED1_GPIO_PIN, GPIO_PIN_SET): \</span><br><span class="line">    HAL_GPIO_WritePin(LED1_GPIO_PORT,LED1_GPIO_PIN,GPIO_PIN_RESET);</span><br><span class="line">&#125; while(0)</span><br></pre></td></tr></table></figure>
+<h3 id="条件编译"><a href="#条件编译" class="headerlink" title="条件编译"></a>条件编译</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#if -&gt; 编译预处理条件指令，类似if</span><br><span class="line">#ifdef -&gt; 判断某个宏是否已被定义</span><br><span class="line">#ifndef -&gt; 判断某个宏是否未被定义</span><br><span class="line">#elif -&gt; 若前面的条件不满足，则判定新的条件，类似else if</span><br><span class="line">#else -&gt; 若前面的条件不满足，则执行后面的语句，类似else</span><br><span class="line">#endif -&gt; #if，#ifdef，#ifndef的结束标志</span><br></pre></td></tr></table></figure>
+<p>举例如下：</p>
+<p><img src="/images/stm32f1/image-20230412121210497.png" alt="image-20230412121210497" style="zoom:50%;" /></p>
+<h3 id="Extern声明"><a href="#Extern声明" class="headerlink" title="Extern声明"></a>Extern声明</h3><p>&emsp;放在函数/变量前，表示此函数/变量在其他文件定义，以便本文件引用。举例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">extern uint16_t g_usart_rx_sta;</span><br><span class="line">extern void delay_us(uin t32_t nus);</span><br></pre></td></tr></table></figure>
+<h3 id="类型别名（typedef）"><a href="#类型别名（typedef）" class="headerlink" title="类型别名（typedef）"></a>类型别名（typedef）</h3><p>&emsp;为现有数据类型创建一个新的名字，用来简化变量的定义。举例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">typedef unsigned char uint8_t;</span><br><span class="line">typedef unsigned short int uint16_t;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/stm32f1/image-20230412122054144.png" alt="image-20230412122054144" style="zoom:50%;" /></p>
+<h3 id="命名规则（不必须）"><a href="#命名规则（不必须）" class="headerlink" title="命名规则（不必须）"></a>命名规则（不必须）</h3><p>&emsp;全局变量命名一般用<code>g_</code>开头，全局指针命名一般用<code>p_</code>开头。</p>
+<h2 id="STM32基础知识"><a href="#STM32基础知识" class="headerlink" title="STM32基础知识"></a>STM32基础知识</h2><p> &emsp;MCU（单片机）厂商，经ARM公司授权，添加不同的外设=各种XX32芯片。</p>
+<h3 id="F1系统框架"><a href="#F1系统框架" class="headerlink" title="F1系统框架"></a>F1系统框架</h3><p> <img src="/images/stm32f1/image-20230412124058772.png" alt="image-20230412124058772" style="zoom: 33%;" /></p>
+<p><img src="/images/stm32f1/image-20230412124502703.png" alt="image-20230412124502703" style="zoom:50%;" /></p>
+<h3 id="存储器映射"><a href="#存储器映射" class="headerlink" title="存储器映射"></a>存储器映射</h3><p>&emsp;STM32寻址范围：<code>2^32=4GB</code>，<code>0x00000000-0xFFFFFFFF</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 32位的单片机可以有32根地址线 (每根地址线有两种状态:导通或不导通)</span><br><span class="line">2. 单片机内存地址访问的存储单元是按字节编址的 (而不是bit)</span><br></pre></td></tr></table></figure>
+<p>&emsp;ST公司将4GB划分为8个块，如下所示：（主要是前三个Block，最主要的就是Block2 片上外设，与APB1、APB2有关）</p>
+<p> <img src="/images/stm32f1/image-20230412134637126.png" alt="image-20230412134637126" style="zoom: 33%;" /></p>
+<p><img src="/images/stm32f1/image-20230412134929905.png" alt="image-20230412134929905" style="zoom: 33%;" /></p>
+<p><img src="/images/stm32f1/image-20230412135049397.png" alt="image-20230412135049397" style="zoom:50%;" /></p>
+<h3 id="寄存器映射"><a href="#寄存器映射" class="headerlink" title="寄存器映射"></a>寄存器映射</h3><p>&emsp;寄存器是4G内存的一个地址。</p>
+<p>&emsp;GPIO端口：GPIO（General Purpose Input/Output，通用输入输出）端口在单片机中是一种非常重要的资源。GPIO端口可以被配置为输入或输出模式，用于与外部电路、传感器、执行器等进行通信和控制。</p>
+<p><img src="/images/stm32f1/image-20230412135609021.png" alt="image-20230412135609021" style="zoom:33%;" /></p>
+<p>&emsp;举例如下，给出下面的信息：（地址偏移为0xc）</p>
+<p><img src="/images/stm32f1/image-20230412140628561.png" alt="image-20230412140628561" style="zoom:50%;" /></p>
+<p>&emsp;那么，<code>GPIOA_ODR=0x4001080C</code>。如果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*(unsigned int *)(0x4001080C)=0xFFFF</span><br></pre></td></tr></table></figure>
+<p>&emsp;那么，就等于设置<code>PA0-&gt;PA15=1</code>。</p>
+<p>&emsp;还可以这样写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define GPIOA_ODR *(unsigned int *)(0x4001080C)</span><br><span class="line">GPIOA_ODR=0xFFFF</span><br></pre></td></tr></table></figure>
+<h3 id="寄存器地址计算"><a href="#寄存器地址计算" class="headerlink" title="寄存器地址计算"></a>寄存器地址计算</h3><p>&emsp;将寄存器地址分为三个部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1、总线基地址 (BUS_BASE_ADDR)</span><br><span class="line">2、外设基于总线基地址的偏移量 (PERIPH_OFFSET)</span><br><span class="line">3、寄存器相对外设基地址的偏移量(REG_OFFSET)</span><br><span class="line">寄存器地址=BUS_BASE_ADDR+PERIPH_OFFSET+REG_OFFSET</span><br></pre></td></tr></table></figure>
+<p><img src="/images/stm32f1/image-20230412141454724.png" alt="image-20230412141454724" style="zoom:50%;" /></p>
+<p>&emsp;APB1总线的基地址，也叫外设基地址 (PERIPH_BASE)；此表的偏移量是相对外设基地址(PERIPH_BASE) 来说的。</p>
+<p><img src="/images/stm32f1/image-20230412141749996.png" alt="image-20230412141749996" style="zoom:33%;" /></p>
+<p><img src="/images/stm32f1/image-20230412141916620.png" alt="image-20230412141916620" style="zoom: 33%;" /></p>
+<p>&emsp;<strong>使用结构体，完成对寄存器的映射（以GPIO为例）：</strong></p>
+<p><img src="/images/stm32f1/image-20230412142537211.png" alt="image-20230412142537211" style="zoom: 50%;" /></p>
+<p>&emsp;注：FSMC全称为Flexible Static Memory Controller，是指在一些高级单片机中，用于控制片内静态存储器（比如NOR Flash、SRAM、PSRAM等）和外部静态存储器（比如SRAM、PSRAM等）的模块。</p>
+<h2 id="新建寄存器版本MDK工程"><a href="#新建寄存器版本MDK工程" class="headerlink" title="新建寄存器版本MDK工程"></a>新建寄存器版本MDK工程</h2><p>&emsp;简要步骤如下：</p>
+<p><img src="/images/stm32f1/image-20230412144107646.png" alt="image-20230412144107646" style="zoom:50%;" /></p>
+<ul>
+<li><strong>新建工程文件夹。</strong></li>
+</ul>
+<p><img src="/images/stm32f1/image-20230412144331469.png" alt="image-20230412144331469" style="zoom:33%;" /></p>
+<p><img src="/images/stm32f1/image-20230412144822686.png" alt="image-20230412144822686" style="zoom: 33%;" /></p>
+<p>&emsp;Projects文件夹用于存放编译器 (MDK、 IAR 等)工程文件，我们主要用 MDK，为了方便区分我们在该文件夹下新建: MDK-ARM 文件夹，用于存放 MDK 的工程文件。</p>
+<ul>
+<li><strong>新建工程框架。</strong>使用软件新建，保存到MDK-ARM 文件夹中。会生成以下文件夹：</li>
+</ul>
+<p><img src="/images/stm32f1/image-20230412150554960.png" alt="image-20230412150554960" style="zoom:50%;" /></p>
+<p>&emsp;之后可以将Listings与Objects文件夹放到之前新建的Output文件夹中去。</p>
+<ul>
+<li><strong>添加文件。</strong></li>
+</ul>
+<p><img src="/images/stm32f1/image-20230412150958377.png" alt="image-20230412150958377" style="zoom:50%;" /></p>
+<p>&emsp;其次，在startup组中加入启动文件（放在<code>.\Drivers\CMSIS\Device\ST\STM32F1xx\Source\Templates\arm</code>中），如下图所示：</p>
+<p><img src="/images/stm32f1/image-20230412151200406.png" alt="image-20230412151200406" style="zoom:50%;" /></p>
+<p>&emsp;之后，修改<code>startup_stm32f103xe.s</code>：</p>
+<p><img src="/images/stm32f1/image-20230412151456485.png" alt="image-20230412151456485" style="zoom:50%;" /></p>
+<p>&emsp;之后，向Drivers/SYSTEM文件夹中添加文件（放在<code>.\Drivers\SYSTEM</code>中），如下图所示：</p>
+<p><img src="/images/stm32f1/image-20230412151814705.png" alt="image-20230412151814705" style="zoom:50%;" /></p>
+<ul>
+<li><strong>魔术棒设置。</strong></li>
+</ul>
+<p><img src="/images/stm32f1/image-20230412152219025.png" alt="image-20230412152219025" style="zoom:33%;" /></p>
+<p>&emsp;Target选项设置：</p>
+<p><img src="/images/stm32f1/image-20230412152346786.png" alt="image-20230412152346786" style="zoom:50%;" /></p>
+<p>&emsp;Output选项设置：</p>
+<p><img src="/images/stm32f1/image-20230412152716164.png" alt="image-20230412152716164" style="zoom:50%;" /></p>
+<p>&emsp;Listing选项设置：</p>
+<p><img src="/images/stm32f1/image-20230412152939470.png" alt="image-20230412152939470" style="zoom:50%;" /></p>
+<p>&emsp;C/C++选项设置（头文件包含路径在<code>.\Drivers\CMSIS\Device\ST\STM32F1xx\Include</code>）：</p>
+<p><img src="/images/stm32f1/image-20230412152959277.png" alt="image-20230412152959277" style="zoom:50%;" /></p>
+<p><img src="/images/stm32f1/image-20230412153418214.png" alt="image-20230412153418214" style="zoom:50%;" /></p>
+<p>&emsp;Debug选项设置：</p>
+<p><img src="/images/stm32f1/image-20230412153022774.png" alt="image-20230412153022774" style="zoom:50%;" /></p>
+<p>&emsp;Utilities选项设置：</p>
+<p><img src="/images/stm32f1/image-20230412153054049.png" alt="image-20230412153054049" style="zoom:50%;" /></p>
+<ul>
+<li><strong>添加main.c。</strong>新建main.c并保存到User文件夹里，并添加到User分组中。并对代码进行编译，并点击下载。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;./SYSTEM/sys/sys.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;./SYSTEM/usart/usart.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;./SYSTEM/delay/delay.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uint8_t</span> t = <span class="number">0</span>;</span><br><span class="line">    sys_stm32_clock_init(<span class="number">9</span>);    <span class="comment">/* 设置时钟, 72Mhz */</span></span><br><span class="line">    delay_init(<span class="number">72</span>);             <span class="comment">/* 延时初始化 */</span></span><br><span class="line">    usart_init(<span class="number">72</span>, <span class="number">115200</span>);     <span class="comment">/* 串口初始化 */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;t:%d\r\n&quot;</span>, t);</span><br><span class="line">        delay_ms(<span class="number">500</span>);</span><br><span class="line">        t++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>打开XCOM V2.7，需要用type-C线连接到电脑上（主要是能进行printf显示，DAP是进行调试的，两者不一样）。分别点击下列红框：</li>
+</ul>
+<p><img src="/images/stm32f1/image-20230412155235136.png" alt="image-20230412155235136" style="zoom:50%;" /></p>
+<p>&emsp;在板子上点击Reset，就会重新从<code>t:0</code>开始。</p>
+<h2 id="HAL库-amp-STM32Cube固件包解析"><a href="#HAL库-amp-STM32Cube固件包解析" class="headerlink" title="HAL库&amp;STM32Cube固件包解析"></a>HAL库&amp;STM32Cube固件包解析</h2><p><strong>什么是CMSIS？</strong></p>
+<p>&emsp;CMSIS (微控制器软件接口标准：Cortex Microcontroller Software Interface Standard)，是由ARM和与其合作的芯片厂商共同制定的标准。 相当于用户代码与硬件之间的一个中间层，HAL库属于CMSIS中的一种。</p>
+<p><strong>什么是HAL？</strong></p>
+<p>&emsp;ST 为了方便用户开发 STM32芯片开发提供了三种库：（1）标准外设库（Standard Peripheral Libraries）；（2）HAL库（硬件抽象层：Hardware Abstraction Layer）（兼容性高，效率低）；（3）LL库（Low Layer）（兼容性高，轻量级，效率高，但是不匹配复杂外设，例如USB）。</p>
+<h3 id="STM32Cube固件包解析"><a href="#STM32Cube固件包解析" class="headerlink" title="STM32Cube固件包解析"></a>STM32Cube固件包解析</h3><p>&emsp;它包括HAL库。</p>
+<p><img src="/images/stm32f1/image-20230412161230225.png" alt="image-20230412161230225" style="zoom:50%;" /></p>
+<p><img src="/images/stm32f1/image-20230412161345027.png" alt="image-20230412161345027" style="zoom:50%;" /></p>
+<p><img src="/images/stm32f1/image-20230412161558385.png" alt="image-20230412161558385" style="zoom:50%;" /></p>
+<p>&emsp;CMSIS文件夹下的重要文件：</p>
+<p><img src="/images/stm32f1/image-20230412161652399.png" alt="image-20230412161652399" style="zoom:50%;" /></p>
+<p><img src="/images/stm32f1/image-20230412162008227.png" alt="image-20230412162008227" style="zoom:50%;" /></p>
+<h3 id="HAL库框架结构"><a href="#HAL库框架结构" class="headerlink" title="HAL库框架结构"></a>HAL库框架结构</h3><p><img src="/images/stm32f1/image-20230412162843448.png" alt="image-20230412162843448" style="zoom:50%;" /></p>
+<p>&emsp;HAL重要文件的介绍：</p>
+<p><img src="/images/stm32f1/image-20230412163931352.png" alt="image-20230412163931352" style="zoom:50%;" /></p>
+<p>&emsp;HAL中函数与变量命名规则如下（大多数情况下成立）：</p>
+<p><img src="/images/stm32f1/image-20230412164306129.png" alt="image-20230412164306129" style="zoom:50%;" /></p>
+<p><img src="/images/stm32f1/image-20230412164427565.png" alt="image-20230412164427565" style="zoom:50%;" /></p>
+<p>&emsp;HAL库对寄存器位操作的相关宏定义：</p>
+<p><img src="/images/stm32f1/image-20230412165731792.png" alt="image-20230412165731792" style="zoom:50%;" /></p>
+<p>&emsp; HAL回调函数：</p>
+<p><img src="/images/stm32f1/image-20230412170158509.png" alt="image-20230412170158509" style="zoom:50%;" /></p>
+<h3 id="HAL库使用"><a href="#HAL库使用" class="headerlink" title="HAL库使用"></a>HAL库使用</h3><p>&emsp;基于CMSIS应用程序文件描述：</p>
+<p><img src="/images/stm32f1/image-20230412170533924.png" alt="image-20230412170533924" style="zoom:50%;" /></p>
+<p><img src="/images/stm32f1/image-20230412171429940.png" alt="image-20230412171429940" style="zoom:50%;" /></p>
+<p>&emsp;Stm32f1xx_hal.c中的HAL_Init函数：</p>
+<p><img src="/images/stm32f1/image-20230412172145407.png" alt="image-20230412172145407" style="zoom:50%;" /></p>
+<h2 id="新建HAL库版本MDK工程"><a href="#新建HAL库版本MDK工程" class="headerlink" title="新建HAL库版本MDK工程"></a>新建HAL库版本MDK工程</h2><p>&emsp;与新建寄存器版本的MDK工程类似。具体看正点给出的HAL工程示例。</p>
+<p>&emsp;视频链接如下：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bv4y1R7dp/?p=29&amp;spm_id_from=pageDriver&amp;vd_source=270df07e19daab36f36e1863f3440455">https://www.bilibili.com/video/BV1bv4y1R7dp/?p=29&amp;spm_id_from=pageDriver&amp;vd_source=270df07e19daab36f36e1863f3440455</a></p>
+<h2 id="STM启动过程浅析"><a href="#STM启动过程浅析" class="headerlink" title="STM启动过程浅析"></a>STM启动过程浅析</h2><p><strong>MAP文件浅析</strong></p>
+<p>&emsp;MDK编译会产生中间文件，如下：</p>
+<p><img src="/images/stm32f1/image-20230412184255690.png" alt="image-20230412184255690" style="zoom:50%;" /></p>
+<p>&emsp;map文件包含了各种.c文件、函数、符号等的地址、大小、引用关系等信息。用于分析各.c文件占用FLASH和 RAM的大小，方便优化代码。Map文件组成如下：</p>
+<p><img src="/images/stm32f1/image-20230412184801787.png" alt="image-20230412184801787" style="zoom:50%;" /></p>
+<p><strong>STM32启动模式（自举模式）</strong></p>
+<p>&emsp;  M3/M4/M7等内核复位后，做的第一件事：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">从地址 0x0000 0000 处取出堆栈指针 MSP 的初始值，该值就是栈顶地址；从地址 0x0000 0004 处取出程序计数器指针 PC的初始值，该值是复位向量；</span><br></pre></td></tr></table></figure>
+<p>&emsp;厂商能够更改这两个值（<code>0x00000000</code>与<code>0x00000004</code>），也就引出了不同的启动模式。</p>
+<p><img src="/images/stm32f1/image-20230412190536670.png" alt="image-20230412190536670" style="zoom:50%;" /></p>
+<p><strong>STM32启动过程（以内部FLASH启动为例）</strong></p>
+<p><img src="/images/stm32f1/image-20230412191136454.png" alt="image-20230412191136454" style="zoom:50%;" /></p>
+<p>&emsp;启动文件介绍：</p>
+<p><img src="/images/stm32f1/image-20230412195323073.png" alt="image-20230412195323073" style="zoom:50%;" /></p>
+<p>&emsp;Reset_Handler函数介绍：</p>
+<p><img src="/images/stm32f1/image-20230412195548522.png" alt="image-20230412195548522" style="zoom:50%;" /></p>
+<p>&emsp;STM32启动过程图解：</p>
+<p><img src="/images/stm32f1/image-20230412200334923.png" alt="image-20230412200334923" style="zoom:80%;" /></p>
+<h2 id="STM32CubeMX入门"><a href="#STM32CubeMX入门" class="headerlink" title="STM32CubeMX入门"></a>STM32CubeMX入门</h2><p>&emsp;它是图形配置工具，它可以通过配置自动生成<strong>初始化代码</strong>。其搭配不同系列的STM32Cube固件包，即可支持不同系列的STM32芯片。</p>
+<h3 id="新建STM32CubeMX工程"><a href="#新建STM32CubeMX工程" class="headerlink" title="新建STM32CubeMX工程"></a>新建STM32CubeMX工程</h3><p>&emsp;建立步骤如下：</p>
+<p><img src="/images/stm32f1/image-20230412203331475.png" alt="image-20230412203331475" style="zoom: 50%;" /></p>
+<p>&emsp;具体配置见视频：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bv4y1R7dp/?p=35&amp;spm_id_from=pageDriver&amp;vd_source=270df07e19daab36f36e1863f3440455">https://www.bilibili.com/video/BV1bv4y1R7dp/?p=35&amp;spm_id_from=pageDriver&amp;vd_source=270df07e19daab36f36e1863f3440455</a></p>
+<h2 id="STM32时钟系统"><a href="#STM32时钟系统" class="headerlink" title="STM32时钟系统"></a>STM32时钟系统</h2><h3 id="时钟树"><a href="#时钟树" class="headerlink" title="时钟树"></a>时钟树</h3><p>&emsp;时钟clk，是具有周期性的脉冲信号。</p>
+<p><img src="/images/stm32f1/image-20230412205759588.png" alt="image-20230412205759588" style="zoom:50%;" /></p>
+<p>&emsp;其简图如下：</p>
+<p><img src="/images/stm32f1/image-20230412210942792.png" alt="image-20230412210942792" style="zoom:50%;" /></p>
+<p>&emsp;相关函数与宏：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 时钟源、锁相环: HAL_RCC_OscConfig()，HSE、HSI、LSI、LSE等</span><br><span class="line">2. 系统时钟、总线: HAL_RCC_ClockConfig()</span><br><span class="line">3. 使能外设时钟: HAL_RCC_PPP_CLK_ENABLE()，默认外设都是关闭时钟的</span><br></pre></td></tr></table></figure>
+<p>&emsp;上图中，OSC_OUT与OSC_IN是外部高速晶振，OSC32_IN与OSC32_OUT是外部低速晶振。</p>
+<p><img src="/images/stm32f1/image-20230412210024243.png" alt="image-20230412210024243" style="zoom:50%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">H:high; L:low; S:speed; I:internal; E:external</span><br></pre></td></tr></table></figure>
+<h3 id="配置系统时钟"><a href="#配置系统时钟" class="headerlink" title="配置系统时钟"></a>配置系统时钟</h3><p><img src="/images/stm32f1/image-20230412214504610.png" alt="image-20230412214504610" style="zoom:50%;" /></p>
+<p>&emsp;<code>3+4+5=sys_stm32_clock_init()</code>。</p>
+<p>&emsp;<strong>如果要使用某个外设，必须先使能外设时钟！！</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HAL库使能某个外设时钟的方法，如:HAL RCC_GPIOA CLK ENABLE()</span><br><span class="line">HAL库禁止某个外设时钟的方法，如:HAL RCC_GPIOA CLK DISABLE()</span><br></pre></td></tr></table></figure>
+<p><strong>两个时钟函数</strong></p>
+<ul>
+<li>HAL_RCC_OscConfig()函数：配置时钟源</li>
+</ul>
+<p><img src="/images/stm32f1/image-20230412215014693.png" alt="image-20230412215014693" style="zoom:50%;" /></p>
+<ul>
+<li><p>HAL_RCC_ClockConfig()函数：配置HCLK相关参数</p>
+<p><img src="/images/stm32f1/image-20230412215525183.png" alt="image-20230412215525183" style="zoom:50%;" /></p>
+</li>
+</ul>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/03/29/re-part-5-2/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/03/27/re-core-principle-2/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-03-28 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/IOT/">IOT<span>4</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

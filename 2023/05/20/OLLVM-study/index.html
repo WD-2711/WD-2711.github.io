@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>OLLVM-study | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="OLLVM-study"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> OLLVM-study</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="OLLVM-原理、破解思路-amp-hook"><a href="#OLLVM-原理、破解思路-amp-hook" class="headerlink" title="OLLVM 原理、破解思路&amp;hook"></a>OLLVM 原理、破解思路&amp;hook</h1><p>参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/theseventhson/p/14861940.html">https://www.cnblogs.com/theseventhson/p/14861940.html</a></p>
+<p>&emsp;OLLVM是安卓中常用的一种混淆方法。</p>
+<span id="more"></span>
+<h2 id="0x00-LLVM原理"><a href="#0x00-LLVM原理" class="headerlink" title="0x00 LLVM原理"></a>0x00 LLVM原理</h2><p>&emsp;传统编译器流程：</p>
+<p><img src="/images/OLLVM-study/image-20230520161042816.png" alt="image-20230520161042816" style="zoom:67%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Fronted前端：做词法分析、语法分析、语义分析、生成中间代码（简单讲就是检查语法是不是正确的，并生成中间代码）；</span><br><span class="line">Optimizer优化：比如有些声明但没被使用的变量或函数要不要去掉？很多简单函数之间的调用要不要直接内联合并成一个函数，以便运行时减少堆栈开销? </span><br><span class="line">Bankend后端：生成和CPU匹配的机器码</span><br></pre></td></tr></table></figure>
+<p>&emsp;上述编译流程最大的问题：Frontend、Optimizer、backend之间是紧耦合的，互相拆不开。</p>
+<p>&emsp;LLVM架构：</p>
+<p><img src="/images/OLLVM-study/image-20230520162636042.png" alt="image-20230520162636042" style="zoom:67%;" /></p>
+<p>&emsp;注意：</p>
+<ul>
+<li>优化阶段 Optimizer 是一个通用的阶段，它针对的是统一的LLVM IR，不论是支持新的编程语言，还是支持新的硬件设备，都不需要对优化阶段做修改，前后端都遵从统一的IR标准。</li>
+<li>相比之下，GCC（一种开源编译器）的前端和后端没分得太开，前端后端耦合在了一起。所以GCC为了支持一门新的语言，或者为了支持一个新的目标平台，就变得特别困难。</li>
+<li>LLVM现在被作为实现各种静态和运行时编译语言的通用基础结构（GCC家族、Java、.NET、Python、Ruby等）。</li>
+</ul>
+<h2 id="0x01-OLLVM原理"><a href="#0x01-OLLVM原理" class="headerlink" title="0x01 OLLVM原理"></a>0x01 OLLVM原理</h2><p>&emsp;OLLVM就是在LLVM的基础上增加了obfuscator（混淆）。</p>
+<p>&emsp;Obfuscator是在中间optimizer这个环节做的。简单理解：OLLVM有一个框架，这个框架提供了很多API，调用这些API可以对IR中间代码做各种操作，比如下面的API：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ConstantDataSequential *CDS =<span class="built_in">dyn_cast</span>&lt;ConstantDataSequential&gt;(GV-&gt;<span class="built_in">getInitializer</span>());</span><br><span class="line"><span class="keyword">if</span> (CDS) &#123;</span><br><span class="line">            std::string str = CDS-&gt;<span class="built_in">getRawDataValues</span>().<span class="built_in">str</span>();</span><br><span class="line">            <span class="built_in">errs</span>() &lt;&lt; <span class="string">&quot;str:&quot;</span> &lt;&lt; str &lt;&lt; <span class="string">&quot;\r\n&quot;</span>;</span><br><span class="line">            <span class="type">uint8_t</span> xor_key = llvm::cryptoutils-&gt;<span class="built_in">get_uint8_t</span>();</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; str.<span class="built_in">size</span>(); ++i)</span><br><span class="line">            	str[i] = str[i] ^ xor_key;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;上述API的意思是：逐行扫描IR代码的字符串，并异或，达到混淆的目的。</p>
+<h2 id="0x02-OLLVM的4种混淆方式"><a href="#0x02-OLLVM的4种混淆方式" class="headerlink" title="0x02 OLLVM的4种混淆方式"></a>0x02 OLLVM的4种混淆方式</h2><h3 id="Instructions-Substitution（加减法、逻辑运算）"><a href="#Instructions-Substitution（加减法、逻辑运算）" class="headerlink" title="Instructions Substitution（加减法、逻辑运算）"></a>Instructions Substitution（加减法、逻辑运算）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">例1：</span><br><span class="line">a = b + b</span><br><span class="line">==&gt;</span><br><span class="line">r = rand(); a = b - r; a = a + b; a = a + r</span><br><span class="line"></span><br><span class="line">例2：</span><br><span class="line">a = b &amp; c</span><br><span class="line">==&gt;</span><br><span class="line">a = (b ^ ~c) &amp; b</span><br><span class="line"></span><br><span class="line">例3：</span><br><span class="line">a = a ^ b</span><br><span class="line">==&gt;</span><br><span class="line">a = (~a &amp; b) | (a &amp; ~b)</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以混淆多次。</p>
+<h3 id="Bogus-Control-Flow（虚假控制流：BCF）"><a href="#Bogus-Control-Flow（虚假控制流：BCF）" class="headerlink" title="Bogus Control Flow（虚假控制流：BCF）"></a>Bogus Control Flow（虚假控制流：BCF）</h3><p>&emsp;简单的代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span> &#123;</span><br><span class="line">  <span class="type">int</span> a = atoi(argv[<span class="number">1</span>]);</span><br><span class="line">  <span class="keyword">if</span>(a == <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;BCF处理后：</p>
+<p><img src="/images/OLLVM-study/image-20230520164813559.png" alt="image-20230520164813559" style="zoom:67%;" /></p>
+<h3 id="Control-Flow-Flattening（控制流平坦化：CFF）"><a href="#Control-Flow-Flattening（控制流平坦化：CFF）" class="headerlink" title="Control Flow Flattening（控制流平坦化：CFF）"></a>Control Flow Flattening（控制流平坦化：CFF）</h3><p>&emsp;最常见的混淆。原理：<strong>将if、while、for、do等控制语句转换成switch分支语句，可以模糊switch中case代码块之间的关系，从而增加分析难度。</strong></p>
+<p>&emsp;做法：将要实现平坦化的方法分成多个基本块（就是case代码块）和一个入口块，为每个基本块编号，并让这些基本块都有共同的前驱模块和后继模块。前驱模块主要是进行基本块的分发，分发通过改变switch变量来实现。后继模块也可用于更新switch变量的值，并跳转到switch开始处。如下图所示：</p>
+<p><img src="/images/OLLVM-study/image-20230520165052020.png" alt="image-20230520165052020" style="zoom:67%;" /></p>
+<p><img src="/images/OLLVM-study/image-20230520165216059.png" alt="image-20230520165216059" style="zoom:67%;" /></p>
+<h3 id="字符串加密"><a href="#字符串加密" class="headerlink" title="字符串加密"></a>字符串加密</h3><p>&emsp;调用OLLVM的API进行加密。</p>
+<p><strong>后面的先略过，简单看了看，比较简单。</strong></p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/05/21/pinocchio/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/05/18/go-bin-re-study/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-05-20 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re/">re<span>35</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

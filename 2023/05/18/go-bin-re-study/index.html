@@ -1,0 +1,414 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>go-bin-re-study | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="It is mainly the description document of the go_parser plug-in, and its content includes ModuleData, function table, source code file table, and the parsing format of each data type.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="go-bin-re-study"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> go-bin-re-study</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> It is mainly the description document of the go_parser plug-in, and its content includes ModuleData, function table, source code file table, and the parsing format of each data type.
+		 </div> <!-- alert -->
+	  		
+
+	  <h1 id="Go-二进制文件逆向分析"><a href="#Go-二进制文件逆向分析" class="headerlink" title="Go 二进制文件逆向分析"></a>Go 二进制文件逆向分析</h1><p>文章链接：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/214940">https://www.anquanke.com/post/id/214940</a></p>
+<hr>
+<p>&emsp;最近做到过 Go 的逆向题目，上学期又自学过 Go，所以打算学一下 Go 的逆向分析。</p>
+<h2 id="0x00-相关研究"><a href="#0x00-相关研究" class="headerlink" title="0x00 相关研究"></a>0x00 相关研究</h2><p>&emsp;Go 语言靠channel、wait group、select、context 以及 sync 等辅助机制来实现 <code>CSP</code> 并发模型（可以将并发系统分解为独立的进程，从而降低系统的复杂性和耦合性）。</p>
+<span id="more"></span>
+<p>&emsp;<strong>Go 允许为数据类型绑定方法。</strong></p>
+<p>&emsp;Go 语言的编译工具链会全静态链接构建二进制文件，打包标准库函数、<code>runtime</code>（与操作系统底层交互、内存管理）、<code>gc</code>（垃圾回收） 模块等。Go 文件逆向的难点：（1）二进制文件多且复杂；（2）独特的函数调用约定、栈结构和多返回值机制；</p>
+<p>&emsp;Go 内置复杂的数据类型，这些类型在汇编层面比较独特。<strong>例如：（1） string 数据不是传统的以 <code>0x00</code> 结尾的 C-String，而是用 <code>(StartAddress, Length)</code>两个元素表示一个 string 数据；（2） slice 数据要由 <code>(StartAddress, Length, Capacity)</code> 三个元素表示。这样在汇编代码中，若一个函数传一个 string 类型的参数，其实要传两个值；若一个函数传一个 slice 类型的参数，其实要传 3 个值。</strong></p>
+<p>&emsp;Go 有独特的栈管理机制。与 C 语言不同，<strong>Go 中 callee（被调用函数） 的栈空间由 caller（调用函数） 来维护，callee 的参数、返回值都由 caller 在栈中预留空间，就难以直观看出哪个是参数、哪个是返回值。</strong></p>
+<p>&emsp;恶意软件大都是被 strip 处理过（去除调试信息和函数符号），所以 Go 二进制文件的逆向分析技术的前期主要围绕着函数符号的恢复来展开。方法：（1）为函数符号做 Signature ，然后把 Signature 导入到反汇编工具里；（2）Go 文件中 pclntab 结构中的函数名信息（除 pclntab 之外还有很多），并没有被 strip ，可以通过辅助脚本在反汇编工具里恢复。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">补充：pclntab</span><br><span class="line">1. 包括函数名称、参数、返回值、源码位置等元数据。</span><br><span class="line">2. 二进制表格，每个记录都包含一个函数的元数据信息。</span><br><span class="line">  记录的大小为固定的8字节，前4字节是函数在代码段中的偏移量，\</span><br><span class="line">  后4字节是该函数的元数据在pclntab结构中的偏移量。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">补充：buildmode=pie</span><br><span class="line">一种编译模式，用于生成一个支持位置无关代码 \</span><br><span class="line">（Position Independent Executable，PIE）的可执行文件。</span><br></pre></td></tr></table></figure>
+<p>&emsp;当前go逆向的插件：<code>IDAGolangHelper</code>、<code>jeb-golang-analyzer</code>、<code>redress</code>。</p>
+<h2 id="0x01-相关原理"><a href="#0x01-相关原理" class="headerlink" title="0x01 相关原理"></a>0x01 相关原理</h2><p>Q：为什么 Go 二进制文件中会有这么多无法被 strip 掉的符号和类型信息？</p>
+<p>A：Go 二进制文件里打包进去了 runtime 和 GC 模块，信息太多了，无法全 strip 完。</p>
+<p>Q：Go 文件中有哪些可以辅助逆向分析的信息？</p>
+<p>A：如下图所示</p>
+<p><img src="/images/go-bin-re-study/image-20230518223719719.png" alt="image-20230518223719719" style="zoom: 67%;" /></p>
+<h2 id="0x02-MetaInfo、函数符号与源码文件路径列表"><a href="#0x02-MetaInfo、函数符号与源码文件路径列表" class="headerlink" title="0x02 MetaInfo、函数符号与源码文件路径列表"></a>0x02 MetaInfo、函数符号与源码文件路径列表</h2><p>&emsp;Go 二进制文件中的元信息：<code>build ID</code>、<code>Go Version</code>、<code>GOROOT</code>、<code>pclntab</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">补充：build ID</span><br><span class="line">build ID是为每个可执行文件生成的一个标识符，用于标识不同版本的程序或库文件。</span><br><span class="line">通常包含日期、Git 提交 ID 等信息</span><br></pre></td></tr></table></figure>
+<p>&emsp;<code>GOROOT</code>存在<code>runtime.GOROOT()</code>函数中。<code>go_parser</code>提取<code>GOROOT</code>的方式为：先在 <code>IDAPro</code> 中先把函数名符号恢复出来，然后根据函数名找到 <code>runtime.GOROOT()</code> 这个函数，最后解析该函数的 <code>FlowChart</code>，找到最后带 return 的 <code>FlowChart</code>（在源码中<code>GOROOT</code>存在 <code>return sys.DefaultGoroot</code>这个语句中），然后再找出该值的地址。</p>
+<p>&emsp;<code>pclntab</code>全名是<code>Program Counter Line Table</code>（程序计数器行数映射表），最初引入该表的动机是<code>Stack Trace</code>。<code>pclntab</code>包括<code>stack trace</code>、栈的动态管理用到的栈帧信息、垃圾回收用到的栈变量的生命周期信息、所有源码文件路径信息。其中，我们重点关注<code>pclntab</code>的<strong>函数表(func table) 和源码文件路径列表(source file table)</strong>。下面是一个<code>pclntab</code>的例子：</p>
+<p><img src="/images/go-bin-re-study/image-20230519161955120.png" alt="image-20230519161955120" style="zoom:67%;" /></p>
+<p>&emsp;上表的解释如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Header：</span><br><span class="line">开头 4-Bytes 是从 Go1.2 至今不变的 Magic Number： 0xFFFFFFFB</span><br><span class="line">第 7 个字节代表指令集，1 为 x86, 4 为 ARM</span><br><span class="line">第 8 个字节为地址的大小，32bit 的为 4，64 bit 的为 8</span><br><span class="line"></span><br><span class="line">Function table</span><br><span class="line">第 9 个字节开始是 function table 的起始位置，第1个元素（类型为 uintptr）是函数(pc, Program Counter) 的个数</span><br><span class="line">第 2 个 uintptr 元素为第 1 个函数(pc0) 的地址，第 3 个 uintptr 元素为第 1 个函数结构定义相对于 pclntab 的偏移</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">Source file table</span><br><span class="line">以 4 字节或 8 字节为单位，前 4/8 个字节代表 Source File 的数量，后面每一个元素都代表一个 Source File Path String 相对于 pclntab 的偏移</span><br></pre></td></tr></table></figure>
+<h3 id="Function-table"><a href="#Function-table" class="headerlink" title="Function table"></a>Function table</h3><p>&emsp;我们可以通过<code>Function table</code>中记录的函数偏移地址+<code>pclntab</code>地址来找到Go文件中的每一个函数。需要说明的是，<code>Function table</code>中记录的函数偏移地址+<code>pclntab</code>地址指向某个函数的<code>Function Struct</code>，其定义如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> Func</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">uintptr</span>      entry;     <span class="comment">// start pc</span></span><br><span class="line">    <span class="type">int32</span>        name;      <span class="comment">// 函数名 (offset to C string)</span></span><br><span class="line">    <span class="type">int32</span>        args;      <span class="comment">// Go1.13后就删除了</span></span><br><span class="line">    <span class="type">int32</span>        frame;     <span class="comment">// size of function frame, including saved caller PC</span></span><br><span class="line">    <span class="type">int32</span>        pcsp;      <span class="comment">// pcsp table (offset to pcvalue table)</span></span><br><span class="line">    <span class="type">int32</span>        pcfile;    <span class="comment">// pcfile table (offset to pcvalue table)</span></span><br><span class="line">    <span class="type">int32</span>        pcln;      <span class="comment">// pcln table (offset to pcvalue table)</span></span><br><span class="line">    <span class="type">int32</span>        nfuncdata; <span class="comment">// number of entries in funcdata list</span></span><br><span class="line">    <span class="type">int32</span>        npcdata;   <span class="comment">// number of entries in pcdata list</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>&emsp;函数名字符串地址=<code>pclntab</code>地址+<code>name</code>中存的偏移地址。理论上讲，遍历<code>Function table</code>，就可以获得所有函数的函数名。但是对于一些特殊函数，上述方法是无法解析的。例如编译器对循环做编译时，会对一些循环进行展开（即不使用<code>cmp;jmp</code>之类的），如下图所示：</p>
+<p><img src="/images/go-bin-re-study/image-20230519165023763.png" alt="image-20230519165023763" style="zoom:67%;" /></p>
+<p>&emsp;这是一个连续操作内存(拷贝、清零等)的操作。</p>
+<h3 id="Source-File-Table（源码文件表）"><a href="#Source-File-Table（源码文件表）" class="headerlink" title="Source File Table（源码文件表）"></a>Source File Table（源码文件表）</h3><p>&emsp;在<code>Function table</code>下方，隔着一个<code>uintptr</code>，就是<code>Source File Table</code>的偏移（相对于<code>pclntab</code>起始地址）。</p>
+<p>&emsp;Source File Table 中的元素全都以 4-Bytes(uint32) 为单位，第一个元素是本二进制文件涉及的所有源码文件的个数，包括标准库的源码文件、第三方 Pacakge 的源码文件以及当前项目的源码文件。后续每个 uint32 元素代表一个相对于 pclntab 的偏移量，该偏移量加上 pclntab 的起始地址，即为相应源码文件路径字符串的起始地址。每个源码文件路径名都是以 <code>0x00</code> 结尾的 C-String。</p>
+<h3 id="Moduledata"><a href="#Moduledata" class="headerlink" title="Moduledata"></a>Moduledata</h3><p>&emsp;Go 语言中，Module 是比 Package 更高层次的概念，一个 Module 中可以包含多个不同的 Package，而每个 Package 中可以包含多个目录和很多的源码文件。</p>
+<p>&emsp;相应地，Moduledata 在 Go 二进制文件中也是一个更高层次的数据结构，它包含很多其他结构的索引信息，可以看作是 Go 二进制文件中 RTSI(Runtime Symbol Information) 和 RTTI(Runtime Type Information) 的 map。Moduledata 定义如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> moduledata <span class="keyword">struct</span> &#123;</span><br><span class="line">    pclntable    []<span class="type">byte</span>    <span class="comment">// pclntab address</span></span><br><span class="line">    ftab         []functab <span class="comment">// function table address</span></span><br><span class="line">    filetab      []<span class="type">uint32</span>  <span class="comment">// source file table address</span></span><br><span class="line">    findfunctab  <span class="type">uintptr</span></span><br><span class="line">    minpc, maxpc <span class="type">uintptr</span>   <span class="comment">// minpc: first pc(function) address</span></span><br><span class="line"></span><br><span class="line">    text, etext           <span class="type">uintptr</span>  <span class="comment">// [.text] section start/end address</span></span><br><span class="line">    noptrdata, enoptrdata <span class="type">uintptr</span></span><br><span class="line">    data, edata           <span class="type">uintptr</span>  <span class="comment">// [.data] section start/end address</span></span><br><span class="line">    bss, ebss             <span class="type">uintptr</span>  <span class="comment">// [.bss] section start/end address</span></span><br><span class="line">    noptrbss, enoptrbss   <span class="type">uintptr</span>  <span class="comment">// [.noptrbss] section start/end address</span></span><br><span class="line">    end, gcdata, gcbss    <span class="type">uintptr</span></span><br><span class="line">    types, etypes         <span class="type">uintptr</span>  <span class="comment">// types data start/end address</span></span><br><span class="line"></span><br><span class="line">    textsectmap []textsect</span><br><span class="line">    typelinks   []<span class="type">int32</span>    <span class="comment">// offset table for types</span></span><br><span class="line">    itablinks   []*itab    <span class="comment">// interface table</span></span><br><span class="line"></span><br><span class="line">    ptab []ptabEntry</span><br><span class="line"></span><br><span class="line">    pluginpath <span class="type">string</span></span><br><span class="line">    pkghashes  []modulehash</span><br><span class="line"></span><br><span class="line">    modulename   <span class="type">string</span></span><br><span class="line">    modulehashes []modulehash</span><br><span class="line"></span><br><span class="line">    hasmain <span class="type">uint8</span> <span class="comment">// 1 if module contains the main function, 0 otherwise</span></span><br><span class="line"></span><br><span class="line">    gcdatamask, gcbssmask bitvector</span><br><span class="line"></span><br><span class="line">    typemap <span class="keyword">map</span>[typeOff]*_type <span class="comment">// offset to *_rtype in previous module</span></span><br><span class="line"></span><br><span class="line">    bad <span class="type">bool</span> <span class="comment">// module failed to load and should be ignored</span></span><br><span class="line"></span><br><span class="line">    next *moduledata</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;根据 Moduledata 的定义，Moduledata 是可以串成链表的形式的，而一个完整的可执行 Go 二进制文件中，只有一个 firstmoduledata 包含如上完整的字段。简单介绍一下关键字段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">第 1 个字段为 pclntab 的地址</span><br><span class="line">第 2 个字段为 pclntab 中 Function Table 的地址</span><br><span class="line">第 3 个字段为 pclntab 中 Source File Table 的地址</span><br><span class="line">第 5 个字段中 minpc 为 pclntab 中第一个函数的起始地址；</span><br><span class="line">第 7 个字段 text，在普通二进制文件中，对应于 [.text] section 的起始地址</span><br><span class="line"></span><br><span class="line">字段 types，为存放程序中所有数据类型定义信息数据的起始地址，\</span><br><span class="line">一般对应于 [.rodata] section 的地址；</span><br><span class="line"></span><br><span class="line">字段 typelinks，为每个数据类型相对于 types 地址的偏移表，\</span><br><span class="line">该字段与 types 字段在后文解析 RTTI(Runtime Type Information) 时要用到；</span><br><span class="line"></span><br><span class="line">字段 itablinks，则是 Interface Table 的起始地址，\</span><br><span class="line">该字段解析 Interface Table 时要用到。</span><br></pre></td></tr></table></figure>
+<h4 id="定位-firstmoduledata"><a href="#定位-firstmoduledata" class="headerlink" title="定位 firstmoduledata"></a>定位 firstmoduledata</h4><p>&emsp;找到 pclntab，由于firstmoduledata第一个字段就是pclntab的地址，因此如果知道pclntab的位置，就可以找到firstmoduledata。</p>
+<p>&emsp;那我们如何定位pclntab呢？</p>
+<p>（1）根据二进制文件中的 Section Name 来定位。因为平常见到的 Go 二进制文件， <code>.gopclntab</code> Section 就对应于 pclntab 结构。但是这个方法不靠谱，原因是如果Go文件开启PIE特性，那么这个方法就会失效（就没有<code>.gopclntab</code>Section）。 PIE 全称为 Position Independent Executable，意思是地址无关的可执行文件，这个类型的二进制文件结合 ASLR 技术可以加强 Go 二进制文件自身安全性。</p>
+<p>（2）无论是否 PIE ，ELF 文件中的 firstmoduledata 总在 <code>.noptrdata</code> 这个 Section 里，PE 文件中可能会在 <code>.data</code> 或 <code>.noptrdata</code> Section中。可以根据此特征来找。</p>
+<h2 id="0x03-数据类型"><a href="#0x03-数据类型" class="headerlink" title="0x03 数据类型"></a>0x03 数据类型</h2><p>&emsp;Go 中的数据类型如下：</p>
+<p><img src="/images/go-bin-re-study/image-20230519185240398.png" alt="image-20230519185240398" style="zoom:67%;" /></p>
+<p>&emsp;上述类型的具体实现都是基于<code>rtype</code>基本数据类型。如果只是一个没有绑定任何 Method 的 Basic Type ，那么用 rtype 的结构就可以表示。如果一个数据类型绑定了 Methods(这种数据类型也叫 Uncommon Type)，或者属于复杂的组合类型(Composite Type)，那么就需要用扩展组合的方式来表示了。复杂类型的扩展组合方式可以简单描述为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rtype + composite type(可选) + uncommon type(可选)</span><br></pre></td></tr></table></figure>
+<p>&emsp;下面是一个<code>struct</code>结构体数据的例子：</p>
+<p><img src="/images/go-bin-re-study/image-20230519185815142.png" alt="image-20230519185815142" style="zoom:67%;" /></p>
+<p>&emsp;其对应的源码如下所示（反正我是没看出来有什么关系）：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// structType represents a struct type.</span></span><br><span class="line"><span class="keyword">type</span> structType <span class="keyword">struct</span> &#123;</span><br><span class="line">    rtype</span><br><span class="line">    pkgPath name</span><br><span class="line">    fields []structField <span class="comment">// fields address, sorted by offset</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> uncommonType <span class="keyword">struct</span> &#123;</span><br><span class="line">    pkgPath nameOff <span class="comment">// import path; empty for built-in types like int, string</span></span><br><span class="line">    mcount <span class="type">uint16</span>   <span class="comment">// number of methods</span></span><br><span class="line">    xcount <span class="type">uint16</span>   <span class="comment">// number of exported methods</span></span><br><span class="line">    moff <span class="type">uint32</span>     <span class="comment">// offset from this uncommontype to [mcount]method</span></span><br><span class="line">    _ <span class="type">uint32</span>        <span class="comment">// unused</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> structField <span class="keyword">struct</span> &#123;</span><br><span class="line">    name name           <span class="comment">// name is always non-empty</span></span><br><span class="line">    typ *rtype          <span class="comment">// type of field</span></span><br><span class="line">    offsetEmbed <span class="type">uintptr</span> <span class="comment">// byte offset of field&lt;&lt;1 | isEmbedded</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Method on non-interface type</span></span><br><span class="line"><span class="keyword">type</span> method <span class="keyword">struct</span> &#123;</span><br><span class="line">    name nameOff <span class="comment">// name of method</span></span><br><span class="line">    mtyp typeOff <span class="comment">// method type (without receiver)</span></span><br><span class="line">    ifn textOff  <span class="comment">// fn used in interface call (one-word receiver)</span></span><br><span class="line">    tfn textOff  <span class="comment">// fn used for normal method call</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="rtype解析"><a href="#rtype解析" class="headerlink" title="rtype解析"></a>rtype解析</h3><p>&emsp;之前已经说明了， Go 二进制文件中所有 Type 信息如何组织、存放的。接下来的问题就是，如何解析每一个找到的数据类型定义，从中提取有助于逆向分析的信息。</p>
+<p>&emsp;rtype可以表示最简单的数据类型（Common Basic Types），rtype的定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">type rtype struct &#123;</span><br><span class="line">    size       uintptr</span><br><span class="line">    ptrdata    uintptr  // 类型中可以包含指针的字节数</span><br><span class="line">    hash       uint32   // 类型哈希</span><br><span class="line">    tflag      tflag    // 当前类型的flag</span><br><span class="line">    align      uint8    // 对齐字节数</span><br><span class="line">    fieldAlign uint8    // 此类型struct field的对齐字节数</span><br><span class="line">    kind       uint8    // 当前类型的底层代码</span><br><span class="line">    alg        *typeAlg // 算法表</span><br><span class="line">    gcdata     *byte    // gc data</span><br><span class="line">    str        nameOff  // 当前类型name string的偏移(相对于 firstmoduledata.types)</span><br><span class="line">    ptrToThis  typeOff  // 指向该类型的指针的类型，可以为零</span><br><span class="line">                        // 如果有另外的指针类型指向本类型，那么 ptrtothis 就是那个指针类型相对于 firstmoduledata.types 的偏移量；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;tflag可能有3个值：</p>
+<p>（1）<strong>star prefix</strong>：即 <strong>name string</strong> 以星号 <code>*</code> 开头</p>
+<p>（2）<strong>named</strong>：即该类型是被显示命名的，或者是为标准类型拟了一个别名</p>
+<p>（3）<strong>Uncommon</strong>：该类型有绑定的 Methods</p>
+<p>&emsp;<strong>str</strong> 是一个 uint32 类型的值，代表一个相对于 <strong>firstmoduledata.types</strong> 的<strong>偏移量</strong>，这个偏移量加上 <strong>firstmoduledata.types</strong> 得出一个<strong>地址值</strong>，这个地址就是当前 <strong>rtype</strong> 的 <strong>name</strong> 信息所在的位置。</p>
+<h3 id="composite-type解析"><a href="#composite-type解析" class="headerlink" title="composite type解析"></a>composite type解析</h3><p>&emsp;Go 中的 Common Basic Types 都可以用上面的 <strong>rtype</strong> 来表示，如果 <strong>rtype.kind</strong> 对应于 Composite Types 其中一个，那么完整的类型定义就需要在 <strong>rtype</strong> 的基础上加上<strong>各自独有的字段或者属性</strong>才能表示了。</p>
+<h4 id="指针类型Ptr"><a href="#指针类型Ptr" class="headerlink" title="指针类型Ptr"></a>指针类型Ptr</h4><p>&emsp;源码定义如下，即在 <strong>rtype</strong> 后面又附带了一个指向 <strong>rtype</strong> 的指针(是地址，不是偏移)，对这个被指向的 <strong>rtype</strong> 的解析。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type ptrType struct &#123;</span><br><span class="line">    rtype</span><br><span class="line">    elem *rtype</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="结构体类型Struct"><a href="#结构体类型Struct" class="headerlink" title="结构体类型Struct"></a>结构体类型Struct</h4><p>&emsp;Go中的结构体可以绑定方法，像类（Class）。源码定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type structType struct &#123;</span><br><span class="line">    rtype</span><br><span class="line">    pkgPath name          // 指针</span><br><span class="line">    fields  []structField // 根据偏移来排序</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;<strong>pkgPath</strong> 是相对于 <strong>firstmoduledata.types</strong> 的一个偏移，指向一个 <strong>type name</strong> 结构。<strong>fields</strong> 就是 Struct 中的字段定义信息。<strong>structField</strong> 的定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type structField struct &#123;</span><br><span class="line">    name        name    // 指向一个 type name 结构的地址，表示 structField 的 fieldname</span><br><span class="line">    typ         *rtype  // 表示 structField 的数据类型</span><br><span class="line">    offsetEmbed uintptr // byte offset of field&lt;&lt;1 | isEmbedded</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="切片类型Slice"><a href="#切片类型Slice" class="headerlink" title="切片类型Slice"></a>切片类型Slice</h4><p>&emsp;切片可以当作“动态数组”，其源码定义如下。结构类似指针类型，在 <strong>rtype</strong> 数据后面加上一个指向 <strong>element type</strong> 的地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type sliceType struct &#123;</span><br><span class="line">    rtype</span><br><span class="line">    elem *rtype // 切片元素类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="数组类型Array"><a href="#数组类型Array" class="headerlink" title="数组类型Array"></a>数组类型Array</h4><p>&emsp;源码定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">type arrayType struct &#123;</span><br><span class="line">    rtype</span><br><span class="line">    elem  *rtype  // 数组元素类型地址</span><br><span class="line">    slice *rtype  // 切片类型地址</span><br><span class="line">    len   uintptr // 长度</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="接口类型Interface"><a href="#接口类型Interface" class="headerlink" title="接口类型Interface"></a>接口类型Interface</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type interfaceType struct &#123;</span><br><span class="line">    rtype</span><br><span class="line">    pkgPath name      // 包的路径？没懂这是什么意思</span><br><span class="line">    methods []imethod // sorted by hash</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;即在 <strong>rtype</strong> 的数据后面加上了一个 <strong>pkgPath</strong> 和一组 <strong>imethod</strong>。<strong>pkgPath</strong> 是一个指向 <strong>type name</strong> 结构的地址。<strong>imethod就是 Interface 中定义的、必须实现的方法</strong> ，其源码定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type imethod struct &#123;</span><br><span class="line">    name nameOff // 方法名</span><br><span class="line">    typ  typeOff // Method 的类型</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;两个成员都是相对于 <strong>firstmoduledata.types</strong> 的 <strong>偏移量</strong>，第一个成员 <strong>name</strong> 即当前 Method 的名字，计算得出的地址，指向一个 <strong>type name</strong> 结构；第二个 <strong>typ</strong> 即当前 Method 的类型，其实就是方法的声明信息，计算得出的地址，指向一个 <strong>func type</strong> 的结构。</p>
+<h4 id="方法类型Func"><a href="#方法类型Func" class="headerlink" title="方法类型Func"></a>方法类型Func</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">type funcType struct &#123;</span><br><span class="line">    rtype</span><br><span class="line">    inCount  uint16</span><br><span class="line">    outCount uint16 // top bit is set if last input parameter is ...</span><br><span class="line"></span><br><span class="line">    padding  uint32 // ! only on some architectures (e.g. x64)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;<strong>inCount</strong> 其实就是参数的个数；<strong>outCount</strong> 是返回值个数。紧随其后的就是每个参数类型定义的地址、每个返回值类型定义的地址。 </p>
+<h4 id="Map类型"><a href="#Map类型" class="headerlink" title="Map类型"></a>Map类型</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">type mapType struct &#123;</span><br><span class="line">    rtype</span><br><span class="line">    key    *rtype // map key type</span><br><span class="line">    elem   *rtype // map element (value) type</span><br><span class="line">    bucket *rtype // internal bucket structure</span><br><span class="line">    // function for hashing keys (ptr to key, seed) -&gt; hash</span><br><span class="line">    hasher     func(unsafe.Pointer, uintptr) uintptr</span><br><span class="line">    keysize    uint8  // size of key slot</span><br><span class="line">    valuesize  uint8  // size of value slot</span><br><span class="line">    bucketsize uint16 // size of bucket</span><br><span class="line">    flags      uint32</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;Map比较复杂，在 <strong>rtype</strong> 数据后附加了比较多的字段，而其中重要的有 2 个：<strong>key</strong> 和 <strong>elem</strong>，就是 <strong>key</strong> 指向的类型定义数据和 <strong>element(value)</strong> 的数据类型定义数据。</p>
+<h4 id="Chan类型"><a href="#Chan类型" class="headerlink" title="Chan类型"></a>Chan类型</h4><p>&emsp;Chan类型主要是用来在Go协程之间传递消息、同步数据，Chan只能传输一种类型的数据，且有方向（发送or接收）。定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type chanType struct &#123;</span><br><span class="line">    rtype</span><br><span class="line">    elem *rtype  // channel element type</span><br><span class="line">    dir  uintptr // channel direction (ChanDir)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;在 <strong>rtype</strong> 数据后附加了两个字段：指向一个可发送的数据类型的定义的地址 <strong>elem</strong>，和一个代表 Channel 方向（单向接收为 1；单向发送为 2，双向收发为 3）。</p>
+<h4 id="Uncommon类型"><a href="#Uncommon类型" class="headerlink" title="Uncommon类型"></a>Uncommon类型</h4><p>&emsp;可绑定方法的Uncommon类型，定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">type uncommonType struct &#123;</span><br><span class="line">    pkgPath nameOff // import path; empty for built-in types like int, string</span><br><span class="line">    mcount  uint16  // number of methods</span><br><span class="line">    xcount  uint16  // number of exported methods</span><br><span class="line">    moff    uint32  // offset from this uncommontype to [mcount]method</span><br><span class="line">    _       uint32  // unused</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;任何一个 Type，无论是 Basic Type 还是 Composite Type，都可以是 Uncommon Type。如果一个 Type 的 <strong>tflag</strong> 字段标记该 Type 是<strong>Uncommon Type</strong>，那么在该 Type 的所有的字段之后，就是 <strong>Uncommon Type</strong> 的信息了。 <strong>pkgPath</strong>的用法与 <strong>Interface Type</strong> 中的 <strong>pkgPath</strong> 相同。 <strong>mcount</strong>是所有绑定的 Methods 的数量。 <strong>xcount</strong> 是可导出的 Methods 的数量，即 Method name 首字母大写。<strong>moff</strong>是 Methods 列表到 <strong>Uncommon Type</strong> 信息起始地址的 <strong>偏移</strong>。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/05/20/OLLVM-study/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/05/17/share-file-server/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-05-18 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re/">re<span>35</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

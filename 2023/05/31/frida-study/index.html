@@ -1,0 +1,344 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>frida-study | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="frida-study"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> frida-study</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Frida学习笔记"><a href="#Frida学习笔记" class="headerlink" title="Frida学习笔记"></a>Frida学习笔记</h1><p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/fly_hps/article/details/87251759">https://blog.csdn.net/fly_hps/article/details/87251759</a></p>
+<p>安装与配置见<code>tool-use</code>。</p>
+<span id="more"></span>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> frida, sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取android最前端进程</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">rdev = frida.get_usb_device()</span></span><br><span class="line"><span class="string">front_app = rdev.get_frontmost_application()</span></span><br><span class="line"><span class="string">print(front_app)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获得所有已安装的app</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">rdev = frida.get_usb_device()</span></span><br><span class="line"><span class="string">apps = rdev.enumerate_applications()</span></span><br><span class="line"><span class="string">for app in apps:</span></span><br><span class="line"><span class="string">    print(app)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># frida自带的Messages机制与进程交互模板</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># def on_message(message, data):</span></span><br><span class="line"><span class="comment">#     if message[&#x27;type&#x27;] == &#x27;send&#x27;:</span></span><br><span class="line"><span class="comment">#         print(&quot;[*] &#123;0&#125;&quot;.format(message[&#x27;payload&#x27;]))</span></span><br><span class="line"><span class="comment">#     else:</span></span><br><span class="line"><span class="comment">#         print(message)</span></span><br><span class="line"><span class="comment"># jscode = &quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># //分析hook点，编写javascript代码</span></span><br><span class="line"><span class="comment"># //javascript代码，重点</span></span><br><span class="line"><span class="comment"># &quot;&quot;&quot;</span></span><br><span class="line"><span class="comment"># process = frida.get_usb_device().attach(&#x27;ds.tetris.android&#x27;)</span></span><br><span class="line"><span class="comment"># script = process.create_script(jscode)</span></span><br><span class="line"><span class="comment"># script.on(&#x27;message&#x27;, on_message)</span></span><br><span class="line"><span class="comment"># script.load()</span></span><br><span class="line"><span class="comment"># sys.stdin.read()</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="0x00-例题1"><a href="#0x00-例题1" class="headerlink" title="0x00 例题1"></a>0x00 例题1</h2><p>&emsp;以下是一个mainActivity的部分代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">invoke</span><span class="params">(<span class="meta">@NotNull</span> Score arg6)</span> &#123;</span><br><span class="line">    <span class="comment">// 检查arg6是否为null，是Null就抛出异常</span></span><br><span class="line">   Intrinsics.checkParameterIsNotNull(arg6, <span class="string">&quot;$receiver&quot;</span>);</span><br><span class="line">   <span class="keyword">if</span>(arg6.getScore() &gt; <span class="number">20000</span>) &#123;</span><br><span class="line">       <span class="comment">// 将得分设置为0xFFFFFFFF</span></span><br><span class="line">       Game.access$getView$p(Game.<span class="built_in">this</span>).setScore(<span class="number">0xFFFFFFFF</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="comment">// 将得分设置为arg6</span></span><br><span class="line">       Game.access$getView$p(Game.<span class="built_in">this</span>).setScore(arg6.getScore());</span><br><span class="line">   &#125;</span><br><span class="line"> 	<span class="comment">// 当前level&lt;arg6.level且当前level!=0</span></span><br><span class="line">   <span class="keyword">if</span>(Game.access$getView$p(Game.<span class="built_in">this</span>).getLevel() &lt; arg6.getLevel() &amp;&amp; Game.access$getView$p(Game.<span class="built_in">this</span>).getLevel() != <span class="number">0</span> &amp;&amp; (Game.<span class="built_in">this</span>.getSoundEnabled())) &#123;</span><br><span class="line">       DefaultImpls.play$<span class="keyword">default</span>(Game.access$getSoundtrack$p(Game.<span class="built_in">this</span>), Sound.LEVEL_UP, <span class="number">0</span>, <span class="number">2</span>, <span class="literal">null</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> 	<span class="comment">// 设置当前level为arg6.level</span></span><br><span class="line">   Game.access$getView$p(Game.<span class="built_in">this</span>).setLevel(arg6.getLevel());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;反正最后分析得出：setScore方法值置为-1，程序将就会自动为我们解密flag。于是，最后的脚本这样写：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">on_message</span>(<span class="params">message, data</span>):</span><br><span class="line">    <span class="keyword">if</span> message[<span class="string">&#x27;type&#x27;</span>] == <span class="string">&#x27;send&#x27;</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;[*] &#123;0&#125;&quot;</span>.<span class="built_in">format</span>(message[<span class="string">&#x27;payload&#x27;</span>]))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(message)</span><br><span class="line">jscode = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Java.perform(function()&#123;</span></span><br><span class="line"><span class="string">	var clz = Java.use(&quot;ds.tetris.android.MainActivity&quot;);</span></span><br><span class="line"><span class="string">	clz.setScore.overload(&#x27;int&#x27;).implementation = function(args)&#123;</span></span><br><span class="line"><span class="string">		args = -1;</span></span><br><span class="line"><span class="string">		clz.setScore.overload(&#x27;int&#x27;).call(this, args);</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">process = frida.get_usb_device().attach(<span class="string">&#x27;ds.tetris.android&#x27;</span>)</span><br><span class="line">script = process.create_script(jscode)</span><br><span class="line">script.on(<span class="string">&#x27;message&#x27;</span>, on_message)</span><br><span class="line">script.load()</span><br><span class="line">sys.stdin.read()</span><br></pre></td></tr></table></figure>
+<h2 id="0x01-例题2"><a href="#0x01-例题2" class="headerlink" title="0x01 例题2"></a>0x01 例题2</h2><p>&emsp;参考链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/42159644ddc6">https://www.jianshu.com/p/42159644ddc6</a></p>
+<p>&emsp;主要代码如下：</p>
+<p><img src="/images/frida-study/image-20230601225715674.png" alt="image-20230601225715674" style="zoom:67%;" /></p>
+<p><img src="/images/frida-study/image-20230601225745588.png" alt="image-20230601225745588" style="zoom:67%;" /></p>
+<p>&emsp;意思就是，赢CPU 1000次，就可以获得最后的flag。相关的frida代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> frida, sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模板</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">on_message</span>(<span class="params">message, data</span>):</span><br><span class="line">    <span class="keyword">if</span> message[<span class="string">&#x27;type&#x27;</span>] == <span class="string">&#x27;send&#x27;</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;[*] &#123;0&#125;&quot;</span>.<span class="built_in">format</span>(message[<span class="string">&#x27;payload&#x27;</span>]))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(message)</span><br><span class="line"></span><br><span class="line">jscode = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Java.perform(function () &#123;</span></span><br><span class="line"><span class="string">        var MainActivity = Java.use(&#x27;com.example.seccon2015.rock_paper_scissors.MainActivity&#x27;);</span></span><br><span class="line"><span class="string">        MainActivity.onClick.implementation = function (v) &#123;</span></span><br><span class="line"><span class="string">            send(&quot;Hook Start...&quot;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            # 不改变参数v的情况下，直接调用原方法onClick(v)，这样不妨碍程序原本的运行</span></span><br><span class="line"><span class="string">            # 如果想要修改参数，也是在此处直接对v进行修改。</span></span><br><span class="line"><span class="string">            # this指的是MainActivity</span></span><br><span class="line"><span class="string">            this.onClick(v);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            # 程序中代码的变量可以随意修改</span></span><br><span class="line"><span class="string">            this.n.value = 0;</span></span><br><span class="line"><span class="string">            this.m.value = 2;</span></span><br><span class="line"><span class="string">            this.cnt.value = 999;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            # 以下两种方式都能打印</span></span><br><span class="line"><span class="string">            send(&quot;Success!&quot;)</span></span><br><span class="line"><span class="string">            console.log(&quot;Success!&quot;)</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">process = frida.get_usb_device(<span class="number">1000</span>).attach(<span class="string">&#x27;com.example.seccon2015.rock_paper_scissors&#x27;</span>)</span><br><span class="line">script = process.create_script(jscode)</span><br><span class="line">script.on(<span class="string">&#x27;message&#x27;</span>, on_message)</span><br><span class="line">script.load()</span><br><span class="line">sys.stdin.read()</span><br></pre></td></tr></table></figure>
+<h2 id="0x02-Native层Hook"><a href="#0x02-Native层Hook" class="headerlink" title="0x02 Native层Hook"></a>0x02 Native层Hook</h2><p>&emsp;也就是hook .so文件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">jscode = <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">setImmediate(function()&#123;</span></span><br><span class="line"><span class="string">	send(&quot;start&quot;);</span></span><br><span class="line"><span class="string">	//遍历模块找基址</span></span><br><span class="line"><span class="string">	Process.enumerateModules(&#123;</span></span><br><span class="line"><span class="string">		onMatch: function (exp)&#123;</span></span><br><span class="line"><span class="string">			if (exp.name == &quot;libpdd_secure.so&quot;) &#123;</span></span><br><span class="line"><span class="string">				send(&quot;enumerateModules find&quot;);</span></span><br><span class="line"><span class="string">				send(exp.name + &quot;|&quot;+ exp.base + &quot;|&quot;+ exp.size + &quot;|&quot;+ exp.path);</span></span><br><span class="line"><span class="string">				send(exp);</span></span><br><span class="line"><span class="string">				return &#x27;stop&#x27;;</span></span><br><span class="line"><span class="string">			&#125;,</span></span><br><span class="line"><span class="string">		onComplete: function()&#123;</span></span><br><span class="line"><span class="string">			send(&#x27;enumerateModules stop&#x27;);</span></span><br><span class="line"><span class="string">		&#125;</span></span><br><span class="line"><span class="string">	&#125;);</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	// hook .so中的导出函数</span></span><br><span class="line"><span class="string">	var exports = Module.enumerateExportsSync(&quot;libpdd_secure.so&quot;);</span></span><br><span class="line"><span class="string">	for(var i=0; i&lt;exports.length; i++)&#123;</span></span><br><span class="line"><span class="string">		send(&quot;name:&quot; + exports[i].name + &quot;address:&quot; + exports[i].address);</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/06/01/fragmented-knowledge/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/05/25/re-core-principle-6/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-05-31 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re/">re<span>35</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

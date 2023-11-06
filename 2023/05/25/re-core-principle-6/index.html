@@ -1,0 +1,421 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>re-core-principle-6 | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="re-core-principle-6"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> re-core-principle-6</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="逆向工程核心原理笔记-6"><a href="#逆向工程核心原理笔记-6" class="headerlink" title="逆向工程核心原理笔记-6"></a>逆向工程核心原理笔记-6</h1><p>&emsp;此章节就是给多种示例程序，进行调试练习。</p>
+<h2 id="0x00-windows-服务程序的调试"><a href="#0x00-windows-服务程序的调试" class="headerlink" title="0x00 windows 服务程序的调试"></a>0x00 windows 服务程序的调试</h2><p>&emsp;服务(Service)程序由SCM(Service Control Manager，服务控制管理器)管理。运行服务程序时，需要由控制器(Service Controller)执行启动命令。控制器向SCM提出服务控制请求，SCM向服务程序传递控制命令，并接收其返回的值。如下图所示：</p>
+<span id="more"></span>
+<p><img src="/images/re-core-principle-6/image-20230525161651579.png" alt="image-20230525161651579" style="zoom:67%;" /></p>
+<p>&emsp;注意：控制器无法直接向服务程序下达命令，必须通过 SCM 传达。下图是windows的服务控制器：</p>
+<p><img src="/images/re-core-principle-6/image-20230525161942822.png" alt="image-20230525161942822" style="zoom:67%;" /></p>
+<h3 id="服务启动过程"><a href="#服务启动过程" class="headerlink" title="服务启动过程"></a>服务启动过程</h3><p><img src="/images/re-core-principle-6/image-20230525162049234.png" alt="image-20230525162049234" style="zoom:67%;" /></p>
+<p>&emsp;所有服务程序都是由服务控制器调用<code>SartService() API</code>启动的，若服务为自启动服务，则由SCM调用<code>StartService</code>启动。</p>
+<p>&emsp;启动过程如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">（1）服务控制器调用StartService</span><br><span class="line">1.1 服务控制器调用StartService时，SCM会创建相应服务进程，然后执行服务进程的EP代码。</span><br><span class="line">（2）服务进程调用StartServiceCtrlDispatcher</span><br><span class="line">2.1 为了以服务形式运行，服务进程在内部调用StartServiceCtrlDispatcher，来注册服务主函数SvcMain的地址。</span><br><span class="line">2.2 调用StartServiceCtrlDispatcher时，返回服务控制器的StartService函数</span><br><span class="line">2.3 SCM调用服务进程的服务主函数SvcMain</span><br><span class="line">（3）服务进程调用SetServiceStatus</span><br><span class="line">3.1 虽然已经创建了服务进程，但尚未以服务形式运行。当前状态仍为SERVICE_START_PENDING</span><br><span class="line">3.2 服务主函数SvcMain内部调用SetServiceStatus(SERVICE RUNNING)API后，才正式以服务进程形式运行</span><br></pre></td></tr></table></figure>
+<h3 id="DebugMe1-exe-讲解"><a href="#DebugMe1-exe-讲解" class="headerlink" title="DebugMe1.exe 讲解"></a>DebugMe1.exe 讲解</h3><p>&emsp;<code>DebugMe1.exe</code>进程以2种形式运行，一种为常规运行形式，负责服务的安装与删除；另一种由SCM以服务形式运行。执行完<code>DebugMe1.exe install</code>后发现存在一个<code>SvcTest</code>服务。之后启动服务，发现<strong>服务进程<code>DebugMe1.exe</code>开始运行</strong>。<strong>注意到：<code>SvcTest</code>服务的进程(<code>DebugMe1.exe</code>)是以<code>services.exe</code>进程的子进程形式运行的。所有服务进程都以<code>services.exe</code>进程的子进程形式运行。<code>Services.exe</code>进程就是SCM。</strong></p>
+<p>&emsp;<code>DebugMe1.exe</code>的作用是：经过一定时间间隔输出调试字符串。源代码&amp;注释如下所示：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tchar.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SVCNAME <span class="string">L&quot;SvcTest&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">VOID <span class="title">InstallService</span><span class="params">(LPCTSTR szSvcName, LPCTSTR szPath)</span></span>;</span><br><span class="line"><span class="function">VOID <span class="title">UninstallService</span><span class="params">(LPCTSTR szSvcName)</span></span>;</span><br><span class="line"><span class="function">VOID WINAPI <span class="title">SvcMain</span><span class="params">(DWORD argc, LPCTSTR *argv)</span></span>;</span><br><span class="line"><span class="function">VOID WINAPI <span class="title">SvcCtrlHandler</span><span class="params">( DWORD dwCtrl )</span></span>;</span><br><span class="line"></span><br><span class="line">SERVICE_STATUS_HANDLE g_hServiceStatusHandle = <span class="literal">NULL</span>;</span><br><span class="line">SERVICE_STATUS g_ServiceStatus = &#123;SERVICE_WIN32_OWN_PROCESS, <span class="number">0</span>, <span class="number">0xFF</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 程序入口</span></span><br><span class="line"><span class="type">void</span> _tmain(<span class="type">int</span> argc, TCHAR *argv[])</span><br><span class="line">&#123; </span><br><span class="line">    TCHAR szPath[MAX_PATH] = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line">	<span class="comment">// 定义服务表</span></span><br><span class="line">    SERVICE_TABLE_ENTRY DispatchTable[] = </span><br><span class="line">    &#123; </span><br><span class="line">        &#123; SVCNAME, (LPSERVICE_MAIN_FUNCTION)SvcMain &#125;, </span><br><span class="line">        &#123; <span class="literal">NULL</span>, <span class="literal">NULL</span> &#125; </span><br><span class="line">    &#125;; </span><br><span class="line"></span><br><span class="line">	<span class="comment">// 无参数</span></span><br><span class="line">    <span class="keyword">if</span>( argc == <span class="number">1</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">StartServiceCtrlDispatcher</span>( DispatchTable )) </span><br><span class="line">        &#123; </span><br><span class="line">            _tprintf(<span class="string">L&quot;StartServiceCtrlDispatcher() failed!!! [%d]\n&quot;</span>, </span><br><span class="line">                <span class="built_in">GetLastError</span>()); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 有参数</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( argc == <span class="number">2</span> )</span><br><span class="line">    &#123;</span><br><span class="line">		<span class="comment">// 获取当前进程的路径名</span></span><br><span class="line">        <span class="keyword">if</span>( !<span class="built_in">GetModuleFileName</span>(<span class="literal">NULL</span>, szPath, MAX_PATH) )</span><br><span class="line">        &#123;</span><br><span class="line">            _tprintf(<span class="string">L&quot;GetModuleFileName() failed! [%d]\n&quot;</span>, </span><br><span class="line">                <span class="built_in">GetLastError</span>());</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>( _tcsicmp(argv[<span class="number">1</span>], <span class="string">L&quot;install&quot;</span>) == <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">InstallService</span>(SVCNAME, szPath);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>( _tcsicmp(argv[<span class="number">1</span>], <span class="string">L&quot;uninstall&quot;</span>) == <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">UninstallService</span>(SVCNAME);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            _tprintf(<span class="string">L&quot;Wrong parameters!!!\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _tprintf(<span class="string">L&quot;\nUSAGE : %s &lt;install | uninstall&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 相当于StartService</span></span><br><span class="line"><span class="function">VOID <span class="title">InstallService</span><span class="params">(LPCTSTR szSvcName, LPCTSTR szPath)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SC_HANDLE schSCManager = <span class="literal">NULL</span>;</span><br><span class="line">    SC_HANDLE schService = <span class="literal">NULL</span>;</span><br><span class="line">    DWORD dwError = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    schSCManager = <span class="built_in">OpenSCManager</span>( </span><br><span class="line">        <span class="literal">NULL</span>,                    <span class="comment">// local computer</span></span><br><span class="line">        <span class="literal">NULL</span>,                    <span class="comment">// ServicesActive database </span></span><br><span class="line">        SC_MANAGER_ALL_ACCESS);  <span class="comment">// full access rights </span></span><br><span class="line">    <span class="keyword">if</span>( <span class="literal">NULL</span> == schSCManager ) </span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;InstallService() : OpenSCManager failed (%d)\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 创建服务</span></span><br><span class="line">    schService = <span class="built_in">CreateService</span>( </span><br><span class="line">        schSCManager,              <span class="comment">// SCM database </span></span><br><span class="line">        szSvcName,                 <span class="comment">// name of service </span></span><br><span class="line">        szSvcName,                 <span class="comment">// service name to display </span></span><br><span class="line">        SERVICE_ALL_ACCESS,        <span class="comment">// desired access </span></span><br><span class="line">        SERVICE_WIN32_OWN_PROCESS, <span class="comment">// service type </span></span><br><span class="line">        SERVICE_DEMAND_START,      <span class="comment">// start type </span></span><br><span class="line">        SERVICE_ERROR_NORMAL,      <span class="comment">// error control type </span></span><br><span class="line">        szPath,                    <span class="comment">// path to service&#x27;s binary </span></span><br><span class="line">        <span class="literal">NULL</span>,                      <span class="comment">// no load ordering group </span></span><br><span class="line">        <span class="literal">NULL</span>,                      <span class="comment">// no tag identifier </span></span><br><span class="line">        <span class="literal">NULL</span>,                      <span class="comment">// no dependencies </span></span><br><span class="line">        <span class="literal">NULL</span>,                      <span class="comment">// LocalSystem account </span></span><br><span class="line">        <span class="literal">NULL</span>);                     <span class="comment">// no password </span></span><br><span class="line">    <span class="keyword">if</span>( <span class="literal">NULL</span> == schService ) </span><br><span class="line">    &#123;</span><br><span class="line">        dwError = <span class="built_in">GetLastError</span>();</span><br><span class="line">        _tprintf(<span class="string">L&quot;InstallService() : CreateService failed (%d)\n&quot;</span>, dwError); </span><br><span class="line">        <span class="keyword">if</span>( ERROR_SERVICE_EXISTS == dwError )</span><br><span class="line">            _tprintf(<span class="string">L&quot;  -&gt; The specified service already exists.\n&quot;</span>);</span><br><span class="line">        <span class="keyword">goto</span> _EXIT;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    _tprintf(<span class="string">L&quot;InstallService() : Service installed successfully\n&quot;</span>); </span><br><span class="line"></span><br><span class="line">_EXIT:</span><br><span class="line">    <span class="keyword">if</span>( schService )    <span class="built_in">CloseServiceHandle</span>(schService); </span><br><span class="line">    <span class="keyword">if</span>( schSCManager)   <span class="built_in">CloseServiceHandle</span>(schSCManager);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">VOID <span class="title">UninstallService</span><span class="params">(LPCTSTR szSvcName)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    SC_HANDLE schSCManager = <span class="literal">NULL</span>;</span><br><span class="line">    SC_HANDLE schService = <span class="literal">NULL</span>;</span><br><span class="line">    SERVICE_STATUS ss = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line">    DWORD dwError = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    schSCManager = <span class="built_in">OpenSCManager</span>( </span><br><span class="line">        <span class="literal">NULL</span>,                    <span class="comment">// local computer</span></span><br><span class="line">        <span class="literal">NULL</span>,                    <span class="comment">// ServicesActive database </span></span><br><span class="line">        SC_MANAGER_ALL_ACCESS);  <span class="comment">// full access rights </span></span><br><span class="line">    <span class="keyword">if</span>( <span class="literal">NULL</span> == schSCManager ) </span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;UninstallService() : OpenSCManager failed (%d)\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    schService = <span class="built_in">OpenService</span>( </span><br><span class="line">        schSCManager,       <span class="comment">// SCM database </span></span><br><span class="line">        szSvcName,          <span class="comment">// name of service </span></span><br><span class="line">        SERVICE_INTERROGATE |</span><br><span class="line">        DELETE);            <span class="comment">// need delete access </span></span><br><span class="line">    <span class="keyword">if</span>( <span class="literal">NULL</span> == schService )</span><br><span class="line">    &#123; </span><br><span class="line">        dwError = <span class="built_in">GetLastError</span>();</span><br><span class="line">        <span class="keyword">if</span>( dwError != ERROR_SERVICE_DOES_NOT_EXIST )</span><br><span class="line">            _tprintf(<span class="string">L&quot;UninstallService() : OpenSCManager failed (%d)\n&quot;</span>, dwError);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">goto</span> _EXIT;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="built_in">ControlService</span>(schService, SERVICE_CONTROL_INTERROGATE, &amp;ss);</span><br><span class="line">    <span class="keyword">if</span>( ss.dwCurrentState != SERVICE_STOPPED )</span><br><span class="line">    &#123;</span><br><span class="line">        _tprintf(<span class="string">L&quot;  -&gt; Service is running! Stop the service!!!\n&quot;</span>);</span><br><span class="line">        <span class="keyword">goto</span> _EXIT;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( !<span class="built_in">DeleteService</span>(schService) ) </span><br><span class="line">        _tprintf(<span class="string">L&quot;UninstallService() : DeleteService failed (%d)\n&quot;</span>, <span class="built_in">GetLastError</span>()); </span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        _tprintf(<span class="string">L&quot;Service uninstalled successfully\n&quot;</span>); </span><br><span class="line"></span><br><span class="line">_EXIT:</span><br><span class="line">    <span class="keyword">if</span>( schService )    <span class="built_in">CloseServiceHandle</span>(schService); </span><br><span class="line">    <span class="keyword">if</span>( schSCManager )  <span class="built_in">CloseServiceHandle</span>(schSCManager);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">VOID WINAPI <span class="title">SvcMain</span><span class="params">(DWORD argc, LPCTSTR *argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Service Control Handler</span></span><br><span class="line">	<span class="comment">// 注册服务处理函数SvcCtrlHandler</span></span><br><span class="line">    g_hServiceStatusHandle = <span class="built_in">RegisterServiceCtrlHandler</span>( </span><br><span class="line">        SVCNAME, </span><br><span class="line">        SvcCtrlHandler);</span><br><span class="line">    <span class="keyword">if</span>( !g_hServiceStatusHandle )</span><br><span class="line">    &#123; </span><br><span class="line">        <span class="built_in">OutputDebugString</span>(<span class="string">L&quot;RegisterServiceCtrlHandler() failed!!!&quot;</span>); </span><br><span class="line">        <span class="keyword">return</span>; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">	<span class="comment">// 服务进程调用SetServiceStatus</span></span><br><span class="line">    <span class="comment">// Service Status -&gt; SERVICE_RUNNING</span></span><br><span class="line">    g_ServiceStatus.dwCurrentState = SERVICE_RUNNING;</span><br><span class="line">    <span class="built_in">SetServiceStatus</span>(g_hServiceStatusHandle, &amp;g_ServiceStatus);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Print debug string</span></span><br><span class="line">    <span class="keyword">while</span>( TRUE )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">OutputDebugString</span>(<span class="string">L&quot;[SvcTest] service is running...&quot;</span>);</span><br><span class="line">        <span class="built_in">Sleep</span>(<span class="number">3</span> * <span class="number">1000</span>);        <span class="comment">// 3 sec</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">VOID WINAPI <span class="title">SvcCtrlHandler</span><span class="params">(DWORD dwCtrl)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">switch</span>(dwCtrl) </span><br><span class="line">   &#123;  </span><br><span class="line">        <span class="keyword">case</span> SERVICE_CONTROL_STOP:</span><br><span class="line">            g_ServiceStatus.dwCurrentState = SERVICE_STOP_PENDING;</span><br><span class="line">            <span class="built_in">SetServiceStatus</span>(g_hServiceStatusHandle, &amp;g_ServiceStatus);</span><br><span class="line">            </span><br><span class="line">            g_ServiceStatus.dwCurrentState = SERVICE_STOPPED;</span><br><span class="line">            <span class="built_in">SetServiceStatus</span>(g_hServiceStatusHandle, &amp;g_ServiceStatus);</span><br><span class="line"></span><br><span class="line">            <span class="built_in">OutputDebugString</span>(<span class="string">L&quot;[SvcTest] service is stopped...&quot;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">default</span>: </span><br><span class="line">         <span class="keyword">break</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>补充：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Windows 服务：扩展服务和标准服务</span><br><span class="line">1. 扩展服务是由第三方应用程序提供的服务，通常是在安装应用程序时一起安装的。</span><br><span class="line">2. 标准服务是 Windows 操作系统自带的服务，它们与操作系统的正常运行有关。</span><br></pre></td></tr></table></figure>
+<h3 id="服务进程调试"><a href="#服务进程调试" class="headerlink" title="服务进程调试"></a>服务进程调试</h3><p>&emsp;服务程序的调试与普通程序不同，<strong>我们需要将调试器附加到SCM运行的服务进程上</strong>。</p>
+<p>&emsp;为什么？（1）服务进程由SCM运行；（2）服务核心代码主要存在于服务主函数(<code>SvcMain</code>)中；（3）服务主函数(<code>SvcMain</code>)由SCM正常调用。我们要调试的是服务主函数(<code>SvcMain</code>)，但使用调试器打开服务程序的可执行文件并开始调试时，服务主函数并不运行，所以<strong>调试时需要将SCM运行的服务进程附加到调试器</strong>。由于此时的服务主函数(<code>SvcMain</code>)可能已开始运行。因此，需要在SCM创建服务进程并运行EP代码<strong>前</strong>附加到调试器（具体怎么说后面说）。<strong>服务程序的主要代码存在于服务主函数(<code>SvcMain</code>)与服务处理函数(<code>SvcHandler</code>)中。</strong></p>
+<p>&emsp;另一种解决方法：<strong>将调试位置强制指定为服务主函数(<code>SvcMain</code>)(如:<code>OllyDbg</code>的<code>New orign here</code>)，然后再调试。</strong></p>
+<h3 id="调试位置强制指定"><a href="#调试位置强制指定" class="headerlink" title="调试位置强制指定"></a>调试位置强制指定</h3><p>&emsp;跟着书做就可以。</p>
+<p>&emsp;对于EXE文件形态的Windows服务程序而言，必须在其EP代码内部调用<code>StartServiceCtriDispatcher</code>，将服务函数(<code>SvcMain</code>)的地址通知给SCM。对于DLL文件形式的 Windows 服务而言，服务主函数(<code>SvcMain</code>)为导出函数，SCM会调用运行导出函数，所以不需要另外调用<code>StartServiceCtrlDispatcher</code>。</p>
+<p>&emsp;需要注意，由于服务进程不是由 SCM正常启动运行的，所以调用与服务相关的部分 API时可能引发异常。为了避免这种异常可以设置调试器选项，从而忽略某些异常。</p>
+<h3 id="将调试器附加到SCM运行的服务进程"><a href="#将调试器附加到SCM运行的服务进程" class="headerlink" title="将调试器附加到SCM运行的服务进程"></a>将调试器附加到SCM运行的服务进程</h3><p>&emsp;跟着书做就可以。</p>
+<p>&emsp;下图是调试流程图，其中EP代码指的是<code>SvcMain</code>：</p>
+<p><img src="/images/re-core-principle-6/image-20230525173204399.png" alt="image-20230525173204399" style="zoom:67%;" /></p>
+<p>&emsp;以上操作流程的核心是，将服务进程附加到调试器前要进入无限循环，使服务进程的重要代码无法运行。但是，有超时时间。启动服务后，SCM会在一定时间内等待服务状态变为<code>STATUS_RUNNING</code>。若规定时间（一般是30s）内服务状态未改变，SCM就会引发<code>ERROR_SERVICE_REQUEST_TIMEOUT</code>错误，然后终止相关服务进程。</p>
+<p>&emsp;先安装服务程序。</p>
+<p>&emsp;30s内我们要附加到调试器并恢复EP代码，时间不够用。所以把30s改了。</p>
+<p>&emsp;改完之后，开始设置无限循环。<code>0xEB 0xFE</code>是无限循环指令，为什么？操作码<code>0xEB</code>是近距离JMP 指令，带有1个字节大小的值，该值为有符号数，指的是<code>与Next EIP 的相对距离</code>，计算时有如下公式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JumpAddress = Next_EIP + 0xFE(-2)</span><br></pre></td></tr></table></figure>
+<p>&emsp;启动服务程序。SCM会主动找我们改过的服务程序，并陷入循环。我的win7出现了书中的情况，就算改了30s，系统也会自动杀掉，所以没有实际跟进后续实验流程。</p>
+<h2 id="0x01-自我创建程序的调试"><a href="#0x01-自我创建程序的调试" class="headerlink" title="0x01 自我创建程序的调试"></a>0x01 自我创建程序的调试</h2><p>&emsp;有些应用程序在运行过程中可以将自身创建为子进程运行，这种方式称为自我创建。相同的可执行文件在以父进程运行和以子进程运行时分别表现出不同的行为特征。</p>
+<p>&emsp;实验<code>DebugMe2.exe</code>，父进程用来在控制台窗口中输出字符串，并运行子进程。而子进程在消息窗口中输出字符串。</p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p><img src="/images/re-core-principle-6/image-20230525183107408.png" alt="image-20230525183107408" style="zoom:67%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">（1）创建子进程。</span><br><span class="line">父进程运行时，main函数就会被调用执行，以挂起模式创建子进程。</span><br><span class="line">子进程以挂起模式创建后，所需的DLL被加载进来，但子进程的主线程处于暂停状态。</span><br><span class="line">（2）更改EIP。</span><br><span class="line">当前子进程的主线程处于暂停状态，先获取其上下文，然后将EIP修改为指定地址值即可。</span><br><span class="line">（3）恢复主线程。</span><br></pre></td></tr></table></figure>
+<p>&emsp;源代码&amp;注释如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tchar.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 子进程</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">ChildProc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">MessageBox</span>(<span class="literal">NULL</span>, <span class="string">L&quot;This is a child process!&quot;</span>, <span class="string">L&quot;DebugMe2&quot;</span>, MB_OK);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">ExitProcess</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 程序入口</span></span><br><span class="line"><span class="type">void</span> _tmain(<span class="type">int</span> argc, TCHAR *argv[]) </span><br><span class="line">&#123;</span><br><span class="line">    TCHAR                   szPath[MAX_PATH] = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line">    STARTUPINFO				si = &#123;<span class="built_in">sizeof</span>(STARTUPINFO),&#125;;</span><br><span class="line">    PROCESS_INFORMATION		pi = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line">    CONTEXT                 ctx = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line"></span><br><span class="line">    _tprintf(<span class="string">L&quot;This is a parent process!\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获得当前程序路径</span></span><br><span class="line">    <span class="keyword">if</span>( !<span class="built_in">GetModuleFileName</span>(<span class="literal">NULL</span>, szPath, <span class="built_in">sizeof</span>(TCHAR) * MAX_PATH) )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;GetModuleFileName() failed! [%d]\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Create Child Process</span></span><br><span class="line">	<span class="comment">// 创建子进程，挂起状态</span></span><br><span class="line">    <span class="keyword">if</span>( !<span class="built_in">CreateProcess</span>(</span><br><span class="line">            szPath,</span><br><span class="line">            <span class="literal">NULL</span>,</span><br><span class="line">            <span class="literal">NULL</span>,</span><br><span class="line">            <span class="literal">NULL</span>,</span><br><span class="line">            FALSE,</span><br><span class="line">            CREATE_SUSPENDED,</span><br><span class="line">            <span class="literal">NULL</span>,</span><br><span class="line">            <span class="literal">NULL</span>,</span><br><span class="line">            &amp;si,</span><br><span class="line">            &amp;pi) )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;CreateProcess() failed! [%d]\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Change EIP</span></span><br><span class="line">	<span class="comment">// 获得子进程的主线程的context结构体</span></span><br><span class="line">    ctx.ContextFlags = CONTEXT_FULL;</span><br><span class="line">    <span class="keyword">if</span>( !<span class="built_in">GetThreadContext</span>(pi.hThread, &amp;ctx) )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;GetThreadContext() failed! [%d]\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="comment">// 修改EIP</span></span><br><span class="line">    ctx.Eip = (DWORD)ChildProc;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( !<span class="built_in">SetThreadContext</span>(pi.hThread, &amp;ctx) )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;SetThreadContext() failed! [%d]\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Resume Main Thread</span></span><br><span class="line">	<span class="comment">// 唤醒子进程的主线程</span></span><br><span class="line">    <span class="keyword">if</span>( <span class="number">-1</span> == <span class="built_in">ResumeThread</span>(pi.hThread) )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;ResumeThread() failed! [%d]\n&quot;</span>, <span class="built_in">GetLastError</span>());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">WaitForSingleObject</span>(pi.hProcess, INFINITE);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">CloseHandle</span>(pi.hProcess);</span><br><span class="line">    <span class="built_in">CloseHandle</span>(pi.hThread);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>&emsp;对于attach程序来说，由于子进程是调试中新创建的，所以首先要调试父进程，查看子进程的EP被修改为哪一地址。</p>
+<p>&emsp;这要求我们要从启动时就开始调试，可以在EP地址处设置无限循环来解决。还有一种解决办法，<strong><code>JIT(Just-In-Time)</code>调试法</strong>。</p>
+<p>&emsp;可不可以在子进程创建的瞬间用调试器调试？不可以，因为此时子进程是挂起的，调试器无法调试被挂起的进程。</p>
+<p>&emsp;可不可以直接用调试器attach子进程？<strong>应该可以，没试过。</strong></p>
+<h4 id="JIT调试"><a href="#JIT调试" class="headerlink" title="JIT调试"></a>JIT调试</h4><p>&emsp;<strong>运行中的进程发生异常时，OS会自动运行调试器，附加发生异常的进程。</strong>由于可以从异常发生的位置开始调试，所以采用这种方式很容易把握出现异常的原因。</p>
+<p>&emsp;之后按照书上P626之前来就行。</p>
+<h2 id="0x02-PE映像切换调试"><a href="#0x02-PE映像切换调试" class="headerlink" title="0x02 PE映像切换调试"></a>0x02 PE映像切换调试</h2><p>&emsp;先运行某个进程，然后将其虚拟内存中的PE映像切换为另一个PE映像，这称为PE映像切换。</p>
+<h3 id="工作原理-1"><a href="#工作原理-1" class="headerlink" title="工作原理"></a>工作原理</h3><p>&emsp;PE映像切换：<strong>先以挂起模式运行某个进程(<code>A.exe</code>)，然后将完全不同的一个PE文件(<code>B.exe</code>)的PE映像映射到<code>A.exe</code>进程内存空间，并在<code>A.exe</code>进程的内存空间中运行。修改PE映像后，进程名称仍为原来的<code>A.exe</code>，但实际映射在进程内存中的PE映像为<code>B.exe</code>，所以最终会产生与原来 (<code>A.exe</code>)完全不同的行为动作。此时，<code>A.exe</code>为外壳进程，<code>B.exe</code>为内核进程。</strong></p>
+<p>补充：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CUI：控制台程序</span><br><span class="line">GUI：图形窗口程序</span><br></pre></td></tr></table></figure>
+<p>&emsp;书中的实例中，给出了<code>DebugMe3.exe</code>、<code>fake.exe</code>、<code>real.exe</code>，<code>fake.exe</code>在命令行中输出字符串，<code>real.exe</code>在图形化窗口上输出字符串，运行<code>DebugMe3.exe fake.exe real.exe</code>，发现虽然运行着<code>fake.exe</code>，但是输出图形化窗口。</p>
+<p>&emsp;<strong>大量的调试分析是逃不过的，这里为了加快速度，所以对于<code>DebugMe3.exe</code>的分析直接按书上的来了，但是要记住，这都是之前欠下的，以后还要还回去。</strong></p>
+<p>&emsp;main函数的流程图如下：</p>
+<p><img src="/images/re-core-principle-6/image-20230525223046447.png" alt="image-20230525223046447" style="zoom:67%;" /></p>
+<p>&emsp;接下来分析<code>SubFunc_1</code>函数。经过分析，此函数是将<code>real.exe</code>读入内存，<code>real.exe</code>的内存地址叫做<code>MEM_FILE_REAL_EXE</code>。</p>
+<p>&emsp;继续分析<code>SubFunc_2</code>函数。首先，此函数调用了<code>GetThreadContext</code>，获得了<code>fake.exe</code>的主线程上下文。之后，通过主线程上下文获得<code>fake.exe</code>的PEB，并调用<code>ReadProcessMemory</code>获得<code>fake.exe</code>的内存映射地址。代码如下所示：</p>
+<p><img src="/images/re-core-principle-6/image-20230528105555214.png" alt="image-20230528105555214" style="zoom:67%;" /></p>
+<p>注：由于当前<code>fake.exe</code>进程是以挂起模式创建的，处于暂停状态。进程被创建出来时，PE装载器就会将PEB结构体的地址设置给上下文中的EBX寄存器。</p>
+<p>&emsp;接下来，获取<code>real.exe</code>文件的<code>ImageBase</code>地址。如下所示：</p>
+<p><img src="/images/re-core-principle-6/image-20230528110023406.png" alt="image-20230528110023406" style="zoom:67%;" /></p>
+<p><img src="/images/re-core-principle-6/image-20230528110033991.png" alt="image-20230528110033991" style="zoom:67%;" /></p>
+<p>&emsp;EDI寄存器的值为<code>MEM_FILE_REAL_EXE</code>地址(<code>real.exe</code>的内存地址)。所以EDI+3C指的就是<code>IMAGE_DOS_HEADER</code>结构体的<code>elfanew</code>成员(NT头的偏移)。之后，<code>EAX+EDI=elfanew+StartofPE</code>是<code>IMAGE_NT_HEADER</code>结构体的起始地址，<code>EAX+EDI+34</code>指的是<code>IMAGE_OPTION_HEADER.ImageBase</code>成员。</p>
+<p>&emsp;之后，比较<code>fake.exe</code>进程的实际映射地址与<code>real.exe</code>文件的<code>ImageBase</code>值。若两值相同，由于<code>fake.exe</code>的PE映像已经映射到某地址处，而此地址也是<code>real.exe</code>的PE映像要映射的地址。若将<code>real.exe</code>强行映射到该地址处，就会发生冲突，所以必须先卸载<code>fake.exe</code>的PE映像的映射。由于<code>fake.exe</code>进程处于挂起状态，所以卸载PE映像时不会发生错误。使用<code>ZwUnmapViewOfSection</code>来卸载，如下所示：</p>
+<p><img src="/images/re-core-principle-6/image-20230528111252905.png" alt="image-20230528111252905" style="zoom:67%;" /></p>
+<p>&emsp;若两值不同，不必非得卸载<code>fake.exe</code>的PE映像，可以先在<code>fake.exe</code>进程的虚拟内存空间（4G内存）中为<code>real.exe</code>的PE映像分配所需空间，然后将<code>real.exe</code>映射进去就可以了。接下来还要告知PE装载器，<code>fake.exe</code>进程的PE映像是<code>real.exe</code>的<code>ImageBase</code>地址。如下所示，调用<code>WriteProcessMemory</code>，将<code>fake.exe</code>进程的<code>PEB.ImageBase</code>值修改为<code>real.exe</code>文件的<code>ImageBase</code>值：</p>
+<p><img src="/images/re-core-principle-6/image-20230528112327560.png" alt="image-20230528112327560" style="zoom:67%;" /></p>
+<p>&emsp;至此，<code>SubFunc_2</code>分析完毕。</p>
+<p>&emsp;接下来分析<code>SubFunc_3</code>函数。此函数负责把<code>real.exe</code>文件映射到<code>fake.exe</code>进程。首先，使用<code>VirtualAllocEx</code>，为<code>real.exe</code>的PE映像分配内存（之前读取的是<code>real.exe</code>文件，而不是映像）（分配的内存是<code>real.exe</code>的<code>ImageBase</code>地址）。其次，将<code>real.exe</code>映射到<code>fake.exe</code>进程：（1）映射PE文件头。具体来说，就是调用<code>WriteProcessMemory</code>，将<code>real.exe</code>的PE文件头写入到刚刚分配的内存区域。（2）映射PE节区。反复调用<code>WriteProcessMemory</code>，映射PE节区。循环结束后，<code>real.exe</code>文件被完全映射至<code>real.exe</code>的<code>ImageBase</code>。（3）修改EP。获取<code>fake.exe</code>的主线程上下文后，如下所示：</p>
+<p><img src="/images/re-core-principle-6/image-20230528121643027.png" alt="image-20230528121643027" style="zoom:80%;" /></p>
+<p>&emsp;如上图所示，<code>eax</code>存的值是<code>fake.exe</code>原来的EP地址，<code>eip</code>存的值为<code>ntdll!RtlUserThreadStart</code>的起始地址，因此，我们可以总结程序挂起后重新运行之后做的事：处于挂起状态的<code>fake.exe</code>进程恢复运行后，首先会调用<code>ntdll!RtlUserThreadStart</code>，跳转至EP地址处(<code>Eax</code>)。由于前面已经将<code>fake.exe</code>进程的PE映像替换为<code>real.exe</code>，所以需要将<code>Eax</code>修改为<code>real.exe</code>的EP地址（使用<code>SetThreadContext</code>）。最后，调用<code>ResumeThread</code>恢复进程。</p>
+<p>&emsp;总结一下流程：</p>
+<p><img src="/images/re-core-principle-6/image-20230528124823078.png" alt="image-20230528124823078" style="zoom:67%;" /></p>
+<h3 id="调试-1"><a href="#调试-1" class="headerlink" title="调试"></a>调试</h3><p>&emsp;如何调试<code>real.exe</code>呢？</p>
+<p>&emsp;将<code>real.exe</code>文件映射到<code>fake.exe</code>进程前，向<code>real.exe</code>的EP代码设置无限循环。此时，借助调试器的附加功能将其附加到调试器即可调试。</p>
+<h2 id="0x03-Debug-Blocker调试"><a href="#0x03-Debug-Blocker调试" class="headerlink" title="0x03 Debug Blocker调试"></a>0x03 Debug Blocker调试</h2><p>&emsp;<code>Debug Blocker</code>是一种反调试技术，指的是进程以调试模式运行自身或其他可执行文件的技术。父进程是调试器，子进程是被调试者，且程序在作为调试器与被调试者时分别执行不同的代码。</p>
+<p>注：使用<code>CreateProcess</code>创建进程时，若选用了<code>DEBUG_PROCESS|DEBUG_ONLY_THIS_PROCESS</code>参数，则创建出的父子进程会形成调试器与被调试者的关系。</p>
+<h3 id="Debug-Blocker特征"><a href="#Debug-Blocker特征" class="headerlink" title="Debug Blocker特征"></a>Debug Blocker特征</h3><p>&emsp;调试器与被调试者关系中，调试进程与被调试进程是一种父子关系。</p>
+<p>&emsp;被调试进程不能被其他调试器调试。若想调试被调试进程，必须先切断原调试器与被调试者的关系。</p>
+<p>&emsp;终止调试进程的同时也终止被调试进程。当强制终止调试进程以切断调试器-被调试者关系时，被调试进程也会同时终止。</p>
+<p>&emsp;调试器操作被调试者的代码。调试器用来操纵被调试进程的运行分支，生成或修改执行代码等。因此，缺少调试进程的前提下，仅凭被调试进程无法正常运行。</p>
+<p>&emsp;调试器处理被调试进程中发生的异常。被调试进程中发生异常时，进程会暂停，控制权转移到调试进程。此时调试器可以修改被调试者的执行分支，此外也可以对被调试进程内部的加密代码解密，或者向寄存器、栈中存入某些特定值等。</p>
+<h3 id="调试-2"><a href="#调试-2" class="headerlink" title="调试"></a>调试</h3><p>&emsp;调试某个程序，程序逻辑是：父进程会在控制台窗口输出字符串，而子进程会在消息框输出字符串。</p>
+<p>&emsp;程序首先使用<code>CreateMutexW</code>创建互斥体对象，之后调用<code>GetLastError</code>，并于<code>0xB7</code>比较，如果相同，则说明以子进程运行，否则程序以父进程运行。父进程调用<code>CreateProcessW</code>，该函数使用<code>DEBUG_PROCESS|DEBUG_ONLY_THIS_PROCESS</code>参数（调试模式）创建自身进程。以Debug模式运行后，父进程为调试器，子进程为被调试者。</p>
+<p>&emsp;Debug Blocker的程序的核心代码一般都在子进程中运行。我们在<code>0xB7</code>比较阶段更改分支，进入子进程。子程序第一行代码为<code>lea eax, eax</code>，由于<code>lea</code>的第2操作数一般为内存，所以会报非法指令异常。这样就会把控制权交给父进程，获得控制权后，父进程会处理子进程中发生的异常，同时还会做一些其他事情。我们可以猜想：父进程(调试器)获取控制权后可能会使用这些指令对加密的代码解密，或者将执行分支修改为其他地址。到这里，我们已经不能继续采用这种方式调试了。要继续调试程序，必须详细分析父进程(调试器)的运行代码。</p>
+<p>&emsp;接下来继续调试父进程。发现父进程中调用了<code>WaitForDebugEvent</code>，等待被调试进程发生Debug事件。<code>WaitForDebugEvent</code>如下：</p>
+<p><img src="/images/re-core-principle-6/image-20230528191714515.png" alt="image-20230528191714515" style="zoom:67%;" /></p>
+<p>&emsp;若调用<code>WaitForDebugEvent</code>，将在<code>wMilliseconds</code>时间内等待被调试进程发生Debug。被调试进程发生异常时将返回<code>WaitForDebugEvent</code>，且相关异常信息就会填充到<code>IpDebugEvent</code>指针所指的<code>DEBUG_EVENT</code>结构体。此结构体定义如下：</p>
+<p><img src="/images/re-core-principle-6/image-20230528191905862.png" alt="image-20230528191905862" style="zoom:67%;" /></p>
+<p>&emsp;然后会比较Debug码与1（Exception）的关系，我们只需要关注等于1的时候即可。具体过程见书中，比较复杂，笔记中并未记全。</p>
+<p>&emsp;补充：条件记录断点（Conditional Log Break Point：CLBP），满足某个条件，记录到日志中。</p>
+<p>&emsp;总结一下这个程序的执行流程：（子进程的两次指令异常，此时交还给父进程处理）</p>
+<p><img src="/images/re-core-principle-6/image-20230528202748310.png" alt="image-20230528202748310" style="zoom:67%;" /></p>
+<p><img src="/images/re-core-principle-6/image-20230528203243095.png" alt="image-20230528203243095" style="zoom:67%;" /></p>
+<p>&emsp;上述程序调试需要多次调试，子进程与父进程都调试。那如果我们需要直接调试它的子进程（被调试进程），该如何处理呢？</p>
+<p>&emsp;方法1：静态。详细分析调试过程，得到解码代码，然后直接修改程序的PE文件或进程内存，从而达到用OllyDbg调试器调试的目的。</p>
+<p>&emsp;方法2：动态。(1)使用OllyDbg调试父进程，调试运行到要分析的地方(或者子进程代码完成解码的地方)；(2)在子进程中要分析的代码处设置无限循环；(3)将父进程从子进程中分离(Detach)；(4)附加OllyDbg调试器到子进程。具体看书中P669中的内容。</p>
+<h1 id="我不是什么天才，但只要不断努力，照样能成为代码逆向分析高手。"><a href="#我不是什么天才，但只要不断努力，照样能成为代码逆向分析高手。" class="headerlink" title="我不是什么天才，但只要不断努力，照样能成为代码逆向分析高手。"></a>我不是什么天才，但只要不断努力，照样能成为代码逆向分析高手。</h1><p>&emsp;送给自己。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/05/31/frida-study/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/05/22/re-part-6/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-05-25 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re-book/">re-book<span>11</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

@@ -1,0 +1,526 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>re-core-principle | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="re-core-principle"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> re-core-principle</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="逆向工程核心原理笔记-1"><a href="#逆向工程核心原理笔记-1" class="headerlink" title="逆向工程核心原理笔记-1"></a>逆向工程核心原理笔记-1</h1><p><strong>需要</strong>：目标、激情、Google</p>
+<p><strong>不需要</strong>：贪心（要浅尝辄止）、急躁（要平心静气）</p>
+<h2 id="0x01-逆向helloworld"><a href="#0x01-逆向helloworld" class="headerlink" title="0x01 逆向helloworld"></a>0x01 逆向helloworld</h2><p>&emsp;PC的Intel x86、移动产品中的ARM系列，两者具有不同形态的汇编指令。</p>
+<p>&emsp;EP（EntryPoint）是windows可执行文件的入口点。</p>
+<span id="more"></span>
+<p>&emsp;x32dbg相关指令：</p>
+<p><img src="/images/re-core-principle/image-20230313102222290.png" alt="image-20230313102222290" style="zoom:80%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CTRL+E               // 转储位置-更改转储位置的值</span><br><span class="line">CTRL+P and 修补文件   // 更改文件内容并保存</span><br><span class="line">space                // 代码位置-更改汇编</span><br><span class="line">CTRL+F2              // 从头开始调试</span><br><span class="line">F7                   // 步进</span><br><span class="line">F8                   // 步过</span><br><span class="line">CTRL+F9              // 执行到返回</span><br><span class="line">F4                   // 运行到光标处</span><br></pre></td></tr></table></figure>
+<p>&emsp;每次重新运行调试器时，调试都会返回到EP处，并从此处开始新的调试，使用起来相当不方便。经验丰富的代码逆向分析专家需要在调试代码时设置某个重要的点(地址)，使调试能快速转到设置点上。<strong>一般是打断点来解决上述问题，或者通过注释来快速跳跃到设置点。</strong></p>
+<p>&emsp;<strong>如何快速查找指定代码？</strong>（1）代码执行，例如<code>helloworld.exe</code>程序执行到显示<code>message box</code>的阶段。（2）字符串搜索（程序使用的字符串）。（3）API搜索（x32dbg的自我分析机制）。（4）使用加壳等工具后，方法3就没有用处了，这种情况下，DLL代码库被加载到进程内存后，我们可以<strong>直接向DLL代码库的API添加断点</strong>。</p>
+<p>&emsp;<strong>如何修改字符串？</strong>（1）直接修改字符串缓冲区(buffer)。优缺点：优点是使用简单，缺点是它对新字符串的长度有限制，新字符串的长度不应比原字符串长。（2）在其他内存区域生成新字符串并传递给消息函数。若把修改后的代码重新保存为程序文件，可能发现程序无法正常运行。这是因为：<strong>可执行文件被加载到内存并以进程形式运行时，文件并非原封不动地被载入内存，而是要遵循一定规则进行。这一过程中，通常进程的内存是存在的，但是相应的文件偏移(offset)并不存在，如果不能正常运行，说明字符串内存对应的文件偏移不存在，所以修改后的程序无法正常运行。</strong></p>
+<p>&emsp;<strong>什么是启动函数？</strong>启动函数 (Stub code)不是用户编写的代码，而是编译器任意添加的代码。编译A程序时，不同编译器会根据自身特点添加不同启动函数。</p>
+<h2 id="0x02-小端序"><a href="#0x02-小端序" class="headerlink" title="0x02 小端序"></a>0x02 小端序</h2><p>&emsp;小端序先放低位（内存地址低位存放数据低位），大端序先放高位（内存地址低位存放数据高位）。<strong>但是对于字符串而言，小端序与大端序的存储顺序相同。</strong>UNIX的RISC系列的CPU使用大端序，而Intel x86 CPU使用小端序。</p>
+<h2 id="0x03-IA-32寄存器讲解"><a href="#0x03-IA-32寄存器讲解" class="headerlink" title="0x03 IA-32寄存器讲解"></a>0x03 IA-32寄存器讲解</h2><p>&emsp;IA-32是英特尔推出的32位元架构，属于复杂的指令集架构。寄存器结构如下：</p>
+<p><img src="/images/re-core-principle/image-20230313120349946.png" alt="image-20230313120349946" style="zoom:80%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">EAX:(针对操作数和结果数据的)累加器</span><br><span class="line">EBX:(DS段中的数据指针)基址寄存器</span><br><span class="line">ECX:(字符串和循环操作的)计数器</span><br><span class="line">EDX:(IO指针)数据寄存器</span><br></pre></td></tr></table></figure>
+<p>&emsp;以上4个寄存器常用来保存常量与变量的值。<strong>循环命令(LOOP)中，ECX用来循环计数 (loop count)，每执行一次循环，ECX都会减1。EAX一般用在函数返回值中，所有WIN32 API函数都会先把返回值保存到EAX再返回。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">EBP:(SS段中栈内数据指针)扩展基址指针寄存器</span><br><span class="line">ESI:(字符串操作源指针)源变址寄存器</span><br><span class="line">EDI:(字符串操作日标指针)目的变址寄存器</span><br><span class="line">ESP:(SS段中栈指针)栈指针寄存器</span><br></pre></td></tr></table></figure>
+<p>&emsp;以上4个寄存器主要用作保存内存地址的指针。ESP指示栈区域的栈顶地址。EBP表示栈区域的基地址，<strong>函数被调用时保存ESP的值，函数返回时再把值返回ESP</strong>，保证栈不会崩溃（栈帧技术）。</p>
+<p>&emsp;段是一种内存保护技术，它把内存划分为多个区段，并为每个区段赋予起始地址、范围、访问权限等，以保护内存。<strong>段内存记录在SDT (Segment Descriptor Table，段描述符表)中，而段寄存器就持有这些SDT的索引（index）</strong>。段寄存器的寄存器大小为16位（针对32位系统）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CS:Code Segment，代码段寄存器</span><br><span class="line">SS:Stack Segment，栈段寄存器</span><br><span class="line">DS:Data Segment，数据段寄存器</span><br><span class="line">ES:Extra (Data)Segment，附加(数据)段寄存器</span><br><span class="line">FS:Data Segment，数据段寄存器</span><br><span class="line">GS:Data Segment，数据段寄存器</span><br></pre></td></tr></table></figure>
+<p>&emsp;程序调试中会经常用到<strong>FS寄存器，它用于计算SEH(Structured Exception Handler，结构化异常处理机制)、TEB(Thread Environment Block，线程环境块)、PEB(Process Environment Block，进程环境块)等</strong>。</p>
+<p>&emsp;EIP是32位寄存器<strong>（不是16位）</strong>，程序运行时，CPU会读取EIP中一条指令的地址<strong>（CS与IP不结合了）</strong>，传送指令到指令缓冲区后，EIP寄存器的值自动增加，增加的大小即是读取指令的字节大小。这样，CPU每次执行完一条指令，就会通过EIP寄存器读取并执行下一条指令。</p>
+<h2 id="0x04-栈"><a href="#0x04-栈" class="headerlink" title="0x04 栈"></a>0x04 栈</h2><p><img src="/images/re-core-principle/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(1).png" alt="未命名文件 (1)" style="zoom:80%;" /></p>
+<h2 id="0x05-分析abex’crackme-1"><a href="#0x05-分析abex’crackme-1" class="headerlink" title="0x05 分析abex’crackme#1"></a>0x05 分析abex’crackme#1</h2><p>&emsp;跟着书做实验即可。</p>
+<p>&emsp;补充：<code>HDD:Hard Disk Drive</code>（硬盘驱动）。</p>
+<p>&emsp;函数参数入栈的时候是按参数顺序<strong>从右向左</strong>入栈。<strong>为什么是逆序呢？</strong>栈的结构先进后出，所以把参数压入栈时，只有按照逆序的方式压入，函数才能以正确的顺序（正序）接收到这些参数。</p>
+<h2 id="0x06-栈帧"><a href="#0x06-栈帧" class="headerlink" title="0x06 栈帧"></a>0x06 栈帧</h2><p>&emsp;<strong>栈帧就是利用EBP(不是ESP)寄存器访问内局部变量、参数函数返回地址等的手段。</strong>栈帧结构很简单，如下所示：</p>
+<p><img src="/images/re-core-principle/image-20230313142401554.png" alt="image-20230313142401554" style="zoom:80%;" /></p>
+<ul>
+<li>最新的编译器中都带有一个<code>优化(Optimization)</code>选项，使用该选项编译简单的函数将<strong>不会生成栈帧</strong>。</li>
+<li>在<strong>栈中保存函数返回地址是系统安全隐患</strong>，攻击者使用缓冲区溢出技术能够把保存在栈内存的返回地址更改为其他地址。</li>
+</ul>
+<p>&emsp;被调函数执行完毕后，函数的调用者(Caller)负责清理存储在栈中的参数，这种方式称为<code>cdecl</code>方式。反之，被调用者(Callee)负责清理保存在栈中的参数，这种方式称为<code>stdcall</code>方式。这些函数调用规则统称为调用约定(Calling Convention)。</p>
+<h2 id="0x07-分析abex’crackme-2"><a href="#0x07-分析abex’crackme-2" class="headerlink" title="0x07 分析abex’crackme#2"></a>0x07 分析abex’crackme#2</h2><p>&emsp;<strong>跟着书做实验即可。</strong></p>
+<p>&emsp;<strong>此程序使用Visual Basic编写</strong>，而不是Visual C++ or 汇编。VB文件使用名为<code>MSVBVM60.dIl</code>( <code>Microsoft VisualBasic VirtualMachine 6.0</code>)的VB专用引擎来运行。例如，显示消息框时，VB代码中要调用<code>MsgBox</code>函数。其实，VB编辑器真正调用的是<code>MSVBVM60.dll</code>里的<code>rtcMsgBox</code>函数，在该函数内部通过调用<code>user32.dll</code>里的<code>MessageBoxW</code>函数 (Win32API)来工作。</p>
+<p>&emsp;根据使用的编译选项的不同，VB文件可以编译为<strong>本地代码(<code>N code</code>)与伪代码(<code>P code</code>)</strong>，类似于汇编的伪指令（供编译器使用）与正常指令。本地代码使用IA-32指令，而伪代码是一种解释器(Interpreter)语言，它使用由VB引擎实现虚拟机并可自解析的指令(字节码)。伪代码类似于Java虚拟机、Python虚拟机等，其好处是<strong>方便代码移植</strong>。</p>
+<p>&emsp;VB主要用来<strong>编写GUI程序</strong>。<strong>VB使用Unicode字符串，VB文件的函数之间由Nop分隔</strong>。VB在main中并不存在用户代码，<strong>用户代码存在于各个事件处理程序(<code>event handler</code>)之中。</strong></p>
+<h3 id="间接调用"><a href="#间接调用" class="headerlink" title="间接调用"></a>间接调用</h3><p>&emsp;<code>call</code>指令并不直接转入要调用的函数，而是通过jmp来中转一下。例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">00401232 JMP DWORD PTR DS:[401A0]</span><br><span class="line">00401238 PUSH 401E14</span><br><span class="line">0040123D CALL 00401232</span><br></pre></td></tr></table></figure>
+<p>&emsp;其中，<code>401A0</code>是IAT（导入地址表）区域，里面有被调用函数的实际地址。<code>abex&#39;crackme#2</code>程序中，<code>ThunRTMain</code>是VB程序的主函数，并在<code>DS:[401A0]</code>中存储，而<code>401E14</code>是<code>RT_MainStruct</code>结构体的地址，这是主函数的参数。</p>
+<h3 id="程序分析"><a href="#程序分析" class="headerlink" title="程序分析"></a>程序分析</h3><p>&emsp;此程序是一个用VB写的用于测试名字与序列号是否正确的程序。<strong>调试之前可以预测一下代码的实现。</strong>具体看P65及以后，这里只跟随书籍进行调试。</p>
+<h2 id="0x08-Process-Explorer-进程管理工具"><a href="#0x08-Process-Explorer-进程管理工具" class="headerlink" title="0x08 Process Explorer 进程管理工具"></a>0x08 Process Explorer 进程管理工具</h2><p>&emsp;Process Explorer是Windows操作系统下优秀的进程管理工具。</p>
+<h2 id="0x09-函数调用约定（Calling-Convention）"><a href="#0x09-函数调用约定（Calling-Convention）" class="headerlink" title="0x09 函数调用约定（Calling Convention）"></a>0x09 函数调用约定（Calling Convention）</h2><p>&emsp;栈就是定义在进程中的一段内存空间，向低地址方向扩展，且<strong>其大小被记录在PE头中，也就是说进程运行时确定栈内存的大小(与malloc/new动态分配内存不同，此时分配的是堆)。</strong></p>
+<p>&emsp;<strong>函数执行完成后，栈中的参数如何处理?</strong>不用管。由于只是临时使用存储在栈中的值，即使不再使用，清除工作也会浪费CPU资源。下一次再向栈存人其他值时，原有值会被自然覆盖掉，并且栈内存是固定的，所以既不能也没必要释放内存。</p>
+<p>&emsp;<strong>函数执行完毕后，ESP值如何变化?</strong>ESP值要恢复到函数调用之前，这样可引用的栈大小才不会缩减。栈内存是固定的，ESP用来指示栈的当前位置。函数调用后如何处理ESP，这就是<strong>函数调用约定</strong>要解决的问题。主要的函数调用约定如下：</p>
+<ul>
+<li><p><code>cdecl</code>方式，主要在C语言中使用，<strong>函数调用者负责处理栈，就是把函数调用时push进去的参数给消除</strong>。好处：就像<code>printf</code>函数一样，可以向函数传递长度可变的参数，这种功能在其他调用方式中很难实现（<strong>为什么？</strong>）。</p>
+</li>
+<li><p><code>stdcall</code>方式，常用于win32 API，若想使用<code>stdcall</code>方式编译源码，只要在函数前面加<code>_stdcall</code>关键字即可。栈的清理工作由被调用者完成，书中例子的add函数最后是<code>ret 0x08</code>，其含义是<code>ret; pop 8字节</code>。其好处是：代码尺寸小，兼容性高，使用VB等其他语言也能调用API。</p>
+</li>
+<li><code>fastcall</code>方式使用寄存器传递前两个参数，而不是使用栈。其调用速度快。</li>
+</ul>
+<h2 id="0x10-Part10Tut逆向"><a href="#0x10-Part10Tut逆向" class="headerlink" title="0x10 Part10Tut逆向"></a>0x10 Part10Tut逆向</h2><p>&emsp;<strong>补充：</strong>msvbvm50.dll是一个动态链接库文件，它是微软Microsoft Visual Basic虚拟机相关的文件。</p>
+<p>&emsp;我们要逆向的程序是关于序列号逆向的，<strong>与0x07类似</strong>。<strong>跟着书籍进行操作。P79</strong></p>
+<p><img src="/images/re-core-principle/image-20230314135840536.png" alt="image-20230314135840536" style="zoom:80%;" /></p>
+<ul>
+<li>首先，我们要去除程序刚开始进入时讨厌的确定框，打开后发现此程序也是用VB写的，其中调用消息框的函数为<code>MSVBVM50.rtcMsgBox</code>。发现这个确定框在程序中有两次调用（第1次是程序刚开始运行，第2次是点击上图的<code>Nag?</code>按钮），通过将调用<code>MSVBVM50.rtcMsgBox</code>的函数直接<code>ret</code>即可，注意由于是<code>stdcall</code>方式，所以需要确定函数的参数列表，最后是<code>ret 0x4</code>。</li>
+<li>注册码直接是一个cmp函数，很容易发现是：<code>I&#39;mlena151</code>。</li>
+</ul>
+<h2 id="0x11-如何学习逆向"><a href="#0x11-如何学习逆向" class="headerlink" title="0x11 如何学习逆向"></a>0x11 如何学习逆向</h2><p>&emsp;感受<strong>乐趣</strong>，懂得检索，<strong>实践，保持平和心态（不要急躁）</strong>。</p>
+<h2 id="0x12-PE文件格式"><a href="#0x12-PE文件格式" class="headerlink" title="0x12 PE文件格式"></a>0x12 PE文件格式</h2><p>&emsp;PE文件是<strong>Windows操作系统</strong>下使用的可执行文件格式。它是微软在UNIX平台的（COFFCommon Obiect File Format，通用对象文件格式）基础上制作而成的。<strong>PE文件是指32位的可执行文件，也称为PE32。64位的可执行文件称为PE+或PE32+（不是PE64）。</strong>PE文件种类有：</p>
+<p><img src="/images/re-core-principle/image-20230314150543072.png" alt="image-20230314150543072" style="zoom:80%;" /></p>
+<p>&emsp;严格来说，除了<code>OBJ</code>文件，其他类型的文件都可以执行（在shell或者调试器中）。</p>
+<p>&emsp;<strong>如何加载到内存、从何处开始运行、运行中需要的DLL有哪些、需要多大的栈/堆内存等，大量信息以结构体形式存储在PE头中，因此学习PE文件格式就是学习PE头中的结构体。</strong></p>
+<p>&emsp;<strong>从DOS头（DOS header）到节区头（Section header）是PE头部分，其下的节区合称PE体。</strong>文件中使用偏移(offset)表示位置，内存中使用VA(VirtualAddress，虚拟地址)来表示位置。文件的内容一般可分为<strong>代码(.text)、数据.data)、资源(.rsrc)节</strong>。<strong>根据所用的不同开发工具（VB/VC++）与编译选项，节区的名称、大小、个数、存储的内容等都是不同的。</strong></p>
+<p>&emsp;各节区头定义了<strong>各节区在文件或内存中的大小、位置等</strong>。<strong>PE头与各节区的尾部</strong>存在一个区域，称为NULL padding。内存中节区的起始位置应该在各文件单位的倍数位置上，空白区域将用NULL填充。如下图所示，<code>DOS头+DOS存根+NT头+节区头=PE头</code>：</p>
+<p><img src="/images/re-core-principle/image-20230314152042906.png" alt="image-20230314152042906" style="zoom:75%;" /></p>
+<p>&emsp;VA：进程虚拟内存的绝对地址，RVA：从某个基准位置开始的相对地址。其转换关系为：<code>VA=ImageBase+RVA</code>，方便文件加载到内存时的重定位。对于32位的OS，每一个进程有4G虚存，VA范围为：<code>00000000-FFFFFFFF</code>。</p>
+<h3 id="DOS头"><a href="#DOS头" class="headerlink" title="DOS头"></a>DOS头</h3><p>&emsp;DOS文件是指在DOS操作系统下创建或使用的文件。DOS操作系统是一种基于磁盘管理的操作系统，它直接操纵管理硬盘的文件，一般都是黑底白色文字的界面。DOS文件的扩展名通常有三个字母，例如.exe、.com、.bat等。为了考虑PE文件对DOS文件的兼容性，微软在PE头的最前面添加了一个<code>IMAGE_DOS_HEADER</code>结构体（<strong>40字节</strong>）。如下所示：</p>
+<p><img src="/images/re-core-principle/image-20230314152920364.png" alt="image-20230314152920364" style="zoom:80%;" /></p>
+<p>&emsp;其中最重要的两项是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">e_magic //DOS签名(signature，4D5A=&gt;ASCII值&quot;MZ&quot;，MZ是一个开发人员的名字首字母，好帅)</span><br><span class="line">elfanew //指示NT头(IMAGE_NT_HEADERS)的偏移，下图的elfanew=000000E0（小端序）</span><br></pre></td></tr></table></figure>
+<p><img src="/images/re-core-principle/image-20230314153417574.png" alt="image-20230314153417574" style="zoom:80%;" /></p>
+<h3 id="DOS存根（stub）"><a href="#DOS存根（stub）" class="headerlink" title="DOS存根（stub）"></a>DOS存根（stub）</h3><p>&emsp;在DOS头下方，是可选项，且大小不固定，由代码与数据混合而成。其中的代码，在32位的Windows OS中不会运行该命令（由于被识别为PE文件，所以忽视该代码）。在DOS环境中运行Notepad.exe文件，或者使用DOS调试器（<code>debug.exe</code>）运行它，可使其执行该代码（不认识PE文件格式，所以被识别为DOS EXE文件）。<strong>灵活使用该特性可以在一个可执行文件（EXE）中创建出另一个文件，它在DOS环境中运行16位DOS代码，在Windows环境中运行32位Windows代码，这种特性叫做MS-DOS兼容。</strong></p>
+<h3 id="NT头"><a href="#NT头" class="headerlink" title="NT头"></a>NT头</h3><p>&emsp;<code>IMAGE_NT_HEADERS</code>结构体如下：</p>
+<p><img src="/images/re-core-principle/image-20230314154129564.png" alt="image-20230314154129564" style="zoom:80%;" /></p>
+<p>&emsp;<code>IMAGE_NT_HEADERS</code>结构体大小为<strong>0xF8字节</strong>，由3个成员组成，第一个成员为<strong>签名(Signature)结构体（4字节）</strong>，其值为50450000h(“PE”)。另外两个成员分别为<strong>文件头(File Header)结构体与可选头(Optional Header)结构体</strong>。</p>
+<h4 id="NT头中的文件头"><a href="#NT头中的文件头" class="headerlink" title="NT头中的文件头"></a>NT头中的文件头</h4><p>&emsp;<strong>文件头</strong>的<code>IMAGE_FILE_HEADER</code>结构体（<strong>20个字节</strong>）如下：</p>
+<p><img src="/images/re-core-principle/image-20230314154517180.png" alt="image-20230314154517180" style="zoom:80%;" /></p>
+<p>&emsp;&emsp;<code>IMAGE_FILE_HEADER</code>结构体有四个重要的项：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Machine                 // 每种CPU都有自己唯一的mechine码</span><br><span class="line">NumberOfSections        // 文件中的节区数量</span><br><span class="line">TimeDateStamp           // 记录编译器创建此文件的时间</span><br><span class="line">SizeOfOptionalHeader    // 指明IMAGE_OPTIONAL_HEADER32(PE)或IMAGE_OPTIONAL_HEADER64(PE+)长度</span><br><span class="line">Characteristics         // 指明文件是否可运行（0002H），是否为DLL（2000H）</span><br></pre></td></tr></table></figure>
+<p>注：借助<code>IMAGE_DOS_HEADER</code>的elfanew（NT头偏移）与<code>IMAGE_FILE_HEADER</code>的SizeOfOptionalHeader（可选头大小） ，可以创建出一种脱离常规的 PE文件(“麻花”PE文件，不连续)。</p>
+<h4 id="NT头中的可选头"><a href="#NT头中的可选头" class="headerlink" title="NT头中的可选头"></a>NT头中的可选头</h4><p>&emsp;<strong>可选头</strong>的<code>IMAGE_OPTIONAL_HEADER32</code>结构体是最大的，如下图所示：</p>
+<p><img src="/images/re-core-principle/image-20230314170826726.png" alt="image-20230314170826726" style="zoom:80%;" /></p>
+<p><img src="/images/re-core-principle/image-20230314170846372.png" alt="image-20230314170846372" style="zoom:80%;" /></p>
+<p>&emsp;重点关注下列选项：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Magic                 // IMAGE_OPTIONAL_HEADER32时为10B，IMAGE_OPTIONAL_HEADER64时为20B</span><br><span class="line">AddressOfEntryPoint   // 持有EP的RVA值，该值指出程序最先执行的代码起始地址！！！！</span><br><span class="line">ImageBase             // 文件优先装入的基地址，一般exe为00400000，dll为10000000，执行PE时，先创建进程，然后把PE文件放入内存，并将EIP设为ImageBase+AddressOfEntryPoint</span><br><span class="line">FileAlignment         // PE体划分了很多节区，FileAlignment指定了节区在磁盘文件中的最小单位</span><br><span class="line">SectionAlignment      // SectionAlignment则指定了节区在内存中的最小单位</span><br><span class="line">SizeOfImage           // 指定了PE映像在虚拟内存中所占空间的大小。文件的大小与加载到虚存中的大小一般是不同的</span><br><span class="line">SizeOfHeader          // 指定PE头的大小，是FileAlignment的整数倍。第一节区的偏移量=SizeOfHeader</span><br><span class="line">Subsystem             // 用来区分系统驱动文件(sys)与普通的可执行文件(exe,dll)。</span><br><span class="line">NumberOfRvaAndSizes   // 指定DataDirectory数组长度</span><br><span class="line">DataDirectory         // 是由IMAGE_DATA_DIRECTORY结构体组成的数组</span><br></pre></td></tr></table></figure>
+<p>&emsp;<strong>注：</strong>driver文件（系统驱动，例如<code>sys</code>），GUI文件（窗口应用程序，例如<code>nodepad.exe</code>），CUI文件（控制台应用程序，例如<code>cmd.exe</code>）。</p>
+<p>&emsp;DataDirectory结构体数组详细结构如下：</p>
+<p><img src="/images/re-core-principle/image-20230314172720015.png" alt="image-20230314172720015" style="zoom:80%;" /></p>
+<hr>
+<p>Time：2023-03-14</p>
+<h3 id="节区头"><a href="#节区头" class="headerlink" title="节区头"></a>节区头</h3><p>&emsp;PE文件格式的设计者<strong>把具有相似属性的数据统一保存节区中</strong>，然后需要把各节区的属性记录在节区头中(例如起始位置、大小、访问权限等)。节区头是由<code>IMAGE_SECTION_HEADER</code>结构体组成的数组，每个结构体对应一个节区，其结构如下所示：</p>
+<p><img src="/images/re-core-principle/image-20230320095403944.png" alt="image-20230320095403944" style="zoom:80%;" /></p>
+<p>&emsp;其重要字段解释如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">VirtualSize       // 内存中节区大小</span><br><span class="line">VirtualAddress    // 内存中节区的起始偏移地址</span><br><span class="line">SizeOfRawData     // 磁盘中节区大小</span><br><span class="line">PointerToRawData  // 磁盘中节区起始位置</span><br><span class="line">Characteristics   // 节区属性（可执行、可读等）</span><br><span class="line">Name              // 仅作参考，例如数据节区的名称也可以叫做`.code`</span><br></pre></td></tr></table></figure>
+<h3 id="RVA-to-RAW"><a href="#RVA-to-RAW" class="headerlink" title="RVA to RAW"></a>RVA to RAW</h3><p>&emsp;PE文件从磁盘映射到内存，这种映射叫做RVA to RAW。<strong>RVA是内存中数据的实际地址相对内存中PE文件基址间的距离。RAW指磁盘中数据的实际地址相对磁盘中PE文件基址间的距离。比较重要，主要是PointerToRawData与VirtualAddress都保存在节区头中。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RVA = VA - ImageBase   // 不考虑节区，纯PE文件从磁盘到内存的映射</span><br><span class="line">RAW - PointerToRawData = RVA - VirtualAddress</span><br></pre></td></tr></table></figure>
+<p>&emsp;练习题如下：</p>
+<p><img src="/images/re-core-principle/image-20230320102057525.png" alt="image-20230320102057525" style="zoom:80%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">`.text`的RVA：1000H</span><br><span class="line">`.data`的RVA：9000H</span><br><span class="line">`.rsrc`的RVA：B000H</span><br><span class="line">RVA=5000H，FileOffset=4400H</span><br><span class="line">RVA=13314H，FileOffset=10714H</span><br><span class="line">RVA=ABA8H，FileOffset=97A8H（错误的，因为超出了在磁盘中的`.data`段大小）</span><br></pre></td></tr></table></figure>
+<h3 id="IAT（导入地址表）"><a href="#IAT（导入地址表）" class="headerlink" title="IAT（导入地址表）"></a>IAT（导入地址表）</h3><p>&emsp;IAT属于NT可选头的<code>DataDirectory</code>，<strong>IAT是一个表格，记录程序正在使用哪些库中的哪些函数</strong>。</p>
+<p>&emsp;<strong>DLL动态链接库引入原因：</strong>同时运行多个程序时，若像DOS一样运行时都包含相同的代码，则会造成严重的内存浪费，而DLL使用内存映射技术，使加载后的DLL代码、资源在多个进程中实现共享。</p>
+<p>&emsp;<strong>加载DLL的方式有两种</strong>：（1）显式链接（Explicit Linking）程序<strong>使用DLL时加载</strong>，使用完毕后释放内存。（2）隐式链接（Implicit  Linking）<strong>程序开始时加载DLL</strong>，程序终止时再释放占用的内存。<strong>即隐式链接的DLL生命周期更长。</strong></p>
+<p>&emsp;在程序运行时，如果要调用某一个DLL中的函数，指令一般会写<code>call [固定地址]</code>，然后这个固定地址里写了此函数在内存中的具体位置。（我猜测，这个固定地址就是IAT表的位置）</p>
+<h4 id="IMAGE-IMPORT-DESCRIPTOR"><a href="#IMAGE-IMPORT-DESCRIPTOR" class="headerlink" title="IMAGE_IMPORT_DESCRIPTOR"></a>IMAGE_IMPORT_DESCRIPTOR</h4><p>&emsp;<strong>是IAT对应的结构体，位置在NT可选头的DataDirectory的第2项所指向的位置。</strong>其结构体示意图如下：</p>
+<p><img src="/images/re-core-principle/image-20230320110705681.png" alt="image-20230320110705681" style="zoom:80%;" /></p>
+<p>&emsp;执行一个程序时需要导入多个库，<strong>导入多少库就存在多少个IMAGE_IMPORT_DESCRIPTOR结构体</strong>，这些结构体形成了数组。上图的重要项解释如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OriginalFirstThunk // INT（Import Name Table），指向不同库的IMAGE_IMPORT_DESCRIPTOR指针，RVA</span><br><span class="line">Name               // 库名称</span><br><span class="line">FirstThunk         // 某个库的IAT地址，RVA</span><br></pre></td></tr></table></figure>
+<p>&emsp;例如，kernel32.dll的IMAGE_IMPORT_DESCRIPTOR如下所示（<strong>都是RVA地址，且这是加载到内存后的示意图，加载到内存之前，FirstThunk与OriginalFirstThunk的指向相同。加载到内存时，PE装载器会重载FirstThunk的值</strong>）：</p>
+<p><img src="/images/re-core-principle/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(2).png" alt="未命名文件 (2)"  /></p>
+<p>&emsp;下面说一下PE装载器把导入函数输入到IAT的顺序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 读取IMAGE_IMPORT_DESCRIPTOR的Name，获得库名称字符串&quot;kernel32.dll&quot;</span><br><span class="line">2. LoadLibrary(&quot;kernel32.dll&quot;)</span><br><span class="line">3. 读取OriginalFirstThunk中的函数名，并在kernal32.dll找到对应地址（GetProcAddress(&quot;GetCurrentThreadld&quot;)）</span><br><span class="line">4. 将地址填入FirstThunk对应地址</span><br><span class="line">5. 重复3-4，直到OriginalFirstThunk结束</span><br></pre></td></tr></table></figure>
+<p>&emsp;<strong>书中给了一个notepad.exe的例子，挺重要的，书中写的很全了，所以不再赘述。要注意的是，如果是直接用010editor来追踪，给的地址基本全是RVA，要转换成RAW才能进行寻找。</strong></p>
+<h3 id="EAT（导出地址表）"><a href="#EAT（导出地址表）" class="headerlink" title="EAT（导出地址表）"></a>EAT（导出地址表）</h3><ul>
+<li>一般是DLL中有的，用来方便其他PE文件求得自己提供的函数的地址。</li>
+<li>EAT对应的结构体叫：IMAGE_EXPORT_DIRECTORY。</li>
+<li>IMAGE_IMPORT_DESCRIPTOR（也就是IAT）可以有多个，因为一个PE文件可以导入多个库，但是IMAGE_EXPORT_DIRECTORY只有一个。</li>
+<li>分析路线与EAT差不多，书中也给了例子。</li>
+</ul>
+<p>&emsp;IMAGE_EXPORT_DIRECTORY的结构如下：</p>
+<p><img src="/images/re-core-principle/image-20230320133218269.png" alt="image-20230320133218269" style="zoom:80%;" /></p>
+<p>&emsp;重要字段如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NumberOfFunctions     // 导出的函数个数</span><br><span class="line">NumberOfNames         // 导出的有名字的函数个数</span><br><span class="line">AddressOfFunctions    // 导出的函数数组，数组长度=NumberOfFunctions</span><br><span class="line">AddressOfNames        // 导出的函数名数组</span><br><span class="line">AddressOfNameOrdinals // 导出的函数序号</span><br></pre></td></tr></table></figure>
+<p>&emsp;下图描述了EAT结构：</p>
+<p><img src="/images/re-core-principle/image-20230320134014784.png" alt="image-20230320134014784" style="zoom:80%;" /></p>
+<p>&emsp;从库中获得函数地址的API是GetProcAddress()函数，该API使用EAT来定位函数的地址，下面讲解它如何获得函数地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 在AddressOfNames中找到函数名对应索引，记录此索引。</span><br><span class="line">2. 在AddressOfNameOrdinals中找到此索引对应的Ordinals（序号）。</span><br><span class="line">3. 在AddressOfFunctions中找到Ordinals对应的函数地址。</span><br></pre></td></tr></table></figure>
+<p>&emsp;有的导出函数没有函数名，仅通过Ordinals导出。</p>
+<h4 id="patched-PE"><a href="#patched-PE" class="headerlink" title="patched PE"></a>patched PE</h4><p>&emsp;指的是PE文件虽然符合PE规范，但是附带的PE头非常具有创意（PE头纠缠放置到各处），典型的就是tinyPE（97字节）。</p>
+<h2 id="0x13-运行时压缩"><a href="#0x13-运行时压缩" class="headerlink" title="0x13 运行时压缩"></a>0x13 运行时压缩</h2><h3 id="无损压缩与有损压缩"><a href="#无损压缩与有损压缩" class="headerlink" title="无损压缩与有损压缩"></a>无损压缩与有损压缩</h3><p>&emsp;无损压缩：ZIP、RAR</p>
+<p>&emsp;有损压缩：jpg、mp3、mp4</p>
+<h3 id="运行时压缩器"><a href="#运行时压缩器" class="headerlink" title="运行时压缩器"></a>运行时压缩器</h3><p>&emsp;针对PE文件，PE文件内部有解压缩代码，PE文件在运行瞬间在内存中解压缩后运行。程序的EP代码（入口代码）中执行解码程序。把普通PE文件创建成运行时压缩文件的实用程序称为压缩器(Packer)，经反逆向（Anti-Reversing）技术特别处理的压缩器称为保护器(Protector)。</p>
+<p>&emsp;普通的压缩器有：UPX、ASPack。针对病毒等恶意文件的压缩器：UPack、PESpin、NSAnti，其会对源文件进行较大变形，严重破坏PE头。</p>
+<p>&emsp;PE保护器是保护PE文件免受代码逆向分析的程序，其应用了多种防逆向的技术（反调试、反模拟、代码混乱、多态代码、垃圾代码、调试器监视等）。<strong>这类保护器使压缩后的PE文件尺寸反而比源文件要大一些</strong>。常用保护器为：ASProtect、Themida、SVKP、ultraProtect、Morphine等。</p>
+<p>&emsp;下面给出了notepad.exe经upx压缩前后的示意图：</p>
+<p><img src="/images/re-core-principle/image-20230320153821050.png" alt="image-20230320153821050" style="zoom:80%;" /></p>
+<p>&emsp;可以看到，压缩后第一个节区UPX0的空间为0，在此文件运行时，经压缩的PE文件在运行瞬间将压缩的代码解压到第一个节区。一开始，解压缩代码与压缩的源代码都在第二个节区。文件运行时首先执行解压缩代码，把处于压缩状态的源代码解压到第一个节区。</p>
+<h2 id="0x14-调试UPX压缩的notepad程序"><a href="#0x14-调试UPX压缩的notepad程序" class="headerlink" title="0x14 调试UPX压缩的notepad程序"></a>0x14 调试UPX压缩的notepad程序</h2><p>&emsp;跟踪数量庞大的代码时，遵循：<strong>遇到循环(Loop)时，先了解作用再跳出。</strong></p>
+<p>&emsp;命令补充：</p>
+<p><img src="/images/re-core-principle/image-20230320160958755.png" alt="image-20230320160958755" style="zoom:80%;" /></p>
+<p>&emsp;跟着书进行实验，最后总结UPX解压缩的流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 短循环，对数据进行平移。</span><br><span class="line">2. 将`.UPX1`节区中的数据解压缩并复制到`.UPX0`</span><br><span class="line">3. 修复第2步复制过去的代码中的`call/jmp`指令</span><br><span class="line">4. 将IAT表拷贝到`.UPX0`中</span><br></pre></td></tr></table></figure>
+<p>&emsp;如何快速找到OEP：<strong>UPX压缩器的EP代码被包含在PUSHAD/POPAD指令之间，并且，跳转到OEP代码的JMP指令紧接着出现在POPAD指令之后，只要在JMP指令附近设置好断点，运行后就能直接找到OEP。</strong></p>
+<p>&emsp;<strong>注：</strong>硬件断点是CPU支持的断点，最多可以设置4个。与普通断点不同的是，<strong>设置断点的指令执行完成后才暂停调试</strong>。<strong>所以要在栈上打硬件断点，popad执行完之后返回，如果打的是普通断点，那么执行到popad一半时就会中止，就会出现问题。</strong></p>
+<p>&emsp;<strong>解压缩并转储时需要重新设置IAT，如果不重新设置，转储后成为exe，再点击打开就会出现初始化错误。这是因为：</strong>UPX解压缩只拷贝了IAT，并在第3步就把要跳转的地址改了，而INT（导入名称表）却没改（因为都加载到内存了，不需要改了），所以如果保存再打开的话，会出现初始化错误。<strong>这里说的不对，不重新设置IAT，程序根本找不到入口啊。</strong></p>
+<h2 id="0x15-基址重定位表（Base-Relocation-Table）"><a href="#0x15-基址重定位表（Base-Relocation-Table）" class="headerlink" title="0x15 基址重定位表（Base Relocation Table）"></a>0x15 基址重定位表（Base Relocation Table）</h2><p>&emsp;向进程的虚拟内存加载PE文件时，文件会被加载到PE头的ImageBase所指的地址处。若加载的是DLL文件，且在ImageBase位置处已经加载了其他DLL文件，那么PE装载器就会将其加载到其他未被占用的空间。<strong>PE重定位是指PE文件无法加载到ImageBase所指位置，而是被加载到其他地址时发生的行为。</strong>重定位示意图如下：</p>
+<p><img src="/images/re-core-principle/image-20230320174250750.png" alt="image-20230320174250750" style="zoom:80%;" /></p>
+<p>&emsp;使用ASLR机制，每次运行的PE文件都会被加载到随机地址。重定位操作原理如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 在应用程序中查找硬编码（call 后面的地址）的地址位置。</span><br><span class="line">2. 读取值后，减去ImageBase，VA-&gt;RVA。</span><br><span class="line">3. 加上实际加载base地址，RVA-&gt;VA。</span><br></pre></td></tr></table></figure>
+<p>&emsp;那么咋知道程序的哪一部分是硬编码呢？<strong>这就需要重定位表（Relocation Table），它是记录硬编码位置的列表（重定位表是在PE文件构建过程，即编译链接中提供的，也就是与DLL连接时提供的）。</strong>通过重定位表查找，其实就是指根据PE头的”基址重定位表”项进行的查找。<strong>基址重定位表地址位于PE头的DataDirectory数组的第6个元素(数组索引为5)，其对应结构体为IMAGE_BASE_RELOCATION</strong>，结构体如下：</p>
+<p><img src="/images/re-core-principle/image-20230320194151109.png" alt="image-20230320194151109" style="zoom:80%;" /></p>
+<p>&emsp;IMAGE_BASE_RELOCATION结构体的第一个成员为VirtualAddress，它是一个基准地址（BaseAddress），实际是RVA值。第二个成员为SizeOfBlock，指重定位块的大小。最后一项TypeOffset数组不是结构体成员，而是以注释形式存在的，表示在该结构体之下会出现WORD类型的数组，并且该数组元素的值就是硬编码在程序中的地址偏移。<strong>这段是书上的原话，不太懂，但是后面会详细解释。</strong></p>
+<p>&emsp;下图展示了基址重定位表的内容：</p>
+<p><img src="/images/re-core-principle/image-20230320194828153.png" alt="image-20230320194828153" style="zoom:80%;" /></p>
+<p>&emsp;由IMAGE_BASE_RELOCATION结构体的定义可知：VirtualAddress(基准地址)的值为1000，SizeOfBlock的值为150。即，上图中的TypeOffest数组的基准地址为RVA1000，总大小为150。TypeOffset中的每个值为2个字节，是由4位的Type与12位的Offset组成的。例如，值为3420H，就如下所示：</p>
+<p><img src="/images/re-core-principle/image-20230320195542083.png" alt="image-20230320195542083" style="zoom:80%;" /></p>
+<p>&emsp;那么此硬编码的RVA=1000+420=1420H。<strong>书中P141页写的例子非常好。</strong></p>
+<h2 id="0x016-从可执行文件中删除-reloc节区"><a href="#0x016-从可执行文件中删除-reloc节区" class="headerlink" title="0x016 从可执行文件中删除.reloc节区"></a>0x016 从可执行文件中删除.reloc节区</h2><p>&emsp;EXE形式的PE文件中，基址重定位表项对运行没什么影响，这是因为：<strong>EXE有自己的虚拟内存空间，因此总是会加载到PE文件中规定的ImageBase中，因此不需要重定位。</strong>但基址重定位表对DLL/SYS形式的文件来说几乎是必需的。<br>&emsp;VC++中，EXE生成的PE文件的重定位表对应的节区名为<code>.reloc</code>（一般是最后一个节区），删除该节区后文件照常运行，所以我们想删掉。<strong>删除的步骤在书中详细说了，跟着做，不再赘述，大体步骤如下：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 整理.reloc节区头</span><br><span class="line">2. 删除.reloc节区</span><br><span class="line">3. 修改IMAGE_FILE_HEADER</span><br><span class="line">4. 修改IMAGE_OPTIONAL_HEADER</span><br></pre></td></tr></table></figure>
+<h2 id="0x017-UPack-PE文件头详细分析"><a href="#0x017-UPack-PE文件头详细分析" class="headerlink" title="0x017 UPack PE文件头详细分析"></a>0x017 UPack PE文件头详细分析</h2><p>&emsp;UPack可以对病毒进行压缩，其对PE文件头作了较大改变。其特点是<strong>用一种非常独特的方式对PE头进行变形</strong>。<strong>UPack会引起诸多现有PE分析程序错误</strong>。也就是说，UPack使用了一些划时代的技术方法。</p>
+<hr>
+<p>Time：2023-03-20</p>
+<h3 id="UPack的重叠文件头"><a href="#UPack的重叠文件头" class="headerlink" title="UPack的重叠文件头"></a>UPack的重叠文件头</h3><p>&emsp;MZ文件头(IMAGE_DOS_HEADER)与PE文件头(IMAGE_NT_HEADERS)巧妙重叠在一起，并可有效节约文件头空间，也给分析带来很大困难。UPack中，PE文件头的起始位置为0x10。</p>
+<h3 id="IMAGE-FILE-HEADER-SizeOfOptionalHeader"><a href="#IMAGE-FILE-HEADER-SizeOfOptionalHeader" class="headerlink" title="IMAGE_FILE_HEADER.SizeOfOptionalHeader"></a>IMAGE_FILE_HEADER.SizeOfOptionalHeader</h3><p>&emsp;<strong>PE32的IMAGE_OPTIONAL_HEADER固定是0xE0大小，那为什么还要有SizeOfOptionalHeader这样一个选项呢？</strong>因为IMAGE_OPTIONAL_HEADER的种类有很多，例如PE32+的IMAGE_OPTIONAL_HEADER大小为0xF0，而且IMAGE_OPTIONAL_HEADER能够确定OPTIONAL_HEADER的下一项，即节区头的位置。</p>
+<p>&emsp;在UPack压缩的文件中，IMAGE_OPTIONAL_HEADER的偏移为0x28，且SizeOfOptionalHeader为0x148（比0xF0与0xE0都要大），因此节区头的偏移为0x170。为啥呢？<strong>这是因为，UPack的基本特征就是把PE文件头变形，像扭曲的麻花一样，向文件头适当插人解码需要的代码。增大SizeOfOptionalHeader的值后，就在IMAGE_OPTIONAL_HEADER与节区头之间添加了额外空间，UPack就可以向这个区域添加解码代码。</strong></p>
+<p>&emsp;IMAGE_OPTIONAL_HEADER结束的位置为D7（因为有两个双字节的Null），IMAGE_SECTION_HEADER的起始位置为170，中间就是汇编代码。</p>
+<h3 id="IMAGE-OPTIONAL-HEADER-NumberOfRvaAndSizes"><a href="#IMAGE-OPTIONAL-HEADER-NumberOfRvaAndSizes" class="headerlink" title="IMAGE_OPTIONAL_HEADER.NumberOfRvaAndSizes"></a>IMAGE_OPTIONAL_HEADER.NumberOfRvaAndSizes</h3><p>&emsp;这个用来指定datadirectory的数组长度。原来是0x10个，Upack改成了0xA个，后面6个数组不再使用，UPack在这6个数组的位置写自己的代码。和上节中的复写代码区域是重合的。</p>
+<h3 id="IMAGE-SECTION-HEADER"><a href="#IMAGE-SECTION-HEADER" class="headerlink" title="IMAGE_SECTION_HEADER"></a>IMAGE_SECTION_HEADER</h3><p>&emsp;节区数为3个，且节区头的起始地址为0x170。</p>
+<h3 id="重叠节区"><a href="#重叠节区" class="headerlink" title="重叠节区"></a>重叠节区</h3><p>&emsp;在Stud_PE下看nodepad_upack.exe的节区头，发现磁盘文件中第1节区与第3节区的RawOffset与RawSize是重合的，如下图所示：</p>
+<p><img src="/images/re-core-principle/image-20230321120859813.png" alt="image-20230321120859813" style="zoom:80%;" /></p>
+<p>&emsp;且RawOffset与PE文件头起始位置相同。因此可知，UPack会对PE文件头、第1节区、第3节区进行重叠。具体示意图如下所示：</p>
+<p><img src="/images/re-core-principle/image-20230321121332082.png" alt="image-20230321121332082" style="zoom:80%;" /></p>
+<p>&emsp;可以看到，PE装载器会将文件0-1FF的区域分别映射到3个不同的内存位置(文件头、第1个节区、第3个节区)。也就是说，用相同的文件映像可以分别创建出处于不同位置的、大小不同的内存映像。第2节区比较大，占了磁盘文件的大部分，这就是被压缩文件所在的地方。文件解压缩后，会放入到第1个节区中。</p>
+<h3 id="RVA-to-RAW-1"><a href="#RVA-to-RAW-1" class="headerlink" title="RVA to RAW"></a>RVA to RAW</h3><p>&emsp;各种PE分析程序对Upack束手无策的原因是：<strong>无法正确进行RVA到RAW的变换。</strong>由RVA到RAW的计算公式为：<code>RAW-PointerToRawData=RVA-VirtualAddress</code>，使用此公式无法得到正确的RAW地址。为什么呢？</p>
+<p>&emsp;<strong>一般而言，指向节区开始的文件偏移的PointerToRawData值应该是FileAlignment的整数倍。UPack的FileAlignment为200，故PointerToRawData值应为0、200、400等值。PE装载器发现第一个节区的PointerToRawData（10）不是FileAlignment（200）的整数倍时，它会强制将其识别为整数倍（即为0）。这使UPack文件能够正常运行，但是PE的相关分析程序都会发生错误。</strong></p>
+<h3 id="导入表（IMAGE-IMPORT-DESCRIPTOR）"><a href="#导入表（IMAGE-IMPORT-DESCRIPTOR）" class="headerlink" title="导入表（IMAGE_IMPORT_DESCRIPTOR）"></a>导入表（IMAGE_IMPORT_DESCRIPTOR）</h3><p>&emsp;UPack的导入表组织结构比较特殊。导入表是由一系列IMAGE_IMPORT_DESCRIPTOR结构体组成的数组，最后<br>以一个内容为NULL的结构体结束。下图红框表示导入表信息，导入表RVA为000271EE，大小为0x14。</p>
+<p><img src="/images/re-core-principle/image-20230321215707395.png" alt="image-20230321215707395" style="zoom:80%;" /></p>
+<p>&emsp;由RVA转RAW后（UPack特殊的转换方式），可以看到导入表数组（第一个IMAGE_IMPORT_DESCRIPTOR）：</p>
+<p><img src="/images/re-core-principle/image-20230321215925263.png" alt="image-20230321215925263" style="zoom:80%;" /></p>
+<p>&emsp;<strong>后面既不是另一个IMAGE_IMPORT_DESCRIPTOR结构体，也不是全NULL，但是在内存中，IAT映射到第3个节区，就保证了之后的字节全是NULL。</strong></p>
+<p>&emsp;下面详细看IMAGE_IMPORT_DESCRIPTOR结构体的内容，对上图进行分析，可以得到：</p>
+<p><img src="/images/re-core-principle/image-20230321220654475.png" alt="image-20230321220654475" style="zoom:80%;" /></p>
+<p>&emsp;Name部分找到为<code>KERNEL32.DLL</code>，一般而言，跟踪OriginalFirstThunk(INT)能够发现API名称字符串，但是像UPack这样OriginalFirstThunk(INT)为0时，跟踪FirstThunk(IAT)也无妨（<strong>只要INT、IAT其中一个有API名称字符串即可</strong>）。跟踪FirstThunk的RAW=1E8，如下图所示（结束为NULL）：</p>
+<p><img src="/images/re-core-principle/image-20230321221106604.png" alt="image-20230321221106604" style="zoom:80%;" /></p>
+<p>&emsp;可以看到，其导入了2个API，地址分别在RVA=0x28与0xBE，此位置上存着<code>[ordinal（序号）+名称字符串]</code>。</p>
+<p><img src="/images/re-core-principle/image-20230321221416553.png" alt="image-20230321221416553" style="zoom:80%;" /></p>
+<h2 id="0x18-UPack调试-查找OEP"><a href="#0x18-UPack调试-查找OEP" class="headerlink" title="0x18 UPack调试-查找OEP"></a>0x18 UPack调试-查找OEP</h2><p>&emsp;UPack的前两条指令就是把OEP放到EAX中，但是我们还是接着调试，假设我们不知道这一点。</p>
+<p>&emsp;大体步骤如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 将第2个节区中的数据解压缩后放到第1个节区</span><br><span class="line">2. 重新设置IAT</span><br></pre></td></tr></table></figure>
+<p>&emsp;汇编补充：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. lodsd //从指针 DS:SI 所指向的内存单元开始，取一个双字进入 EAX 中，并根据标志位 DF 对寄存器 SI 增减1</span><br><span class="line">2. stosb //将 AL 中的值存储到 ES:DI 处，并根据方向标志 DF 的值来调整 DI 的值</span><br><span class="line">3. movsb //将 DS:SI 指向的地址的一个字节搬移到 ES:DI 指向的地址上，并根据方向标志 DF 的值来调整 SI 和 DI 的值</span><br></pre></td></tr></table></figure>
+<p>&emsp;函数补充：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. GetProcAddress是一个Windows函数，它的作用是从指定的动态链接库（DLL）中检索导出的函数或变量的地址。GetProcAddress需要两个参数：一个是DLL模块的句柄，一个是函数或变量的名称或序数。GetProcAddress可以用于实现运行时动态链接，即在程序运行时加载和调用DLL中的函数。</span><br><span class="line">2. LoadLibraryA的作用是将指定的模块（DLL或EXE文件）加载到调用进程的地址空间中，并返回一个模块句柄，该句柄可以用于获取模块中导出的函数或变量的地址。LoadLibraryA需要一个参数：模块的名称或完整路径。LoadLibraryA可以用于实现运行时动态链接，即在程序运行时加载和调用DLL中的函数。</span><br></pre></td></tr></table></figure>
+<h2 id="0x19-“内嵌补丁（Inline-Patch）”练习"><a href="#0x19-“内嵌补丁（Inline-Patch）”练习" class="headerlink" title="0x19 “内嵌补丁（Inline Patch）”练习"></a>0x19 “内嵌补丁（Inline Patch）”练习</h2><p>&emsp;当难以修改指定代码时，插入并运行<code>Code Cave</code>，从而对程序打补丁，常用于对象程序经过运行时压缩（或加密）而难以直接修改的情况，示意图如下：</p>
+<p><img src="/images/re-core-principle/image-20230321230316341.png" alt="image-20230321230316341" style="zoom:80%;" /></p>
+<p>&emsp;即，先将加密代码解密（先找到OEP），然后再打补丁。<strong>之后练习了一道题：Patchme，练习了如何对加密的程序打补丁，在P168页，写的非常详细，不再赘述。</strong>细节非常多，忘记了再回过头看。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/03/09/KERI-design/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/03/06/Assembly-5/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-03-08 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re-book/">re-book<span>11</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

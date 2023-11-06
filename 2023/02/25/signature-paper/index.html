@@ -1,0 +1,417 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>signature-paper | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="signature-paper"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> signature-paper</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="Verifiable-Timed-Signatures-Made-Practical（实用的可验证的定时签名）"><a href="#Verifiable-Timed-Signatures-Made-Practical（实用的可验证的定时签名）" class="headerlink" title="Verifiable Timed Signatures Made Practical（实用的可验证的定时签名）"></a>Verifiable Timed Signatures Made Practical（实用的可验证的定时签名）</h2><p>&emsp;&emsp;定时签名是提交者在某消息上的签名，并与某个用户共享。经过一段时间T后，提交者向用户显示签名。如果提交者未能透露签名，则保证用户从最初给出的承诺中强制检索签名。</p>
+<p>&emsp;&emsp;本文中提出了可验证的定时签名（Verifiable Timed Signature：VTS），它让用户验证在<code>𝐶</code>中承诺的签名<code>𝜎</code>是否可以在时间T内通过ForceOp获得，并且确实是消息m的有效签名，即<code>Vf(pk,𝑚,𝜎)=1</code>。这种可验证性保证了用户能从承诺中获得一个有效的签名，且用户可以用ForceOp来检索。Commit额外输出一个证明<code>𝜋</code>，证明其嵌入的确实是消息m的签名。</p>
+<span id="more"></span>
+<p>&emsp;&emsp;根据上述描述，我们给出可验证的定时签名算法，包括<code>(Commit,Vrfy,Open,ForceOp)</code>：</p>
+<ul>
+<li><code>(𝐶,𝜋)←Commit(𝜎,T)</code> ：提交算法将签名𝜎 与隐藏时间T作为输入，并输出承诺<code>𝐶</code>和证明<code>𝜋</code></li>
+<li><code>0/1←Vrfy(pk,𝑚,𝐶,𝜋)</code>：验证算法将公钥pk、消息𝑚, 承诺𝐶和证明𝜋作为输入，输出1时，当且仅当签名𝜎 嵌入到了承诺𝐶中，且签名𝜎 是消息𝑚的有效签名。</li>
+<li><code>(𝜎,𝑟)←Open(𝐶)</code>：提交人将承诺𝐶作为输入，输出签名𝜎 以及用于生成承诺𝐶的随机数𝑟。</li>
+<li><code>𝜎←ForceOp(𝐶)</code>：强制开放算法将承诺𝐶 作为输入并输出签名𝜎。</li>
+</ul>
+<p>&emsp;&emsp; <strong>Soundness：</strong>在给定的承诺𝐶中，ForceOp算法将在时间T内产生承诺的签名𝜎。</p>
+<p>&emsp;&emsp; <strong>Privacy：</strong>所有运行时间最多为𝑡的算法（𝑡&lt;T）都几乎不可能从承诺𝐶和签名𝜎中成功提取证明𝜋。</p>
+<p><strong>基础知识：</strong></p>
+<p>&emsp;&emsp;<strong>数字签名。</strong>密钥生成算法KGen；签名算法Sign(sk, 𝑚)；验证算法Vf (pk, 𝑚, 𝜎) 。</p>
+<p>&emsp;&emsp;<strong>时间锁定难题（Time-Lock Puzzles）</strong>。时间锁定难题允许人们在一定的时间内隐藏一个值。直观地讲，时锁谜题保证了一个谜题可以在多项式时间内被解开，但是时间高于T。谜题生成PGen，它的输入是一个时间参数T，一个解𝑠和随机数𝑟，然后输出一个谜题𝑍。解题算法PSolve将一个谜题𝑍作为输入，并输出一个解决方案𝑠。在这种情况下，我们的敌手是并行随机存取机（Parallel Random Access Machines：PRAM），即多个处理器连接到一个内存块上，𝑛个数量的处理器可以同时对𝑛个数量的数据进行操作。</p>
+<p>&emsp;&emsp;<strong>同态时间锁难题（Homomorphic Time-Lock Puzzles：HTLP）。</strong>HTLP是由四种算法<code>(HTLP.PSetup, HTLP.PGen,HTLP.PSolve, HTLP.PEval)</code>组成的，其中HTLP.PGen与HTLP.PSolve和时间锁定难题类似，但是输入增加了公共参数𝑝𝑝。PSetup用于输出公共参数𝑝𝑝。PEval以电路𝐶，公共参数𝑝𝑝和𝑛个谜题𝑍1, . . ., 𝑍𝑛为输入，并输出谜题𝑍 ′，且满足<code>HTLP.PSolve(𝑝𝑝,𝑍′)=𝐶(𝑠1,...,𝑠𝑛)</code>，其中 <code>𝑍′←HTLP.PEval(𝐶,𝑝𝑝,𝑍1,...,𝑍𝑛)</code> 、<code>𝑍𝑖←HTLP.PGen(𝑝𝑝,𝑠𝑖)</code>。</p>
+<p>&emsp;&emsp;<strong>非交互式零知识证明。</strong>（1）ZKsetup进行初始化操作，该算法输出一个通用参考字符串crs。（2）ZKprove(crs, 𝑥, 𝑤)。验证者通过ZKprove来生成陈述x的证明𝜋，陈述x是由证人𝑤说的。（3）ZKverify(crs, 𝑥, 𝜋)。对陈述x的证明𝜋进行有效检查。</p>
+<p>&emsp;&emsp;<strong>BLS签名方案的VTS</strong>。密钥对为：<code>(𝑔0^𝛼 , 𝛼)</code>，g0是生成元。签名为<code>𝜎=𝐻(𝑚)^𝛼</code>。为了在消息m上生成VTS，将消息m的签名<code>𝜎</code>使用<strong>t-n方案</strong>进行共享。前面的<strong>t-1份</strong>签名碎片定义为<code>𝜎_𝑖=𝐻(𝑚)^&#123;𝛼_𝑖&#125;</code> 。之后的<code>&#123;t,t+1,...,n&#125;</code>份的签名碎片定义为：</p>
+<p><img src="/images/signature-paper/image-20230305113933141.png" alt="image-20230305113933141" style="zoom:67%;" /></p>
+<p>&emsp;&emsp;其中，<code>ℓ_𝑖()</code>是𝑖-第三拉格朗日多项式基。相当于<code>𝜎_i=H(m)^&#123;𝛼-ℓ_1*𝛼_1-ℓ_2*𝛼_2-...-ℓ_&#123;t-1&#125;*𝛼_&#123;t-1&#125;&#125;</code>，其相当于公钥<code>pk_i</code>的签名，<code>pk_i</code>的定义如下：</p>
+<p><img src="/images/signature-paper/image-20230305114416025.png" alt="image-20230305114416025" style="zoom:67%;" /></p>
+<p>&emsp;&emsp;相当于<code>pk_i=g0^&#123;𝛼-ℓ_1*𝛼_1-ℓ_2*𝛼_2-...-ℓ_&#123;t-1&#125;*𝛼_&#123;t-1&#125;&#125;</code>。</p>
+<p>&emsp;&emsp;这就保证了我们可以（通过拉格朗日插值）从任何𝑡个签名碎片中重建有效签名𝜎，也可以重构公钥pk。</p>
+<p>&emsp;&emsp;然后，<strong>承诺者</strong>为每个签名份额<code>𝜎_i</code>计算一个带有时间参数T的时间锁谜题<code>𝑍_𝑖</code>，得到所有谜题<code>(𝑍_1,..., 𝑍_𝑛)</code>和对应的公钥<code>(pk_1,..., pk_𝑛)</code>，<strong>这些信息作为承诺</strong>。然后，<strong>验证者</strong>随机选择一个大小为<code>(𝑡-1)</code>的集合𝐼。对于集合𝐼，<strong>承诺者</strong>打开时间锁谜题<code>𝑍_𝑖,𝑖∈𝐼</code>，得到了所承诺的信息<code>𝜎_𝑖</code>（以及相应的随机数）。如果满足以下所有条件，<strong>验证者认为承诺合法</strong>：</p>
+<p>&emsp;&emsp;&emsp;&emsp;（1）所有𝜎<em>𝑖 ，𝑖∈𝐼都是有效的，即`𝑒(𝑔_0，𝜎</em>𝑖)=𝑒(pk_𝑖,𝐻(𝑚))`。</p>
+<p>&emsp;&emsp;&emsp;&emsp;（2）所有公钥<code>&#123;𝑝𝑘_𝑗&#125;,𝑗∉𝐼</code>可以重构公钥，得到pk。</p>
+<p>&emsp;&emsp;可以看到，如果不用PRAM，<strong>那么要解决n-t+1个时间锁难题（为什么不是n？后面会说），</strong>但是验证者如果利用PRAM，可以将验证时间缩短为T。但是对于处理器很少的诚实用户而言，验证耗时会很长，<strong>我们可以加入同态概念来解决这个问题</strong>。</p>
+<p>&emsp;&emsp;具体而言，验证者计算：</p>
+<p><img src="/images/signature-paper/image-20230305134113459.png" alt="image-20230305134113459" style="zoom:67%;" /></p>
+<p>&emsp;&emsp;从而将n-t+1个难题转化为1个难题，从而在时间T内解决这个难题。但是需要注意两点：(1) 同态时间锁谜题的信息空间必须大到足以容纳所有n-t+1个签名。(2) 输入谜题中编码的签名<code>𝜎_𝑖</code>不能超过签名的最大尺寸（例如<code>𝜆</code>比特）。第一点可以通过实例化足够大的消息空间来满足。第二点可以通过一个<strong>范围NIZK</strong>来执行，其规定每个时间锁谜题的消息都在<code>[0, 2^𝜆]</code>范围内。</p>
+<p>&emsp;&emsp;那我们如何实现一个范围NIZK呢？略。</p>
+<p><strong>实际构造：</strong></p>
+<p>&emsp;&emsp;其中，<code>t=n/2+1，H&#39;是一个哈希函数，此哈希函数可以映射到一个t-1大小的集合，集合中的元素属于[1,2...,n]</code>。</p>
+<p>&emsp;&emsp;<strong>Setup。</strong>运行ZKsetup，生成crs_range。运行HTLP.PSetup生成公共参数𝑝𝑝。生成<code>crs=(crs_range,pp)</code>。</p>
+<p>&emsp;&emsp;<strong>Commit and Prove。</strong>对于输入<code>(crs, wit)</code>，算法进行如下操作：</p>
+<p>&emsp;&emsp;&emsp;&emsp;（1）解析<code>wit = 𝜎</code>，<code>crs= (crs_range, 𝑝𝑝)</code>，pk为BLS公钥，𝑚为待签名信息。</p>
+<p>&emsp;&emsp;&emsp;&emsp;（2）选取t-1个<code>𝛼_𝑖←Z_𝑞,𝑖∈[𝑡-1]</code>，并设置<code>𝜎_𝑖=𝐻(𝑚)^&#123;𝛼_𝑖&#125;,ℎ_𝑖=𝑔0^&#123;𝛼_𝑖&#125;</code> 。</p>
+<p>&emsp;&emsp;&emsp;&emsp;（3）对于<code>𝑖∈&#123;𝑡,...,𝑛&#125;</code>，计算：</p>
+<p><img src="/images/signature-paper/image-20230305140204150.png" alt="image-20230305140204150" style="zoom:67%;" /></p>
+<p>&emsp;&emsp;&emsp;&emsp;（4）对于<code>𝑖∈[1,...,𝑛]</code>，产生谜题与NIZK：</p>
+<p><img src="/images/signature-paper/image-20230305140357999.png" alt="image-20230305140357999" style="zoom:80%;" /></p>
+<p>&emsp;&emsp;&emsp;&emsp;（5）计算：</p>
+<p><img src="/images/signature-paper/image-20230305140651116.png" alt="image-20230305140651116" style="zoom:80%;" /></p>
+<p>&emsp;&emsp;&emsp;&emsp;（6）输出承诺C与证明𝜋：</p>
+<p><img src="/images/signature-paper/image-20230305140828004.png" alt="image-20230305140828004" style="zoom:80%;" /></p>
+<p>&emsp;&emsp;<strong>Verification。</strong>将<code>(crs,pk,𝑚,𝐶,𝜋)</code>作为输入，进行验证算法：</p>
+<p>&emsp;&emsp;&emsp;&emsp;（1）解析<code>𝐶=(𝑍_1,...,𝑍_𝑛,T),𝜋=(&#123;ℎ_𝑖,𝜋_&#123;range&#125;,𝑖&#125;,𝐼,&#123;𝜎_𝑖,𝑟_𝑖&#125;),crs=(crs_&#123;range&#125;,𝑝𝑝)</code>。</p>
+<p>&emsp;&emsp;&emsp;&emsp;（2）如果满足以下任何条件，则输出0，否则返回1：</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>a.</strong> 存在<code>𝑗∉𝐼</code>，有：</p>
+<p><img src="/images/signature-paper/image-20230305141821108.png" alt="image-20230305141821108" style="zoom:80%;" /></p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>b.</strong> 存在<code>𝑖∈[𝑛]</code>，有：</p>
+<p><img src="/images/signature-paper/image-20230305142113916.png" alt="image-20230305142113916" style="zoom:80%;" /></p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>c.</strong> 存在<code>𝑖∈𝐼</code>，有：</p>
+<p><img src="/images/signature-paper/image-20230305142244859.png" alt="image-20230305142244859" style="zoom:80%;" /></p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>d.</strong> 满足：</p>
+<p><img src="/images/signature-paper/image-20230305142303938.png" alt="image-20230305142303938" style="zoom:80%;" /></p>
+<p>&emsp;&emsp;&emsp;<strong>Open。</strong>算法输出：</p>
+<p><img src="/images/signature-paper/image-20230305142446617.png" alt="image-20230305142446617" style="zoom:80%;" /></p>
+<p>&emsp;&emsp;&emsp;<strong>Force Open。</strong>算法将<code>𝐶=(𝑍_1,...,𝑍_𝑛,T)</code>作为输入。</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;（1）运行<code>𝜎_𝑖←LHTLP.PSolve(𝑝𝑝,𝑍_𝑖),𝑖∈[1,..,𝑛]</code>以获得所有签名。请注意，由于承诺者已经打开了<code>𝑡-1</code>个谜题，因此ForceOp只需要解决<code>(𝑛-𝑡+1)</code>个谜题即可。<strong>（利用同态）</strong></p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;（2）输出签名：</p>
+<p><img src="/images/signature-paper/image-20230305143044765.png" alt="image-20230305143044765" style="zoom:80%;" /></p>
+<h2 id="Policy-Compliant-Signatures（符合策略的签名：PCS）"><a href="#Policy-Compliant-Signatures（符合策略的签名：PCS）" class="headerlink" title="Policy-Compliant Signatures（符合策略的签名：PCS）"></a>Policy-Compliant Signatures（符合策略的签名：PCS）</h2><p>&emsp;&emsp;<strong>摘要：</strong>PCS的概念，<strong>即一个中央机构确定一个全局政策，并将与属性集相关的公私钥分配给系统中的用户。如果两个用户，Alice和Bob，拥有共同满足某个属性集，那么Alice可以使用她的私钥和Bob的公钥来签署一个信息。只有此属性满足策略时，才能产生一个有效的签名（不可伪造性，即使拥有私钥，但是如果发送方和接收方不满足策略，恶意发送方也不可能伪造有效签名）。且签名除了满足政策之外，不透露任何关于用户属性的信息（隐私性）</strong>。PCS扩展了基于属性的签名和基于政策的签名，最后本文描述了PCS的实际应用（在金融系统中控制具有强大隐私保证的交易）。</p>
+<p>&emsp;&emsp;如果某公司利用PCS用于生成签名，那么公司可以设置一个政策，限制谁可以向谁发送资金。具体来说，PCS方案允许中央机构针对<strong>某种策略</strong>生成主公钥和主密钥，并将主公/私钥发送给授权机构。然后，授权机构可以使用主公/私钥来生成与一组<strong>与属性相关联</strong>的公钥/私钥对。然后，签名者Alice使用其私钥和接收者Bob的公钥为消息创建签名。<strong>所有公钥都可以验证签名，且只有当Alice和Bob的属性共同满足全局策略时，它才有效。</strong></p>
+<p>&emsp;&emsp;PCS的隐私性具体体现在：（1）外人只看到双方之间的公钥和签名，不应该了解这些方的属性。（2）发送者不应该了解接收者的属性，除非他们的属性是否满足策略。（3）接收者不应该了解发送者的属性，除非他们的属性是否满足策略。</p>
+<p><strong>PCS的构造</strong></p>
+<p>&emsp;&emsp;<strong>PCS的一个简单实现</strong>：中央机构负责检查每一笔交易的合规性，确保每当具有属性<code>x</code>的发送方S向具有属性<code>x^∗</code>的接收方R发送消息时，<code>F(x,x^∗)</code>所规定的策略得到满足。<strong>虽然概念上很简单，但我们不想要中央机构，我们想让中央机构只用于发布证书。</strong></p>
+<p>&emsp;&emsp;<strong>PCS的改进。</strong>授权机构向系统中的每个参与者发布密钥对<code>(pk,sk)</code>和相应属性证书<code>C_x</code>。为了发送消息m，发送方S对消息m进行签名，并使用NIZK证明发送方和接收方的证书所对应的属性满足策略<code>F(x,x*)</code>。<strong>但它要求发送方必须知道接收方的属性。</strong></p>
+<p>&emsp;&emsp;<strong>那我们如何解决这个问题呢？（即发送方在不知道接收方属性的情况下生成一个NIZK证明，来证明发送方与接收方的属性均满足策略。）</strong></p>
+<p>&emsp;&emsp;<strong>答案：</strong>使用谓词加密PE，谓词加密允许每个参与者在生成签名时只学习1 bit信息，此信息为<code>F(x,x^*)</code>。</p>
+<p><strong>PCS的应用</strong></p>
+<p>&emsp;&emsp;（1）金融支付系统。区块链等服务。</p>
+<p>&emsp;&emsp;（2）信任谈判。情报交换，例如A要发机密消息给B，A使用B的公钥对消息M进行加密，并使用PCS方案对相应的密文进行签名（使用A的私钥和B的公钥）。<strong>如果生成的签名有效，则A将数据包发送给B，否则不发送消息。如果策略得到满足，那么B将知晓此消息。否则，B什么也得不到。</strong></p>
+<p><strong>PCS介绍</strong></p>
+<p>&emsp;&emsp;假设<code>X_λ</code>代表属性集，那么有谓词<code>F:X_λ × X_λ→&#123;0,1&#125;</code>，很多个<code>F</code>组成了谓词集。那么PCS由四个算法组成：</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>Setup。</strong>输入安全参数<code>λ</code>与策略（谓词）<code>F</code>，输出主公私钥<code>(mpk,msk)</code>。</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>KeyGen。</strong>输入<code>msk</code>与一组属性<code>x∈X_λ</code>，输出公私钥<code>(pk,sk)</code>。</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>Sign。</strong>输入为主公钥<code>mpk</code>，发送者私钥<code>sk_S</code>，接收者公钥<code>pk_R</code>与消息<code>m</code>，输出签名<code>σ</code>或<code>⊥</code>。</p>
+<p>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>Verify。</strong>输入为主公钥<code>mpk</code>，发送者公钥<code>pk_S</code>，接收者公钥<code>pk_R</code>、消息<code>m</code>与签名<code>σ</code>，输出0或1。</p>
+<p>&emsp;&emsp;<strong>PCS的正确性定义为：</strong></p>
+<p><img src="/images/signature-paper/image-20230305162206913.png" alt="image-20230305162206913" style="zoom:80%;" /></p>
+<p>&emsp;&emsp;<strong>敌手在安全游戏中的能力</strong></p>
+<p>&emsp;&emsp;&emsp;&emsp;敌手可以控制很多预言机。例如，敌手可以使用预言机QKeyGen或QKeyGenLR获得所选属性的公钥；敌手可以使用预言机QCor获得与给定公钥对应的私钥；使用QSign获得与所选公钥相关的签名。分别如下：</p>
+<p>&emsp;&emsp;&emsp;&emsp;（1）Key-Generation Oracle QKeyGen：给定一组属性<code>x_i</code>，生成<code>(pk_i,sk_i)←KeyGen(msk,x_i)</code>，将<code>(i,pk_i,sk_i,x_i)</code>添加到QK集合中，并返回<code>pk_i</code>。</p>
+<p>&emsp;&emsp;&emsp;&emsp;（2）Left-or-Right Key-Generation Oracle QKeyGenLR：对于第i次输入的一组属性<code>x_&#123;i,0&#125;</code>与<code>x_&#123;i,1&#125;</code>，生成<code>(pk_i,sk_i)←KeyGen(msk,x_&#123;i,β&#125;)</code>，其中<code>β</code>是安全游戏中选择的比特。将<code>(i,pk_i,sk_i,x_&#123;i,0&#125;,x_&#123;i,1&#125;)</code>添加到QK集合中，并返回<code>pk_i</code>。</p>
+<p>&emsp;&emsp;&emsp;&emsp;（3）Corruption Oracle QCor：输入索引<code>i</code>，如果QK中包含含有<code>i</code>的条目，那么就将该条目放入集合QC中，并返回私钥<code>sk_i</code>，否则返回<code>⊥</code>。</p>
+<p>&emsp;&emsp;&emsp;&emsp;（4）Signing Oracle QSign：输入索引<code>i</code>（对应发送者），公钥<code>pk&#39;</code>（对应接收者）与消息m，如果QK包含<code>i</code>的条目，那么就返回<code>σ←PCS.Sign(mpk,sk_i,pk&#39;,m)</code>，并将<code>(i,pk_i,pk&#39;,m,σ)</code>添加到QS中。</p>
+<p>&emsp;&emsp;<strong>存在不可伪造性</strong></p>
+<p>&emsp;&emsp;<strong>Indistinguishability-Based Attribute Hiding（基于模糊性的属性隐藏）</strong></p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/02/28/geekpwn-webrtc/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/02/24/Assembly-4/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-02-25 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/papers/">papers<span>8</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

@@ -1,0 +1,364 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>pinocchio | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="pinocchio"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> pinocchio</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="zk-SNARK-Pinocchio零知识证明"><a href="#zk-SNARK-Pinocchio零知识证明" class="headerlink" title="zk-SNARK Pinocchio零知识证明"></a>zk-SNARK Pinocchio零知识证明</h1><p>参考链接：<a target="_blank" rel="noopener" href="https://aandds.com/blog/zkp-snark.html#56077802">https://aandds.com/blog/zkp-snark.html#56077802</a></p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/studyzy/article/details/115266915">https://blog.csdn.net/studyzy/article/details/115266915</a></p>
+<p><strong>定义：</strong>证明者（prover）在不泄漏任何额外信息的前提下要让验证者（verifier）确信某些陈述（Statement）是正确的。</p>
+<span id="more"></span>
+<h2 id="0x00-引入"><a href="#0x00-引入" class="headerlink" title="0x00 引入"></a>0x00 引入</h2><p>&emsp;如果我们有两个阶为$d$的不相等多项式，它们相交的点数不会超过$d$。事实上， 我们不可能找到两条不同的曲线，它们会在某段区域内重合（它们只会相交于一些点）。</p>
+<p>&emsp;prover如何证明自己知道某个多项式（Verifier也知道这个多项式）？</p>
+<p>&emsp;Verifier选择$x$，代入多项式计算，并将$x$发给prover，prover也计算，并将结果发给Verifier。Verifier比较计算结果，如果相等那就说明 prover 有很大的可能也知道这个多项式。</p>
+<p>&emsp;Schwartz-Zippel定理：对于有限域$\mathbb{F}$，有一个$n$元$d$次多项式$f\left(x_1, x_2, \cdots, x_n\right)$。对于$\mathbb{F}$的子集$S$，我们从中随机挑选$n$个$x$值给每个变量赋值，那么这个多项式等于零的概率小于等于：$\frac{d}{|S|}$。</p>
+<h3 id="问题1：如果一个-prover-声称他知道一个-3-阶多项式-p-x-，其中两个根分别为-x-1-x-2-。那么-verifier-怎么证明-prover-没有说谎呢？"><a href="#问题1：如果一个-prover-声称他知道一个-3-阶多项式-p-x-，其中两个根分别为-x-1-x-2-。那么-verifier-怎么证明-prover-没有说谎呢？" class="headerlink" title="问题1：如果一个 prover 声称他知道一个 3 阶多项式$p(x)$，其中两个根分别为$x=1;x=2$ 。那么 verifier 怎么证明 prover 没有说谎呢？"></a>问题1：如果一个 prover 声称他知道一个 3 阶多项式$p(x)$，其中两个根分别为$x=1;x=2$ 。那么 verifier 怎么证明 prover 没有说谎呢？</h3><p>&emsp;如果 prover 想要在不揭示多项式的前提下，证明他的多项式确实有这两个根，那么他就需要去证明他的多项式$p(x)$是$t(x)=(x-1)(x-2)$和另一个多项式$h(x)$的乘积。</p>
+<p>&emsp;协议步骤如下：</p>
+<p>1.verifier 挑选一个随机值$r$，计算$t=t(r)$，将$r$发送给 prover；</p>
+<p>2.prover 计算$h(x)=p(x) / t(x)$ ，并对$p(r)$和$h(r)$进行求值，将计算结果$p,h$提供给 verifier；</p>
+<p>3.verifier 验证$p=t \cdot h$，如果这个等式成立相等，就意味着$t(x)$是$p(x)$的因式。</p>
+<p>&emsp;上述协议的问题：<strong>prover 可能并不知道他所声称的$p(x)$，他可以先算一下$t=t(r)$，然后随便选择一个数$h$ ，由此计算出$p=t \cdot h$。因为等式是成立的，所以也能通过 verifier 的校验。</strong></p>
+<p>&emsp;为什么有这个问题？ prover 知道了$r$和$t(r)$。但如果 verifier 给出的这个值像放在黑盒里一样不可见的话就完美了，也就是一个人即使不破坏协议，也依然能在这些模糊的值上面完成计算。</p>
+<p>&emsp;解决方法：同态加密（允许在密文上进行算术运算，进行算术运算时不用先解密出原文）</p>
+<h3 id="问题2：prover-声称他知道一个-d-阶多项式-p-x-c-d-x-d-cdots-c-1-x-1-c-0-x-0-，这个多项式包含因子-t-x-（这个多项式前面介绍过，称为目标多项式）。那么-verifier-怎么证明-prover-没有说谎呢？"><a href="#问题2：prover-声称他知道一个-d-阶多项式-p-x-c-d-x-d-cdots-c-1-x-1-c-0-x-0-，这个多项式包含因子-t-x-（这个多项式前面介绍过，称为目标多项式）。那么-verifier-怎么证明-prover-没有说谎呢？" class="headerlink" title="问题2：prover 声称他知道一个$d$阶多项式$p(x)=c_d x^d+\cdots+c_1 x^1+c_0 x^0$ ，这个多项式包含因子$t(x)$（这个多项式前面介绍过，称为目标多项式）。那么 verifier 怎么证明 prover 没有说谎呢？"></a>问题2：prover 声称他知道一个$d$阶多项式$p(x)=c_d x^d+\cdots+c_1 x^1+c_0 x^0$ ，这个多项式包含因子$t(x)$（这个多项式前面介绍过，称为目标多项式）。那么 verifier 怎么证明 prover 没有说谎呢？</h3><p>&emsp;Verifier操作：</p>
+<ol>
+<li>取一个随机数$s$，也称为秘密值；</li>
+<li>分别计算$i$取值为$0,1,…,d$时$s^i$的加密结果，即$E\left(s^i\right)=g^{s^i}$；</li>
+<li>代入$s$计算未加密的目标多项式$t(s)$；</li>
+<li>将第 2 步计算出来的加密值$g^{s^0}, g^{s^1}, g^{s^2}, \cdots, g^{s^d}$提供给 prover。</li>
+</ol>
+<p>&emsp;Prover 操作：</p>
+<ol>
+<li>计算多项式$h(x)=p(x) / t(x)$；</li>
+<li>使用加密值$g^{s^0}, g^{s^1}, g^{s^2}, \cdots, g^{s^d}$和 prover 所已知的$p(x)$的系数$c_0, c_1, \cdots, c_d$计算出$p(x)$的加密值，采用式子$E(p(s))=g^{p(s)}=\left(g^{s^d}\right)^{c_d} \cdots\left(g^{s^1}\right)^{c_1} \cdot\left(g^{s^0}\right)^{c_0}$即可，其结果记为$g^p$；</li>
+<li>使用和上一步相同的方法计算出$h(s)$的加密值$E(h(s))$，记为$g^h$；</li>
+<li>把上两步的结果$g^p$和$g^h$提供给 verifier。</li>
+</ol>
+<p>&emsp;这个时候，上述问题1的方案的缺陷就可以得到解决。<strong>但是还是有一个问题，prover只需要给出$g^p=z_p, g^h=z_h$，满足$z_p=\left(z_h\right)^{t(s)}$即可，即我们不能确定prover给出的$g^p$和$g^h$是拿$g^{s^0}, g^{s^1}, g^{s^2}, \cdots, g^{s^d}$计算的。</strong></p>
+<p>&emsp;我们以一个例子说明上述问题：</p>
+<p>&emsp;存在由一个变量和一个系数组成的一阶多项式$y=cx$，对应的$x=s$的加密值为$E(s)=g^s$。这里我们要做的就是确保 prover 是拿 $g^s$（而不是其他值）与系数$c$做同态相乘的。所以结果的形式一定是：$\left(g^s\right)^c$。</p>
+<p>&emsp;通过限制多项式 Knowledge-of-Exponent Assumption（简称 KEA）方法可以实现上面的目标。例如，如果我们想限制对某个值只能进行指数取模运算，那么可以这样做：A选取$a$，生成$a^{\prime}=a^\alpha(\bmod n)$，将$(a, a^{\prime})$发给B，B返回$(b, b^{\prime})$。如果$(b)^\alpha=b^{\prime}(\bmod n)$成立，那么说明B对$a$和$a^{\prime}$采用了相同的指数进行运算。</p>
+<p><a target="_blank" rel="noopener" href="https://aandds.com/blog/zkp-snark.html#56077802">https://aandds.com/blog/zkp-snark.html#56077802</a></p>
+<p>To be continued…</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/05/22/re-part-6/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/05/20/OLLVM-study/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-05-21 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/crypto/">crypto<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

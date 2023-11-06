@@ -1,0 +1,405 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>geekpwn-webrtc | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="geekpwn-webrtc"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> geekpwn-webrtc</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Isolated-and-Exhausted-Attacking-Operating-Systems-via-Site-Isolation-in-the-Browser"><a href="#Isolated-and-Exhausted-Attacking-Operating-Systems-via-Site-Isolation-in-the-Browser" class="headerlink" title="Isolated and Exhausted: Attacking Operating Systems via Site Isolation in the Browser"></a>Isolated and Exhausted: Attacking Operating Systems via Site Isolation in the Browser</h1><h2 id="0x00-摘要"><a href="#0x00-摘要" class="headerlink" title="0x00 摘要"></a>0x00 摘要</h2><p>（1）使用Site Isolation来创建fork bomb，来对计算机资源进行占用（以此可以进行OS资源耗尽攻击）。</p>
+<p>（2） 使用WebRTC占用UDP端口。</p>
+<p>​    最终效果：借助（1）（2），来进行DNS缓存中毒攻击。</p>
+<span id="more"></span>
+<h2 id="0x01-相关知识"><a href="#0x01-相关知识" class="headerlink" title="0x01 相关知识"></a>0x01 相关知识</h2><ul>
+<li>什么是Site Isolation？</li>
+</ul>
+<p>​    Site Isolation将不同的网站隔离到不同的进程中，即使其中一个网站的渲染进程受到攻击，攻击者也无法访问其他网站的信息，因为它们被隔离在不同的进程中。</p>
+<ul>
+<li>什么是fork bomb？</li>
+</ul>
+<p>​    Fork bomb通过不断复制自身来占用操作系统的资源，从而使系统停止响应。</p>
+<ul>
+<li>webrtc是什么？</li>
+</ul>
+<p>​    Webrtc是一种浏览器技术，可以实现实时音频、视频与数据通信。</p>
+<ul>
+<li>什么是DNS缓存攻击？</li>
+</ul>
+<p>​    DNS缓存通常用于存储先前查询的DNS记录，以便加快未来相同查询的响应时间。攻击者<strong>利用DNS服务器未经身份验证的响应请求</strong>，将虚假信息存储在DNS缓存中。当用户请求该信息时，DNS服务器会返回已被篡改的信息，导致用户被重定向到恶意网站。</p>
+<h2 id="0x02-Site-Isolation进行OS资源耗尽攻击的细节"><a href="#0x02-Site-Isolation进行OS资源耗尽攻击的细节" class="headerlink" title="0x02 Site Isolation进行OS资源耗尽攻击的细节"></a>0x02 Site Isolation进行OS资源耗尽攻击的细节</h2><p>​    Site Isolation使每个不同的网页都会有不同的进程。<strong>理论上，web浏览器能够任意分配许多资源，只需要打开好多好多页面即可。</strong>但实际上，可以自动打开的窗口的数量是有限制的，需要一个可信事件（例如，单击鼠标）才能获得打开更多资源的权限。</p>
+<p>​    那么，如何解决这个问题？我们引入了iframe的概念。</p>
+<p><img src="/images/geekpwn-webrtc/image-20230301165924614.png" alt="image-20230301165924614" style="zoom:80%;" /></p>
+<p>​    如上图所示，<code>a.com/1</code>网页包含三个资源，分别为<code>a.com/1</code>，<code>c.net</code>和<code>b.org</code>，这是通过HTML的iframe标签完成的，iframe标签用于在网页中嵌入其他网页或文档。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=&quot;URL&quot; width=&quot;width&quot; height=&quot;height&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
+<p>​    因此，以上5个资源分配到5个进程中，其中<code>a.com/1</code>中的<code>b.org</code>与<code>a.com/2</code>中的<code>b.org</code>共用一个进程。</p>
+<p>​    <strong>那如何用Site Isolation来创建fork bomb呢？</strong></p>
+<ol>
+<li>攻击者有N个IP地址。</li>
+<li>生成一个网页，本身包含一个<code>iframe</code>，其指向<code>IP_1</code>，在<code>iframe</code>标签里面是正常的html，里面又会有2个<code>iframe</code>，分别指向<code>IP_2</code>和<code>IP_3</code>，以此递归。</li>
+</ol>
+<p>​    最终，就会产生N个进程，从而耗尽CPU资源。</p>
+<h2 id="0x03-如何利用webRTC来占用UDP端口"><a href="#0x03-如何利用webRTC来占用UDP端口" class="headerlink" title="0x03 如何利用webRTC来占用UDP端口"></a>0x03 如何利用webRTC来占用UDP端口</h2><p>​    利用webrtc进行视频通信时，发送方要在本机分配一些端口，以发送视频信息以及建立连接所需要的数据。</p>
+<p>​    WebRTC协议使用的端口数量可以是不固定的，因为它可以根据需要进行动态分配，这些端口包括传送音频视频数据的端口，以及建立连接时传送连接数据的端口。</p>
+<p>​    一个WebRTC对象指的是是通信双方的一个WebRTC连接，里面可以包含<strong>一个或多个数据通道</strong>。经研究发现，经研究发现，单个数据通道分配<strong>两个UDP端口</strong>。一个用于建立交互式连接，另一个用于进行数据传输。因此，<strong>WebRTC对象只能成对分配端口</strong>。</p>
+<p>​    <strong>注意：webrtc分配端口时，发送方与接收方并未连接，我们只是分配了端口，然后就停止了对webrtc的操作。</strong></p>
+<p>​    Chrome为每个WebRTC对象分配一个线程，如果对象很多，负载就很大。因此，为了减少负载，同时想要分配更多的UDP端口，我们就打算在一个WebRTC对象中分配多个数据通道。</p>
+<h2 id="0x04-如何有限的负载内占用尽可能多的端口"><a href="#0x04-如何有限的负载内占用尽可能多的端口" class="headerlink" title="0x04 如何有限的负载内占用尽可能多的端口"></a>0x04 如何有限的负载内占用尽可能多的端口</h2><ol>
+<li>利用Site Isolation，生成好多iframe，这些iframe对应N个IP，迭代的分配在<code>www.evil.org</code>中。</li>
+<li>对于每个iframe，建立好多WebRTC对象，直到系统说此页面的webrtc对象数量超出限制。</li>
+<li>对于每个webrtc对象，使用多个数据通道，这样就可以占用足够多的UDP端口。</li>
+</ol>
+<p>​    上述流程对于Chrome与Edge都可正常完成，但是FireFox不行，因为它无法做到：<strong>一个webRTC连接内包含多个数据通道，也就是第3步。</strong></p>
+<p>​    <strong>注意，上述流程，只能占用偶数个端口。</strong></p>
+<h2 id="0x05-进行DNS缓存攻击（大概流程）"><a href="#0x05-进行DNS缓存攻击（大概流程）" class="headerlink" title="0x05 进行DNS缓存攻击（大概流程）"></a>0x05 进行DNS缓存攻击（大概流程）</h2><p>​    我们假设，UDP端口并不是随机分配的，而是顺序分配的。</p>
+<p>​    首先，要搞明白DNS请求与回复的具体流程？</p>
+<ol>
+<li>有一个域名<code>bank.com</code>，主机先查看自己的DNS缓存中有没有，如果有，直接访问对应IP，流程结束。</li>
+<li>如果没有，主机生成TXID（随机16比特），并生成<code>TXID+(IP_dest,Port_dest,IP_src,Port_src)+&#39;bank.com&#39;</code>，给DNS服务器，让DNS服务器查询<code>bank.com</code>对应的IP地址。</li>
+<li>DNS服务器查询到对应地址后，生成<code>TXID+(IP_dest,Port_dest,IP_src,Port_src)+ip地址</code>，并返回给主机。</li>
+<li>主机验证TXID是不是之前发送的TXID，如果是，则保存<code>bank.com:ip地址</code>到DNS缓存中。否则，则进行重传（5次）。</li>
+</ol>
+<p>​    可以看到，我们要想进行DNS缓存攻击，即<strong>我们想要污染主机的DNS缓存</strong>，重点是：</p>
+<ol>
+<li>我们要知道主机的IP与请求端口，即<code>IP_src,Port_src</code>。</li>
+<li>我们要知道正确的TXID。</li>
+</ol>
+<p>​    假设我们已知主机的IP（<code>IP_src</code>），下面我们想要知道请求端口<code>Port_src</code>与TXID。</p>
+<p>​    <strong>如何知道Port_src？</strong>我们已知如何在有限的负载内占用尽可能多的端口，那么我们把端口全占了，只剩下几个空余的UDP端口（且我们已知这些空余端口），然后再进行DNS请求。</p>
+<p>​    <strong>如何知道TXID？</strong>一共16位，遍历不就得了。</p>
+<h2 id="0x06-进行DNS缓存（缓存中毒）攻击（细节）"><a href="#0x06-进行DNS缓存（缓存中毒）攻击（细节）" class="headerlink" title="0x06 进行DNS缓存（缓存中毒）攻击（细节）"></a>0x06 进行DNS缓存（缓存中毒）攻击（细节）</h2><p>​    细节流程如下图所示：</p>
+<p><img src="/images/geekpwn-webrtc/image-20230301183627380.png" alt="image-20230301183627380" style="zoom:67%;" /></p>
+<p>​    其中，Victim是受害者主机，DEMONS是我们的攻击程序，我们的目的是污染Victim的DNS缓存。</p>
+<p>​    攻击分为两个阶段：</p>
+<h3 id="阶段1：setup"><a href="#阶段1：setup" class="headerlink" title="阶段1：setup"></a>阶段1：setup</h3><ol>
+<li>端口消耗。根据0x04流程，将主机端口几乎占用完，只剩下1个或者0个端口。</li>
+<li>释放。攻击者释放一个webRTC对象（这个对象占用两个UDP端口），将<strong>两个端口</strong>放回操作系统池，使这些端口空闲。</li>
+</ol>
+<p>​    具体而言，受害者访问<code>www.evil.org</code>，<code>www.evil.org</code>上有恶意的js脚本，受害者访问后会执行恶意的js代码，此代码的大概流程为：</p>
+<p>（1）建立与Poisoner双向通信的WebSocket，这用于在setup阶段结束时向Poisoner发送DNS查询端口。</p>
+<p>（2）使用大量WebRTC对象，通过<code>端口消耗</code>和<code>释放</code>流程分配几乎所有临时UDP端口，<strong>其中空闲的端口至多为3个</strong>。</p>
+<p>（3）通过WebSocket将端口发给Poisoner。</p>
+<h3 id="阶段2：Poisoning"><a href="#阶段2：Poisoning" class="headerlink" title="阶段2：Poisoning"></a>阶段2：Poisoning</h3><p>（1）Poisoner发送一系列DNS响应<code>TXID+(IP_dest,Port_dest,IP_src,Port_src)+恶意ip地址</code>，其中遍历TXID，持续一段时间。</p>
+<p>（2）主机运行js恶意代码到<code>XMLHttpRequest</code>，来访问<code>bank.com</code>，从而触发主机对<code>bank.com</code>的DNS请求。</p>
+<p>（3）主机收到正常DNS服务器与Poisoner发来的DNS响应。注意：当主机收到不正确TXID的响应时，会发生重传（不超过5次）。</p>
+<p>（4）如果主机访问了恶意Ip地址，说明污染成功。</p>
+<p>​    为了获得提高中毒可能性，重复（1）（2）（3）（4），最终成功率36%。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/03/02/Self-Sovereign-Identity/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/02/25/signature-paper/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-02-28 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/geekpwn/">geekpwn<span>2</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

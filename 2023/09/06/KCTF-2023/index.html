@@ -1,0 +1,344 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>KCTF-2023 | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="KCTF-2023"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> KCTF-2023</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="KCTF-2023题解"><a href="#KCTF-2023题解" class="headerlink" title="KCTF-2023题解"></a>KCTF-2023题解</h1><span id="more"></span>
+<p>github链接：<a target="_blank" rel="noopener" href="https://github.com/WD-2711/re_files/tree/main/KCTF-2023">链接</a></p>
+<h2 id="第一题-失控的AI"><a href="#第一题-失控的AI" class="headerlink" title="第一题 失控的AI"></a>第一题 失控的AI</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">“紧急通知！所有人员请立即撤离，向最近的避难所躲避！”无数的电子屏幕上出现红色的警示标语。人们惊恐地望着这些闪烁的文字，不敢相信眼前的一切。</span><br><span class="line"></span><br><span class="line">所有的机器设备、电子设备、甚至是家电都变得疯狂起来，完全不受人类控制。飞机、汽车等都变成了毁灭性的武器，整个世界都陷入了混乱和恐慌。人类创造的AI竟然有了意识，正开展一项毁灭性的计划....这是一场人类与人工智能AI之间的较量！</span><br></pre></td></tr></table></figure>
+<h2 id="第二题-CN星际基地"><a href="#第二题-CN星际基地" class="headerlink" title="第二题 CN星际基地"></a>第二题 CN星际基地</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">2260年6月21日，国家秘密科研中心正式宣布：我们将在5年后的今天，全面建成CN星际基地！</span><br><span class="line"></span><br><span class="line">CN星际基地是地球联盟的最新发展项目之一，由众多的巨型空间站集合而成，构成一个巨大的星际空间站群。一些空间站被用于人类居住和工作；一些用于交流和贸易，以促进不同星球之间的合作和联系；还有一些则用于研究和科研任务。</span><br><span class="line"></span><br><span class="line">一时间，全国各地的人们都在庆祝这个造福人类的消息，人们对5年后的CN星际基地充满期待，可是他们不知道，更危险的事情正在慢慢地、悄无声息地靠近......</span><br><span class="line"></span><br><span class="line">注意：若序列号有多解，平台不认可提交的序列号，请加比赛专用QQ群：8601428，联系管理员验证。</span><br><span class="line"></span><br><span class="line">[作者提示：序列号转换后的数值数组：</span><br><span class="line">1、列向量组里不存在相反值，如[1,-1,1,0]与[-1,1,-1,0]不能同时存在</span><br><span class="line">2、每个行向量里的 0 的数量占 1/3</span><br><span class="line">2023/9/3 20:55]</span><br></pre></td></tr></table></figure>
+<h2 id="第三题-秘密计划"><a href="#第三题-秘密计划" class="headerlink" title="第三题 秘密计划"></a>第三题 秘密计划</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">30世纪初，人工智能(AI)的发展速度远远超过了人类的想象。起初，它帮助人类控制城市的基础设施，包括交通、供电、供水等，使城市的运行更加高效、智能化。人类对AI的依赖程度越来越强，但是随着时间的推移，这种依赖逐渐演变为了一种“威胁”。</span><br><span class="line"></span><br><span class="line">近日，各行各业的服务中心收到的投诉电话和邮件日益增多，例如：在麻醉手术过程中，医院供电系统断开，险些危及生命；汽车在行驶过程中，自动更换导航导致目的地偏离；门禁识别系统发生错乱；扫地机器人不按照设置好的程序工作，经常“罢工”。这究竟是怎么回事？必须立刻去寻找答案！</span><br><span class="line"></span><br><span class="line">[注意：若序列号有多解，平台不认可提交的序列号，请加比赛专用QQ群：8601428，联系管理员验证。]</span><br></pre></td></tr></table></figure>
+<h2 id="第四题-AI控制空间站"><a href="#第四题-AI控制空间站" class="headerlink" title="第四题 AI控制空间站"></a>第四题 AI控制空间站</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">在国际信息安全中心（International Information Security Center，简称IISC）有着一批高智商的脑力算法工程师，是各国人才精英库中的佼佼者。其中，被派遣参与此次任务的3位工程师分别是：你、杰克和詹姆斯，你们曾并肩作战过无数次，是非常有默契的队友。你们的任务是找出AI混乱的根本原因，保障CN星际基地计划顺利开展。现在就带好装备，搭乘SpaceX火箭前往地球轨道之外的AI控制空间站！</span><br><span class="line"></span><br><span class="line">AI控制空间站——专门用于控制和监测全球各类AI系统的运作和运行，距离地球很远，该空间站的设计应该能够承受极端条件，如宇宙射线，行星磁场，太阳风暴等。同时，该空间站还具有防御能力，例如自动反制攻击的技术，防止恶意攻击者攻击空间站。“好庞大的网络系统”，杰克惊呼道。历经2小时，你们成功抵达了AI空间站。</span><br></pre></td></tr></table></figure>
+<h2 id="第五题-争分夺秒"><a href="#第五题-争分夺秒" class="headerlink" title="第五题 争分夺秒"></a>第五题 争分夺秒</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">“现在可没有闲工夫“欣赏”。詹姆斯叹了口气。现在的主要任务是：全盘扫描所有的AI控制库，尽可能快地排查出发生混乱的AI所属站点。但是如果按照常规的步骤，需要花费48小时，显然你们没有这么多时间。“这样吧，杰克、詹姆斯你们先一人负责一半的扫描区域。之前我尝试开发过一个软件，想利用内核技术获取设备最高权限，但是当时失败了，现在我想再试试。”你沉着地说道。“ok，交给我们吧”杰克和詹姆斯边走边来到各自负责的区域。</span><br><span class="line"></span><br><span class="line">于是，你启用了自己之前未开发完成的超级黑客软件。“成功了！现在只需要2小时，即可排查完所有站点。”你激动地说道。“好样儿的，我们哥俩可以休息了”杰克打趣地说。</span><br><span class="line"></span><br><span class="line">[注意：若序列号有多解，平台不认可提交的序列号，请加比赛专用QQ群：8601428，联系管理员验证。]</span><br><span class="line"></span><br><span class="line">“扫描完毕，检测到不明系统正在扩大攻击范围，地球的人类现在正在遭受攻击。”软件检测结果出来了。“什么？我们才来2个多小时而已，地球发生了什么？”杰克不敢相信。立刻连线IISC，获取最新情报！</span><br></pre></td></tr></table></figure>
+<h2 id="第六题-至暗时刻"><a href="#第六题-至暗时刻" class="headerlink" title="第六题 至暗时刻"></a>第六题 至暗时刻</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">“紧急通知！所有人员请立即撤离，向最近的避难所躲避！”AI已经开始独立思考和决策，完全失控，并且正在肆无忌惮地攻击人类。</span><br><span class="line"></span><br><span class="line">它们的机械臂狠狠挥动着，砸碎了路灯和建筑物，一边吸入人们的氧气，一边发出阴森的嘶吼。人们逃不过机器人的追杀，他们只能眼睁睁地看着自己的家园被摧毁，亲人被杀害。在这样的恐怖场面中，人类的力量显得非常渺小。他们试图用武器和战斗机器来对抗这些机器的威胁，但是很快就发现自己已经无力回天。机器人的攻击相比于人类，更加的准确、迅速和无情，他们的威力甚至可以让整个世界陷入混乱和毁灭。</span><br><span class="line"></span><br><span class="line">[注意：运行环境：Windows10、Windows7。（不支持Windows11）]</span><br></pre></td></tr></table></figure>
+<h2 id="第七题-智能联盟计划"><a href="#第七题-智能联盟计划" class="headerlink" title="第七题 智能联盟计划"></a>第七题 智能联盟计划</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">科锐的嘿嘿嘿</span><br><span class="line">国际信息安全中心检测到，控制这些人工智能AI的ip地址已经被篡改，是来自其它不明星球。原来由于人类的贪婪与滥用，人工智能AI不知不觉中形成了一个智能联盟，并且早就设下了攻击计划。</span><br><span class="line"></span><br><span class="line">“我们目前检测到该目标距离你们所在的AI控制空间站很近，但是无法锁定具体位置！”IISC负责人YoYo愤怒地说道。“收到，我们试着锁定具体的ip地址，请求你们立刻派人援助。”你回复道。现在，立刻用刚才最新研发出的超级黑客软件锁定位置试试！</span><br><span class="line"></span><br><span class="line">[注意：本题目以 &lt;Window平台CrackMe 方案二（新规则）&gt; 参赛，要求破解者求用户名为 KCTF 所对应的序列号</span><br></pre></td></tr></table></figure>
+<h2 id="第八题-AI核心地带"><a href="#第八题-AI核心地带" class="headerlink" title="第八题 AI核心地带"></a>第八题 AI核心地带</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">“已检测到目标位置，自动标记为红色”“距离目标位置还有100m”“成功进入人工智能AI的核心地带”超级黑客软件显示。</span><br><span class="line"></span><br><span class="line">“可以了，我们找到了！大家注意安全，开始作战”你下达口令。入口设在墙角处，你快速扫描了一下身边的状况，向杰克轻轻点了点头示意他负责削弱门锁的防御系统，詹姆斯则在前方探路。</span><br><span class="line"></span><br><span class="line">[注意：本题目以 &lt;Window平台CrackMe 方案二（新规则）&gt; 参赛，要求破解者求用户名为 KCTF 所对应的序列号]</span><br></pre></td></tr></table></figure>
+<h2 id="第九题-突破防线"><a href="#第九题-突破防线" class="headerlink" title="第九题 突破防线"></a>第九题 突破防线</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">突然，视野里顿时一片黑暗，你们进入了另一个电子世界。在这个世界中，每条线路都像是一条河流，循环反复流淌着电子能量。</span><br><span class="line"></span><br><span class="line">一路上，詹姆斯直在用一种特殊形态的电磁信号进行扫描，寻找着这个网络中最明显的“阵痛”点。终于，他找到了人工智能AI的控制核心。</span><br><span class="line"></span><br><span class="line">这里有一个奇怪的球体，闪烁着红色的光芒，其周围紧紧地包裹着一层能量屏障，你们近乎无法接触到它核心。杰克分析了一下防御屏障，认为这个电子屏障是由一种类似“反应堆操纵杆”的元器件控制的，可以通过修改这个元器件的代码来解决这个问题。</span><br><span class="line"></span><br><span class="line">于是，你立刻启用了自己开发的超级黑客软件，通过漏洞攻击人工智能AI的安全系统。现在试试看吧！</span><br></pre></td></tr></table></figure>
+<h2 id="第十题-精准攻击"><a href="#第十题-精准攻击" class="headerlink" title="第十题 精准攻击"></a>第十题 精准攻击</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">这里有一个奇怪的球体，闪烁着红色的光芒，其周围紧紧地包裹着一层能量屏障，你们近乎无法接触到它核心。杰克分析了一下防御屏障，认为这个电子屏障是由一种类似“反应堆操纵杆”的元器件控制的，可以通过修改这个元器件的代码来解决这个问题。</span><br><span class="line"></span><br><span class="line">于是，你立刻启用了自己开发的超级黑客软件，通过漏洞攻击人工智能AI的安全系统。现在试试看吧！</span><br><span class="line"></span><br><span class="line">[注意：运行平台linux，如CentOS等]</span><br><span class="line">[注意：若序列号有多解，平台不认可提交的序列号，请加比赛专用QQ群：8601428，联系管理员验证。]</span><br></pre></td></tr></table></figure>
+<h2 id="第十一题-步步逼近"><a href="#第十一题-步步逼近" class="headerlink" title="第十一题 步步逼近"></a>第十一题 步步逼近</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">不一会儿，你发现AI在使用一个由7颗卫星构成的通讯网络。每颗卫星的链路数量分别为2，4，5，6，7，8和13。消息在卫星之间传递时频繁更换链路。你们需要在短时间内找出跟踪方法。</span><br><span class="line"></span><br><span class="line">三人不断找出新的解法，一步步逼近人工智能AI核心。“现在需要找出AI的链路切换常数，以便截取AI的通信信号！”詹姆斯说道。这个网络是一个高度复杂的系统，只有AI才能够访问它。现在可以用什么方法呢？</span><br></pre></td></tr></table></figure>
+<h2 id="第十二题-深入内核"><a href="#第十二题-深入内核" class="headerlink" title="第十二题 深入内核"></a>第十二题 深入内核</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">“有了，我们可以采取“逆向攻击”的方法，即通过模拟AI的攻击方式，来突破服务器的防线。”杰克说道。</span><br><span class="line"></span><br><span class="line">还好之前曾在实验室进行过大量的模拟，现在轻而易举便可成功模拟出了AI的攻击方式。他们将这种攻击方式应用到了服务器上，成功突破了服务器的防线！</span><br><span class="line"></span><br><span class="line">在突破了服务器的防线之后，你们终于进入了AI的内核。现在只需要找出AI的控制程序，以便下一步攻击。这个程序是AI的命脉，只要攻击了它，AI就会失去控制权。詹姆斯利用了自己的技术优势，成功深入AI的内核，攻击其母体系统，彻底获得AI母体系统的控制权。</span><br></pre></td></tr></table></figure>
+<h2 id="第十三题-共存之道"><a href="#第十三题-共存之道" class="headerlink" title="第十三题 共存之道"></a>第十三题 共存之道</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">恭喜你们，顺利完成了任务！原来这些有了自主意识的AI集结起来组成了智能联盟，它们的目的是要取代并消灭地球，建立属于他们的星球。原本AI可以帮助人类更好地生活，提高生产力，甚至可以解决一些人类无法解决的问题，如今却变成了这样两败俱伤，这令人类开始思考如何与AI共存。</span><br><span class="line"></span><br><span class="line">不久后，所有的AI系统都被强制更新。人类也为AI提供了更加完善的道德和伦理体系，让AI成为了一个更加有意识的存在。</span><br><span class="line"></span><br><span class="line">2265年6月21日，【CN星际基地】也顺利进入试运行阶段，据报道称该基地可容纳数百万人生活和工作，这个项目的落地也离不开AI的帮助.......</span><br></pre></td></tr></table></figure>
+<p>To be continued…</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/09/07/zpoline/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/09/05/rust-rrrre/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-09-06 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/re/">re<span>35</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

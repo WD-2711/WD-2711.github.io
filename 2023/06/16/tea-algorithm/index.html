@@ -1,0 +1,352 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>tea-algorithm | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Tiny Encryption Algorithm是一种对称加密算法，也是一种易于描述和执行的块密码，通常只需要很少的代码就可实现。特点是速度快，代码量小（加密、解密的核心算法总共才20来行）。算法的安全性虽然不比AES，但其算法的破译难度取决于其迭代的次数。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="tea-algorithm"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> tea-algorithm</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> Tiny Encryption Algorithm是一种对称加密算法，也是一种易于描述和执行的块密码，通常只需要很少的代码就可实现。特点是速度快，代码量小（加密、解密的核心算法总共才20来行）。算法的安全性虽然不比AES，但其算法的破译难度取决于其迭代的次数。
+		 </div> <!-- alert -->
+	  		
+
+	  <h1 id="TEA、XTEA、XXTEA"><a href="#TEA、XTEA、XXTEA" class="headerlink" title="TEA、XTEA、XXTEA"></a>TEA、XTEA、XXTEA</h1><p>&emsp;Tiny Encryption Algorithm是一种<strong>对称加密</strong>算法，也是一种易于描述和执行的块密码，通常只需要很少的代码就可实现。特点是速度快，代码量小（加密、解密的核心算法总共才20来行）。算法的安全性虽然不比AES，但其算法的破译难度取决于其迭代的次数。</p>
+<span id="more"></span>
+<h2 id="0x00-TEA"><a href="#0x00-TEA" class="headerlink" title="0x00 TEA"></a>0x00 TEA</h2><p>&emsp;加密数据为2个32位无符号整数，密钥为4个32位无符号整数，即密钥长度为128位。</p>
+<p>&emsp;加密过程如下，K是密钥，左右两条线是两个无符号整数（要加密的数据）。</p>
+<p><img src="/images/tea-algorithm/image-20230616134044459.png" alt="image-20230616134044459" style="zoom:67%;" /></p>
+<p>&emsp;示例代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span>  </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span>  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">//加密函数  </span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">encrypt</span> <span class="params">(<span class="type">uint32_t</span>* v, <span class="type">uint32_t</span>* k)</span> </span>&#123;  </span><br><span class="line">    <span class="type">uint32_t</span> v0=v[<span class="number">0</span>], v1=v[<span class="number">1</span>], sum=<span class="number">0</span>, i;           <span class="comment">/* set up */</span>  </span><br><span class="line">    <span class="type">uint32_t</span> delta=<span class="number">0x9e3779b9</span>;                     <span class="comment">/* a key schedule constant */</span>  </span><br><span class="line">    <span class="type">uint32_t</span> k0=k[<span class="number">0</span>], k1=k[<span class="number">1</span>], k2=k[<span class="number">2</span>], k3=k[<span class="number">3</span>];   <span class="comment">/* cache key */</span>  </span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;                       <span class="comment">/* basic cycle start */</span>  </span><br><span class="line">        sum += delta;  </span><br><span class="line">        v0 += ((v1&lt;&lt;<span class="number">4</span>) + k0) ^ (v1 + sum) ^ ((v1&gt;&gt;<span class="number">5</span>) + k1);  </span><br><span class="line">        v1 += ((v0&lt;&lt;<span class="number">4</span>) + k2) ^ (v0 + sum) ^ ((v0&gt;&gt;<span class="number">5</span>) + k3);  </span><br><span class="line">    &#125;                                              <span class="comment">/* end cycle */</span>  </span><br><span class="line">    v[<span class="number">0</span>]=v0; v[<span class="number">1</span>]=v1;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="comment">//解密函数  </span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">decrypt</span> <span class="params">(<span class="type">uint32_t</span>* v, <span class="type">uint32_t</span>* k)</span> </span>&#123;  </span><br><span class="line">    <span class="type">uint32_t</span> v0=v[<span class="number">0</span>], v1=v[<span class="number">1</span>], sum=<span class="number">0xC6EF3720</span>, i;  <span class="comment">/* set up */</span>  </span><br><span class="line">    <span class="type">uint32_t</span> delta=<span class="number">0x9e3779b9</span>;                     <span class="comment">/* a key schedule constant */</span>  </span><br><span class="line">    <span class="type">uint32_t</span> k0=k[<span class="number">0</span>], k1=k[<span class="number">1</span>], k2=k[<span class="number">2</span>], k3=k[<span class="number">3</span>];   <span class="comment">/* cache key */</span>  </span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;<span class="number">32</span>; i++) &#123;                         <span class="comment">/* basic cycle start */</span>  </span><br><span class="line">        v1 -= ((v0&lt;&lt;<span class="number">4</span>) + k2) ^ (v0 + sum) ^ ((v0&gt;&gt;<span class="number">5</span>) + k3);  </span><br><span class="line">        v0 -= ((v1&lt;&lt;<span class="number">4</span>) + k0) ^ (v1 + sum) ^ ((v1&gt;&gt;<span class="number">5</span>) + k1);  </span><br><span class="line">        sum -= delta;  </span><br><span class="line">    &#125;                                              <span class="comment">/* end cycle */</span>  </span><br><span class="line">    v[<span class="number">0</span>]=v0; v[<span class="number">1</span>]=v1;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="type">uint32_t</span> v[<span class="number">2</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>&#125;,k[<span class="number">4</span>]=&#123;<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;  </span><br><span class="line">    <span class="comment">// v为要加密的数据是两个32位无符号整数  </span></span><br><span class="line">    <span class="comment">// k为加密解密密钥，为4个32位无符号整数，即密钥长度为128位  </span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;加密前原始数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    <span class="built_in">encrypt</span>(v, k);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;加密后的数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    <span class="built_in">decrypt</span>(v, k);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;解密后的数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h2 id="0x01-XTEA"><a href="#0x01-XTEA" class="headerlink" title="0x01 XTEA"></a>0x01 XTEA</h2><p>&emsp;XTEA是TEA的升级版，增加了更多的密钥表，移位和异或操作等等。</p>
+<p>&emsp;加密过程如下：</p>
+<p><img src="/images/tea-algorithm/image-20230616134231575.png" alt="image-20230616134231575" style="zoom:67%;" /></p>
+<p>&emsp;代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span>  </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span>  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">/* take 64 bits of data in v[0] and v[1] and 128 bits of key[0] - key[3] */</span>  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">encipher</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> num_rounds, <span class="type">uint32_t</span> v[<span class="number">2</span>], <span class="type">uint32_t</span> <span class="type">const</span> key[<span class="number">4</span>])</span> </span>&#123;  </span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> i;  </span><br><span class="line">    <span class="type">uint32_t</span> v0=v[<span class="number">0</span>], v1=v[<span class="number">1</span>], sum=<span class="number">0</span>, delta=<span class="number">0x9E3779B9</span>;  </span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i &lt; num_rounds; i++) &#123;  </span><br><span class="line">        v0 += (((v1 &lt;&lt; <span class="number">4</span>) ^ (v1 &gt;&gt; <span class="number">5</span>)) + v1) ^ (sum + key[sum &amp; <span class="number">3</span>]);  </span><br><span class="line">        sum += delta;  </span><br><span class="line">        v1 += (((v0 &lt;&lt; <span class="number">4</span>) ^ (v0 &gt;&gt; <span class="number">5</span>)) + v0) ^ (sum + key[(sum&gt;&gt;<span class="number">11</span>) &amp; <span class="number">3</span>]);  </span><br><span class="line">    &#125;  </span><br><span class="line">    v[<span class="number">0</span>]=v0; v[<span class="number">1</span>]=v1;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">decipher</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> num_rounds, <span class="type">uint32_t</span> v[<span class="number">2</span>], <span class="type">uint32_t</span> <span class="type">const</span> key[<span class="number">4</span>])</span> </span>&#123;  </span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> i;  </span><br><span class="line">    <span class="type">uint32_t</span> v0=v[<span class="number">0</span>], v1=v[<span class="number">1</span>], delta=<span class="number">0x9E3779B9</span>, sum=delta*num_rounds;  </span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i &lt; num_rounds; i++) &#123;  </span><br><span class="line">        v1 -= (((v0 &lt;&lt; <span class="number">4</span>) ^ (v0 &gt;&gt; <span class="number">5</span>)) + v0) ^ (sum + key[(sum&gt;&gt;<span class="number">11</span>) &amp; <span class="number">3</span>]);  </span><br><span class="line">        sum -= delta;  </span><br><span class="line">        v0 -= (((v1 &lt;&lt; <span class="number">4</span>) ^ (v1 &gt;&gt; <span class="number">5</span>)) + v1) ^ (sum + key[sum &amp; <span class="number">3</span>]);  </span><br><span class="line">    &#125;  </span><br><span class="line">    v[<span class="number">0</span>]=v0; v[<span class="number">1</span>]=v1;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="type">uint32_t</span> v[<span class="number">2</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>&#125;;  </span><br><span class="line">    <span class="type">uint32_t</span> <span class="type">const</span> k[<span class="number">4</span>]=&#123;<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;  </span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> r=<span class="number">32</span>;<span class="comment">//num_rounds建议取值为32  </span></span><br><span class="line">    <span class="comment">// v为要加密的数据是两个32位无符号整数  </span></span><br><span class="line">    <span class="comment">// k为加密解密密钥，为4个32位无符号整数，即密钥长度为128位  </span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;加密前原始数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    <span class="built_in">encipher</span>(r, v, k);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;加密后的数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    <span class="built_in">decipher</span>(r, v, k);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;解密后的数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h2 id="0x02-XXTEA"><a href="#0x02-XXTEA" class="headerlink" title="0x02 XXTEA"></a>0x02 XXTEA</h2><p>&emsp;进阶升级版。</p>
+<p>&emsp;加密过程如下：</p>
+<p><img src="/images/tea-algorithm/image-20230616134458898.png" alt="image-20230616134458898" style="zoom:67%;" /></p>
+<p>&emsp;算法实现如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span>  </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span>  </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> DELTA 0x9e3779b9  </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MX (((z&gt;&gt;5^y<span class="string">&lt;&lt;2) + (y&gt;</span>&gt;3^z&lt;&lt;4)) ^ ((sum^y) + (key[(p&amp;3)^e] ^ z)))  </span></span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">btea</span><span class="params">(<span class="type">uint32_t</span> *v, <span class="type">int</span> n, <span class="type">uint32_t</span> <span class="type">const</span> key[<span class="number">4</span>])</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="type">uint32_t</span> y, z, sum;  </span><br><span class="line">    <span class="type">unsigned</span> p, rounds, e;  </span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">1</span>)            <span class="comment">/* Coding Part */</span>  </span><br><span class="line">    &#123;  </span><br><span class="line">        rounds = <span class="number">6</span> + <span class="number">52</span>/n;  </span><br><span class="line">        sum = <span class="number">0</span>;  </span><br><span class="line">        z = v[n<span class="number">-1</span>];  </span><br><span class="line">        <span class="keyword">do</span>  </span><br><span class="line">        &#123;  </span><br><span class="line">            sum += DELTA;  </span><br><span class="line">            e = (sum &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;  </span><br><span class="line">            <span class="keyword">for</span> (p=<span class="number">0</span>; p&lt;n<span class="number">-1</span>; p++)  </span><br><span class="line">            &#123;  </span><br><span class="line">                y = v[p+<span class="number">1</span>];  </span><br><span class="line">                z = v[p] += MX;  </span><br><span class="line">            &#125;  </span><br><span class="line">            y = v[<span class="number">0</span>];  </span><br><span class="line">            z = v[n<span class="number">-1</span>] += MX;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">while</span> (--rounds);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; <span class="number">-1</span>)      <span class="comment">/* Decoding Part */</span>  </span><br><span class="line">    &#123;  </span><br><span class="line">        n = -n;  </span><br><span class="line">        rounds = <span class="number">6</span> + <span class="number">52</span>/n;  </span><br><span class="line">        sum = rounds*DELTA;  </span><br><span class="line">        y = v[<span class="number">0</span>];  </span><br><span class="line">        <span class="keyword">do</span>  </span><br><span class="line">        &#123;  </span><br><span class="line">            e = (sum &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;  </span><br><span class="line">            <span class="keyword">for</span> (p=n<span class="number">-1</span>; p&gt;<span class="number">0</span>; p--)  </span><br><span class="line">            &#123;  </span><br><span class="line">                z = v[p<span class="number">-1</span>];  </span><br><span class="line">                y = v[p] -= MX;  </span><br><span class="line">            &#125;  </span><br><span class="line">            z = v[n<span class="number">-1</span>];  </span><br><span class="line">            y = v[<span class="number">0</span>] -= MX;  </span><br><span class="line">            sum -= DELTA;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">while</span> (--rounds);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="type">uint32_t</span> v[<span class="number">2</span>]= &#123;<span class="number">1</span>,<span class="number">2</span>&#125;;  </span><br><span class="line">    <span class="type">uint32_t</span> <span class="type">const</span> k[<span class="number">4</span>]= &#123;<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;  </span><br><span class="line">    <span class="type">int</span> n= <span class="number">2</span>; <span class="comment">//n的绝对值表示v的长度，取正表示加密，取负表示解密  </span></span><br><span class="line">    <span class="comment">// v为要加密的数据是两个32位无符号整数  </span></span><br><span class="line">    <span class="comment">// k为加密解密密钥，为4个32位无符号整数，即密钥长度为128位  </span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;加密前原始数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    <span class="built_in">btea</span>(v, n, k);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;加密后的数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    <span class="built_in">btea</span>(v, -n, k);  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;解密后的数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<p>参考链接1：<code>https://www.jianshu.com/p/4272e0805da3</code></p>
+<p>参考链接2：<code>https://cloud.tencent.com/developer/article/1719497</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;stdio.h&gt;  </span></span><br><span class="line"><span class="comment">#include &lt;stdint.h&gt;  </span></span><br><span class="line"><span class="comment">#define DELTA 0x87654321</span></span><br><span class="line"><span class="comment">#define MX (((z&gt;&gt;6^y&lt;&lt;4) + (y&gt;&gt;2^z&lt;&lt;5)) ^ ((sum^y) + (key[(p&amp;3)^e] ^ z)))  </span></span><br><span class="line">  </span><br><span class="line">void btea(uint32_t *v, <span class="built_in">int</span> n, uint32_t const key[<span class="number">4</span>])  </span><br><span class="line">&#123;  </span><br><span class="line">    uint32_t y, z, <span class="built_in">sum</span>;  </span><br><span class="line">    unsigned p, rounds, e;  </span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">1</span>)            /* Coding Part */  </span><br><span class="line">    &#123;  </span><br><span class="line">        rounds = <span class="number">6</span> + <span class="number">52</span>/n;  </span><br><span class="line">        <span class="built_in">sum</span> = <span class="number">0</span>;  </span><br><span class="line">        z = v[n-<span class="number">1</span>];  </span><br><span class="line">        do  </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="built_in">sum</span> += DELTA;  </span><br><span class="line">            e = (<span class="built_in">sum</span> &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;  </span><br><span class="line">            <span class="keyword">for</span> (p=<span class="number">0</span>; p&lt;n-<span class="number">1</span>; p++)  </span><br><span class="line">            &#123;  </span><br><span class="line">                y = v[p+<span class="number">1</span>];  </span><br><span class="line">                z = v[p] += MX;  </span><br><span class="line">            &#125;  </span><br><span class="line">            y = v[<span class="number">0</span>];  </span><br><span class="line">            z = v[n-<span class="number">1</span>] += MX;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">while</span> (--rounds);  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; -<span class="number">1</span>)      /* Decoding Part */  </span><br><span class="line">    &#123;  </span><br><span class="line">        n = -n;  </span><br><span class="line">        rounds = <span class="number">6</span> + <span class="number">52</span>/n;  </span><br><span class="line">        <span class="built_in">sum</span> = rounds*DELTA;  </span><br><span class="line">        y = v[<span class="number">0</span>];  </span><br><span class="line">        do  </span><br><span class="line">        &#123;  </span><br><span class="line">            e = (<span class="built_in">sum</span> &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;  </span><br><span class="line">            <span class="keyword">for</span> (p=n-<span class="number">1</span>; p&gt;<span class="number">0</span>; p--)  </span><br><span class="line">            &#123;  </span><br><span class="line">                z = v[p-<span class="number">1</span>];  </span><br><span class="line">                y = v[p] -= MX;  </span><br><span class="line">            &#125;  </span><br><span class="line">            z = v[n-<span class="number">1</span>];  </span><br><span class="line">            y = v[<span class="number">0</span>] -= MX;  </span><br><span class="line">            <span class="built_in">sum</span> -= DELTA;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">while</span> (--rounds);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"><span class="built_in">int</span> main()  </span><br><span class="line">&#123;  </span><br><span class="line">    uint32_t v[<span class="number">4</span>]= &#123;<span class="number">1374278842</span>, <span class="number">2136006540</span>, <span class="number">4191056815</span>, <span class="number">3248881376</span>&#125;;  </span><br><span class="line">    uint32_t const k[<span class="number">4</span>]= &#123;<span class="number">0x67452301</span>,<span class="number">0xefcdab89</span>,<span class="number">0x98badcfe</span>,<span class="number">0x10325476</span>&#125;;  </span><br><span class="line">    <span class="built_in">int</span> n=<span class="number">4</span>; //n的绝对值表示v的长度，取正表示加密，取负表示解密  </span><br><span class="line">    // v为要加密的数据是两个<span class="number">32</span>位无符号整数  </span><br><span class="line">    // k为加密解密密钥，为<span class="number">4</span>个<span class="number">32</span>位无符号整数，即密钥长度为<span class="number">128</span>位  </span><br><span class="line">    printf(<span class="string">&quot;加密前原始数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    btea(v, n, k);  </span><br><span class="line">    printf(<span class="string">&quot;加密后的数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    btea(v, -n, k);  </span><br><span class="line">    printf(<span class="string">&quot;解密后的数据：%u %u\n&quot;</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2023/06/16/tvm-analysis/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023/06/14/advance-network-review/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-06-16 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/crypto/">crypto<span>5</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2023 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>
