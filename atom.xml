@@ -6,7 +6,7 @@
   <link href="https://wd-2711.tech/atom.xml" rel="self"/>
   
   <link href="https://wd-2711.tech/"/>
-  <updated>2023-11-06T12:33:34.644Z</updated>
+  <updated>2023-11-06T12:45:46.071Z</updated>
   <id>https://wd-2711.tech/</id>
   
   <author>
@@ -21,16 +21,12 @@
     <link href="https://wd-2711.tech/2023/11/03/blog-migrate-test/"/>
     <id>https://wd-2711.tech/2023/11/03/blog-migrate-test/</id>
     <published>2023-11-03T11:46:36.000Z</published>
-    <updated>2023-11-06T12:33:34.644Z</updated>
+    <updated>2023-11-06T12:45:46.071Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="博客迁移日志"><a href="#博客迁移日志" class="headerlink" title="博客迁移日志"></a>博客迁移日志</h1><p>test</p><p><img src="/images/blog-migrate-test/image-20231106203331118.png" alt="image-20231106203331118" style="zoom:67%;" /></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="博客迁移日志"><a href="#博客迁移日志" class="headerlink" title="博客迁移日志"></a>博客迁移日志</h1><p>test</p><span id="more"></span><p><img src="/images/blog-migrate-test/image-20231106203331118.png" alt="image-20231106203331118" style="zoom:67%;" /></p>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;h1 id=&quot;博客迁移日志&quot;&gt;&lt;a href=&quot;#博客迁移日志&quot; class=&quot;headerlink&quot; title=&quot;博客迁移日志&quot;&gt;&lt;/a&gt;博客迁移日志&lt;/h1&gt;&lt;p&gt;test&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/images/blog-migrate-test/image-</summary>
-      
+    <summary type="html">&lt;h1 id=&quot;博客迁移日志&quot;&gt;&lt;a href=&quot;#博客迁移日志&quot; class=&quot;headerlink&quot; title=&quot;博客迁移日志&quot;&gt;&lt;/a&gt;博客迁移日志&lt;/h1&gt;&lt;p&gt;test&lt;/p&gt;</summary>
     
     
     
