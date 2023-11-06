@@ -11,18 +11,18 @@
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/2023/10/29/ACTF-2023/</loc>
+    <loc>https://wd-2711.tech/2023/08/05/news-and-good-article/</loc>
     
-    <lastmod>2023-11-03</lastmod>
+    <lastmod>2023-11-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/2023/08/05/news-and-good-article/</loc>
+    <loc>https://wd-2711.tech/2023/10/29/ACTF-2023/</loc>
     
-    <lastmod>2023-11-02</lastmod>
+    <lastmod>2023-11-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1222,14 +1222,14 @@
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/papers/</loc>
+    <loc>https://wd-2711.tech/categories/blockchain/</loc>
     <lastmod>2023-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/IOT/</loc>
+    <loc>https://wd-2711.tech/categories/papers/</loc>
     <lastmod>2023-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1250,7 +1250,7 @@
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/blockchain/</loc>
+    <loc>https://wd-2711.tech/categories/IOT/</loc>
     <lastmod>2023-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1299,14 +1299,14 @@
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/virus-re/</loc>
+    <loc>https://wd-2711.tech/categories/go/</loc>
     <lastmod>2023-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/go/</loc>
+    <loc>https://wd-2711.tech/categories/virus-re/</loc>
     <lastmod>2023-11-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
