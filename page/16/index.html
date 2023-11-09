@@ -122,6 +122,33 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/03/27/re-core-principle-2/" >re-core-principle-2</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-03-27  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="逆向工程核心原理笔记-2"><a href="#逆向工程核心原理笔记-2" class="headerlink" title="逆向工程核心原理笔记-2"></a>逆向工程核心原理笔记-2</h1><h2 id="0x00-windows消息钩取"><a href="#0x00-windows消息钩取" class="headerlink" title="0x00 windows消息钩取"></a>0x00 windows消息钩取</h2><p>&emsp;<strong>钩子：</strong>偷看或截取信息时所用的手段或工具。有一个例子非常形象：<strong>假设有一个非常重要的军事设施，其外围设置了3层岗哨以进行保护。外部人员若想进入，需要经过3层岗哨复杂的检查程序。若间谍在通往该军事设施的道路上私设一个岗哨，经过该岗哨的人员未起疑心，通过时履行同样的检查程序，那么间谍就可以坐享其成，轻松获取来往该岗哨的所有信息。</strong></p>
+	
+	</div>
+  <a type="button" href="/2023/03/27/re-core-principle-2/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/03/26/re-part-5/" >re-part-5</a>
 		</h3>
 		</div>
@@ -229,39 +256,6 @@
 	
 	</div>
   <a type="button" href="/2023/03/17/matrix-analysis-note/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/03/14/emotion-analysis/" >emotion-analysis</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-03-14  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="情感分析-二分类"><a href="#情感分析-二分类" class="headerlink" title="情感分析-二分类"></a>情感分析-二分类</h1><h2 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h2><ul>
-<li><p>任务数据集是<code>NLPCC14-SC</code>，<code>训练集:测试集=10000:2500</code>。<code>NVIDIA Tesla T4</code>相当于<code>NVIDIA GTX 750</code>。</p>
-</li>
-<li><p><code>transformers</code>库是一个用于自然语言处理（NLP）的 Python 第三方库，它提供了数千个预训练的模型，可以用于不同模态（如文本、图像、音频等）的任务。<code>transformers</code>库支持PyTorch深度学习框架，并且可以在它们之间无缝切换，<code>transformers</code>库还提供了简单的API和工具，可以快速下载和使用预训练的模型。</p>
-</li>
-<li><code>from google.colab import drive</code>的含义，这段代码的作用是从<code>google.colab</code>模块中导入<code>drive</code>对象，用于在colab虚拟机中挂载Google Drive云盘文件，以便访问云盘中的数据和代码。</li>
-</ul>
-	
-	</div>
-  <a type="button" href="/2023/03/14/emotion-analysis/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -423,7 +417,7 @@
 		
 			<li><a href="/categories/IOT/">IOT<span>4</span></a></li>
 		
-			<li><a href="/categories/ML/">ML<span>5</span></a></li>
+			<li><a href="/categories/ML/">ML<span>6</span></a></li>
 		
 			<li><a href="/categories/TEE/">TEE<span>1</span></a></li>
 		
@@ -468,6 +462,10 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2023/11/09/image-caption/" ><i class="fa fa-file-o"></i>image-caption</a>
+      </li>
+    
+      <li>
         <a href="/2023/11/07/oddfuzz/" ><i class="fa fa-file-o"></i>oddfuzz</a>
       </li>
     
@@ -481,10 +479,6 @@
     
       <li>
         <a href="/2023/10/22/frida-reverse-analysis-3/" ><i class="fa fa-file-o"></i>frida-reverse-analysis-3</a>
-      </li>
-    
-      <li>
-        <a href="/2023/10/21/N1CTF-2023/" ><i class="fa fa-file-o"></i>N1CTF-2023</a>
       </li>
     
   </ul>
@@ -567,5 +561,20 @@
      searchFunc(path, 'local-search-input', 'local-search-result');
    </script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
    </html>
