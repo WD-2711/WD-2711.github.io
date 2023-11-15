@@ -155,8 +155,22 @@
 <p>（2）gadget coverage。使用此指标来优先考虑覆盖更多程序路径的种子。在最初的模糊测试阶段，gadget coverage旨在引导fuzzer选择不同的种子并对其进行优先级排序，避免因偏爱具有特定执行路径的某些种子而陷入局部最优。在power 分配阶段，<code>gadget coverage尝试为种子提供相同的距离，但覆盖更多的分支，从而提高突变的机会</code>。</p>
 <p>&emsp;oddfuzz将所有生成的种子根据距离升序排序，并维护一个两级队列。第一个种子（或距离相同但覆盖范围不同的种子）将被放入优先队列中，其余种子将被放入较不优先队列中。因此，oddfuzz 有更大的机会从优先队列中选择下一个种子进行变异。至于power分配，oddfuzz使用如下方程，以便为所选种子输入分配适当的能量：</p>
 <script type="math/tex; mode=display">p(s,T_b)=\psi(s)\cdot(1-\widetilde{d}(s,T_b))</script><p>&emsp;其中$\psi(s)$表示gadget coverage，并且$\widetilde{d}(s,T_b)=\frac{d(s,T_b)-minD}{maxD-minD}$是归一化种子距离。通过此方程，<code>fuzzer可以确定应用于当前种子的变异机会数量</code>，并评估在种子优先级排序过程中是否应优先考虑变异种子，从而在探索不同的执行路径和对种子进行优先级排序之间取得平衡。</p>
-<p>&emsp;<code>前向种子突变</code>。以前的fuzz是通过位翻转等操作随机改变二进制文件来产生新的输入。然而，当应用于结构化输入时，这种位突变可能会导致无效语法。为了解决这个问题，我们利用 JQF [20]，一个参数化模糊测试框架，它将结构化输入映射到一系列无类型位（即参数），以在位级别改变生成的种子。参数上的这些位级突变对应于结构化注入对象上的属性级突变。然后，ODDFUZZ 应用逐步种子突变策略来有效引导种子前往目标 gadget 链所需的安全敏感调用站点。</p>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h2 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h2><h2 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h2><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2>
+<p>&emsp;<code>前向种子突变</code>。以前的fuzz是通过位翻转等操作随机改变二进制文件来产生新的输入。然而，<code>当应用于结构化输入时，这种位突变可能会导致无效语法</code>。为了解决这个问题，我们利用 JQF（参数化模糊测试框架），它将结构化输入映射到一系列参数，以在位级别改变生成的种子。<code>参数上的这些位突变对应于结构化注入对象上的属性级突变</code>。然后，oddfuzz 应用前向种子突变策略来有效引导种子前往sink。</p>
+<p>&emsp;具体来说，fuzzer首先遍历要变异的注入对象的属性树并检查每个属性的类型。对于<code>原始数据类型（例如 boolean、int），fuzzer使用 JQF 中的多种伪随机方法将无类型位参数转换为随机类型值；对于reference数据类型，fuzzer为特定类型定制目标模板；当类型为class时，fuzzer 将通过random.choose()方法从该属性的子类中随机选择一个类。对于数组属性，模糊器使用 random.nextInt() 方法随机设置数组大小，并根据元素类型（即继承数组类类型的实例）为数组分配随机值。</code>例如，从Fig.7.中的属性树生成的注入对象的参数序列为：</p>
+<p><img src="/images/oddfuzz/image-20231115194857259.png" alt="image-20231115194857259" style="zoom:67%;" /></p>
+<p>&emsp;上图的解释如下：为了改变属性 size 的值（类 PriorityQueue 中的 int 类型变量），fuzzer调用 random.nextInt() 方法来生成随机整数 1。为了生成对象数组队列，fuzzer调用方法random.choose() 从预定义的字典中为其分配一个实例对象，该对象由候选 gadget 链中所有类或方法涉及的一些特定属性值（例如类对象、字符串对象）组成。</p>
+<p>&emsp;此外，为了引导种子走向sink，oddfuzz在位级别上改变感兴趣的注入对象的嵌套子对象。为此，我们使用 random.nextBool() 方法<code>将额外的标识符字节插入到注入对象的参数序列中</code>。当fuzzer在遍历属性树时遇到类对象节点时，fuzzer会添加一个字节作为标识符，以标记是否更改此嵌套子对象的属性值。我们利用fuzzer收集的gadget coverage来识别注入对象覆盖的最后一个分支所在的类，一旦注入对象被卡在某些gadget中（不按照链向下运行），fuzzer就会将相应的标识符字节设置为 true，并将随机值分配给参数，这些参数对应于被卡gadget所属类的属性的结构突变，以产生新的输入。</p>
+<p>&emsp;为了说明前向突变，考虑以下参数序列$\sigma_{2}$：</p>
+<p><img src="/images/oddfuzz/image-20231115195815150.png" alt="image-20231115195815150" style="zoom:67%;" /></p>
+<p>&emsp;如上所示，假设有一个注入对象卡在gadget TransformingComparator.compare() 中，fuzzer将其 Identifier 翻转为 true 并改变 TransformingComparator 类对应的参数序列（例如，将实例T分配给属性transformer）。基于这种前向突变策略，fuzzer可以有效地生成更有可能到达sink的输入。</p>
+<p>&emsp;最后，当变异的种子到达sink时，fuzzer将报告给定的gadget链是可以被利用的。</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>&emsp;我们基于流行的 Java 模糊测试平台 JQF 实现了 oddfuzz。我们定制了它的组件，使其适合gadget链模糊测试，同时搭载 JQF 的底层功能，例如运行时检测（<code>tai-e能做到这一点吗？</code>）。</p>
+<p>&emsp;<code>污点分析</code>。 oddfuzz 使用 Soot 来解析 Java 字节码并将其转换为中间语言 Jimple 。基于 Jimple 的基本类信息（例如类修饰符、字段、方法），实现了基于方法摘要的污点分析。</p>
+<p>&emsp;<code>结构化模糊测试</code>。 <code>oddfuzz 修改了 JQF 中内置的 junit-quickcheck 生成器，以根据候选 gadget 链随机生成和变异结构化注入对象，而不是手动编写输入格式的声明性规范（例如上下文无关语法或协议缓冲区）</code>。为了<code>启用和促进结构化感知种子生成，采用 JRE 提供的类 sun.msic.Unsafe</code>，允许用户创建类的实例，而无需调用其构造函数代码、初始化代码、各种 JVM 安全检查和所有其他低层次的东西。</p>
+<p>&emsp;<code>运行时Instrumentation</code>。当 JVM 加载类时，我们使用 ASM 工具包通过 javaagent 动态检测 Java 字节码。当测试程序 PUT 启动时，oddfuzz 工具会注入一个静态方法调用，该调用在每次调用或跳转指令后执行，<code>以跟踪注入对象的执行</code>。出于效率考虑，检测仅限于与gadget链相关的字节码，而不是整个程序。</p>
+<p>&emsp;<code>反馈收集</code>。对于覆盖率信息，我们对 JQF 进行了最小的修改，通过跳转指令检测每个基本块，来收集branch覆盖率。对于距离信息，oddfuzz 基于 ASM 在字节码级别生成相应的 gadget 链的过程内控制流图（CFG）。 CFG的根节点（即gadget）由方法签名来标识，而其他CFG节点则由相应基本块的跳转指令来标识。当将 gadget 链送到fuzzer进行验证时，oddfuzz 距离计算器会根据 gadget 链的调用顺序和生成的 CFG 计算每个基本块到sink的过程间距离。距离计算器是用 JGraphT 库实现的。</p>
+<p>To be continued…</p>
+<h2 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h2><h2 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h2><h2 id="相关工作"><a href="#相关工作" class="headerlink" title="相关工作"></a>相关工作</h2><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2>
   
 	</div>
 

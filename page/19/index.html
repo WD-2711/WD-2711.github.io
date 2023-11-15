@@ -122,6 +122,35 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/02/23/Assembly-3/" >Assembly-3</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-02-23  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="汇编语言学习笔记-3"><a href="#汇编语言学习笔记-3" class="headerlink" title="汇编语言学习笔记-3"></a>汇编语言学习笔记-3</h1><h2 id="0x00-其他的转移指令"><a href="#0x00-其他的转移指令" class="headerlink" title="0x00 其他的转移指令"></a>0x00 其他的转移指令</h2><h3 id="ret与retf"><a href="#ret与retf" class="headerlink" title="ret与retf"></a>ret与retf</h3><p>​    <strong>ret使用栈中的数据，来修改IP的内容，来实现近转移（段内转移）。</strong>操作如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(ip)=((ss)*16+(sp))</span><br><span class="line">(sp)=(sp)+2</span><br></pre></td></tr></table></figure>
+<p>​    <strong>执行ret指令时，相当于进行：<code>pop ip</code>。</strong></p>
+	
+	</div>
+  <a type="button" href="/2023/02/23/Assembly-3/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/02/19/Assembly-2/" >Assembly-2</a>
 		</h3>
 		</div>
@@ -227,35 +256,6 @@
 	
 	</div>
   <a type="button" href="/2023/02/10/go-study/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/02/09/smart-contract/" title="Smart contract study notes of bilibili blogger &#34;Dongfeng Grass Green&#34;.">smart_contract</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-02-09  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="solidity智能合约"><a href="#solidity智能合约" class="headerlink" title="solidity智能合约"></a>solidity智能合约</h1><h2 id="0x00-智能合约入门"><a href="#0x00-智能合约入门" class="headerlink" title="0x00 智能合约入门"></a>0x00 智能合约入门</h2><h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><p>​    智能合约的机制：<strong>节点一侧是transaction，一侧是EVM；transaction被确认之后，会触发EVM的执行。</strong></p>
-<p><img src="/images/smart-contract/11.png" alt="11"></p>
-<p>​    简单的智能合约代码：</p>
-	
-	</div>
-  <a type="button" href="/2023/02/09/smart-contract/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -441,6 +441,8 @@
 		
 			<li><a href="/categories/re-book/">re-book<span>11</span></a></li>
 		
+			<li><a href="/categories/static-analysis/">static-analysis<span>1</span></a></li>
+		
 			<li><a href="/categories/study-notes/">study-notes<span>17</span></a></li>
 		
 			<li><a href="/categories/virus-re/">virus-re<span>2</span></a></li>
@@ -462,6 +464,10 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2023/11/15/tai-e-static-analysis-with-homework/" ><i class="fa fa-file-o"></i>tai_e-static-analysis-with-...</a>
+      </li>
+    
+      <li>
         <a href="/2023/11/09/image-caption/" ><i class="fa fa-file-o"></i>image-caption</a>
       </li>
     
@@ -475,10 +481,6 @@
     
       <li>
         <a href="/2023/10/29/ACTF-2023/" ><i class="fa fa-file-o"></i>ACTF-2023</a>
-      </li>
-    
-      <li>
-        <a href="/2023/10/22/frida-reverse-analysis-3/" ><i class="fa fa-file-o"></i>frida-reverse-analysis-3</a>
       </li>
     
   </ul>
