@@ -120,7 +120,10 @@
 <h2 id="0x05-Android源码编译与Xposed魔改"><a href="#0x05-Android源码编译与Xposed魔改" class="headerlink" title="0x05 Android源码编译与Xposed魔改"></a>0x05 Android源码编译与Xposed魔改</h2><p>&emsp;市面上绝大多数app都会对xposed框架进行特征检测，绕过的思路就是找到检测点（java层或者native层），然后hook修改返回结果，或者以硬编码、置零等方式来绕过检测逻辑。但是检测点很难找到（代码太多，或者以ollvm、vmp加固）。</p>
 <p>&emsp;一个绝杀点就是：在源头消灭xposed特征，让你检测不到。本章就介绍如何魔改编译魔改xposed，从而绕过开源xposed检测工具Xposed Checker。</p>
 <h3 id="Android源码环境搭建"><a href="#Android源码环境搭建" class="headerlink" title="Android源码环境搭建"></a>Android源码环境搭建</h3><p>&emsp;为什么要编译Android源码？Xposed源码不就得了。这是因为Xposed的编译过程很依赖android的源码，因此，我们先对android源码进行编译。（需要12G运存+450G硬盘，电脑办不了，只能组装了）</p>
-<p>To be continued…</p>
+<hr>
+<p>&emsp;由于安卓源码引用了外部开源工具，例如OpenSSL，每一个子项目都是Git仓库，为了方便的管理这个Git仓库，安卓官方推出了相关的管理工具，名为repo。Repo封装了一系列的Git指令，可以方便的对多个Git仓库进行管理。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir aosp712_r8 &amp;&amp; cd aosp712_r8</span><br><span class="line">repo init -u git://mirrors.ustc.edu.cn/aosp/platform/manifest -b android-7.1.2_r8</span><br><span class="line">repo sync</span><br></pre></td></tr></table></figure>
+<p>&emsp;<code>repo sync</code>只是下载了系统运行必须的代码，只能编译出运行Android Emulator（模拟器）的虚拟机系统，要是想让此系统安装到设备中，还需要下载设备对应的驱动（作用是在物理机系统上起到协调上层系统与底层硬件的通信）。</p>
 <h2 id="0x06-Android沙箱之加解密库“自吐”"><a href="#0x06-Android沙箱之加解密库“自吐”" class="headerlink" title="0x06 Android沙箱之加解密库“自吐”"></a>0x06 Android沙箱之加解密库“自吐”</h2><h2 id="0x07-Android沙箱开发之网络库与系统库“自吐”"><a href="#0x07-Android沙箱开发之网络库与系统库“自吐”" class="headerlink" title="0x07 Android沙箱开发之网络库与系统库“自吐”"></a>0x07 Android沙箱开发之网络库与系统库“自吐”</h2><h2 id="0x08-收费直播间逆向分析"><a href="#0x08-收费直播间逆向分析" class="headerlink" title="0x08 收费直播间逆向分析"></a>0x08 收费直播间逆向分析</h2><h2 id="0x09-会员制非法应用破解"><a href="#0x09-会员制非法应用破解" class="headerlink" title="0x09 会员制非法应用破解"></a>0x09 会员制非法应用破解</h2>
   
 	</div>
