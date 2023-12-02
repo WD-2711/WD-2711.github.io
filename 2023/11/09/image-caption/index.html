@@ -115,18 +115,30 @@
 	<div class="mypage">		
 	  		
 
-	  <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="efee00fe29306bb6f74618ed63483a0c6cb21fbeadfdd67995157d5f0d9d0f5a">2c151d14a1692af99fa0c574696ab642630118ededbcd92b05c804024ee0b0d5784e5f9388d434a5c321c8d021f3f8246f5a54578a877ea73abe19814aa8afe14024f8ed219de0207d352a4634ef848c4d9d940bb7e338ccd1164da41540f8e1390861866e2a48044eda0d473230942400378a5df916b15c4d22e5cf5901429ab23c3d305bbd91b8ef8e66b934e10ea6f84f9615d30ce595942037a1ff9eba3546fb5227175fdb409b241f340796325aa0fe456d5fbcf229da8febd4c0c100c851b2990a9ebb514cbdd39ce961be74f1dec3c7ef99a9041fc0339bd419abd804f422d0c51698b83f146387d68c3a723d2ae884f7ad1cc85b153ffed783bddf9cb45865acbb48af3178a9bc4aaf6fc6c06f69b27148d4f9f86299dfd86089d4646bab7cf3c36d26ab11cb5e321589d44f8320ad2353c9635577f68af49f6dbdfbbb5646c18902e76d654b52afc46400ca1428bfed20cd308345b6c46646507709cbca233fec13be740cf0b54453dd4f88bd484d2b74ee836d46c74f8998bb0a58</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+	  <h1 id="image-caption-图像中文描述"><a href="#image-caption-图像中文描述" class="headerlink" title="image-caption: 图像中文描述"></a>image-caption: 图像中文描述</h1><p>数据集下载：<a target="_blank" rel="noopener" href="https://tianchi.aliyun.com/dataset/145781?t=1699533627520">https://tianchi.aliyun.com/dataset/145781?t=1699533627520</a></p>
+<span id="more"></span>
+<h2 id="Show-Attend-and-Tell"><a href="#Show-Attend-and-Tell" class="headerlink" title="Show, Attend, and Tell"></a>Show, Attend, and Tell</h2><p>&emsp;这是一篇2021年的文章，用于生成图像的描述。利用卷积神经网络CNN提取图像特征，使用RNN将特征向量解码成语言序列。本论文在RNN（LSTM）上加入了attention机制，对图像特征的像素点进行概率估计，并加权求和，其思想为：人们在观察图像中倾向于关注有用信息。</p>
+<p>&emsp;此文的贡献是：（1）提出了基于attention的image caption；（2）可视化了attention在每个时间上关注的点；（3）量化了加入attention机制后性能的提高。</p>
+<h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><p>&emsp;VGGNet、Inception等是在大规模图像数据集（如ImageNet）上进行了预训练的模型，可以很好的提取到图像的特征。通过将最后的flatten与FC去掉，可以得到特征图。</p>
+<h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><p>&emsp;使用LSTM，在每个时间step上生成词语。</p>
+<p>&emsp;复习一下LSTM的知识：</p>
+<p><img src="/images/image-caption/image-20231130205705945.png" alt="image-20231130205705945" style="zoom:67%;" /></p>
+<p>&emsp;LSTM的输入为：$C<em>{t-1},h</em>{t-1},x_{t}$，输出为$C_t,h_t$。</p>
+<p>&emsp;遗忘门：</p>
+<p><img src="/images/image-caption/image-20231130205921504.png" alt="image-20231130205921504" style="zoom:67%;" /></p>
+<p>&emsp;输出门（存储并更新细胞状态）：</p>
+<p><img src="/images/image-caption/image-20231130205950447.png" alt="image-20231130205950447" style="zoom:67%;" /></p>
+<p><img src="/images/image-caption/image-20231130205959664.png" alt="image-20231130205959664" style="zoom:67%;" /></p>
+<p>&emsp;输出门：</p>
+<p><img src="/images/image-caption/image-20231130210149692.png" alt="image-20231130210149692" style="zoom:67%;" /></p>
+<h3 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h3><p>&emsp;作用是帮助生成LSTM中的$C<em>t$。利用CNN提取出的特征向量$a$与LSTM输出的$h</em>{t-1}$，通过FC+softmax计算每个像素点的概率值，之后对每个像素点加权求和，具体看下图。</p>
+<p><img src="/images/image-caption/image-20231130220806283.png" alt="image-20231130220806283" style="zoom:80%;" /></p>
+<p>To be continued…</p>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p>[1] <a target="_blank" rel="noopener" href="https://github.com/foamliu/Image-Captioning-PyTorch">https://github.com/foamliu/Image-Captioning-PyTorch</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43152622/article/details/118755946">https://blog.csdn.net/qq_43152622/article/details/118755946</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://github.com/dabasajay/Image-Caption-Generator">https://github.com/dabasajay/Image-Caption-Generator</a></p>
+<p>[4] <a target="_blank" rel="noopener" href="https://blog.csdn.net/sophicchen/article/details/103306545">https://blog.csdn.net/sophicchen/article/details/103306545</a></p>
+
   
 	</div>
 
