@@ -124,6 +124,40 @@
 <p>&emsp;由于安卓源码引用了外部开源工具，例如OpenSSL，每一个子项目都是Git仓库，为了方便的管理这个Git仓库，安卓官方推出了相关的管理工具，名为repo。Repo封装了一系列的Git指令，可以方便的对多个Git仓库进行管理。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir aosp712_r8 &amp;&amp; cd aosp712_r8</span><br><span class="line">repo init -u git://mirrors.ustc.edu.cn/aosp/platform/manifest -b android-7.1.2_r8</span><br><span class="line">repo sync</span><br></pre></td></tr></table></figure>
 <p>&emsp;<code>repo sync</code>只是下载了系统运行必须的代码，只能编译出运行Android Emulator（模拟器）的虚拟机系统，要是想让此系统安装到设备中，还需要下载设备对应的驱动（作用是在物理机系统上起到协调上层系统与底层硬件的通信）。</p>
+<p>&emsp;编译完成后，编译出来的镜像是不全的，还需要下载BootLoader等关键的系统镜像，之后即可刷上自编译系统。</p>
+<h3 id="Xposed定制"><a href="#Xposed定制" class="headerlink" title="Xposed定制"></a>Xposed定制</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XposedInstaller</td>
+<td>用于下载和安装Xposed.zip刷机包。</td>
+</tr>
+<tr>
+<td>XposedBridge</td>
+<td>java层的API提供者，调用Xposed相关的API时，首先调用XposedBridge中的函数，之后转发到Native方法。</td>
+</tr>
+<tr>
+<td>Xposed</td>
+<td>位于Native层的Xposed实际实现，是对Zygote的二次开发。</td>
+</tr>
+<tr>
+<td>android_art</td>
+<td>对art的二次开发，以提供对Xposed的支持。</td>
+</tr>
+<tr>
+<td>XposedTools</td>
+<td>负责编译和打包刷机的ZIP包。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>&emsp;就是，将XposedInstaller安装到设备之后，XposedInstaller会下载由XposedTools打包的含有XposedBridge，Xposed，android_art的ZIP包，并将此ZIP包刷入到系统（放置与替换系统文件）。</p>
 <h2 id="0x06-Android沙箱之加解密库“自吐”"><a href="#0x06-Android沙箱之加解密库“自吐”" class="headerlink" title="0x06 Android沙箱之加解密库“自吐”"></a>0x06 Android沙箱之加解密库“自吐”</h2><h2 id="0x07-Android沙箱开发之网络库与系统库“自吐”"><a href="#0x07-Android沙箱开发之网络库与系统库“自吐”" class="headerlink" title="0x07 Android沙箱开发之网络库与系统库“自吐”"></a>0x07 Android沙箱开发之网络库与系统库“自吐”</h2><h2 id="0x08-收费直播间逆向分析"><a href="#0x08-收费直播间逆向分析" class="headerlink" title="0x08 收费直播间逆向分析"></a>0x08 收费直播间逆向分析</h2><h2 id="0x09-会员制非法应用破解"><a href="#0x09-会员制非法应用破解" class="headerlink" title="0x09 会员制非法应用破解"></a>0x09 会员制非法应用破解</h2>
   
 	</div>
@@ -232,7 +266,7 @@
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Frida%E9%80%86%E5%90%91%E4%B8%8E%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90-3"><span class="toc-article-text">Frida逆向与协议分析-3</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x05-Android%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E4%B8%8EXposed%E9%AD%94%E6%94%B9"><span class="toc-article-text">0x05 Android源码编译与Xposed魔改</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-article-text">Android源码环境搭建</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x06-Android%E6%B2%99%E7%AE%B1%E4%B9%8B%E5%8A%A0%E8%A7%A3%E5%AF%86%E5%BA%93%E2%80%9C%E8%87%AA%E5%90%90%E2%80%9D"><span class="toc-article-text">0x06 Android沙箱之加解密库“自吐”</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x07-Android%E6%B2%99%E7%AE%B1%E5%BC%80%E5%8F%91%E4%B9%8B%E7%BD%91%E7%BB%9C%E5%BA%93%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%BA%93%E2%80%9C%E8%87%AA%E5%90%90%E2%80%9D"><span class="toc-article-text">0x07 Android沙箱开发之网络库与系统库“自吐”</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x08-%E6%94%B6%E8%B4%B9%E7%9B%B4%E6%92%AD%E9%97%B4%E9%80%86%E5%90%91%E5%88%86%E6%9E%90"><span class="toc-article-text">0x08 收费直播间逆向分析</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x09-%E4%BC%9A%E5%91%98%E5%88%B6%E9%9D%9E%E6%B3%95%E5%BA%94%E7%94%A8%E7%A0%B4%E8%A7%A3"><span class="toc-article-text">0x09 会员制非法应用破解</span></a></li></ol></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Frida%E9%80%86%E5%90%91%E4%B8%8E%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90-3"><span class="toc-article-text">Frida逆向与协议分析-3</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x05-Android%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E4%B8%8EXposed%E9%AD%94%E6%94%B9"><span class="toc-article-text">0x05 Android源码编译与Xposed魔改</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-article-text">Android源码环境搭建</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Xposed%E5%AE%9A%E5%88%B6"><span class="toc-article-text">Xposed定制</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x06-Android%E6%B2%99%E7%AE%B1%E4%B9%8B%E5%8A%A0%E8%A7%A3%E5%AF%86%E5%BA%93%E2%80%9C%E8%87%AA%E5%90%90%E2%80%9D"><span class="toc-article-text">0x06 Android沙箱之加解密库“自吐”</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x07-Android%E6%B2%99%E7%AE%B1%E5%BC%80%E5%8F%91%E4%B9%8B%E7%BD%91%E7%BB%9C%E5%BA%93%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%BA%93%E2%80%9C%E8%87%AA%E5%90%90%E2%80%9D"><span class="toc-article-text">0x07 Android沙箱开发之网络库与系统库“自吐”</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x08-%E6%94%B6%E8%B4%B9%E7%9B%B4%E6%92%AD%E9%97%B4%E9%80%86%E5%90%91%E5%88%86%E6%9E%90"><span class="toc-article-text">0x08 收费直播间逆向分析</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x09-%E4%BC%9A%E5%91%98%E5%88%B6%E9%9D%9E%E6%B3%95%E5%BA%94%E7%94%A8%E7%A0%B4%E8%A7%A3"><span class="toc-article-text">0x09 会员制非法应用破解</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
