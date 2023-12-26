@@ -122,6 +122,33 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/06/16/tea-algorithm/" title="Tiny Encryption Algorithm是一种对称加密算法，也是一种易于描述和执行的块密码，通常只需要很少的代码就可实现。特点是速度快，代码量小（加密、解密的核心算法总共才20来行）。算法的安全性虽然不比AES，但其算法的破译难度取决于其迭代的次数。">tea-algorithm</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-06-16  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="TEA、XTEA、XXTEA"><a href="#TEA、XTEA、XXTEA" class="headerlink" title="TEA、XTEA、XXTEA"></a>TEA、XTEA、XXTEA</h1><p>&emsp;Tiny Encryption Algorithm是一种<strong>对称加密</strong>算法，也是一种易于描述和执行的块密码，通常只需要很少的代码就可实现。特点是速度快，代码量小（加密、解密的核心算法总共才20来行）。算法的安全性虽然不比AES，但其算法的破译难度取决于其迭代的次数。</p>
+	
+	</div>
+  <a type="button" href="/2023/06/16/tea-algorithm/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/06/14/advance-network-review/" title="Advanced Computer Network Review Notes.">advance-network-review</a>
 		</h3>
 		</div>
@@ -222,33 +249,6 @@
 	
 	</div>
   <a type="button" href="/2023/06/07/keri-translate-2/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/06/07/keri-paper-translate/" title="Drummond Reed-Self-Sovereign Identity-Decentralized digital identity and verifiable credentials-Manning-2021 translate about keri.">keri-paper-translate</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-06-07  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="KERI文献翻译-1"><a href="#KERI文献翻译-1" class="headerlink" title="KERI文献翻译-1"></a>KERI文献翻译-1</h1><h2 id="Reed-book-section-10"><a href="#Reed-book-section-10" class="headerlink" title="Reed book section 10"></a>Reed book section 10</h2><p>&emsp;第 9 章涵盖了 SSI 数字钱包和代理的整体主题。然而，数字钱包非常核心的功能——密钥管理，需要详细讲一讲。尽管关于密钥管理的主题已经写了数千篇论文和数十本书，但在本章关于分散密钥管理的这一章中，我们请来了Sam Smith博士，他不仅是SSI中最多产的思想家和作者之一，而且是密钥事件接收基础结构（Key Event Receipt Infrastructure，KERI）的发明者，本章的最后一节说明了这一点。Sam于1991年在Brigham Young大学获得电气和计算机工程博士学位；在Florida Atlantic大学工作了10年，达到正式教授身份；然后退休，成为一名全职企业家和战略顾问。他在机器学习、人工智能、自动车辆系统、自动推理、区块链和去中心化系统等领域发表了100多篇被引用的出版物。</p>
-	
-	</div>
-  <a type="button" href="/2023/06/07/keri-paper-translate/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -414,7 +414,7 @@
 		
 			<li><a href="/categories/TEE/">TEE<span>1</span></a></li>
 		
-			<li><a href="/categories/blockchain/">blockchain<span>5</span></a></li>
+			<li><a href="/categories/blockchain/">blockchain<span>6</span></a></li>
 		
 			<li><a href="/categories/crypto/">crypto<span>5</span></a></li>
 		
@@ -457,6 +457,10 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2023/12/20/blockchain-distribute-tech/" ><i class="fa fa-file-o"></i>blockchain-distribute-tech</a>
+      </li>
+    
+      <li>
         <a href="/2023/12/05/some-bugs-fix/" ><i class="fa fa-file-o"></i>some-bugs-fix</a>
       </li>
     
@@ -470,10 +474,6 @@
     
       <li>
         <a href="/2023/11/07/oddfuzz/" ><i class="fa fa-file-o"></i>oddfuzz</a>
-      </li>
-    
-      <li>
-        <a href="/2023/11/03/blog-migrate-test/" ><i class="fa fa-file-o"></i>blog-migrate-test</a>
       </li>
     
   </ul>
@@ -556,20 +556,5 @@
      searchFunc(path, 'local-search-input', 'local-search-result');
    </script>
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
    </html>

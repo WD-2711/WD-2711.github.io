@@ -122,6 +122,33 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/04/22/taint-checking/" >taint-checking</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-04-22  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="symbolic-execution-amp-taint-checking"><a href="#symbolic-execution-amp-taint-checking" class="headerlink" title="symbolic-execution &amp; taint-checking"></a>symbolic-execution &amp; taint-checking</h1><p>&emsp;之前，有西电的大佬<a target="_blank" rel="noopener" href="https://www.k0rz3n.com/">K0rz3n</a>详细说过符号执行与污点分析，之后，USTC的一个学长<code>Ch3nYe</code>也学习了一波。无独有偶，最近我对这个也比较感兴趣，所以趁机学习一波。由于两位大佬说的很详细了，所以我就按两位大佬的脉络来叙述。</p>
+	
+	</div>
+  <a type="button" href="/2023/04/22/taint-checking/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/04/18/certificate-transparency-dns/" >certificate-transparency-dns</a>
 		</h3>
 		</div>
@@ -225,34 +252,6 @@
 	
 	</div>
   <a type="button" href="/2023/04/10/hvv-middle-ctf/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/04/05/re-core-principle-3/" >re-core-principle-3</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-04-05  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="逆向工程核心原理笔记-3"><a href="#逆向工程核心原理笔记-3" class="headerlink" title="逆向工程核心原理笔记-3"></a>逆向工程核心原理笔记-3</h1><h2 id="0x00-API钩取：逆向分析之花"><a href="#0x00-API钩取：逆向分析之花" class="headerlink" title="0x00 API钩取：逆向分析之花"></a>0x00 API钩取：逆向分析之花</h2><p>&emsp;代码逆向分析中，钩取(Hooking)是一种截取信息、更改程序执行流向、添加新功能的技术。钩取的流程如下：（1）使用反汇编器/调试器熟悉程序的结构与工作原理；（2）开发钩子代码；（3）操作可执行文件与进程内存，部署钩子代码。</p>
-<p>&emsp;其中，钩取<code>Win32 API</code>的技术被称为API钩取。分析程序时若有程序源码，大部分情况都不需要使用钩取技术。</p>
-	
-	</div>
-  <a type="button" href="/2023/04/05/re-core-principle-3/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -418,7 +417,7 @@
 		
 			<li><a href="/categories/TEE/">TEE<span>1</span></a></li>
 		
-			<li><a href="/categories/blockchain/">blockchain<span>5</span></a></li>
+			<li><a href="/categories/blockchain/">blockchain<span>6</span></a></li>
 		
 			<li><a href="/categories/crypto/">crypto<span>5</span></a></li>
 		
@@ -461,6 +460,10 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2023/12/20/blockchain-distribute-tech/" ><i class="fa fa-file-o"></i>blockchain-distribute-tech</a>
+      </li>
+    
+      <li>
         <a href="/2023/12/05/some-bugs-fix/" ><i class="fa fa-file-o"></i>some-bugs-fix</a>
       </li>
     
@@ -474,10 +477,6 @@
     
       <li>
         <a href="/2023/11/07/oddfuzz/" ><i class="fa fa-file-o"></i>oddfuzz</a>
-      </li>
-    
-      <li>
-        <a href="/2023/11/03/blog-migrate-test/" ><i class="fa fa-file-o"></i>blog-migrate-test</a>
       </li>
     
   </ul>
@@ -560,20 +559,5 @@
      searchFunc(path, 'local-search-input', 'local-search-result');
    </script>
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
    </html>

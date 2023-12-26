@@ -159,7 +159,18 @@
 </div>
 <p>&emsp;就是，将XposedInstaller安装到设备之后，XposedInstaller会下载由XposedTools打包的含有XposedBridge，Xposed，android_art的ZIP包，并将此ZIP包刷入到系统（放置与替换系统文件）。</p>
 <p>&emsp;Xposed包的编译过程见书P137。</p>
-<p>&emsp;之后，使用XposedChecker检测Xposed模块。其中有很多不同的检测项，例如<code>载入Xposed工具类</code>检测项，其是通过使用系统类加载器加载XposedHelper类，如果可以加载那么说明此系统中是有Xposed模块的。</p>
+<p>&emsp;之后，使用XposedChecker检测Xposed模块。其中有很多不同的检测项，例如：</p>
+<p>（1）<code>载入Xposed工具类</code>检测项，是通过使用系统类加载器加载XposedHelper类，如果可以加载那么说明此系统中是有Xposed模块的。</p>
+<p>（2）<code>寻找特征动态链接库</code>检测项，是通过查看<code>/proc/self/maps</code>文件，其中如果有XposedBridge字符串，那么说明此系统中有Xposed模块。</p>
+<p>（3）<code>检测Xposed安装情况</code>检测项，是查看系统中已安装的App列表是否包含Xposed相关的App。</p>
+<p>（4）<code>环境变量特征字判断</code>检测项，通过获得环境变量，查看环境变量中是否有XposedBridge。</p>
+<p>&emsp;可以发现，大多数Xposed的特征都是字符串特征，所以可将Xposed检测字符串的点修改为其它字符串。步骤如下：</p>
+<p>&emsp;(1)修改XposedInstaller App的Xposed字符串特征，即修改整体包名以及prop配置文件相关字符串。根据书P144，可以修改所有<code>xposed</code>字符串变为<code>xppsed</code>，之后，修改配置文件与字符串硬编码的字符，例如<code>AndroidManifest.xml</code>，这里不再赘述，详见书P145左右。</p>
+<p>&emsp;(2) 根据 (1) 的步骤修改XposedBridge，最终制作出XppsedBridge.jar。</p>
+<p>&emsp;(3) 修改Xposed项目源代码，详见书P147。</p>
+<p>&emsp;(4) 修改XposedTools工具的源码，保证编译过程中不报错。</p>
+<h3 id="相关知识补充"><a href="#相关知识补充" class="headerlink" title="相关知识补充"></a>相关知识补充</h3><p>&emsp;见<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-269627.htm#msg_header_h2_1">link</a>。</p>
+<p>&emsp;</p>
 <h2 id="0x06-Android沙箱之加解密库“自吐”"><a href="#0x06-Android沙箱之加解密库“自吐”" class="headerlink" title="0x06 Android沙箱之加解密库“自吐”"></a>0x06 Android沙箱之加解密库“自吐”</h2><h2 id="0x07-Android沙箱开发之网络库与系统库“自吐”"><a href="#0x07-Android沙箱开发之网络库与系统库“自吐”" class="headerlink" title="0x07 Android沙箱开发之网络库与系统库“自吐”"></a>0x07 Android沙箱开发之网络库与系统库“自吐”</h2><h2 id="0x08-收费直播间逆向分析"><a href="#0x08-收费直播间逆向分析" class="headerlink" title="0x08 收费直播间逆向分析"></a>0x08 收费直播间逆向分析</h2><h2 id="0x09-会员制非法应用破解"><a href="#0x09-会员制非法应用破解" class="headerlink" title="0x09 会员制非法应用破解"></a>0x09 会员制非法应用破解</h2>
   
 	</div>
@@ -268,7 +279,7 @@
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Frida%E9%80%86%E5%90%91%E4%B8%8E%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90-3"><span class="toc-article-text">Frida逆向与协议分析-3</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x05-Android%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E4%B8%8EXposed%E9%AD%94%E6%94%B9"><span class="toc-article-text">0x05 Android源码编译与Xposed魔改</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-article-text">Android源码环境搭建</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Xposed%E5%AE%9A%E5%88%B6"><span class="toc-article-text">Xposed定制</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x06-Android%E6%B2%99%E7%AE%B1%E4%B9%8B%E5%8A%A0%E8%A7%A3%E5%AF%86%E5%BA%93%E2%80%9C%E8%87%AA%E5%90%90%E2%80%9D"><span class="toc-article-text">0x06 Android沙箱之加解密库“自吐”</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x07-Android%E6%B2%99%E7%AE%B1%E5%BC%80%E5%8F%91%E4%B9%8B%E7%BD%91%E7%BB%9C%E5%BA%93%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%BA%93%E2%80%9C%E8%87%AA%E5%90%90%E2%80%9D"><span class="toc-article-text">0x07 Android沙箱开发之网络库与系统库“自吐”</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x08-%E6%94%B6%E8%B4%B9%E7%9B%B4%E6%92%AD%E9%97%B4%E9%80%86%E5%90%91%E5%88%86%E6%9E%90"><span class="toc-article-text">0x08 收费直播间逆向分析</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x09-%E4%BC%9A%E5%91%98%E5%88%B6%E9%9D%9E%E6%B3%95%E5%BA%94%E7%94%A8%E7%A0%B4%E8%A7%A3"><span class="toc-article-text">0x09 会员制非法应用破解</span></a></li></ol></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Frida%E9%80%86%E5%90%91%E4%B8%8E%E5%8D%8F%E8%AE%AE%E5%88%86%E6%9E%90-3"><span class="toc-article-text">Frida逆向与协议分析-3</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x05-Android%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E4%B8%8EXposed%E9%AD%94%E6%94%B9"><span class="toc-article-text">0x05 Android源码编译与Xposed魔改</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Android%E6%BA%90%E7%A0%81%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-article-text">Android源码环境搭建</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Xposed%E5%AE%9A%E5%88%B6"><span class="toc-article-text">Xposed定制</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85"><span class="toc-article-text">相关知识补充</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x06-Android%E6%B2%99%E7%AE%B1%E4%B9%8B%E5%8A%A0%E8%A7%A3%E5%AF%86%E5%BA%93%E2%80%9C%E8%87%AA%E5%90%90%E2%80%9D"><span class="toc-article-text">0x06 Android沙箱之加解密库“自吐”</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x07-Android%E6%B2%99%E7%AE%B1%E5%BC%80%E5%8F%91%E4%B9%8B%E7%BD%91%E7%BB%9C%E5%BA%93%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%BA%93%E2%80%9C%E8%87%AA%E5%90%90%E2%80%9D"><span class="toc-article-text">0x07 Android沙箱开发之网络库与系统库“自吐”</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x08-%E6%94%B6%E8%B4%B9%E7%9B%B4%E6%92%AD%E9%97%B4%E9%80%86%E5%90%91%E5%88%86%E6%9E%90"><span class="toc-article-text">0x08 收费直播间逆向分析</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x09-%E4%BC%9A%E5%91%98%E5%88%B6%E9%9D%9E%E6%B3%95%E5%BA%94%E7%94%A8%E7%A0%B4%E8%A7%A3"><span class="toc-article-text">0x09 会员制非法应用破解</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>
@@ -360,20 +371,5 @@
      searchFunc(path, 'local-search-input', 'local-search-result');
    </script>
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
    </html>
