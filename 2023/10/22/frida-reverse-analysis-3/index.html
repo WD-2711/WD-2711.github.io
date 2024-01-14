@@ -165,7 +165,7 @@
 <p>（3）<code>检测Xposed安装情况</code>检测项，是查看系统中已安装的App列表是否包含Xposed相关的App。</p>
 <p>（4）<code>环境变量特征字判断</code>检测项，通过获得环境变量，查看环境变量中是否有XposedBridge。</p>
 <p>&emsp;可以发现，大多数Xposed的特征都是字符串特征，所以可将Xposed检测字符串的点修改为其它字符串。步骤如下：</p>
-<p>&emsp;(1)修改XposedInstaller App的Xposed字符串特征，即修改整体包名以及prop配置文件相关字符串。根据书P144，可以修改所有<code>xposed</code>字符串变为<code>xppsed</code>，之后，修改配置文件与字符串硬编码的字符，例如<code>AndroidManifest.xml</code>，这里不再赘述，详见书P145左右。</p>
+<p>&emsp;(1) 修改XposedInstaller App的Xposed字符串特征，即修改整体包名以及prop配置文件相关字符串。根据书P144，可以修改所有<code>xposed</code>字符串变为<code>xppsed</code>，之后，修改配置文件与字符串硬编码的字符，例如<code>AndroidManifest.xml</code>，这里不再赘述，详见书P145左右。</p>
 <p>&emsp;(2) 根据 (1) 的步骤修改XposedBridge，最终制作出XppsedBridge.jar。</p>
 <p>&emsp;(3) 修改Xposed项目源代码，详见书P147。</p>
 <p>&emsp;(4) 修改XposedTools工具的源码，保证编译过程中不报错。</p>
