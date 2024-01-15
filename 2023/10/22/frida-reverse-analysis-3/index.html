@@ -177,9 +177,37 @@
 <ol>
 <li>Linux 内核。Android 平台的基础是 linux 内核，Android Runtime（ART）依靠 Linux 内核来执行底层功能，基于linux 内核让 Android 更安全并且可以拥有很多设备驱动。</li>
 <li>硬件抽象层（HAL）。HAL 向更高级别 Java API 框架显示设备硬件功能，其中每个模块都为特定类型的硬件组件实现一个界面，例如相机和蓝牙模块，当框架 API 要访问设备硬件时，Android 系统为该硬件组件加载库模块。</li>
-<li>Android Runtime。Android 5.0 之前 Android Runtime 为 Dalvik，之后为 ART。</li>
+<li>Android Runtime。Android 5.0 之前 Android Runtime 为 Dalvik，之后为 ART。Dalvik 是 JIT （运行前转为机器码），ART 是 AOT （运行时转为机器码）。 </li>
 </ol>
 <p>&emsp;一些文件类型：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>文件类型</th>
+<th>类型含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dex</td>
+<td>Android 将所有的 class 文件打包形成一个 dex 文件，是 Dalvik 运行的程序。</td>
+</tr>
+<tr>
+<td>odex</td>
+<td>优化过的 dex 文件，apk 在安装时会进行验证和优化，通过 dexopt 生成 odex 文件，加快 apk 的响应时间。</td>
+</tr>
+<tr>
+<td>oat</td>
+<td>android 私有 ELF 文件格式，有 dex2oat 处理生成，包含（原 dex 文件<code>+</code>dex 翻译的本地机器指令），是 ART 虚拟机使用的文件，可以直接加载。</td>
+</tr>
+<tr>
+<td>vdex</td>
+<td>包含 APK 的未压缩 DEX 代码，以及一些旨在加快验证速度的元数据</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h2 id="0x06-Android沙箱之加解密库“自吐”"><a href="#0x06-Android沙箱之加解密库“自吐”" class="headerlink" title="0x06 Android沙箱之加解密库“自吐”"></a>0x06 Android沙箱之加解密库“自吐”</h2><h2 id="0x07-Android沙箱开发之网络库与系统库“自吐”"><a href="#0x07-Android沙箱开发之网络库与系统库“自吐”" class="headerlink" title="0x07 Android沙箱开发之网络库与系统库“自吐”"></a>0x07 Android沙箱开发之网络库与系统库“自吐”</h2><h2 id="0x08-收费直播间逆向分析"><a href="#0x08-收费直播间逆向分析" class="headerlink" title="0x08 收费直播间逆向分析"></a>0x08 收费直播间逆向分析</h2><h2 id="0x09-会员制非法应用破解"><a href="#0x09-会员制非法应用破解" class="headerlink" title="0x09 会员制非法应用破解"></a>0x09 会员制非法应用破解</h2>
   
 	</div>
