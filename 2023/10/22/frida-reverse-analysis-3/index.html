@@ -169,8 +169,17 @@
 <p>&emsp;(2) 根据 (1) 的步骤修改XposedBridge，最终制作出XppsedBridge.jar。</p>
 <p>&emsp;(3) 修改Xposed项目源代码，详见书P147。</p>
 <p>&emsp;(4) 修改XposedTools工具的源码，保证编译过程中不报错。</p>
+<p>&emsp;但是跟书修改完之后，始终无法检测到新编译的 xposed-v89-sdk25-arm64.zip，但是试了原代码编译的 xposed-v89-sdk25-arm64.zip，发现是可以检测到的。通过查看 xposedInstaller 源代码并调试，也未发现原因。为了不耽误时间，所以直接跳过此处的实验。耽误了两三周。</p>
+<p>&emsp;本章最后还说明了基于自定义修改的 Xposed 框架编写 Xposed 模块的方式，见书 P150。本章大部分是 Xposed 魔改过检测，主要是针对字符串的检测，但是被 Xposed Hook 的函数，其 access_flags 属性变成了 native。</p>
 <h3 id="相关知识补充"><a href="#相关知识补充" class="headerlink" title="相关知识补充"></a>相关知识补充</h3><p>&emsp;见<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-269627.htm#msg_header_h2_1">link</a>。</p>
-<p>&emsp;</p>
+<p>&emsp;Android 的平台架构如下所示：</p>
+<p><img src="../images/frida-reverse-analysis-3/image-20240115194321408.png" alt="image-20240115194321408" style="zoom:67%;" /></p>
+<ol>
+<li>Linux 内核。Android 平台的基础是 linux 内核，Android Runtime（ART）依靠 Linux 内核来执行底层功能，基于linux 内核让 Android 更安全并且可以拥有很多设备驱动。</li>
+<li>硬件抽象层（HAL）。HAL 向更高级别 Java API 框架显示设备硬件功能，其中每个模块都为特定类型的硬件组件实现一个界面，例如相机和蓝牙模块，当框架 API 要访问设备硬件时，Android 系统为该硬件组件加载库模块。</li>
+<li>Android Runtime。Android 5.0 之前 Android Runtime 为 Dalvik，之后为 ART。</li>
+</ol>
+<p>&emsp;一些文件类型：</p>
 <h2 id="0x06-Android沙箱之加解密库“自吐”"><a href="#0x06-Android沙箱之加解密库“自吐”" class="headerlink" title="0x06 Android沙箱之加解密库“自吐”"></a>0x06 Android沙箱之加解密库“自吐”</h2><h2 id="0x07-Android沙箱开发之网络库与系统库“自吐”"><a href="#0x07-Android沙箱开发之网络库与系统库“自吐”" class="headerlink" title="0x07 Android沙箱开发之网络库与系统库“自吐”"></a>0x07 Android沙箱开发之网络库与系统库“自吐”</h2><h2 id="0x08-收费直播间逆向分析"><a href="#0x08-收费直播间逆向分析" class="headerlink" title="0x08 收费直播间逆向分析"></a>0x08 收费直播间逆向分析</h2><h2 id="0x09-会员制非法应用破解"><a href="#0x09-会员制非法应用破解" class="headerlink" title="0x09 会员制非法应用破解"></a>0x09 会员制非法应用破解</h2>
   
 	</div>
