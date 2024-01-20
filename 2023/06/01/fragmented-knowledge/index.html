@@ -369,6 +369,10 @@
 <p><img src="/images/fragmented-knowledge/image-20231117200733591.png" alt="image-20231117200733591" style="zoom:67%;" /></p>
 <h4 id="fld与fstp"><a href="#fld与fstp" class="headerlink" title="fld与fstp"></a>fld与fstp</h4><p>fld：将浮点数值加载到浮点寄存器中。</p>
 <p>fstp：用于将浮点寄存器中的值存储到指定的目标位置。</p>
+<h4 id="CIP-与长连服务器"><a href="#CIP-与长连服务器" class="headerlink" title="CIP 与长连服务器"></a>CIP 与长连服务器</h4><p>&emsp;CIP（Common Industrial Protocol）通道是一种用于工业自动化领域的通信协议，其允许在工业网络中以一种标准化的方式来管理和控制不同厂商的设备，使它们能够相互通信并协同工作。</p>
+<p>&emsp;长连接服务器（Long-polling Server）是一种服务器端技术，可以实现实时的双向通信。与传统的短连接不同，长连接服务器允许客户端与服务器之间建立持久的连接，以便在任何时间点上进行双向的数据传输。长连接服务器通过保持连接的持久性来解决这个问题，长连接服务器可以用于实现各种实时通信应用，如实时聊天、实时数据推送、多人协作、在线游戏等，长连接服务器技术包括 WebSocket、Server-Sent Events（SSE）等。</p>
+<h4 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h4><p>&emsp;Socket 本身并不是协议，它是对传输层协议（如 TCP 或 UDP）的抽象和封装。通过 Socket 编程接口，开发人员可以使用底层的传输层协议进行网络通信。</p>
+<h4 id="网络字节序与主机字节序"><a href="#网络字节序与主机字节序" class="headerlink" title="网络字节序与主机字节序"></a>网络字节序与主机字节序</h4><p>&emsp;网络字节序是一种固定的大端字节序，用于在计算机网络中进行数据交换；而主机字节序是指主机使用的字节序，可能是大端字节序或小端字节序。常用的字节序转换函数包括 <code>ntohl</code>（网络字节序转主机字节序）和 <code>htonl</code>（主机字节序转网络字节序）。</p>
 
   
 	</div>
@@ -563,20 +567,5 @@
      searchFunc(path, 'local-search-input', 'local-search-result');
    </script>
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
    </html>
