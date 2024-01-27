@@ -120,7 +120,37 @@
 <h2 id="Cifuentes-work"><a href="#Cifuentes-work" class="headerlink" title="Cifuentes work"></a>Cifuentes work</h2><p>In Cifuentes work, we know the idea that even we have a disassembled program (CFG), we still have more work to do: CFG can’t show language control structures, <code>structuring algorithm</code> will used to build a high level language control structures.</p>
 <p>Some structuring algorithm patterns are below:</p>
 <p><img src="/images/decompilation-history/image-20240119222628565.png" alt="image-20240119222628565" style="zoom:67%;" /></p>
-<p>What we need to do is keep identifying structure, until to end. For example, </p>
+<p>What we need to do is keep identifying structure, until to end. Any CFG has many possible structured-C outputs, we don’t know which of those options is the original C that generated the CFG.</p>
+<p>Decompilation workflows:</p>
+<p>(1) CFG recovery.</p>
+<p>(2) Variable recovery (including type inferencing).</p>
+<p>(3) Control flow structuring.</p>
+<h2 id="Phoenix-condition-aware-schema-matching"><a href="#Phoenix-condition-aware-schema-matching" class="headerlink" title="Phoenix: condition-aware schema matching"></a>Phoenix: condition-aware schema matching</h2><p>It’s IDA pro/binary ninja technique, it’s core is much lick Cifuentes’s work on schema-matching, but with improved condition awareness and more schema.</p>
+<p>It’s impact can be surmised below:</p>
+<p>(1) When run out of good schema to match, we must use <code>goto</code>. This process is called virtualization.</p>
+<p>(2) We should reduce <code>goto</code> number.</p>
+<p>(3) We could use Coreutils library to evaluate decompilers.</p>
+<p>For example, we have program CFG:</p>
+<p><img src="/images/decompilation-history/image-20240124165538735.png" alt="image-20240124165538735" style="zoom:67%;" /></p>
+<p>And we can easily notice that <code>B-&gt;D, B-&gt;C</code> is <code>if-else</code> structure, however, <code>A-&gt;B, A-&gt;C</code> will let A jump to C (B’s if-else block code), so when decompile, we should use <code>goto</code>. We could let <code>A-&gt;C</code> to goto, or <code>A-&gt;B</code> to goto. How to choose? Phoenix said: <code>remove edges whose source does not dominate its target, nor whose target dominates its source</code>. That means, B is dominated by A (only 1 input edge), C is dominated by A and B. So, we should let <code>A-&gt;C</code> to goto. So the CFG will convert to:</p>
+<p><img src="/images/decompilation-history/image-20240124170107340.png" alt="image-20240124170107340" style="zoom:67%;" /></p>
+<p>If we choose <code>A-&gt;B</code> to goto, in the end, we will get 2 gotos. It is not good. We will do our best to reduce goto number.</p>
+<h2 id="DREAM-schemaless-condition-based-structuring"><a href="#DREAM-schemaless-condition-based-structuring" class="headerlink" title="DREAM: schemaless condition-based structuring"></a>DREAM: schemaless condition-based structuring</h2><p>It could output decompilation with 0 goto in Coreutils, while phoenix have 4231 gotos. DREAM proposes that we don’t need schema. Instead, we can use the conditions on statements to generate equivalent code. To pic2, DREAM can generate code:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entry          -&gt; A</span><br><span class="line">~x             -&gt; B</span><br><span class="line">(~x &amp;&amp; y) || x -&gt; C</span><br><span class="line">~x &amp;&amp; ~y       -&gt; D</span><br><span class="line">exit           -&gt; E</span><br></pre></td></tr></table></figure>
+<p>Then, DREAM do simplifies:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entry          -&gt; A</span><br><span class="line">~x             -&gt; B</span><br><span class="line">x || y         -&gt; C</span><br><span class="line">~(x || y)      -&gt; D</span><br><span class="line">exit           -&gt; E</span><br></pre></td></tr></table></figure>
+<p>However, DREAM has drawbacks:</p>
+<p>(1) simplifying arbitrary expressions is NP-hard.</p>
+<p>(2) gotos in source code will be eliminated.</p>
+<p>For examples, if AST problem was resolved, we can reduce following 2 expressions. So DREAM will generate many overlapping booleans.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (!v2 &amp;&amp; !a0-&gt;field_34 &amp;&amp; a0-&gt;field_38 &gt;= 0 &amp;&amp; (a0-&gt;field_30 &amp; 0xf000) == 0x1000) &#123;</span><br><span class="line">    a0-&gt;field_38 = -1;</span><br><span class="line">    a0-&gt;field_34 = 1;</span><br><span class="line">&#125;</span><br><span class="line">if (a0-&gt;field_38 &lt; 0 || v2 || a0-&gt;field_34 || (a0-&gt;field_30 &amp; 0xf000) != 0x1000)</span><br><span class="line">	v1 += 1;</span><br></pre></td></tr></table></figure>
+<p>However, DREAM has many good impact:</p>
+<p>(1) introduce Single-entry single-exit regions.</p>
+<h2 id="rev-ng-Code-Cloning-Schema-Matching"><a href="#rev-ng-Code-Cloning-Schema-Matching" class="headerlink" title="rev.ng: Code Cloning Schema-Matching"></a>rev.ng: Code Cloning Schema-Matching</h2><p>It goal is also achieve 0 gotos. We know that DREAM use duplicated conditions to eliminate gotos, <code>rev.ng duplicates actual code to fix CFG before structured, rev.ng use same structuring algorithm base as Phoenix, but fixes the CFG before structuring (trun CFG into a series of layered diamonds, results in structured if-else tree)</code>. For example, after use rev.ng, pic 2 will convert to:</p>
+<p><img src="/images/decompilation-history/image-20240124174933582.png" alt="image-20240124174933582" style="zoom:67%;" /></p>
+<p>Corresponding code will be:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A: if (x)</span><br><span class="line">     C</span><br><span class="line">   else</span><br><span class="line">B:   if (y)</span><br><span class="line">       C</span><br><span class="line">     else</span><br><span class="line">       D</span><br><span class="line">E</span><br></pre></td></tr></table></figure>
+<p>rev.ng will increase code, and we may solve more schema, and reduce gotos in source code.</p>
 
   
 	</div>
@@ -314,5 +344,20 @@
      searchFunc(path, 'local-search-input', 'local-search-result');
    </script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
    </html>
