@@ -212,7 +212,15 @@
 <p>(2) Pointer analysis. It resolves call targets based on $pt(a)$, this way is more precise than CHA, this call graph is also dynamic build.</p>
 <p>The graph below shows <code>Call</code> rule:</p>
 <p><img src="/images/tai-e-static-analysis-with-homework-2/image-20240130221520243.png" alt="image-20240130221520243" style="zoom:67%;" /></p>
-<p>As shown above, dotted line ($x\rightarrow m_{this}$) is not added to edges. Why? Assume $pt(x)={new\quad A, new\quad B, new\quad C}$.</p>
+<p>As shown above, dotted line ($x\rightarrow m_{this}$) is not added to edges. Why? Assume $pt(x)={new\quad A, new\quad B, new\quad C}; x.foo()$. If we add edges, we need to add 3 edge (for A/B/C), which will introduce spurious points-to relations. If we combine above algorithm with inter-procedural pointer analysis, we need build call graph to do pointer analysis, algorithm will change to:</p>
+<p><img src="/images/tai-e-static-analysis-with-homework-2/image-20240201184026425.png" alt="image-20240201184026425" style="zoom:67%;" /></p>
+<p>In this homework, we may need to analysis more types statement: static related, array index and static method call. For static related, the rule is:</p>
+<p><img src="/images/tai-e-static-analysis-with-homework-2/image-20240201192709926.png" alt="image-20240201192709926" style="zoom:67%;" /></p>
+<p>For array index, we don’t distinguish array index (location). If $o_i$ represents an array object, then we use $o_i[*]$ to represent a pointer that points to all objects in array. The rule is:</p>
+<p><img src="/images/tai-e-static-analysis-with-homework-2/image-20240201193341092.png" alt="image-20240201193341092" style="zoom:67%;" /></p>
+<p>Static method handling is similar to instance method, except: (1) we needn’t to do $dispatch$ to resolve callee method. (2) we needn’t to pass receiver object. The rule is:</p>
+<p><img src="/images/tai-e-static-analysis-with-homework-2/image-20240201193803565.png" alt="image-20240201193803565" style="zoom:67%;" /></p>
+<h3 id="related-class"><a href="#related-class" class="headerlink" title="related class"></a>related class</h3><p>I pass this section because we can see in <a target="_blank" rel="noopener" href="http://tai-e.pascal-lab.net/pa5.html#_2-2%E6%96%B0%E5%88%86%E6%9E%90%E8%A7%84%E5%88%99">link1</a>.</p>
 
   
 	</div>
@@ -320,7 +328,7 @@
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Software-analysis-foundation-amp-homework-2"><span class="toc-article-text">Software analysis foundation &amp; homework-2</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x00-context-insensitive-pointer-analysis"><span class="toc-article-text">0x00 context-insensitive pointer analysis</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#basic-knowledge"><span class="toc-article-text">basic knowledge</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Software-analysis-foundation-amp-homework-2"><span class="toc-article-text">Software analysis foundation &amp; homework-2</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x00-context-insensitive-pointer-analysis"><span class="toc-article-text">0x00 context-insensitive pointer analysis</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#basic-knowledge"><span class="toc-article-text">basic knowledge</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#related-class"><span class="toc-article-text">related class</span></a></li></ol></li></ol></li></ol>
 		</div>
 	
 	</div>
