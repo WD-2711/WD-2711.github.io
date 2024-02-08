@@ -117,7 +117,8 @@
 
 	  <h1 id="image-caption-图像中文描述"><a href="#image-caption-图像中文描述" class="headerlink" title="image-caption: 图像中文描述"></a>image-caption: 图像中文描述</h1><p>数据集下载：<a target="_blank" rel="noopener" href="https://tianchi.aliyun.com/dataset/145781?t=1699533627520">https://tianchi.aliyun.com/dataset/145781?t=1699533627520</a></p>
 <span id="more"></span>
-<h2 id="Show-Attend-and-Tell"><a href="#Show-Attend-and-Tell" class="headerlink" title="Show, Attend, and Tell"></a>Show, Attend, and Tell</h2><p>&emsp;这是一篇2021年的文章，用于生成图像的描述。利用卷积神经网络CNN提取图像特征，使用RNN将特征向量解码成语言序列。本论文在RNN（LSTM）上加入了attention机制，对图像特征的像素点进行概率估计，并加权求和，其思想为：人们在观察图像中倾向于关注有用信息。</p>
+<h2 id="Show-Attend-and-Tell"><a href="#Show-Attend-and-Tell" class="headerlink" title="Show, Attend, and Tell"></a>Show, Attend, and Tell</h2><p>&emsp;这是一篇2021年的文章，用于生成图像的描述。利用卷积神经网络CNN提取图像特征，使用RNN将特征向量解码成语言序列。本论文在RNN（LSTM）上加入了attention机制，对图像特征的像素点进行概率估计，并加权求和，其思想为：人们在观察图像中倾向于关注有用信息，它创新性的将Attention作用到输入图像的像素点之上。</p>
+<p><img src="/images/image-caption/image-20240207201435248.png" alt="image-20240207201435248" style="zoom:67%;" /></p>
 <p>&emsp;此文的贡献是：（1）提出了基于attention的image caption；（2）可视化了attention在每个时间上关注的点；（3）量化了加入attention机制后性能的提高。</p>
 <h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><p>&emsp;VGGNet、Inception等是在大规模图像数据集（如ImageNet）上进行了预训练的模型，可以很好的提取到图像的特征。通过将最后的flatten与FC去掉，可以得到特征图。</p>
 <h3 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h3><p>&emsp;使用LSTM，在每个时间step上生成词语。</p>
