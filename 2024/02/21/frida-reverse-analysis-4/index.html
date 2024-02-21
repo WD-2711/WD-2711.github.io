@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>z3-study | wd-z711&#39;s B10g</title>
+  <title>frida-reverse-analysis-4 | wd-z711&#39;s B10g</title>
   <meta name="author" content="wd-z711">
   
   <meta name="description" content="Common student in China. Interested in web &amp; re.">
@@ -14,7 +14,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="z3-study"/>
+  <meta property="og:title" content="frida-reverse-analysis-4"/>
   <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
 
   
@@ -97,7 +97,7 @@
 
 	
 		<div class="page-header">
-			<h1> z3-study</h1>
+			<h1> frida-reverse-analysis-4</h1>
 		</div>
 	
 
@@ -115,20 +115,17 @@
 	<div class="mypage">		
 	  		
 
-	  <h1 id="z3-study"><a href="#z3-study" class="headerlink" title="z3-study"></a>z3-study</h1><p>​    最近做了个逆向题，其中有一步卡了好久（<strong>主要是最近没做这个</strong>）。是解如下方程：</p>
+	  <h1 id="Frida-reverse-and-protocol-analysis-4"><a href="#Frida-reverse-and-protocol-analysis-4" class="headerlink" title="Frida reverse and protocol analysis-4"></a>Frida reverse and protocol analysis-4</h1><h2 id="0x08-Reverse-analysis-of-paid-live-streaming-rooms"><a href="#0x08-Reverse-analysis-of-paid-live-streaming-rooms" class="headerlink" title="0x08 Reverse analysis of paid live streaming rooms"></a>0x08 Reverse analysis of paid live streaming rooms</h2><p>We have a pronographic live streaming app with 2 restrictions: 1. Pop up prompts that only VIPs can watch the live stream. 2. Non VIP can only watch for 15s. As this app is shell added, we need to use <code>frida-dexdump</code> for shell removal. we can get workflow from <a target="_blank" rel="noopener" href="https://github.com/hluwa/frida-dexdump">link1</a>.</p>
 <span id="more"></span>
-<script type="math/tex; mode=display">
-\left\{ \begin{array}{l}
-    f(k)=(k << 1) \oplus (27 * (k >> 7)) \\
-    x \oplus f(x) \oplus f(y) = a \\
-    y \oplus f(y) \oplus f(z) = b \\
-    z \oplus f(z) \oplus f(t) = c \\
-    t \oplus f(t) \oplus f(x) = d
-\end{array} \right.</script><p>​    其中a,b,c,d已知。问了问GPT，说是暴力枚举。x,y,z,t都是0-255的未知数，暴力枚举的话感觉耗费的时间很长，所以就想着用z3来解决。本来想着直接for来着，测了测，一轮就超1min了，属实顶不住。</p>
-<h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><p>​    z3是一个求解器。参考文档：</p>
-<p>​    <a target="_blank" rel="noopener" href="http://www.manongjc.com/detail/19-duecxojsjotsdln.html">http://www.manongjc.com/detail/19-duecxojsjotsdln.html</a></p>
-<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>​    上述方程该咋写咧：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- encoding: utf-8 -*-</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"># @Time  : 2022/12/16 15:34:02</span></span><br><span class="line"><span class="string"># @Author: wd-2711</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    x = BitVec(<span class="string">&#x27;x&#x27;</span>, <span class="number">8</span>)</span><br><span class="line">    y = BitVec(<span class="string">&#x27;y&#x27;</span>, <span class="number">8</span>)</span><br><span class="line">    z = BitVec(<span class="string">&#x27;z&#x27;</span>, <span class="number">8</span>)</span><br><span class="line">    t = BitVec(<span class="string">&#x27;t&#x27;</span>, <span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">    a = <span class="number">60</span></span><br><span class="line">    b = <span class="number">61</span></span><br><span class="line">    c = <span class="number">62</span></span><br><span class="line">    d = <span class="number">63</span></span><br><span class="line"></span><br><span class="line">    solver = Solver()</span><br><span class="line">    solver.add(x ^ (((x^y) &lt;&lt; <span class="number">1</span>) ^ (<span class="number">27</span> *((x^y) &gt;&gt; <span class="number">7</span>))) == a)</span><br><span class="line">    solver.add(y ^ (((z^y) &lt;&lt; <span class="number">1</span>) ^ (<span class="number">27</span> *((z^y) &gt;&gt; <span class="number">7</span>))) == b)</span><br><span class="line">    solver.add(z ^ (((z^t) &lt;&lt; <span class="number">1</span>) ^ (<span class="number">27</span> *((z^t) &gt;&gt; <span class="number">7</span>))) == c)</span><br><span class="line">    solver.add(t ^ (((t^x) &lt;&lt; <span class="number">1</span>) ^ (<span class="number">27</span> *((t^x) &gt;&gt; <span class="number">7</span>))) == d)</span><br><span class="line">    solver.check()</span><br><span class="line">    <span class="built_in">print</span>(solver.model())</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. run frida-server</span><br><span class="line">2. run the app to be analyzed</span><br><span class="line">3. frida-dexdump -U -f com.hay.dreamlover</span><br></pre></td></tr></table></figure>
+<p>Finally, we will get 7 dex files, we can analyze these using <code>jadx-gui</code>.</p>
+<p>Then we will begin analyze. Firstly, we need to bypass the restriction of pop ups. The pop up will call the API provided by system, it is usually called <code>show</code> method in class <code>android.app.Dialog</code>. We first verify whether the pop-up is implemented by <code>android.app.Dialog.show</code> method:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">objection -g com.hay.dreamlover explore</span><br><span class="line">android hooking watch class_method android.app.Dialog.show --dump-backtrace --dump-return</span><br></pre></td></tr></table></figure>
+<p><code>Due to the app not being able to open and constantly stopping on the initial page, the experiment cannot be conducted. Just go through the important points.</code> Based on the result returned by the object, we can locate the pop-up function <code>SDDialogBase.show()</code> in the app and write the code to remove the pop-up:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setImmediate</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="title class_">Java</span>.<span class="title function_">perform</span>(<span class="title function_">funtion</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="title class_">Java</span>.<span class="title function_">use</span>(<span class="string">&quot;com.fanwe.lib.dialog.impl.SDDialogBase&quot;</span>).<span class="property">show</span>.<span class="property">implementation</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Next, we need to bypass the 15s limit. We will analyze the function calls in the dex file and ultimately find the <code>onTimePayViewerShowCoveringxx</code> function, this function will control time. By hooking this function, we can bypass.</p>
+<p>After bypassing these two restrictions, the key is to conduct protocol analysis of the  app. We can see it in P218. These pages analyze a APP in detail (very important). But I am so lazy, just look at it, not write notes (sorry~).</p>
+<h2 id="0x09-Cracking-the-illegal-application-of-membership-system"><a href="#0x09-Cracking-the-illegal-application-of-membership-system" class="headerlink" title="0x09 Cracking the illegal application of membership system"></a>0x09 Cracking the illegal application of membership system</h2><p>It also analyze a app in P239. <code>R0capture</code> could catch data in application layer, <code>r0tracer</code> could trace class’s method (just like <code>objection/wallbreaker</code>, but it is more powerful.) It could (1) switch classloader when we can’t find specific class; (2) Add a delayed hook mechanism to avoid situations where applications cannot be immediately found due to injection through <code>spawn</code>.</p>
 
   
 	</div>
@@ -139,13 +136,12 @@
 
     
     
-    <a href="/2022/12/11/cve-2019-9081-recurrence/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
     
-    <a href="/2022/12/08/chm-study-notes/" type="button" class="btn btn-default ">下一页<i
+    <a href="/2024/02/17/vnctf-2024/" type="button" class="btn btn-default ">下一页<i
                 class="fa fa-arrow-circle-o-right"></i></a>
     
 
@@ -210,7 +206,7 @@
 	
 	<div class="meta-widget">
 	<i class="fa fa-clock-o"></i>
-	2022-12-10 
+	2024-02-21 
 	</div>
 	
 
@@ -233,6 +229,12 @@
 
 	<!-- toc -->
 	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#Frida-reverse-and-protocol-analysis-4"><span class="toc-article-text">Frida reverse and protocol analysis-4</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x08-Reverse-analysis-of-paid-live-streaming-rooms"><span class="toc-article-text">0x08 Reverse analysis of paid live streaming rooms</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x09-Cracking-the-illegal-application-of-membership-system"><span class="toc-article-text">0x09 Cracking the illegal application of membership system</span></a></li></ol></li></ol>
+		</div>
 	
 	</div>
 	
