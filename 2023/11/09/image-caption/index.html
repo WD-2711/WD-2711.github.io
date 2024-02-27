@@ -135,11 +135,14 @@
 <p><img src="/images/image-caption/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%20(1).png" alt="未命名文件 (1)" style="zoom:67%;" /></p>
 <h3 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h3><p>&emsp;作用是帮助生成LSTM中的$C<em>t$。利用CNN提取出的特征向量$a$与LSTM输出的$h</em>{t-1}$，通过FC+softmax计算每个像素点的概率值，之后对每个像素点加权求和。模型结构具体看下图。</p>
 <p><img src="/images/image-caption/image-20231130220806283.png" alt="image-20231130220806283" style="zoom:80%;" /></p>
-<h2 id="Backend"><a href="#Backend" class="headerlink" title="Backend"></a>Backend</h2><p>&emsp;我首先将训练好的模型封装成 <code>demo.py</code>，之后打算用 c++ 写的后端封装这个 <code>demo.py</code>。后端主要是借鉴了 <a target="_blank" rel="noopener" href="https://github.com/trungams/http-server/tree/master/src">link</a>。</p>
+<h2 id="Backend"><a href="#Backend" class="headerlink" title="Backend"></a>Backend</h2><p>&emsp;我首先将训练好的模型封装成 <code>demo.py</code>，之后打算用 c++ 写的后端封装这个 <code>demo.py</code>。后端主要是借鉴了 <a target="_blank" rel="noopener" href="https://github.com/trungams/http-server/tree/master/src">link</a>，吐槽一下，将其转为 Windows 下的服务器真不容易。</p>
 <h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p>[1] <a target="_blank" rel="noopener" href="https://github.com/foamliu/Image-Captioning-PyTorch">https://github.com/foamliu/Image-Captioning-PyTorch</a></p>
 <p>[2] <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43152622/article/details/118755946">https://blog.csdn.net/qq_43152622/article/details/118755946</a></p>
 <p>[3] <a target="_blank" rel="noopener" href="https://github.com/dabasajay/Image-Caption-Generator">https://github.com/dabasajay/Image-Caption-Generator</a></p>
 <p>[4] <a target="_blank" rel="noopener" href="https://blog.csdn.net/sophicchen/article/details/103306545">https://blog.csdn.net/sophicchen/article/details/103306545</a></p>
+<p>[5] <a target="_blank" rel="noopener" href="https://omarshishani.com/how-to-upload-images-to-server-with-react-and-express/">https://omarshishani.com/how-to-upload-images-to-server-with-react-and-express/</a></p>
+<p>[6] <a target="_blank" rel="noopener" href="https://github.com/piscisaureus/wepoll">https://github.com/piscisaureus/wepoll</a></p>
+<p>[7] <a target="_blank" rel="noopener" href="https://github.com/trungams/http-server/tree/master">https://github.com/trungams/http-server/tree/master</a></p>
 
   
 	</div>
