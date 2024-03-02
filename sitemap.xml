@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wd-2711.tech/2023/08/20/wmctf-2023/</loc>
+    
+    <lastmod>2024-03-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/2023/06/16/tea-algorithm/</loc>
+    
+    <lastmod>2024-03-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/2023/03/25/tool-use/</loc>
+    
+    <lastmod>2024-03-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://wd-2711.tech/2023/11/09/image-caption/</loc>
     
     <lastmod>2024-02-27</lastmod>
@@ -164,15 +191,6 @@
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/2023/03/25/tool-use/</loc>
-    
-    <lastmod>2024-01-16</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://wd-2711.tech/2023/12/30/opportunistic-backdoor-attack/</loc>
     
     <lastmod>2024-01-15</lastmod>
@@ -239,15 +257,6 @@
     <loc>https://wd-2711.tech/2023/10/29/ACTF-2023/</loc>
     
     <lastmod>2023-11-03</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/2023/08/20/wmctf-2023/</loc>
-    
-    <lastmod>2023-10-29</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -365,15 +374,6 @@
     <loc>https://wd-2711.tech/2023/09/07/zpoline/</loc>
     
     <lastmod>2023-09-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/2023/06/16/tea-algorithm/</loc>
-    
-    <lastmod>2023-09-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1291,7 +1291,7 @@
 
   <url>
     <loc>https://wd-2711.tech/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -1301,133 +1301,133 @@
   
   <url>
     <loc>https://wd-2711.tech/categories/Assembly/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/re/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/web/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/papers/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/blockchain/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/cs-books/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/%E6%9D%82%E8%AE%B0/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/IOT/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/crypto/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/ML/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/study-notes/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/geekpwn/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/TEE/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/re-book/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/go/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/virus-re/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/matrix-analysis-application/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/funny-thing/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/static-analysis/</loc>
-    <lastmod>2024-02-27</lastmod>
+    <lastmod>2024-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
