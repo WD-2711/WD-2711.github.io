@@ -145,7 +145,32 @@
 <p><img src="/images/OLLVM-study/image-20230520165052020.png" alt="image-20230520165052020" style="zoom:67%;" /></p>
 <p><img src="/images/OLLVM-study/image-20230520165216059.png" alt="image-20230520165216059" style="zoom:67%;" /></p>
 <h3 id="字符串加密"><a href="#字符串加密" class="headerlink" title="字符串加密"></a>字符串加密</h3><p>&emsp;调用OLLVM的API进行加密。</p>
-<p><strong>后面的先略过，简单看了看，比较简单。</strong></p>
+<h2 id="0x03-LLVM-混淆与反混淆再探"><a href="#0x03-LLVM-混淆与反混淆再探" class="headerlink" title="0x03 LLVM 混淆与反混淆再探"></a>0x03 LLVM 混淆与反混淆再探</h2><p>&emsp;最近做的一个 WMCTF 的题目中涉及到 OLLVM，但是<a target="_blank" rel="noopener" href="https://github.com/RPISEC/llvm-deobfuscator">脚本</a>处理一直出问题，所以想更新一下这个脚本，但是这又需要 OLLVM 混淆与反混淆的知识。由于距上次接触到 OLLVM 已经过去了较长时间，这次接着<a target="_blank" rel="noopener" href="https://rpis.ec/blog/dissection-llvm-obfuscator-p1/">这篇文章</a>，完善丰富一下 OLLVM 的细节。</p>
+<p>&emsp;LLVM 主要有 3 种混淆方式，就是 0x02 中说的，包括 Instructions Substitution，Bogus Control Flow，Control Flow Flattening。需要注意的点是，这些混淆操作是在 LLVM IR 上做的，它基本上支持所有的架构。</p>
+<p>&emsp;重新介绍一下 Control Flow Flattening。其混淆步骤为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 收集 CFG 种所有的原始基本块。</span><br><span class="line">2. 把基本块展平并放在 CFG 底部，移除原始边。</span><br><span class="line">3. 添加访问每个基本块的 machinery，以保持原始程序的语义。</span><br></pre></td></tr></table></figure>
+<p>&emsp;下图是一个 CFF 前后的函数流图（左边为混淆前，右边为混淆后）。</p>
+<p><img src="/images/OLLVM-study/image-20240304202349174.png" alt="image-20240304202349174" style="zoom:67%;" /></p>
+<p>&emsp;混淆后出现的蓝色块就是 machiery，这些 machiery 组成了 backbone。我们可以想象这些代码形成了一个状态机，每一个原始基本块的末尾都设置了状态变量以指向下一个基本块。Binary ninja 的特性使其天生就便于分析 LLVM 程序，而这些特性是 IDA 没有的，这些特性包括 <code>Medium-level IL</code>、<code>SSA form</code>、<code>Value-set analysis</code>。</p>
+<p>&emsp;下面介绍 CCF 的反混淆算法。</p>
+<p>（1）确定 backbone（主干块）（上图蓝色块）。下图给出了一个主干块的示例：</p>
+<p><img src="/images/OLLVM-study/image-20240304203613252.png" alt="image-20240304203613252" style="zoom:67%;" /></p>
+<p>&emsp;每一个主干块都很相似。即，读取当前的状态变量 stateVar，并与某个 case 值作比较，如果为真，则执行一个原始基本块，否则执行下一个主干块。那么，我们可以得出结论：<code>给定一个 stateVar，每一个主干块至少用一次 stateVar。</code>我们可以利用每个主干块至少使用一次 stateVar 的事实，遍历 Binary Ninja 的 medium-level IL 提供的变量的所有用法来收集每个主干块。</p>
+<p>&emsp;对于程序开头，在第一个基本块直接进入状态机之前，通常都会定义 stateVar，如下图所示：</p>
+<p><img src="/images/OLLVM-study/image-20240304213851974.png" alt="image-20240304213851974" style="zoom:67%;" /></p>
+<p>&emsp;因此，我们以 stateVar 的定义为目标，且相关的主干块（backbone）都可以使用 use-def 与 def-use 的链图找到（如何找？可能需要看代码）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">注：</span><br><span class="line">（a）def-use 图。获取 stateVar 的所有定义。</span><br><span class="line">（b）use-def 图。获取 stateVar 的所有使用。</span><br></pre></td></tr></table></figure>
+<p>（2）确定程序基本块（绿色块）。类似的，我们通过查看程序基本块的例子，识别出基本块的特征。下面看一个无条件跳转的程序基本块：</p>
+<p><img src="/images/OLLVM-study/image-20240304214811830.png" alt="image-20240304214811830" style="zoom:67%;" /></p>
+<p>&emsp;可以看出，在程序基本块的最后，将常量写入状态变量，然后返回主干块。如果这个基本块有多个后继的话，那么如下图所示：</p>
+<p><img src="/images/OLLVM-study/image-20240304215229398.png" alt="image-20240304215229398" style="zoom:67%;" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stateVar = var == 0xdeadbeef ? 0xe38294d4 : 0xfcbce33c</span><br></pre></td></tr></table></figure>
+<p>&emsp;因此，我们可以总结：<code>每个基本块都包含至少一个 stateVar 的定义，类似于程序入口的主干块</code>。乍一看，我们似乎需要在 def-use 图（获取 stateVar 的所有定义）上执行递归的深度优先搜索，但是我们只需获得 stateVar 的最初定义。stateVar 的最初定义来自入口主干块。</p>
+<p>（3）恢复 CFG。目前，我们已经有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 所有的程序基本块。</span><br><span class="line">2. stateVar 到程序基本块的映射（这是如何得到的？）。</span><br></pre></td></tr></table></figure>
+<p>&emsp;我们还缺少：<code>程序基本块结束时的 stateVar</code>。为了解决这一点，我们可以使用 binart ninja 的 Value-Set Analysis，它可以计算保存在寄存器中的值。</p>
+<p>&emsp;当程序基本块是无条件跳转时，stateVar 是常数。当程序基本块是条件转移时，我们需要确定两个可能的 stateVar 哪个是真分支，哪个是假分支。为此，我们利用 medium-level IL 的 SSA 形式。</p>
+<p>To be continued..</p>
 
   
 	</div>
