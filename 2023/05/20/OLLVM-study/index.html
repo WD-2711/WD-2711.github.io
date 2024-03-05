@@ -145,7 +145,14 @@
 <p><img src="/images/OLLVM-study/image-20230520165052020.png" alt="image-20230520165052020" style="zoom:67%;" /></p>
 <p><img src="/images/OLLVM-study/image-20230520165216059.png" alt="image-20230520165216059" style="zoom:67%;" /></p>
 <h3 id="字符串加密"><a href="#字符串加密" class="headerlink" title="字符串加密"></a>字符串加密</h3><p>&emsp;调用OLLVM的API进行加密。</p>
-<h2 id="0x03-LLVM-混淆与反混淆再探"><a href="#0x03-LLVM-混淆与反混淆再探" class="headerlink" title="0x03 LLVM 混淆与反混淆再探"></a>0x03 LLVM 混淆与反混淆再探</h2><p>&emsp;最近做的一个 WMCTF 的题目中涉及到 OLLVM，但是<a target="_blank" rel="noopener" href="https://github.com/RPISEC/llvm-deobfuscator">脚本</a>处理一直出问题，所以想更新一下这个脚本，但是这又需要 OLLVM 混淆与反混淆的知识。由于距上次接触到 OLLVM 已经过去了较长时间，这次接着<a target="_blank" rel="noopener" href="https://rpis.ec/blog/dissection-llvm-obfuscator-p1/">这篇文章</a>，完善丰富一下 OLLVM 的细节。</p>
+<h2 id="0x03-代码优化-LLVM-IR-pass"><a href="#0x03-代码优化-LLVM-IR-pass" class="headerlink" title="0x03 代码优化 LLVM IR pass"></a>0x03 代码优化 LLVM IR pass</h2><p>&emsp;代码优化的实质是分析+转换。</p>
+<p>&emsp;LLVM IR (Intermediate Representation) 是 LLVM 的一种中间表示，中间表示的生成是便于更好的代码优化。LLVM Pass 是 LLVM 代码优化中的一个重要组成部分。我们可以将 Pass 看作一个又一个的模块，各个 Pass 可以通过 IR 获取信息，直接对中间代码进行优化，或者为下一个 Pass 做好准备。</p>
+<p>&emsp;常见的代码优化方法有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 删除公共子表达式。例如，x+y 以前被计算过，且一段时间内 x 与 y 中的变量值没有改变，则 x+y 就可以在这段时间内替换成一个常量。</span><br><span class="line">2. 删除无用代码。即删除永远不会被使用的语句。</span><br><span class="line">3. 常量合并。类似于 1，如果一个表达式的值为常量，那么就可以用常量替换这个表达式。</span><br><span class="line">4. 代码移动。例如，对于不管循环多少次都得到相同结果的表达式，在进入循环之前对它们进行求值。</span><br><span class="line">5. 强度削弱。例如，2*x 替换为 x+x。</span><br><span class="line">6. 删除归纳变量。例如，x 每次被赋值时都会增加常数 c，则可以将 x 称为归纳变量。如果有一组归纳变量的变化步调一致，就可以将这组变量删除为只剩 1 个。</span><br></pre></td></tr></table></figure>
+<p>&emsp;LLVM 中 Pass 架构有很高的可重用性与可控制性，这使得用户可以自己开发 Pass 模块，或关闭默认开启的 Pass。Pass 分为两类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 分析，提供信息。</span><br><span class="line">2. 转换，优化 IR。</span><br></pre></td></tr></table></figure>
+<p>To be continued…</p>
+<h2 id="0x04-LLVM-混淆与反混淆再探"><a href="#0x04-LLVM-混淆与反混淆再探" class="headerlink" title="0x04 LLVM 混淆与反混淆再探"></a>0x04 LLVM 混淆与反混淆再探</h2><p>&emsp;最近做的一个 WMCTF 的题目中涉及到 OLLVM，但是<a target="_blank" rel="noopener" href="https://github.com/RPISEC/llvm-deobfuscator">脚本</a>处理一直出问题，所以想更新一下这个脚本，但是这又需要 OLLVM 混淆与反混淆的知识。由于距上次接触到 OLLVM 已经过去了较长时间，这次接着<a target="_blank" rel="noopener" href="https://rpis.ec/blog/dissection-llvm-obfuscator-p1/">这篇文章</a>，完善丰富一下 OLLVM 的细节。</p>
 <p>&emsp;LLVM 主要有 3 种混淆方式，就是 0x02 中说的，包括 Instructions Substitution，Bogus Control Flow，Control Flow Flattening。需要注意的点是，这些混淆操作是在 LLVM IR 上做的，它基本上支持所有的架构。</p>
 <p>&emsp;重新介绍一下 Control Flow Flattening。其混淆步骤为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 收集 CFG 种所有的原始基本块。</span><br><span class="line">2. 把基本块展平并放在 CFG 底部，移除原始边。</span><br><span class="line">3. 添加访问每个基本块的 machinery，以保持原始程序的语义。</span><br></pre></td></tr></table></figure>
@@ -169,8 +176,27 @@
 <p>（3）恢复 CFG。目前，我们已经有：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 所有的程序基本块。</span><br><span class="line">2. stateVar 到程序基本块的映射（这是如何得到的？）。</span><br></pre></td></tr></table></figure>
 <p>&emsp;我们还缺少：<code>程序基本块结束时的 stateVar</code>。为了解决这一点，我们可以使用 binart ninja 的 Value-Set Analysis，它可以计算保存在寄存器中的值。</p>
-<p>&emsp;当程序基本块是无条件跳转时，stateVar 是常数。当程序基本块是条件转移时，我们需要确定两个可能的 stateVar 哪个是真分支，哪个是假分支。为此，我们利用 medium-level IL 的 SSA 形式。</p>
-<p>To be continued..</p>
+<p>&emsp;当程序基本块是无条件跳转时，stateVar 是常数。当程序基本块是条件转移时，我们需要确定两个可能的 stateVar 哪个是真分支，哪个是假分支。Binary ninja 的 Value-Set Analysis 能够计算寄存器中的值。如果程序基本块中的 stateVar 是无条件跳转的，那么很容易获得 stateVar 的值。而对于条件跳转来说，我们需要确定 stateVar 的值，就需要 medium-level IL 的 SSA 形式。SSA 形式如下所示：</p>
+<p><img src="/images/OLLVM-study/1709623994515-542e03cc-875e-4cd5-9966-c6ec7a56a138.png" alt="image.png" style="zoom:67%;" /></p>
+<p>&emsp;可以看到，最下面的 nextState#17 表示 nextState#17 有两种可能，这就很好的解决了条件跳转的问题。转化成 LLVM IR 的形式，就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%next_state = select i1 %original_condition, i32 %true_branch, i32 %false_branch</span><br><span class="line">store i32 %next_state, i32* %state</span><br></pre></td></tr></table></figure>
+<p>&emsp;我们可以这样构造我们的算法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 将 nextState 置为 %false_branch。</span><br><span class="line">2. 如果 %original_condition 计算为 1，那么将 nextState 置为 %true_branch。</span><br><span class="line">3. 将 state 设置为 nextState。</span><br></pre></td></tr></table></figure>
+<p>（4）重建 Binaries。我们已经得到了原始的 CFG，之后就是修复这些程序基本块，让他们能够跳转到 CFG 中的下一个正确的程序基本块。</p>
+<p>（4）- Step1： 由于在最开始 OLLVM 混淆过的程序中，插入了用于更新 stateVar 的指令，所以我们要移除这些没用的指令，这些没用的指令包括：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 当前 Block 的最后一条指令（跳转到主干块的指令）。</span><br><span class="line">2. 更新 stateVar 的指令。</span><br><span class="line">3. def-use 链中用于确认下一个 state（next state）。</span><br></pre></td></tr></table></figure>
+<p>&emsp;如下所示，红色部分是可以删除的指令，也就是加 nop（其中没有 def-use 链中确认 next state 的指令）：</p>
+<p><img src="/images/OLLVM-study/1709625956190-77e091bb-48cc-4b79-80fc-e3fedcc2d4a1.png" alt="image.png" style="zoom:67%;" /></p>
+<p>（4）- Step2：修复 Control Flow。对于无条件跳转的块，我们只需要在块最后加入 jmp xxx 即可。对于条件跳转，由于 LLVM 混淆过后的程序中，在 state 附近总有 CMOVXX，我们假设 LLVM 的 flatten 过程总是使用 true branch 覆盖 false branch，如下所示：</p>
+<p><img src="/images/OLLVM-study/1709626633554-eb74996e-adfa-4d42-bd1d-e08a06bf37a9.png" alt="image.png" style="zoom:67%;" /></p>
+<p>&emsp;我们可以将指令改为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmp edx, 0x5</span><br><span class="line">je eax</span><br><span class="line">jmp ecx</span><br></pre></td></tr></table></figure>
+<p>&emsp;具体算法可以总结为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 删除所有无用指令。</span><br><span class="line">2. 在块的末尾添加跳转。</span><br><span class="line">3. 使用 nop 填充到未修改之前的长度。</span><br></pre></td></tr></table></figure>
+<p>（3）- Step3：在进行完前两步之后，CFG 中的代码无法访问主干块（backbone），我们当然可以使用 nop 来进行替换，但反编译器可以自动帮我们进行线性扫描，不会在流程图中显示。</p>
+<h2 id="0x05-符号执行去除-FLA"><a href="#0x05-符号执行去除-FLA" class="headerlink" title="0x05 符号执行去除 FLA"></a>0x05 符号执行去除 FLA</h2><p><a target="_blank" rel="noopener" href="https://kiprey.github.io/2020/06/LLVM-IR-pass/#简介">https://kiprey.github.io/2020/06/LLVM-IR-pass/#%E7%AE%80%E4%BB%8B</a></p>
+<p>&emsp;符号执行会将程序中变量的值表示为符号值和常量组成的计算表达式，程序输出被表示为输入符号值的函数，其在软件测试和程序验证中发挥着重要作用，并可以应用于程序漏洞的检测。</p>
+<p>To be continued…</p>
 
   
 	</div>

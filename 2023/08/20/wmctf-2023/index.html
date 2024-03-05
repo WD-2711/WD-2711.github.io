@@ -243,7 +243,10 @@
 <p><img src="/images/wmctf-2023/image-20240303213402576.png" alt="image-20240303213402576" style="zoom:67%;" /></p>
 <p>Step3: 询问 GPT 后发现，IOS 程序的主逻辑大概有以下几个地方：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">（1）View Controllers，主要就是 window.rootViewController。</span><br><span class="line">（2）Storyboards 和 XIBs。</span><br><span class="line">（3）AppDelegate 的其他方法，在 iOS 13 及以上为 SceneDelegate。</span><br><span class="line">（4）定时器、网络请求等。</span><br><span class="line">（5）第三方框架，例如 Firebase、Realm。</span><br></pre></td></tr></table></figure>
-<p>&emsp;找到一个 ViewController handleButtonClick 函数，但是还是 OLLVM，所以打算手动修复一下 llvm-deobfuscator 的脚本，猜测是因为我用的 binary ninja 3.5 的版本，很多 API 更新了。</p>
+<p>&emsp;找到一个 ViewController handleButtonClick 函数，但是还是 OLLVM，所以打算手动修复一下 llvm-deobfuscator 的脚本，猜测：</p>
+<p>（1）我用的 binary ninja 3.5 的版本，很多 API 更新了。经过调研，不是这个问题。</p>
+<p>（2）脚本不 work 的原因可能是函数一开始是有参数的。但是经过调研，了解插件的运行原理之后，发现是自己插件使用的有问题。</p>
+<p>Step4: </p>
 <h2 id="0x04-RightBack"><a href="#0x04-RightBack" class="headerlink" title="0x04 RightBack"></a>0x04 RightBack</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmctf&#123;...&#125;</span><br></pre></td></tr></table></figure>
 
   
