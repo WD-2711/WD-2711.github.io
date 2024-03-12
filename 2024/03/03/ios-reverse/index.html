@@ -117,7 +117,7 @@
 
 	  <h1 id="IOS-reverse"><a href="#IOS-reverse" class="headerlink" title="IOS reverse"></a>IOS reverse</h1><p>We need a <code>MacOS(or VMWare Virtual Machine)(Version &gt; MacOS 10.15)</code> and <code>Ipad/Iphone(Version &gt; iOS 11)</code>. We can refer to <a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv23382698/">link1</a>.</p>
 <span id="more"></span>
-<h2 id="Step1-APP-unshell"><a href="#Step1-APP-unshell" class="headerlink" title="Step1: APP unshell"></a>Step1: APP unshell</h2><p>Ios’s App is similar to APK, and it could install an app in our iPhone. Compared to android, a more strict security mechanism is used by Apple, such as ASLR and encryption (fairplay DRM encryption). First of all, there are some tools to help us:</p>
+<h2 id="Step0-ipad-7th-root"><a href="#Step0-ipad-7th-root" class="headerlink" title="Step0: ipad 7th root"></a>Step0: ipad 7th root</h2><h2 id="Step1-APP-unshell"><a href="#Step1-APP-unshell" class="headerlink" title="Step1: APP unshell"></a>Step1: APP unshell</h2><p>Ios’s App is similar to APK, and it could install an app in our iPhone. Compared to android, a more strict security mechanism is used by Apple, such as ASLR and encryption (fairplay DRM encryption). First of all, there are some tools to help us:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. MachOView.</span><br><span class="line">It could view file structure of Mach-o.</span><br><span class="line">2. class-dump.</span><br><span class="line">It could extract information in Mach-o&#x27;s header file and generate .h file.</span><br><span class="line">3. MonkeyDev and pod.</span><br><span class="line">It could do dll injection and hook.</span><br><span class="line">4. Hopper Diassembler.</span><br><span class="line">Similar to IDA.</span><br></pre></td></tr></table></figure>
 <p>App files are encrypted (fairplay DRM, Digital Rights Management) in many situations, DRM is similar to shell encryption. We should decrypt IPA file first, but there is also a easier way to do this. That is, directly download decrypted IPA files from <a target="_blank" rel="noopener" href="https://dumpapp.com/">DumpApp</a>. Otherwise, we need to remove DRM, which is also called <code>砸壳</code>.</p>
 <p>There are many tools to remove DRM:</p>
@@ -143,7 +143,8 @@
 
     
     
-    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
+    <a href="/2024/03/08/recentlyThink-5/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
@@ -224,7 +225,7 @@
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/re/">re<span>38</span></a></li>
+    <li><a href="/categories/re/">re<span>39</span></a></li>
   </li>
 
     </ul>
@@ -240,7 +241,7 @@
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#IOS-reverse"><span class="toc-article-text">IOS reverse</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Step1-APP-unshell"><span class="toc-article-text">Step1: APP unshell</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Step2-export-header-file"><span class="toc-article-text">Step2: export header file</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#References"><span class="toc-article-text">References</span></a></li></ol></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#IOS-reverse"><span class="toc-article-text">IOS reverse</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Step0-ipad-7th-root"><span class="toc-article-text">Step0: ipad 7th root</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Step1-APP-unshell"><span class="toc-article-text">Step1: APP unshell</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#Step2-export-header-file"><span class="toc-article-text">Step2: export header file</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#References"><span class="toc-article-text">References</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>

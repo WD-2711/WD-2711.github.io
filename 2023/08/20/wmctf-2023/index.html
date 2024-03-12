@@ -244,9 +244,22 @@
 <p>Step3: 询问 GPT 后发现，IOS 程序的主逻辑大概有以下几个地方：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">（1）View Controllers，主要就是 window.rootViewController。</span><br><span class="line">（2）Storyboards 和 XIBs。</span><br><span class="line">（3）AppDelegate 的其他方法，在 iOS 13 及以上为 SceneDelegate。</span><br><span class="line">（4）定时器、网络请求等。</span><br><span class="line">（5）第三方框架，例如 Firebase、Realm。</span><br></pre></td></tr></table></figure>
 <p>&emsp;找到一个 ViewController handleButtonClick 函数，但是还是 OLLVM，所以打算手动修复一下 llvm-deobfuscator 的脚本，猜测：</p>
-<p>（1）我用的 binary ninja 3.5 的版本，很多 API 更新了。经过调研，不是这个问题。</p>
-<p>（2）脚本不 work 的原因可能是函数一开始是有参数的。但是经过调研，了解插件的运行原理之后，发现是自己插件使用的有问题。</p>
-<p>Step4: </p>
+<p>（1）脚本不 work 的原因可能是函数一开始是有参数的。但是经过调研，了解插件的运行原理之后，发现是自己插件使用的有问题。</p>
+<p>（2）继续调研后发现，即使正常调用脚本，也会出现错误，我真是服了，继续调研。</p>
+<p>（3）我用的 binary ninja 3.5 的版本，很多 API 更新了。经过调研，应该就是这个问题。</p>
+<p>Step4: 本来想将 x64 的脚本改成 ARM 的，但是发现很多地方都不适配，所以想自己写一个 binary ninja 的脚本。首先，找到此题目中 OLLVM 的规律。</p>
+<p><img src="/images/wmctf-2023/image-20240308195917702.png" alt="image-20240308195917702" style="zoom:67%;" /></p>
+<p>规律 1：看黄框，每一个函数的开头都定义了一些变量，这些变量供下面的 cmp 使用。</p>
+<p>规律 2：看红框，之后紧接着好多 cmp 指令，用于 dispatch。</p>
+<p>规律 3：看蓝框，紧接着有好多实际的逻辑块，最后是 return 块。</p>
+<p>&emsp;那么，我们可以设计如下去 OLLVM 的算法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 根据红框，确定要关注的变量，例如这里的 w11。</span><br><span class="line">2. 计算黄框中 w11 的值，作为起始点。</span><br><span class="line">3. 根据红框中其他的 cmp 变量，使用黄框计算出这些变量的值，并创建映射表，即 w11 = ?，应跳转到哪些实际块（蓝框与 return）。</span><br><span class="line">4. 构建块之间的顺序。</span><br></pre></td></tr></table></figure>
+<p>&emsp;但是我看其他函数好多还不是这个逻辑，头疼，打算用符号执行了。具体可以见 <a target="_blank" rel="noopener" href="http://s0rry.cn/posts/ollvm/">link2</a>。</p>
+<p>Step5: 符号执行可以使用 angr 或者 unicorn 工具。使用 angr 去 OLLVM 时，见 useful-scripts。<code>Angr 去除 OLLVM 时，是直接以块为起点，模拟执行来找到下一个块的，如果在这个块之前还产生了某个事件，这个事件对这个块的执行流程产生了影响的，那么本次模拟处理的结果就是不准确的。</code>相比而言，unicorn 在去除花指令或去除 OLLVM 方面更有优势，这是因为：<code>unicorn 相当于一个虚拟 cpu，所以处理的细微程度高于 angr 的代码块级，修复出来的代码精度更高。</code></p>
+<p>&emsp;与 angr 类似，unicorn 写去 OLLVM 脚本的思路也是<code>通过代码的CFG图，分析出代码块之间的关系，然后模拟执行每个代码块</code>。但是 fallwind 的脚本是针对 ELF 文件的，我也懒得该脚本了。直接看 wp。wm 给出的 wp 是使用 iPhone 进行的 frida-hook，与我的解题思路不同。</p>
+<p>Step6：wp 的复现，<a target="_blank" rel="noopener" href="https://github.com/wm-team/WMCTF-2023/blob/main/WMCTF%202023_OFFICAL_WRITE-UP_CN.pdf">wp1</a>，<a target="_blank" rel="noopener" href="https://www.cnblogs.com/gaoyucan/p/17646186.html">wp2</a>。在 wp1 中，我一直不能使自己的 ipad 越狱，会出现以下报错，且我是 intel 的处理器（网上说只有 AMD 的处理器才会报这种错误）。</p>
+<p><img src="/images/wmctf-2023/image-20240309182930221.png" alt="image-20240309182930221" style="zoom:67%;" /></p>
+<p>&emsp;可以采取上题 ezandroid 中划分 block 的方法，对 handleButtonClick 函数进行分析。</p>
 <h2 id="0x04-RightBack"><a href="#0x04-RightBack" class="headerlink" title="0x04 RightBack"></a>0x04 RightBack</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmctf&#123;...&#125;</span><br></pre></td></tr></table></figure>
 
   
@@ -340,7 +353,7 @@
     <ul id="categorys" class="tag_box list-unstyled collapse in">
           
   <li>
-    <li><a href="/categories/re/">re<span>38</span></a></li>
+    <li><a href="/categories/re/">re<span>39</span></a></li>
   </li>
 
     </ul>
