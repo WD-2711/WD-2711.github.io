@@ -158,6 +158,20 @@
 <p>Step6. 组装权重矩阵。最后，我们将模型的 Craft 表示转化为具体的模型权重。首先，我们将并行 MLP 层合并为单个层，并将并行注意力头合并为单个层。在注意力层中，我们将 $W<em>{QK}$ 和 $W</em>{OV}$ 矩阵分解为单独的 $W_q$、$W_k$、$W_o$、$W_v$ 权重矩阵。最后，我们调整所有权重的形状并将它们连接到 transformer。</p>
 <p><img src="/images/tracr-paper/image-20240330234521636.png" alt="image-20240330234521636" style="zoom:67%;" /></p>
 <h2 id="Tracr-转-transformer-的例子"><a href="#Tracr-转-transformer-的例子" class="headerlink" title="Tracr 转 transformer 的例子"></a>Tracr 转 transformer 的例子</h2><p>&emsp;明天整一个 RASP 程序，转为模型之后的样子。</p>
+<p>&emsp;首先给出一个 RASP 的程序代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// sort_unique</span><br><span class="line">smaller = rasp.Select(keys, keys, rasp.Comparison.LT).named(&quot;smaller&quot;)</span><br><span class="line">target_pos = rasp.SelectorWidth(smaller).named(&quot;target_pos&quot;)</span><br><span class="line">sel_new = rasp.Select(target_pos, rasp.indices, rasp.Comparison.EQ)</span><br><span class="line">return rasp.Aggregate(sel_new, vals).named(&quot;sort&quot;)</span><br></pre></td></tr></table></figure>
+<p><img src="/images/tracr-paper/image-20240331105205993.png" alt="image-20240331105205993" style="zoom:67%;" /></p>
+<p>&emsp;其中 children 是和程序一一对应的。先正常分析一波：</p>
+<ul>
+<li><p>SelectorWidth 直接转换为由注意力层和 MLP。它使用 BOS 令牌作为值输入，导致注意力头计算 x = 1/(1 + w)，其中 w 是所需的选择器宽度输出。</p>
+</li>
+<li><p>Selector。此操作对应于 Transformer 中的注意力。</p>
+</li>
+<li>Select-aggregate 相当于 Transformer 中的 attention head。</li>
+</ul>
+<p>再来看此程序编译成 model 之后的样子：</p>
+<p><img src="/images/tracr-paper/image-20240331110747611.png" alt="image-20240331110747611" style="zoom:67%;" /></p>
+<p>&emsp;可以看到，一共有两层：layer1 是 attention + mlp，layer2 也是 attention + mlp。</p>
 
   
 	</div>
@@ -168,7 +182,8 @@
 
     
     
-    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
+    <a href="/2024/04/01/ctf-guide-pwn-1/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>

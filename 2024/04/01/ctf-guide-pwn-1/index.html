@@ -1,0 +1,423 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>ctf-guide-pwn-1 | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="ctf-guide-pwn-1"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> ctf-guide-pwn-1</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="CTF-竞赛权威指南-PWN"><a href="#CTF-竞赛权威指南-PWN" class="headerlink" title="CTF 竞赛权威指南-PWN"></a>CTF 竞赛权威指南-PWN</h1><h2 id="0x00-二进制文件"><a href="#0x00-二进制文件" class="headerlink" title="0x00 二进制文件"></a>0x00 二进制文件</h2><h3 id="4-个阶段"><a href="#4-个阶段" class="headerlink" title="4 个阶段"></a>4 个阶段</h3><p>&emsp;通过在 gcc 编译过程中加入 -save-temps（生成编译过程中的中间文件） 与 —verbose（查看 gcc 编译的详细工作流程） 选项，可以看出 gcc 编译分为 4 个阶段，分别为<code>预处理、编译、汇编、链接</code>。</p>
+<span id="more"></span>
+<ul>
+<li>使用 cc1 编译器将 xx.c 编译为 xx.s（预处理+编译）。</li>
+<li>使用 as 汇编器（汇编）将 xx.s 汇编为 xx.o。</li>
+<li>使用 collect2 链接器将 c 语言运行时库（CRT）中的目标文件以及所需的动态链接库链接起来</li>
+</ul>
+<h4 id="预处理阶段"><a href="#预处理阶段" class="headerlink" title="预处理阶段"></a>预处理阶段</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -E xx.c -o xx.i</span><br></pre></td></tr></table></figure>
+<p>&emsp;处理 # 开头的指令，例如 #include，#define。预处理阶段将其处理后直接插入到程序文本中，得到另一个 c 程序（xx.i）。注释删除阶段也是在此流程进行的。</p>
+<h4 id="编译阶段"><a href="#编译阶段" class="headerlink" title="编译阶段"></a>编译阶段</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S xx.i -o xx.s</span><br></pre></td></tr></table></figure>
+<p>&emsp;Linux gcc 编译过程：</p>
+<ul>
+<li>词法分析：输入源程序的字符流，输出有意义的词素（lexeme）。</li>
+<li>语法分析：根据词法单元的第一个分量创建语法树。</li>
+<li>语义分析：使用语法树与符号表，检测源程序是否满足语言定义的语义约束。</li>
+<li>中间代码生成与优化：生成类似于机器语言的中间表示，例如三地址码，然后对其进行优化。</li>
+<li>代码生成与优化：将中间表示映射到目标机器语言。</li>
+</ul>
+<h4 id="汇编阶段"><a href="#汇编阶段" class="headerlink" title="汇编阶段"></a>汇编阶段</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -c xx.s -o xx.o</span><br></pre></td></tr></table></figure>
+<p>&emsp;根据汇编指令与机器指令的对照表进行翻译，生成一个可重定位文件。此时与正常 ELF 不同的点在于：</p>
+<ul>
+<li>传递参数的寄存器的值没有设置。</li>
+<li>call function 中 function 并没有进行设置。</li>
+</ul>
+<h4 id="链接阶段"><a href="#链接阶段" class="headerlink" title="链接阶段"></a>链接阶段</h4><p>&emsp;将目标文件与其所依赖的库进行链接，修正其符号地址。</p>
+<h4 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h4><ul>
+<li>gcc -masm=intel 选项。 gcc 默认使用 AT&amp;T 的汇编语言，其格式为：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">movl $4, %eax </span><br><span class="line">movl $1, %ebx</span><br></pre></td></tr></table></figure>
+<p>&emsp;在此我们将其设置为 intel 格式的汇编，其格式为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov eax, 4</span><br><span class="line">mov ebx, 1</span><br></pre></td></tr></table></figure>
+<ul>
+<li>gcc -fno-asynchronous-unwind-tables 选项。生成没有 cfi 宏的汇编指令。 cfi （Control Flow Integrity）宏是一种防止攻击者利用程序中的漏洞来篡改程序的控制流，它通过向程序中写入某些代码，来在函数开头与结尾时做 check，例如：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void foo() &#123;</span><br><span class="line">  CFI_START(foo); </span><br><span class="line">  // 函数体</span><br><span class="line">  CFI_END(foo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&emsp;它可以使用 LLVM 的 SafeStack 或者 Windows 的 Control Flow Guard 来实现。其本质上就是，在函数体中，如果有跳转的话，就会检查跳转目标地址的合法性。</p>
+<h3 id="ELF-文件格式"><a href="#ELF-文件格式" class="headerlink" title="ELF 文件格式"></a>ELF 文件格式</h3><p>&emsp;ELF 最初是作为应用程序二进制接口 ABI 的一部分发布的。ELF 有 3 种文件类型，分别为 exec（可执行文件，对应 .exe）、rel（可重定位文件，对应 .o，通常是位置独立 PIC 的代码，用于与其他目标文件链接以构成可执行文件）、dyn（共享目标文件，对应 .dll）。</p>
+<p>&emsp;有两种视角可以审视一个 ELF 文件，分别为链接视角（通过 section 来划分）与运行视角（通过 segment 来划分）。链接视角一般包含代码（.text）、数据（.data）与 BSS（保存未初始化的全局变量与局部静态变量） 三个节。运行视角就是就是程序运行时的内存状态。两种视角其实就是静态与动态。</p>
+<h4 id="链接视角"><a href="#链接视角" class="headerlink" title="链接视角"></a>链接视角</h4><p>&emsp;ELF header 描述了 ELF 文件类型，版本，目标机器，程序入口，段表/节表的位置。开头的 magic 为 <code>\177ELF</code>。</p>
+<p>&emsp;另外，还有 section header table，其中每一项都是节描述符（ELF64_Shdr），记录了每个节的名称，长度，偏移，读写权限。它不是必须的，所以有的程序把它删除，增加分析难度。除了这些之外，还有一些比较重要的 section:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.got      | 全局偏移量表，保存全局变量引用的地址</span><br><span class="line">.got.plt  | 保存函数引用的地址</span><br><span class="line">.plt      | 过程链接表，用于延迟绑定</span><br><span class="line">.rela.dyn | 变量的动态重定位</span><br><span class="line">.rela.plt | 函数的动态重定位</span><br><span class="line">.symtab   | 符号表</span><br></pre></td></tr></table></figure>
+<p>&emsp;重定位是<code>连接符号定义与符号引用的过程</code>。可重定位文件需要把节中的符号引用转换成符号在进程中的虚拟地址。</p>
+<h4 id="运行视角"><a href="#运行视角" class="headerlink" title="运行视角"></a>运行视角</h4><p>&emsp;当运行可执行文件时，需要将文件与动态链接库装载到进程空间中，形成进程映像。这个映像如何布局是由 ELF header 中 e_phoff（Program header table offset）决定的。每一个 segment 对应一个或多个 section。根据 section 的权限对不同权限的节分组，并同时装载多个节。</p>
+<p>&emsp;一个可执行文件至少有一个 PT_LOAD 类型的段，用于描述可装载的节。PT_DYNAMIC 段包含一些动态链接器所必需的信息，例如 GOT 表、重定位表等。</p>
+<h3 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a>静态链接</h3><p>&emsp;链接是将<code>多个不同的目标文件组合成一个可执行文件</code>，包括<code>编译时链接、加载时链接与运行时链接</code>。多个目标文件的组合使用相似节合并的方法，即文件 A 的 .data 与 B 的 .data 合并。具体来说，链接器首先对各个节进行分析，将 A 与 B 中符号表的符号定义与符号引用统一生成全局符号表，最后对符号表进行重定位（放到其该有的位置，在这个步骤中进行相似节合并）。</p>
+<p>&emsp;链接器要完成：（1）符号解析，<code>将符号的引用与其定义进行关联</code>。（2）重定位，<code>将符号定义与内存地址进行关联，然后修改符号的的引用，使其指向某个内存地址</code>。.o 文件还没进行链接，因此其虚拟地址 VMA 表示为 0，链接后就正常了。</p>
+<p>&emsp;.o 文件是可重定位文件，其中包含重定位表，用于帮助链接器如何修改节的内容，每一个节都有一个重定位表，例如 .rel.text 的节用于保存 .text 的重定位表，其中 shared 类型用于绝对寻址，func 类型用于相对寻址。</p>
+<p>&emsp;Linux 中静态链接库后缀为 .a，一个静态链接库为一组目标文件经过压缩打包的集合。使用 ar 工具可以对 .o 文件进行打包，生成 .a 文件。</p>
+<h3 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h3><p>&emsp;静态链接的缺点：<code>如果对标准函数做出微小改动，都需要重新编译整个源文件</code>。动态链接：<code>在程序运行或加载时，在内存中完成的链接</code>。GCC 默认使用动态链接，如果要生成一个动态链接库（共享库），那么指令为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -shared -fpic -o func.so func.c</span><br></pre></td></tr></table></figure>
+<p>&emsp;其中，-fpic 指的是位置无关代码，也就是<code>可以加载而无需重定位的代码</code>。通过 PIC，共享库的代码可以被无限多个进程共享。由于程序的数据段与代码段的相对距离总是保持不变的，因此指令与变量之间的距离是运行时常量，与绝对地址无关。<code>因此，就会有全局偏移量表（GOT）的产生，此表位于数据表开头，用于保存全局变量的引用，在加载时会进行重定位给并填入符号的绝对地址。</code></p>
+<p>&emsp;实际上，执行中会有保护机制 RELRO，此时 GOT 拆分为 .got 节（变量偏移表）和 .got.plt 节（函数偏移表），.got 不需要延迟绑定，加载到内存之后就是只读，.got.plt 需要延迟绑定，加载到内存之后有读写权限。给一个 GOT 表的例子：</p>
+<p><img src="/images/ctf-guide-pwn-1/image-20240401190637418.png" alt="image-20240401190637418" style="zoom:67%;" /></p>
+<p>&emsp;延迟绑定：<code>动态链接是由动态链接器在程序加载时进行的，当需要重定位的符号很多时，会影响性能，因此有了延迟绑定，即当函数第一次被调用时，动态链接器才进行符号查找</code>。ELF 使用 PLT（过程链接表） 与 GOT 来实现延迟绑定，每一个库函数都有自己的 PLT 与 GOT。</p>
+<p>&emsp;PLT 位于 .plt 节（代码段）中，是一个数组。PLT[0] 用于跳转到动态链接器（也是作为一个动态链接库存在），PLT[1] 用于调用系统启动函数 libc_start_main（main 函数就是在这里面调用），之后就是被调用的各个函数。</p>
+<p>&emsp;GOT 位于 .got.plt 节（数据段），也是一个数组。GOT[0] 和 GOT[1] 包含动态链接器在解析函数地址时所需要的两个地址（.dynamic 和 relor)，GOT[2] 是动态链接器 ld-linux.so 的入口点，从 GOT[3] 开始就是被调用的各个函数条目，完成绑定后才会被修改为函数的实际地址。</p>
+<p>&emsp;举个例子：</p>
+<p><img src="/images/ctf-guide-pwn-1/image-20240401192124709.png" alt="image-20240401192124709" style="zoom:67%;" /></p>
+<p>&emsp;执行 call 指令会进入 func@plt（PLT），jmp 指令找到对应的 GOT 条目，这时该位置保存的还是 <code>push 1</code>，于是执行第二条指令，然后进入 PLT[0]。PLT[0] 先将 GOT[1] 压栈，然后调用 GOT[2]（_dl_runtime_resolve），完成符号解析和重定位工作，并将 func 的真实地址填入 func@got.plt，也就是 GOT[4]，最后才把控制权交给 func。延迟绑定完成后，如果再调用 func，就可以由 func@plt 的第一条指令直接跳转到 fnc@got.plt，将控制权交给 func。</p>
+<p>&emsp;上述是传统的动态链接，也就是加载时链接。之后介绍运行时链接，需要使用 dlopen 的接口。两者的区别是：</p>
+<ul>
+<li>加载时链接会生成 GOT 表，记录着可能用到的所有符号。</li>
+<li>运行时链接则需要在运行时定位这些符号。</li>
+</ul>
+<h2 id="0x01-汇编基础"><a href="#0x01-汇编基础" class="headerlink" title="0x01 汇编基础"></a>0x01 汇编基础</h2><p>&emsp;快速过一下。</p>
+<ul>
+<li>CPU 称为处理器，是从内存中读取指令，然后解码和执行。</li>
+<li>CPU 架构就是 CPU 的内部设计和结构，由一堆硬件电路组成。</li>
+<li>指令集架构（Instruction Set Architecture，ISA）称为指令集，包含了操作码 opcode，以及由特定 CPU 执行的基本命令。要想设计 CPU，首先得决定使用什么样的指令集，然后才设计硬件电路。指令集可分为<code>CISC</code>和<code>RISC</code>。</li>
+<li>由于指令集不利于阅读和理解，因此发明了汇编语言（Assembly language），用人类语言的方式对指令集进行描述。</li>
+</ul>
+<h3 id="CISC-与-RISC"><a href="#CISC-与-RISC" class="headerlink" title="CISC 与 RISC"></a>CISC 与 RISC</h3><p>&emsp;复杂指令集计算机（Complex Instruction Set Computer，CISC），例如 x86、AMD64。在 Linux 中，将x86-64称为 amd64，而 x86 称为 i386。精简指令集计算机（Reduced Instruction SetComputer，RISC）的概念，例如 ARM、MIPS。</p>
+<p>&emsp;CISC 与 RISC 相互借鉴。CISC 指令在解码阶段上向 RISC 指令转化，将后端流水线转换成类似 RISC 的形式，即等长的微操作（micro-ops），弥补了 CISC 流水线的劣势。同期，ARM 也引入了代码密度更高的 Thumb 指令集，允许混合使用 16 位指令和 32 位指令，提高了指令缓存的效率。</p>
+<p>&emsp;两者的对比如下：</p>
+<ul>
+<li>RISC 的指令长度是固定的，对于 32 位的 ARM 处理器，所有指令都是4个字节。CISC 的指令长度是不固定的，通常在 1 到 6 个字节之间。固定长度的指令有利于解码和优化，可以实现流水线（pipeline），缺点则是平均代码长度更大，会占用更多的存储空间。指令长度不固定的话，从不同的地方开始反汇编，可能会出现不同的结果，即指令错位。</li>
+<li>基于 80% 的工作由其中 20% 的指令完成的原则，RISC设计的指令数量也相对较少。CISC 为某个特定的操作专门设计一条指令，而 RISC 则需要组合多条指令来完成该操作。例如，x86 拥有专门的进栈指令 push 和出栈指令 pop,而 ARM 处理器没有这类指令，需要通过 load/store+add 等多条指令完成。</li>
+<li>ARM 采用了 load/store 架构，处理器的运算指令在执行过程中只能处理立即数，或者寄存器中的数据，不能访问内存。因此，存储器和寄存器之间的数据交互，由专门 load/store 指令负责。相反，x86 既能处理寄存器中的数据，也能处理存储器中的数据，因此寻址方式也更加多样。</li>
+<li>RISC 处理器需要更多的通用寄存器。ARM 通常包含 31 个通用寄存器，而 x86 只有8个，x86-64 则增加到 16 个。因此，RISC 可以完全使用寄存器来传递参数，而 CISC 则不能。</li>
+</ul>
+<h3 id="x86-x64-基础"><a href="#x86-x64-基础" class="headerlink" title="x86/x64 基础"></a>x86/x64 基础</h3><p>&emsp;x86-64 有 5 个操作模式：保护模式、实地址模式、系统管理模式，保护模式的子模式（称为虚拟 8086 模式）、IA-32e。</p>
+<ul>
+<li>保护模式。处理器的原生状态，所有的指令和特性都是可用的。为了模拟 8086 处理器，在虚拟 8086 模式下，操作系统可以在实体 CPU 中划分多个 8086 CPU（早期虚拟机）。<code>分配给程序的独立内存区域称为内存段，处理器将阻止程序使用自身段以外的内存区域</code>。</li>
+<li>实地址模式。程序可以直接访问硬件及其实际内存地址，而无需虚拟内存地址的映射。</li>
+<li>系统管理模式。电源管理或安全保护等特性。</li>
+<li>IA-32e。该模式包含两个子模式，分别为兼容模式和 64 位模式，在兼容模式下现有的 32位和 16 位程序无须重新编译；在 64 位模式下，处理器将在 64 位的地址空间下运行程序。</li>
+</ul>
+<p>&emsp;MOV 指令是图灵完备的。XCHG 允许交换 2 个操作数的值。</p>
+<h2 id="0x02-Linux-安全机制"><a href="#0x02-Linux-安全机制" class="headerlink" title="0x02 Linux 安全机制"></a>0x02 Linux 安全机制</h2><p>to be continued..</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2024/04/01/cve-2024-3094/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2024/03/29/tracr-paper/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2024-04-01 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/pwn/">pwn<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#CTF-%E7%AB%9E%E8%B5%9B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-PWN"><span class="toc-article-text">CTF 竞赛权威指南-PWN</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x00-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-article-text">0x00 二进制文件</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#4-%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="toc-article-text">4 个阶段</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5"><span class="toc-article-text">预处理阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E7%BC%96%E8%AF%91%E9%98%B6%E6%AE%B5"><span class="toc-article-text">编译阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E6%B1%87%E7%BC%96%E9%98%B6%E6%AE%B5"><span class="toc-article-text">汇编阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E9%93%BE%E6%8E%A5%E9%98%B6%E6%AE%B5"><span class="toc-article-text">链接阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E5%A4%87%E6%B3%A8"><span class="toc-article-text">备注</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#ELF-%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-article-text">ELF 文件格式</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E9%93%BE%E6%8E%A5%E8%A7%86%E8%A7%92"><span class="toc-article-text">链接视角</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E8%BF%90%E8%A1%8C%E8%A7%86%E8%A7%92"><span class="toc-article-text">运行视角</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-article-text">静态链接</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-article-text">动态链接</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x01-%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80"><span class="toc-article-text">0x01 汇编基础</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#CISC-%E4%B8%8E-RISC"><span class="toc-article-text">CISC 与 RISC</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#x86-x64-%E5%9F%BA%E7%A1%80"><span class="toc-article-text">x86&#x2F;x64 基础</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x02-Linux-%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6"><span class="toc-article-text">0x02 Linux 安全机制</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2024 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>

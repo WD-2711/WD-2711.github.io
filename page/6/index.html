@@ -122,6 +122,60 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/10/15/ps-obfuscation/" >ps-obfuscation</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-10-15  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="powershell混淆与反混"><a href="#powershell混淆与反混" class="headerlink" title="powershell混淆与反混"></a>powershell混淆与反混</h1><p>&emsp;powershell是基于<code>.net</code>开发的自动化语言。利用ps可以进行很多攻击，例如，利用<code>DownloadString</code>，能够在设备上运行命令/外壳代码/可执行文件，而<code>无需对设备磁盘进行任何写入操作</code>。或者使用<code>Marshall</code>类，外壳代码可以在内存中解密，并且可以在<code>不写入磁盘的情况下执行</code>。ps提供了对机器内核的访问，包括对Windows API的无限制访问。因此，越来越多的网络犯罪分子将PowerShell加入了他们的攻击武器库。</p>
+	
+	</div>
+  <a type="button" href="/2023/10/15/ps-obfuscation/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2023/10/13/muraen-source-code-reading/" >muraen-source-code-reading</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-10-13  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="muraen钓鱼工具-源码分析"><a href="#muraen钓鱼工具-源码分析" class="headerlink" title="muraen钓鱼工具-源码分析"></a>muraen钓鱼工具-源码分析</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>&emsp;传统网络钓鱼攻击是由虚假登录页面组成的，这些页面在攻击者控制的web服务器上，并由与目标网站名称相似的自定义域名提供服务。然而，对于2FA（双因素认证）而言，即使攻击者拿到了<code>用户名密码</code>，也无法登录网站，因为没有与合法网站进行交互来触发生成<code>cookie</code>。此时，攻击者需要让钓鱼网站充当代理，代表受害者转发请求到合法网站，并实时回传（中间人攻击）。</p>
+	
+	</div>
+  <a type="button" href="/2023/10/13/muraen-source-code-reading/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/10/09/frida-reverse-analysis-2/" >frida-reverse-analysis-2</a>
 		</h3>
 		</div>
@@ -194,60 +248,6 @@
 	
 	</div>
   <a type="button" href="/2023/09/14/Computer-Science-from-the-Bottom-Up-Note-1/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/09/14/CLIFuzzer/" >CLIFuzzer</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-09-14  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="CLIFuzzer：命令行调用的挖掘语法"><a href="#CLIFuzzer：命令行调用的挖掘语法" class="headerlink" title="CLIFuzzer：命令行调用的挖掘语法"></a>CLIFuzzer：命令行调用的挖掘语法</h1><p>&emsp;很多程序都靠命令行来传递选项和参数，因此要对这些程序做测试，需要遍历所有的命令行选项。CLIFuzzer使用动态分析来跟踪输入，并自动提取参数，我们可以变换不同的输入参数，生成无穷的随机参数列表，对程序进行模糊测试，提高代码覆盖率。</p>
-	
-	</div>
-  <a type="button" href="/2023/09/14/CLIFuzzer/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/09/07/zpoline/" >zpoline</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-09-07  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="zpoline：基于二进制重写的系统调用钩子机制"><a href="#zpoline：基于二进制重写的系统调用钩子机制" class="headerlink" title="zpoline：基于二进制重写的系统调用钩子机制"></a>zpoline：基于二进制重写的系统调用钩子机制</h1><p>&emsp;优势：钩子开销低、不会覆盖不应修改的指令、无需更改内核（什么意思？）、不需要用户态程序的源代码、不需要依赖特定的标准库、可用于系统调用仿真、详尽的钩子（exhaustive hooking）。</p>
-	
-	</div>
-  <a type="button" href="/2023/09/07/zpoline/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -429,6 +429,8 @@
 		
 			<li><a href="/categories/papers/">papers<span>11</span></a></li>
 		
+			<li><a href="/categories/pwn/">pwn<span>1</span></a></li>
+		
 			<li><a href="/categories/re/">re<span>40</span></a></li>
 		
 			<li><a href="/categories/re-book/">re-book<span>11</span></a></li>
@@ -441,7 +443,7 @@
 		
 			<li><a href="/categories/web/">web<span>9</span></a></li>
 		
-			<li><a href="/categories/杂记/">杂记<span>15</span></a></li>
+			<li><a href="/categories/杂记/">杂记<span>16</span></a></li>
 		
 		</ul>
 	</div>
@@ -456,6 +458,14 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2024/04/01/cve-2024-3094/" ><i class="fa fa-file-o"></i>cve-2024-3094</a>
+      </li>
+    
+      <li>
+        <a href="/2024/04/01/ctf-guide-pwn-1/" ><i class="fa fa-file-o"></i>ctf-guide-pwn-1</a>
+      </li>
+    
+      <li>
         <a href="/2024/03/29/tracr-paper/" ><i class="fa fa-file-o"></i>tracr-paper</a>
       </li>
     
@@ -465,14 +475,6 @@
     
       <li>
         <a href="/2024/03/27/aliyunctf-2024/" ><i class="fa fa-file-o"></i>aliyunctf-2024</a>
-      </li>
-    
-      <li>
-        <a href="/2024/03/11/register-mechine/" ><i class="fa fa-file-o"></i>register-mechine</a>
-      </li>
-    
-      <li>
-        <a href="/2024/03/08/recentlyThink-5/" ><i class="fa fa-file-o"></i>recentlyThink-5</a>
       </li>
     
   </ul>
