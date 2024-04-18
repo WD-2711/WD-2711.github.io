@@ -119,102 +119,76 @@
 		 </div> <!-- alert -->
 	  		
 
-	  <h1 id="pdd恶意行为分析"><a href="#pdd恶意行为分析" class="headerlink" title="pdd恶意行为分析"></a>pdd恶意行为分析</h1><p>&emsp;前几天，在逆向交流群中水群，偶然聊到了卡巴斯基对pdd分析的新闻，所以就打算搜一搜有没有技术报告。搜了一下还真有，打算学习一波，看看毛子对pdd的分析细节。</p>
-<span id="more"></span>
-<h2 id="0x00-pdd之十宗罪"><a href="#0x00-pdd之十宗罪" class="headerlink" title="0x00 pdd之十宗罪"></a>0x00 pdd之十宗罪</h2><p>&emsp;以下内容来自报告。</p>
-<p>（1）保活：指将自己加入系统的自启动白名单、关联启动白名单、后台白名单、锁屏白名单、悬浮窗、1像素透明图标、省电策略等⽅式，绕过系统强制休眠限制，持续后台存活。修改隐藏自身耗电量，逃避用户注意。</p>
-<p>（2）诱导欺骗行为：通过相关权限，绕过系统限制构造相关全屏广告、虚假通知（例如锁屏、解锁、全屏红包消息），诱导用户点击；劫持用户壁纸，劫持用户日历、闹钟等；⼀直展示消息未读状态，吸引用户点击；修改用户电池状态。</p>
-<p>（3）防卸载行为：通过假图标、Widget等⽅式，让用户在桌面无法删除app；或通过注入系统进程⽅式，拦截回滚用户卸载操作。</p>
-<p>（4）信息收集：收集用户的位置、Wifi、识别码、相册、安装包信息、⽤户帐户信息、历史通知等，甚⾄包括聊天记录，对用户进行精准画像。监控淘宝、头条等多个头部厂商。</p>
-<p>（5）攻击、感染行为。提权后攻击其他App、系统App，覆盖文件驻留后门，进行持久化。</p>
-<p>（6）远程静默安装行为和链接伪造。利用应用市场接口、浏览器、微信WebView漏洞，实现⽤户点击链接打开网页即被静默安装拼多多。</p>
-<h2 id="0x01-分析流程复现"><a href="#0x01-分析流程复现" class="headerlink" title="0x01 分析流程复现"></a>0x01 分析流程复现</h2><h3 id="alive-base-ability-plugin"><a href="#alive-base-ability-plugin" class="headerlink" title="alive_base_ability_plugin"></a>alive_base_ability_plugin</h3><p>&emsp;下载pdd 6.49<a target="_blank" rel="noopener" href="https://com-xunmeng-pinduoduo.en.uptodown.com/android/download/91472728">链接</a>。定位到文件：</p>
+	  <h1 id="pdd恶意行为分析"><a href="#pdd恶意行为分析" class="headerlink" title="pdd恶意行为分析"></a>pdd恶意行为分析</h1><h2 id="0x00-pdd-版本"><a href="#0x00-pdd-版本" class="headerlink" title="0x00 pdd 版本"></a>0x00 pdd 版本</h2><p>&emsp;版本为 6.49。</p>
+<h2 id="0x00-分析流程"><a href="#0x00-分析流程" class="headerlink" title="0x00 分析流程"></a>0x00 分析流程</h2><h3 id="alive-base-ability-plugin"><a href="#alive-base-ability-plugin" class="headerlink" title="alive_base_ability_plugin"></a>alive_base_ability_plugin</h3><p>&emsp;通过卡巴斯基的报告，可以知道Step1中mw1.bin的作用是：（1）使用漏洞（parcel mismatch、0day或1day），获取StartAnyWhere能力（StartAnyWhere指 Android 系统中的一种特权权限，它允许应用程序在任意位置启动其他应用程序，包括系统应用程序和第三方应用程序。例如，通过 Intent 直接启动其他应用程序的 Activity，从而实现一些特殊的功能，例如系统级别的操作、自动化测试、远程控制等）。（2）攻击系统应用，获取读写系统应用文件的能力。（3）包装漏洞的EXP，提供接口提供给上层调用。</p>
+<p>&emsp;下载 pdd 6.49 <a target="_blank" rel="noopener" href="https://com-xunmeng-pinduoduo.en.uptodown.com/android/download/91472728">链接</a>。可以定位到文件：</p>
 <p><code>pinduoduo-6-49-0.zip\assets\component\com.xunmeng.pinduoduo.AliveBaseAbility.7z\com.xunmeng.pinduoduo.AliveBaseAbility\vmp_src\mw1.bin</code>。</p>
-<p>&emsp;此文件属于提权层。</p>
-<p>&emsp;由于mw1.bin文件使用vmp做了保护，因此使用<a target="_blank" rel="noopener" href="https://github.com/davinci1012/pinduoduo_backdoor_unpacker/tree/main/manwe-unpacker">脚本</a>（使用manwe脚本，此脚本可以以后看看）对其进行处理，得到某文件夹，使用jadx打开此文件夹（<strong>不要用jeb打开，jeb只能打开文件</strong>）。</p>
-<p>&emsp;通过卡巴斯基的报告，可以知道Step1中mw1.bin的作用是：（1）使用漏洞（parcel mismatch、0day或1day），获取StartAnyWhere能力（StartAnyWhere指 Android 系统中的一种特权权限，它允许应用程序在任意位置启动其他应用程序，包括系统应用程序和第三方应用程序。例如，通过 Intent 直接启动其他应用程序的 Activity，从而实现一些特殊的功能，例如系统级别的操作、自动化测试、远程控制等）。（2）攻击系统应用，获取读写系统应用文件的能力。（3）包装漏洞的EXP，提供接口提供给上层调用。</p>
-<p>&emsp;我们将mw1.bin叫做alive_base_ability_plugin（由于路径）。其主要函数为alive.base.ability.comp.main，函数跟踪如下所示：</p>
+<h4 id="反调-amp-加固"><a href="#反调-amp-加固" class="headerlink" title="反调&amp;加固"></a>反调&amp;加固</h4><h5 id="DebugCheck"><a href="#DebugCheck" class="headerlink" title="DebugCheck()"></a>DebugCheck()</h5><p><img src="/images/pdd-analysis-by-kaspersky/image-20230725143611596.png" alt="image-20230725143611596" style="zoom: 67%;" /></p>
+<p>&emsp;可以发现，pdd 针对不同的手机厂商用了不同的反调试检测。</p>
+<p>&emsp;由于 mw1.bin 文件使用 vmp 做了保护，因此使用<a target="_blank" rel="noopener" href="https://github.com/davinci1012/pinduoduo_backdoor_unpacker/tree/main/manwe-unpacker">脚本</a>（manwe）对其进行处理，得到某文件夹。通过分析，可以发现 mw1.bin 的主要函数为 alive.base.ability.comp.main，如下所示：</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230724181257885.png" alt="image-20230724181257885" style="zoom: 67%;" /></p>
-<p>&emsp;我们接下来分析提权层模块所提供的各个接口。</p>
-<h4 id="IStrategy"><a href="#IStrategy" class="headerlink" title="IStrategy"></a>IStrategy</h4><p>&emsp;报告中说此结构含义是<strong>根据名字获取Strategy</strong>，跟踪如下：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724184604657.png" alt="image-20230724184604657" style="zoom: 67%;" /></p>
+<p>&emsp;可以发现其中有多个接口，按接口进行分析：</p>
+<h4 id="IStrategy"><a href="#IStrategy" class="headerlink" title="IStrategy"></a>IStrategy</h4><p><img src="/images/pdd-analysis-by-kaspersky/image-20230724184604657.png" alt="image-20230724184604657" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230724184721988.png" alt="image-20230724184721988" style="zoom: 67%;" /></p>
-<p>&emsp;mainFunction的功能是是从ConcurrentHashMap（也就是d）中获得字符串对应的object对象，或没有则重新创建一个。此对象属于：</p>
-<p><code>com.xunmeng.pinduoduo.alive.strategy.interfaces.plugin.ObjectCreator</code></p>
-<p>&emsp;然鹅我并没有找到这个类，类似的情况还有很多。猜测是可能是在另一个bin文件中定义的。</p>
-<h4 id="IReceiver、IService、IActivity"><a href="#IReceiver、IService、IActivity" class="headerlink" title="IReceiver、IService、IActivity"></a>IReceiver、IService、IActivity</h4><p>&emsp;这3个组件的情况于（1）一模一样，报告中说是<strong>组件化虚拟接口</strong>，我并没有分析出来。</p>
-<h4 id="VivoBindServiceComp"><a href="#VivoBindServiceComp" class="headerlink" title="VivoBindServiceComp"></a>VivoBindServiceComp</h4><p>&emsp;跟进流程如下：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724195953747.png" alt="image-20230724195953747" style="zoom: 67%;" /></p>
+<p>&emsp;可以发现，mainFunction 的功能是是从 d（ConcurrentHashMap）中获得字符串对应的 object ，或没有则重新创建一个。此对象属于 com.xunmeng.pinduoduo.alive.strategy.interfaces.plugin.ObjectCreator，是在另一个bin 文件中定义的。最终，可以总结 IStrategy 根据名称获取 Strategy。而 IReceiver、IService、IActivity 这 3 个组件的情况与 IStrategy 类似，都是组件化虚拟接口，在其他 bin 文件中定义。</p>
+<h4 id="VivoBindServiceComp"><a href="#VivoBindServiceComp" class="headerlink" title="VivoBindServiceComp"></a>VivoBindServiceComp</h4><p><img src="/images/pdd-analysis-by-kaspersky/image-20230724195953747.png" alt="image-20230724195953747" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230724200029759.png" alt="image-20230724200029759" style="zoom: 67%;" /></p>
-<p>&emsp;此程序是重新生成了一下IVivoBindServiceComp。报告中写此接口是<strong>Vivo的某个组件泄露漏洞利⽤</strong>，但是由于并没有找到IVivoBindServiceComp所在的文件，因此我并未分析出来此功能。</p>
-<h4 id="ISonaAbility"><a href="#ISonaAbility" class="headerlink" title="ISonaAbility"></a>ISonaAbility</h4><p>&emsp;跟踪流程如下：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724201043365.png" alt="image-20230724201043365" style="zoom: 67%;" /></p>
+<p>&emsp;此组件重新生成了 IVivoBindServiceComp，其是 Vivo 的组件泄露漏洞利⽤。TODO。</p>
+<h4 id="ISonaAbility"><a href="#ISonaAbility" class="headerlink" title="ISonaAbility"></a>ISonaAbility</h4><p><img src="/images/pdd-analysis-by-kaspersky/image-20230724201043365.png" alt="image-20230724201043365" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230724201138750.png" alt="image-20230724201138750" style="zoom: 67%;" /></p>
-<p>&emsp;报告中说是<strong>构造提权Intent后，通过SonaAbility进行攻击，执行提权Intent。</strong>但是我没看出来（？？感觉分析流程不是很详细啊）</p>
-<p>&emsp;SonaAbility包装了0day、1day、Bundle Mismatch漏洞进行提权。</p>
-<p>&emsp;这些漏洞的共同特点在于框架中Parcelable对象（跨进程通信）的写入（序列化）和读出（反序列化）不一致，比如将一个成员变量写入时为long，而读出时为int。我们可以构造有漏洞的Parcelable对象，实现以Settings系统应用（管理设备系统设置的应用程序）发送任意Intent启动Activity的能力。</p>
-<p>&emsp;普通App将Bundle（多种数据类型打包成一个）序列化后通过Binder传递给system_server，然后system_server通过Bundle的一系列getXXX（如getBoolean、getParcelable）函数（获取数据类型）触发反序列化，获得KEY_INTENT这个键的值，即一个intent对象，并进行安全检查。若检查通过，调用writeBundle进行第二次序列化，然后Settings系统应用中反序列化后重新获得{KEY_INTENT:intent}，并调用startActivity。</p>
-<p>&emsp;如果第二次序列化和反序列化过程不匹配，那么就有可能在system_server检查时Bundle中恶意的{KEY_INTENT:intent}不出现，而在Settings中出现，那么就完美地绕过了checkKeyIntent检查。</p>
+<p>&emsp;从上图发现，构造提权 Intent 后，使用 SonaAbility 进行攻击，执行提权Intent。其中， SonaAbility 包装了 0day、1day、Bundle Mismatch 漏洞进行提权。</p>
+<p>&emsp;这些漏洞的共同特点在于框架中 Parcelable 对象（跨进程通信）的写入（序列化）和读出（反序列化）不一致，比如将一个成员变量写入时为 long，而读出时为 int。我们可以构造有漏洞的 Parcelable 对象，实现以 Settings 系统应用（管理设备系统设置的应用程序）发送任意 Intent 启动 Activity 的能力。</p>
+<p>&emsp;普通 App 将 Bundle（多种数据类型打包成一个）序列化后通过 Binder 传递给 system_server，然后 system_server 通过 Bundle 的一系列 getXXX（如 getBoolean、getParcelable）函数（获取数据类型）触发反序列化，获得 KEY_INTENT 的值，即一个 intent 对象，并进行安全检查。若检查通过，调用 writeBundle 进行第二次序列化，然后 Settings 系统应用中反序列化后重新获得<code>&#123;KEY_INTENT:intent&#125;</code>，并调用 startActivity。</p>
+<p>&emsp;如果第二次序列化和反序列化过程不匹配，那么就有可能在 system_server 检查时 Bundle 中恶意的<code>&#123;KEY_INTENT:intent&#125;</code>不出现，而在 Settings 中出现，那么就绕过了 checkKeyIntent 检查。</p>
 <p>&emsp;图示如下：</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725232026034.png" alt="image-20230725232026034" style="zoom:67%;" /></p>
-<p>&emsp;SonaAbility接收其他组件包装的Intent，在start(SonaRequest)中取出，并通过平台调⽤对应的0day漏洞，如下所示。</p>
+<p>&emsp;SonaAbility 接收其他组件包装的 Intent，在 start(SonaRequest) 中取出，并通过平台调⽤对应的漏洞，如下所示：</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725233510309.png" alt="image-20230725233510309" style="zoom:67%;" /></p>
-<p>（1）首先分析红框代码的作用。跟踪此代码，可以发现：</p>
+<p>（1）红框代码：</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725233727886.png" alt="image-20230725233727886" style="zoom:67%;" /></p>
-<p>&emsp;猜测是在应用程序启动时跟踪性能和数据。</p>
-<p>（2）其次是绿框代码，跟踪如下：</p>
+<p>&emsp;可以发现，它是在应用程序启动时跟踪性能和数据。</p>
+<p>（2）绿框代码：</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230726104614132.png" alt="image-20230726104614132" style="zoom:67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230726104933334.png" alt="image-20230726104933334" style="zoom:67%;" /></p>
-<p>&emsp;利用startActivity函数启动intent并跟踪性能和数据。</p>
-<p>（3）最后是蓝色框的代码，易得也是记录数据。</p>
-<p>（4）并未发现报告中SonaAbility中的makeBundle、isHuaweiVersion、m394d、getPlatformPlugin、m371f、mo326g、m373d函数，猜测是pdd版本不同。</p>
-<h4 id="IAlivePullStartUp"><a href="#IAlivePullStartUp" class="headerlink" title="IAlivePullStartUp"></a>IAlivePullStartUp</h4><p>&emsp;分析流程如下：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724201536278.png" alt="image-20230724201536278" style="zoom: 67%;" /></p>
-<p>&emsp;上图中，<code>...pullstartup.a()</code>是一个类，其中包含很多函数，重点有4个函数，分别为：makeBundle、startAccount、startSpecialActivity、stopSpecialActivity。<strong>其他组件可以调用此接口发动Intent攻击（不太懂）。</strong></p>
-<h4 id="IAliveBaseAbility"><a href="#IAliveBaseAbility" class="headerlink" title="IAliveBaseAbility"></a>IAliveBaseAbility</h4><p>&emsp;报告中说这是核心组件，<strong>提供基于平台的保活能力、基于提权漏洞特权文件的访问能力。</strong>分析流程如下：</p>
+<p>&emsp;可发现它利用 startActivity 函数启动 intent 并跟踪性能和数据。</p>
+<h4 id="IAlivePullStartUp"><a href="#IAlivePullStartUp" class="headerlink" title="IAlivePullStartUp"></a>IAlivePullStartUp</h4><p><img src="/images/pdd-analysis-by-kaspersky/image-20230724201536278.png" alt="image-20230724201536278" style="zoom: 67%;" /></p>
+<p>&emsp;<code>...pullstartup.a()</code>是一个类，其中包含很多函数，重点有 4 个函数，分别为：makeBundle、startAccount、startSpecialActivity、stopSpecialActivity，其他组件可以调用此接口执行 Intent 攻击。</p>
+<h4 id="IAliveBaseAbility"><a href="#IAliveBaseAbility" class="headerlink" title="IAliveBaseAbility"></a>IAliveBaseAbility</h4><p>IAliveBaseAbility&emsp;报告中说这是核心组件，<strong>提供基于平台的保活能力、基于提权漏洞特权文件的访问能力。</strong>分析流程如下：</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230724205808292.png" alt="image-20230724205808292" style="zoom: 67%;" /></p>
 <p>&emsp;跟进<code>xxx.impl.a()</code>，可以发现其中的重要的函数：</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230724210634829.png" alt="image-20230724210634829" style="zoom: 67%;" /></p>
 <p>&emsp;分别跟进其中重要的函数：</p>
-<h5 id="AliveStartup"><a href="#AliveStartup" class="headerlink" title="AliveStartup()"></a>AliveStartup()</h5><p>&emsp;其中提供了多种功能：</p>
-<p>&emsp;&emsp;（a）canStartBackgroundActivity()。是否可以启动后台活动。</p>
+<h5 id="AliveStartup"><a href="#AliveStartup" class="headerlink" title="AliveStartup()"></a>AliveStartup()</h5><p>&emsp;&emsp;（a）canStartBackgroundActivity()。是否可以启动后台活动。</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230724233215251.png" alt="image-20230724233215251" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230724233257255.png" alt="image-20230724233257255" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（b）canStartBgActivityByAlarm(int i, boolean z)。从RemoteConfig中实例化start_bg_activity_by_alarm对象，可以通过Alarm启动后台活动。</p>
+<p>&emsp;&emsp;（b）canStartBgActivityByAlarm。从 RemoteConfig 中实例化 start_bg_activity_by_alarm 对象，可以通过 Alarm 启动后台活动。</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725123945202.png" alt="image-20230725123945202" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725124023123.png" alt="image-20230725124023123" style="zoom: 67%;" /></p>
 <p>&emsp;&emsp;（c）canStartBgActivityByFullScreenNotification()。通过通知启动后台活动。</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725124326736.png" alt="image-20230725124326736" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725124659230.png" alt="image-20230725124659230" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725124906160.png" alt="image-20230725124906160" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（d）canStartBgActivityByFullScreenNotification(int i, boolean z)。与（c）类似，只不过（c）自动添加了权限检查。</p>
+<p>&emsp;&emsp;（d）canStartBgActivityByFullScreenNotification。与（c）类似，只不过（c）自动添加了权限检查。</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725125114425.png" alt="image-20230725125114425" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（e）grantAutoStartPermission()。获得自启动权限。</p>
+<p>&emsp;&emsp;（e）grantAutoStartPermission。获得自启动权限。</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725125351912.png" alt="image-20230725125351912" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（f）hasAutoStartPermission()。针对三星设备，修改系统自启动设置，达到保活。</p>
+<p>&emsp;&emsp;（f）hasAutoStartPermission。针对三星设备，修改系统自启动设置，达到保活。</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130003768.png" alt="image-20230725130003768" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130034928.png" alt="image-20230725130034928" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130048211.png" alt="image-20230725130048211" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（g）startBackgroundActivity(Intent intent)。通过PendingIntent.getActivity函数启动Activity。</p>
+<p>&emsp;&emsp;（g）startBackgroundActivity。通过PendingIntent.getActivity函数启动Activity。</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130358433.png" alt="image-20230725130358433" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130441062.png" alt="image-20230725130441062" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130515295.png" alt="image-20230725130515295" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（h）startBackgroundActivityByAlarm(Intent intent)。使用bg_act_alarm_clock_5300启动后台activity。</p>
+<p>&emsp;&emsp;（h）startBackgroundActivityByAlarm。使用bg_act_alarm_clock_5300启动后台activity。</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130705503.png" alt="image-20230725130705503" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130816929.png" alt="image-20230725130816929" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（i）startBackgroundActivityByAssistant(Intent intent)。此功能未实现。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725133352371.png" alt="image-20230725133352371" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725133419559.png" alt="image-20230725133419559" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（j）startBackgroundActivityByTheme(Intent intent)。利用主题管理器启动后台活动。</p>
+<p>&emsp;&emsp;（i）startBackgroundActivityByTheme(Intent intent)。利用主题管理器启动后台活动。</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725133516444.png" alt="image-20230725133516444" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725133602759.png" alt="image-20230725133602759" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（k）startBackgroundByFullScreenNotification(Intent intent)。针对小米设备，通过全屏通知启动后台程序。</p>
+<p>&emsp;&emsp;（j）startBackgroundByFullScreenNotification。针对小米设备，通过全屏通知启动后台程序。</p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725134915901.png" alt="image-20230725134915901" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725135003070.png" alt="image-20230725135003070" style="zoom: 67%;" /></p>
-<h5 id="DebugCheck"><a href="#DebugCheck" class="headerlink" title="DebugCheck()"></a>DebugCheck()</h5><p><img src="/images/pdd-analysis-by-kaspersky/image-20230725142910448.png" alt="image-20230725142910448" style="zoom: 67%;" /></p>
-<p>&emsp;debugCheck是一个类，其中重要的函数有：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725143611596.png" alt="image-20230725143611596" style="zoom: 67%;" /></p>
-<p>&emsp;可以发现，pdd针对不同的手机厂商用了不同的反调试检测。</p>
 <h5 id="DoubleInstance"><a href="#DoubleInstance" class="headerlink" title="DoubleInstance()"></a>DoubleInstance()</h5><p><img src="/images/pdd-analysis-by-kaspersky/image-20230725144138868.png" alt="image-20230725144138868" style="zoom: 67%;" /></p>
 <p><img src="/images/pdd-analysis-by-kaspersky/image-20230725144436436.png" alt="image-20230725144436436" style="zoom: 67%;" /></p>
 <p>&emsp;主要是通过判断/data/user/deviceId这个文件是否存在，来判断是否双开。</p>
@@ -297,6 +271,12 @@
 <p>&emsp;alive_security_biz_plugin。如果说alive_base_ability_plugin是对提权能力的包装，那这个Plugin则是驱动器，通过各种方式利用之前的能力（也包括⼀些新的漏洞）来实现保活、窃取隐私等目的。该Plugin包含了数十个Strategy，每个Strategy都对应着一套利用代码。此plugin也包含大量数据收集逻辑，例如各种用户身份的collector，监控其他App运行、DAU情况。</p>
 <p>&emsp;smart_shortcut_plugin。通过<strong>对Launcher桌面的控制</strong>，实现保活、防卸载等功能。例如通过提权后修改Launcher的布局，加入一个假的<br>快捷方式图标而把真实图标隐藏掉，可达到防卸载目的。将图标移动到用户常用屏处，可达到提高转化率效果。通过放置1*1的隐藏widget，可达到保活目的等。 </p>
 <p>&emsp;app_sd_thousand_plugin。写入其他App的动态代码文件后<strong>进行提权</strong>并驻留后门的逻辑，以及利用系统备份功能窃取其他应用隐私数据的模块，例如利用系统备份功能，窃取微信聊天记录。在提权成功后，其会从远端再次拉取dex文件。</p>
+<h2 id="0x01-pdd-分析总结"><a href="#0x01-pdd-分析总结" class="headerlink" title="0x01 pdd 分析总结"></a>0x01 pdd 分析总结</h2><p>（1）保活：指将自己加入系统的自启动白名单、关联启动白名单、后台白名单、锁屏白名单、悬浮窗、1像素透明图标、省电策略等⽅式，绕过系统强制休眠限制，持续后台存活。修改隐藏自身耗电量，逃避用户注意。</p>
+<p>（2）诱导欺骗行为：通过相关权限，绕过系统限制构造相关全屏广告、虚假通知（例如锁屏、解锁、全屏红包消息），诱导用户点击；劫持用户壁纸，劫持用户日历、闹钟等；⼀直展示消息未读状态，吸引用户点击；修改用户电池状态。</p>
+<p>（3）防卸载行为：通过假图标、Widget等⽅式，让用户在桌面无法删除 app；或通过注入系统进程⽅式，拦截回滚用户卸载操作。</p>
+<p>（4）信息收集：收集用户的位置、Wifi、识别码、相册、安装包信息、⽤户帐户信息、历史通知等，甚⾄包括聊天记录，对用户进行精准画像。监控淘宝、头条等多个头部厂商。</p>
+<p>（5）攻击、感染行为。提权后攻击其他App、系统App，覆盖文件驻留后门，进行持久化。</p>
+<p>（6）远程静默安装行为和链接伪造。利用应用市场接口、浏览器、微信WebView漏洞，实现⽤户点击链接打开网页即被静默安装拼多多。</p>
 
   
 	</div>
@@ -405,7 +385,7 @@
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#pdd%E6%81%B6%E6%84%8F%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90"><span class="toc-article-text">pdd恶意行为分析</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x00-pdd%E4%B9%8B%E5%8D%81%E5%AE%97%E7%BD%AA"><span class="toc-article-text">0x00 pdd之十宗罪</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x01-%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B%E5%A4%8D%E7%8E%B0"><span class="toc-article-text">0x01 分析流程复现</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#alive-base-ability-plugin"><span class="toc-article-text">alive_base_ability_plugin</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#IStrategy"><span class="toc-article-text">IStrategy</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#IReceiver%E3%80%81IService%E3%80%81IActivity"><span class="toc-article-text">IReceiver、IService、IActivity</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#VivoBindServiceComp"><span class="toc-article-text">VivoBindServiceComp</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#ISonaAbility"><span class="toc-article-text">ISonaAbility</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#IAlivePullStartUp"><span class="toc-article-text">IAlivePullStartUp</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#IAliveBaseAbility"><span class="toc-article-text">IAliveBaseAbility</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#AliveStartup"><span class="toc-article-text">AliveStartup()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#DebugCheck"><span class="toc-article-text">DebugCheck()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#DoubleInstance"><span class="toc-article-text">DoubleInstance()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#FileProvider"><span class="toc-article-text">FileProvider()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#FileProviderV2"><span class="toc-article-text">FileProviderV2()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#FloatWindow"><span class="toc-article-text">FloatWindow()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#ScreenRecordCheck"><span class="toc-article-text">ScreenRecordCheck()</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-article-text">总结</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E9%92%88%E5%AF%B9huawei"><span class="toc-article-text">针对huawei</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E9%92%88%E5%AF%B9xiaomi"><span class="toc-article-text">针对xiaomi</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E9%92%88%E5%AF%B9samsung"><span class="toc-article-text">针对samsung</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#base-secdt-comp-plugin"><span class="toc-article-text">base_secdt_comp_plugin</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96plugin"><span class="toc-article-text">其他plugin</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#pdd%E6%81%B6%E6%84%8F%E8%A1%8C%E4%B8%BA%E5%88%86%E6%9E%90"><span class="toc-article-text">pdd恶意行为分析</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x00-pdd-%E7%89%88%E6%9C%AC"><span class="toc-article-text">0x00 pdd 版本</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x00-%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B"><span class="toc-article-text">0x00 分析流程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#alive-base-ability-plugin"><span class="toc-article-text">alive_base_ability_plugin</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E5%8F%8D%E8%B0%83-amp-%E5%8A%A0%E5%9B%BA"><span class="toc-article-text">反调&amp;加固</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#DebugCheck"><span class="toc-article-text">DebugCheck()</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#IStrategy"><span class="toc-article-text">IStrategy</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#VivoBindServiceComp"><span class="toc-article-text">VivoBindServiceComp</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#ISonaAbility"><span class="toc-article-text">ISonaAbility</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#IAlivePullStartUp"><span class="toc-article-text">IAlivePullStartUp</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#IAliveBaseAbility"><span class="toc-article-text">IAliveBaseAbility</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#AliveStartup"><span class="toc-article-text">AliveStartup()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#DoubleInstance"><span class="toc-article-text">DoubleInstance()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#FileProvider"><span class="toc-article-text">FileProvider()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#FileProviderV2"><span class="toc-article-text">FileProviderV2()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#FloatWindow"><span class="toc-article-text">FloatWindow()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#ScreenRecordCheck"><span class="toc-article-text">ScreenRecordCheck()</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-article-text">总结</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E9%92%88%E5%AF%B9huawei"><span class="toc-article-text">针对huawei</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E9%92%88%E5%AF%B9xiaomi"><span class="toc-article-text">针对xiaomi</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#%E9%92%88%E5%AF%B9samsung"><span class="toc-article-text">针对samsung</span></a></li></ol></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#base-secdt-comp-plugin"><span class="toc-article-text">base_secdt_comp_plugin</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%85%B6%E4%BB%96plugin"><span class="toc-article-text">其他plugin</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x01-pdd-%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93"><span class="toc-article-text">0x01 pdd 分析总结</span></a></li></ol></li></ol>
 		</div>
 	
 	</div>

