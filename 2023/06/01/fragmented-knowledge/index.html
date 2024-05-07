@@ -398,6 +398,10 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">字节码偏移的增量。</span><br><span class="line">从上一个记录到当前记录的行号增量。</span><br></pre></td></tr></table></figure>
 <p>&emsp;如下图所示：</p>
 <p><img src="/images/fragmented-knowledge/image-20240325215644570.png" alt="image-20240325215644570" style="zoom:67%;" /></p>
+<h4 id="mmap-与-vdso-页面"><a href="#mmap-与-vdso-页面" class="headerlink" title="mmap 与 vdso 页面"></a>mmap 与 vdso 页面</h4><p>mmap 内存映射：</p>
+<p><img src="/images/fragmented-knowledge/image-20240507204927809.png" alt="image-20240507204927809" style="zoom:67%;" /></p>
+<p>&emsp;系统调用涉及到从用户态切换到内核态，这是一个耗时的操作。<code>vDSO</code> 提供了一种机制，允许用户程序直接在用户态执行某些系统调用，无需切换到内核态。这通过将一小块代码（即 <code>vDSO</code> 代码）映射到每个进程的地址空间来实现。</p>
+<h4 id="gcc-编译选项"><a href="#gcc-编译选项" class="headerlink" title="gcc 编译选项"></a>gcc 编译选项</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-no-pie。不生成位置无关的可执行文件。</span><br><span class="line">-fno-pie。不生成位置无关的代码。</span><br><span class="line">-ldl。告诉 GCC 链接时需要包括动态链接库 libdl。这个库提供了动态加载和链接功能，如 dlopen, dlclose, dlsym, dlerror 等函数。</span><br><span class="line">-fpic。为共享库生成位置无关代码。</span><br><span class="line">-pie。生成动态链接的位置无关可执行文件，通常需要同时指定 -fpie。</span><br><span class="line">-fpie。类似于-fpic，但生成的位置无关代码只能用于可执行文件，通常同时指定 -pie。</span><br><span class="line">-m32。32 位编译。</span><br><span class="line">-fno-stack-protector。关闭 canary。</span><br><span class="line">-z noexecstack。开启 NX。</span><br></pre></td></tr></table></figure>
 
   
 	</div>
