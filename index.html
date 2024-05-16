@@ -136,22 +136,7 @@
   <div class="row">
 	
 	
-		<h1 id="JDD：通过自下而上的-gadget-搜索和数据流辅助的有效-payload-以有效检测-Java-反序列化链"><a href="#JDD：通过自下而上的-gadget-搜索和数据流辅助的有效-payload-以有效检测-Java-反序列化链" class="headerlink" title="JDD：通过自下而上的 gadget 搜索和数据流辅助的有效 payload 以有效检测 Java 反序列化链"></a>JDD：通过自下而上的 gadget 搜索和数据流辅助的有效 payload 以有效检测 Java 反序列化链</h1><p>Java 对象注入（JOI）是影响 Java 反序列化的一类严重漏洞，它允许攻击者注入精心设计的序列化对象，从而触发一系列链式内部方法（称为 gadgets），进而实现 RCE。之前的工作研究了检测和链接 JOI 漏洞的 gadget 的问题，使用静态搜索可能的 gadget 链并通过模糊测试动态构建有效 payload。然而，先前的工作面临以下两个挑战：（i）静态 gadget 中的路径爆炸；（ii）缺乏通过动态 payload 构造中的对象字段连接的细粒度对象关系。</p>
-<p>JDD 通过自下而上的方法解决静态路径爆炸问题，首先寻找 gadget 片段，然后将 gadget 片段从 sink 到 source 链接起来。该方法将最大静态搜索时间从指数减少到多项式。另一方面，JDD 构建了注入对象构造图（IOCD），它对注入对象字段之间的数据流依赖关系进行建模，以促进动态模糊测试。我们对 6 个真实 Java 应用程序进行的 JDD 评估揭示了 127 个 0 day 可利用的小工具链。</p>
-<p>ODDFuzz 通过 DFS 静态搜索可能的gadget，然后动态地将目标程序模糊化为灰盒以验证 gadget 链。首先，之前的工作通常采用自上而下的静态方法来广泛检查小工具从源到接收器的潜在路径。然而，这样的搜索经常会遇到路径爆炸的问题，尤其是当 gadget 链中涉及常见的 Java 方法（例如 equals 和 put）时。例如，我们的实验表明，像 ODDFuzz 这样的静态分析方法无法完成对 3.6MB 小型 Java 应用程序的分析。其次，现有工具很多针对 JOI 漏洞检测进行静态分析，不可避免地存在较高的误报率，ODDFuzz 引入了动态模糊测试来减少误报。然而，ODDFuzz 没有考虑每个小工具应该满足的约束。特别是，细粒度的数据在每个小工具的不同对象字段之间流动，导致对象结构的不精确，从而导致不正确的有效负载。</p>
-<h2 id="0-day-链举例"><a href="#0-day-链举例" class="headerlink" title="0 day 链举例"></a>0 day 链举例</h2><p>sofa-rpc 中发现的零日 gadget 链，广泛应用于许多企业公司的服务器端云中。gadget 链从 Java 反序列化方法开始（第 4 行）。该链以第 54 行的 Java 反射调用结束，然后在第 59 行发起 JNDI 注入攻击。请注意，链上的每个 Java 方法调用都被视为一个 gadget，例如第 4 行的 put() 方法。然后，两个动态分派方法之间的 Java 方法调用被视为一个 gadget fragment。</p>
-<p>我们首先详细描述图 1 中具有五个不同 gadget 片段的 gadget 链。该小工具从 Fragment I（第 1 行）开始，其中在反序列化时调用对象 HashMap 的 put() 方法（第 4 行）。如果 HashMap 中两个元素的哈希值相同，equals() 方法将被调用，该方法可能在 NodeImpl 类中具有多态实现，从而触发 Fragment II。然后，NodeImpl类触发另一个 equals() 方法，该方法可能在 ConcurrentHashMap 类中具有多态实现，从而触发Fragment III。接下来，get()方法在 UIDefaults 类中有一个多态实现，导致 Fragment IV，它进一步调用getFromHashtable() 方法。最后，第 39 行的 createValue() 方法调用调用属于片段 V 的第 51 行中的多态方法定义，该多态方法定义在第 54 行调用 Java 反射，从而在片段 VI 的第 59 行调用 JNDI 攻击。</p>
-<p><img src="/images/java-deserialization/image-20240515124647881.png" alt="image-20240515124647881" style="zoom:67%;" /></p>
-<h2 id="挑战和解决方案概述"><a href="#挑战和解决方案概述" class="headerlink" title="挑战和解决方案概述"></a>挑战和解决方案概述</h2><ul>
-<li><p>像 DFS 这样的自上而下的搜索会多次分析某些方法，从而导致冗余。JDD 一次性分析源和接收器之间所有可能的 gadget，并将它们形成 gadget 片段。然后，JDD采用从宿到源的自下而上的搜索方式，将所有分片链接成一条链。</p>
-</li>
-<li><p>注入对象可能具有复杂的结构。下图 a 显示了激励示例的注入对象结构。UIDfaults 和 ConcurrentHashMap 是正确负载中 NodeImpl 对象下的两个键。然而，之前的工作，例如 ODDFuzz，只考虑从 gadget 链推断的类层次结构，因此它们会生成错误的对象结构，如下图 b 所示，因为 UIDfaults 的 get() 方法是在 ConcurrentHashMap 之后调用的。我们设计了 IOCD，具体来说，图 1 中两条不同颜色的虚线展示了这样的两个数据流。 <code>key</code>（第 8 行）流向 <code>this.key</code>（第 17 行），然后流向 <code>this.table[index].key</code>（第 27 行）；然后，<code>p.key</code>（第 8 行）流向 <code>((NodeImpl) obj).key</code>（第 17 行），然后流向 <code>(Map&lt;?,?&gt;)o</code>（第 27 行）。因此，有两个 NodeImpl 对象，并且 UIDfaults 位于一个 NodeImpl 对象的 key 下，而不是 ConcurrentHashMap 的表中。</p>
-</li>
-</ul>
-<p><img src="/images/java-deserialization/image-20240515125857896.png" alt="image-20240515125857896" style="zoom:67%;" /></p>
-<h2 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h2><p><img src="/images/java-deserialization/image-20240515131659455.png" alt="image-20240515131659455" style="zoom:67%;" /></p>
-<h2 id="使用的库"><a href="#使用的库" class="headerlink" title="使用的库"></a>使用的库</h2><p>&emsp;我们使用超过 25,000 行新 Java 代码（不包括任何第三方库）实现了 JDD。我们将在论文的相机版本中开源 JDD。 JDD的静态污点分析模块是基于 Soot [11]和 FlowDroid [12] 实现的，FlowDroid 是流敏感、对象敏感和上下文敏感的数据流分析工具。为了识别动态代理中的小工具片段，我们在其方法调用处理程序中实现了路径敏感分析。此外，我们还进行了轻量级指针分析，以减少识别小工具片段时的跳转候选者。 JDD的动态模糊测试模块是基于 JQF[13]、[14] 实现的。我们首先使用 ASM [15] 来检测目标 Java 程序，以收集所需的运行时上下文来指导我们的模糊测试引擎。然后，我们定制了 JQF 来构建一个定向模糊测试框架，用于生成可利用的注入对象。为了避免 JDD 陷入难以检测的链条，我们根据经验将静态分析中识别每个 gadget 片段的时间限制为 30 秒，每轮模糊测试的时间限制为 120 秒。</p>
-
+		<h1 id="JDD：通过自下而上的-gadget-搜索和数据流辅助的有效-payload-以有效检测-Java-反序列化链"><a href="#JDD：通过自下而上的-gadget-搜索和数据流辅助的有效-payload-以有效检测-Java-反序列化链" class="headerlink" title="JDD：通过自下而上的 gadget 搜索和数据流辅助的有效 payload 以有效检测 Java 反序列化链"></a>JDD：通过自下而上的 gadget 搜索和数据流辅助的有效 payload 以有效检测 Java 反序列化链</h1>
 	
 	</div>
   <a type="button" href="/2024/05/15/java-deserialization/#more" class="btn btn-default more">阅读此文</a>
