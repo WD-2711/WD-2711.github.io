@@ -122,6 +122,88 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/06/02/camera-experiment/" >camera-experiment</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-06-02  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="摄像头实验"><a href="#摄像头实验" class="headerlink" title="摄像头实验"></a>摄像头实验</h1><h2 id="摘要："><a href="#摘要：" class="headerlink" title="## 摘要："></a>## 摘要：</h2><p>&emsp;本课程报告完成了一个基于STM32的摄像头控制项目。软件上，项目并未使用HAL库，而是使用寄存器库，直接对开发板、屏幕、摄像头等硬件的寄存器进行操作。项目涉及了多种头文件，例如stm32f10x.h（定义了STM32F10x芯片的寄存器定义和外设结构体，可以方便地访问和配置STM32F10x芯片的外设）、system_stm32f10x.h（STM32F10x芯片的系统配置函数，初始化时钟系统，设置系统时钟源和时钟频率）等，这些都是来自MCD Application团队提供的头文件。在个人开发中，结合开发板、摄像头、屏幕对应的开发文档与提供的接口代码，设计编程了按键初始化、屏幕输出字符/刷新、摄像头画面风格等函数，并在main函数中进行硬件操作的结合。最终，使用STM32 F103ZET6开发板，结合MCU屏幕与摄像头，可以实现两个功能：（1）在屏幕中可以看到摄像头的画面；（2）使用按键，可以调节摄像头显示画面的风格。</p>
+	
+	</div>
+  <a type="button" href="/2023/06/02/camera-experiment/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2023/06/01/fragmented-knowledge/" >fragmented-knowledge</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-06-01  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="一些小知识"><a href="#一些小知识" class="headerlink" title="一些小知识"></a>一些小知识</h1><h4 id="Ring"><a href="#Ring" class="headerlink" title="Ring"></a>Ring</h4><p>&emsp;Intel的 CPU 将特权级别分为 4 个级别: RING0、RING1、RING2、RING3。Windows 只使用其中的两个级别 RING0 和 RING3，<br>RING0 只给操作系统用，RING3 谁都能用。如果普通应用程序企图执行RING0 指令，则 Windows 会显示”非法指令”错误信息。图示如下，可以看到RING2与RING1都是驱动文件使用的：</p>
+	
+	</div>
+  <a type="button" href="/2023/06/01/fragmented-knowledge/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2023/05/31/frida-study/" >frida-study</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-05-31  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="Frida学习笔记"><a href="#Frida学习笔记" class="headerlink" title="Frida学习笔记"></a>Frida学习笔记</h1><p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/fly_hps/article/details/87251759">https://blog.csdn.net/fly_hps/article/details/87251759</a></p>
+<p>安装与配置见<code>tool-use</code>。</p>
+	
+	</div>
+  <a type="button" href="/2023/05/31/frida-study/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/05/25/re-core-principle-6/" >re-core-principle-6</a>
 		</h3>
 		</div>
@@ -172,93 +254,6 @@
 	
 	</div>
   <a type="button" href="/2023/05/22/re-part-6/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/05/21/pinocchio/" >pinocchio</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-05-21  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="zk-SNARK-Pinocchio零知识证明"><a href="#zk-SNARK-Pinocchio零知识证明" class="headerlink" title="zk-SNARK Pinocchio零知识证明"></a>zk-SNARK Pinocchio零知识证明</h1><p>参考链接：<a target="_blank" rel="noopener" href="https://aandds.com/blog/zkp-snark.html#56077802">https://aandds.com/blog/zkp-snark.html#56077802</a></p>
-<p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/studyzy/article/details/115266915">https://blog.csdn.net/studyzy/article/details/115266915</a></p>
-<p><strong>定义：</strong>证明者（prover）在不泄漏任何额外信息的前提下要让验证者（verifier）确信某些陈述（Statement）是正确的。</p>
-	
-	</div>
-  <a type="button" href="/2023/05/21/pinocchio/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/05/20/OLLVM-study/" >OLLVM-study</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-05-20  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="OLLVM-原理、破解思路-amp-hook"><a href="#OLLVM-原理、破解思路-amp-hook" class="headerlink" title="OLLVM 原理、破解思路&amp;hook"></a>OLLVM 原理、破解思路&amp;hook</h1><p>参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/theseventhson/p/14861940.html">https://www.cnblogs.com/theseventhson/p/14861940.html</a></p>
-<p>&emsp;OLLVM是安卓中常用的一种混淆方法。</p>
-	
-	</div>
-  <a type="button" href="/2023/05/20/OLLVM-study/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/05/18/go-bin-re-study/" title="It is mainly the description document of the go_parser plug-in, and its content includes ModuleData, function table, source code file table, and the parsing format of each data type.">go-bin-re-study</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-05-18  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="Go-二进制文件逆向分析"><a href="#Go-二进制文件逆向分析" class="headerlink" title="Go 二进制文件逆向分析"></a>Go 二进制文件逆向分析</h1><p>文章链接：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/214940">https://www.anquanke.com/post/id/214940</a></p>
-<hr>
-<p>&emsp;最近做到过 Go 的逆向题目，上学期又自学过 Go，所以打算学一下 Go 的逆向分析。</p>
-<h2 id="0x00-相关研究"><a href="#0x00-相关研究" class="headerlink" title="0x00 相关研究"></a>0x00 相关研究</h2><p>&emsp;Go 语言靠channel、wait group、select、context 以及 sync 等辅助机制来实现 <code>CSP</code> 并发模型（可以将并发系统分解为独立的进程，从而降低系统的复杂性和耦合性）。</p>
-	
-	</div>
-  <a type="button" href="/2023/05/18/go-bin-re-study/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -438,13 +433,15 @@
 		
 			<li><a href="/categories/matrix-analysis-application/">matrix-analysis&amp;application<span>3</span></a></li>
 		
-			<li><a href="/categories/papers/">papers<span>11</span></a></li>
+			<li><a href="/categories/papers/">papers<span>12</span></a></li>
 		
-			<li><a href="/categories/pwn/">pwn<span>1</span></a></li>
+			<li><a href="/categories/pwn/">pwn<span>2</span></a></li>
 		
 			<li><a href="/categories/re/">re<span>41</span></a></li>
 		
 			<li><a href="/categories/re-book/">re-book<span>11</span></a></li>
+		
+			<li><a href="/categories/rust/">rust<span>1</span></a></li>
 		
 			<li><a href="/categories/static-analysis/">static-analysis<span>2</span></a></li>
 		
@@ -469,23 +466,23 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2024/05/15/java-deserialization/" ><i class="fa fa-file-o"></i>java-deserialization</a>
+      </li>
+    
+      <li>
+        <a href="/2024/05/08/rust-study-1/" ><i class="fa fa-file-o"></i>rust-study-1</a>
+      </li>
+    
+      <li>
+        <a href="/2024/05/08/ctf-guide-pwn-2/" ><i class="fa fa-file-o"></i>ctf-guide-pwn-2</a>
+      </li>
+    
+      <li>
         <a href="/2024/04/10/tx-security-contest-pc/" ><i class="fa fa-file-o"></i>tx-security-contest-pc</a>
       </li>
     
       <li>
         <a href="/2024/04/01/cve-2024-3094/" ><i class="fa fa-file-o"></i>cve-2024-3094</a>
-      </li>
-    
-      <li>
-        <a href="/2024/04/01/ctf-guide-pwn-1/" ><i class="fa fa-file-o"></i>ctf-guide-pwn-1</a>
-      </li>
-    
-      <li>
-        <a href="/2024/03/29/tracr-paper/" ><i class="fa fa-file-o"></i>tracr-paper</a>
-      </li>
-    
-      <li>
-        <a href="/2024/03/27/haiku-study/" ><i class="fa fa-file-o"></i>haiku-study</a>
       </li>
     
   </ul>

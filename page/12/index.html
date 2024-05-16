@@ -122,6 +122,89 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/07/06/Qiling-study/" title="Qiling study note. It mainly talk about a program about some challenges. When you overcome it, you will master this skill.">Qiling-study</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-07-06  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="Qiling框架学习"><a href="#Qiling框架学习" class="headerlink" title="Qiling框架学习"></a>Qiling框架学习</h1><p>&emsp;前几天在看雪公众号上看到这篇文章：<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-277412.htm">Qiling框架分析实战</a>，当时简单看了看开头，应该是<code>IOT</code>漏洞利用的一个执行框架，感觉和我之后想干的很契合，所以打算学习学习。</p>
+<p>&emsp;<code>Qiling</code> 框架是基于 <code>unicorn</code> 的多架构平台模拟执行框架，能够在模拟执行的基础上提供统一的分析 API，可以进行插桩分析、快照、系统调用和API劫持等操作。Joansivion提供了能够针对<code>Qiling</code>框架进行学习的<a target="_blank" rel="noopener" href="https://joansivion.github.io/qilinglabs/">程序</a>，并提供了相应的writeup。他提供的 writeup 是 arm 架构的。<strong>本文也是对其提供的程序进行分析，但是提供的题解是x86_64的。</strong></p>
+	
+	</div>
+  <a type="button" href="/2023/07/06/Qiling-study/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2023/07/03/vmp-analysis/" title="VMP study note. Mainly from &#34;Encryption and Decryption&#34;. It record vmp analysis and how to recover vmp program process.">vmp-analysis</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-07-03  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="VMProtect逆向与还原浅析"><a href="#VMProtect逆向与还原浅析" class="headerlink" title="VMProtect逆向与还原浅析"></a>VMProtect逆向与还原浅析</h1><p>&emsp;VMProtect是一个比较麻烦的壳，《加密与解密》第21章主要讲了这个壳，做一下笔记。此笔记分析的<code>VMP</code>版本为<code>1.7</code>。<code>vmp</code>可以看作一个虚拟机+虚假跳转/流程分割的壳。下面是一个虚假跳转的例子，实际上下面的两个块都只执行了<code>Mov dword ptr ss:[ebp+04h], eax</code>语句。</p>
+	
+	</div>
+  <a type="button" href="/2023/07/03/vmp-analysis/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2023/07/03/go-bin-re-study-2/" title="The notes on the reverse analysis of Go language are mainly based on Master Jieyu’s blog. The content includes interface mapping table, string analysis, and a demonstration of a DDG case.">go-bin-re-study-2</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-07-03  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="Go二进制文件逆向分析-2"><a href="#Go二进制文件逆向分析-2" class="headerlink" title="Go二进制文件逆向分析-2"></a>Go二进制文件逆向分析-2</h1><p>&emsp;之前学过一点<a href="https://wd-2711.tech/2023/05/18/go-bin-re-study/">Go逆向</a>，但是学的不深，主要是看到<code>SCTF2023-hiddenInNetwork</code>这个题目就蒙了哈哈，插件也不好使。本文主要是接着看JiaYu师傅的<a target="_blank" rel="noopener" href="https://jiayu0x.com/2020/09/28/go-binary-reverse-engineering-tips-and-example/">博文</a>，深入了解一下Go逆向。</p>
+<h2 id="0x00-itab-link（interface映射表）"><a href="#0x00-itab-link（interface映射表）" class="headerlink" title="0x00 itab_link（interface映射表）"></a>0x00 itab_link（interface映射表）</h2><p>&emsp;Interface(接口) 用来定义一组行为(Interface Methods)，所有实现了这一组行为的类型，都可称之为<strong>实现了这个接口</strong>。接口的底层定义如下：</p>
+	
+	</div>
+  <a type="button" href="/2023/07/03/go-bin-re-study-2/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/06/27/hvv-emergency/" title="Some knowledge points of hvv emergency response. It mainly includes webshell event handling process, linux, windows emergency response troubleshooting steps, etc.">hvv-emergency</a>
 		</h3>
 		</div>
@@ -170,89 +253,6 @@
 	
 	</div>
   <a type="button" href="/2023/06/19/matrix-review-question/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/06/17/stm-re/" title="针对SCTF2020的STM32门锁固件题目firmware.hex。题目相关信息：STM32F103C8T6 MCU密码锁，具有4个按键，分别为1、2、3、4，分别对应GPIO_PA1、GPIO_PA2、GPIO_PA3、GPIO_PA4。有两个flag。flag1：门锁密码； flag2：UART输出的信息。">stm-re</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-06-17  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="stm32逆向入门"><a href="#stm32逆向入门" class="headerlink" title="stm32逆向入门"></a>stm32逆向入门</h1><h2 id="0x00-背景知识"><a href="#0x00-背景知识" class="headerlink" title="0x00 背景知识"></a>0x00 背景知识</h2><p>&emsp;针对SCTF2020的STM32门锁固件题目<code>firmware.hex</code>。题目链接为：<a target="_blank" rel="noopener" href="https://xuanxuanblingbling.github.io/assets/attachment/stm32/firmware.hex">链接</a>。题目相关信息：STM32F103C8T6 MCU密码锁，具有4个按键，分别为1、2、3、4，分别对应GPIO_PA1、GPIO_PA2、GPIO_PA3、GPIO_PA4。有两个flag。<strong>flag1：门锁密码； flag2：UART输出的信息。</strong></p>
-	
-	</div>
-  <a type="button" href="/2023/06/17/stm-re/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/06/17/SCTF-2023/" title="SCTF2023 about wp in the reverse direction.">SCTF-2023</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-06-17  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>复现文件保存在<a target="_blank" rel="noopener" href="https://github.com/WD-2711/re_files/tree/main/SCTF2023-re">链接</a>。</p>
-<h1 id="SycLang"><a href="#SycLang" class="headerlink" title="SycLang"></a>SycLang</h1><p>&emsp;64位trans_IR。主要是看那个txt文件。经过化简，可以得到：</p>
-	
-	</div>
-  <a type="button" href="/2023/06/17/SCTF-2023/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/06/16/tvm-analysis/" title="水文。主要是前几天群里发了看雪的一篇文章，icey师傅通过腾讯的游戏安全技术竞赛把tvm日穿了，所以学习一下咯。具体链接不知道还有没有，反正pdf下载下来了hh。">tvm-analysis</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-06-16  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="tvm分析与还原"><a href="#tvm分析与还原" class="headerlink" title="tvm分析与还原"></a>tvm分析与还原</h1><p>&emsp;主要是前几天群里发了看雪的一篇文章，icey师傅通过腾讯的游戏安全技术竞赛把tvm日穿了，所以学习一下咯。具体链接不知道还有没有，反正pdf下载下来了hh。</p>
-<p>&emsp;tvm是腾讯的虚拟化加密壳。特征是区段中有<code>.tvm0</code>。</p>
-	
-	</div>
-  <a type="button" href="/2023/06/16/tvm-analysis/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -432,13 +432,15 @@
 		
 			<li><a href="/categories/matrix-analysis-application/">matrix-analysis&amp;application<span>3</span></a></li>
 		
-			<li><a href="/categories/papers/">papers<span>11</span></a></li>
+			<li><a href="/categories/papers/">papers<span>12</span></a></li>
 		
-			<li><a href="/categories/pwn/">pwn<span>1</span></a></li>
+			<li><a href="/categories/pwn/">pwn<span>2</span></a></li>
 		
 			<li><a href="/categories/re/">re<span>41</span></a></li>
 		
 			<li><a href="/categories/re-book/">re-book<span>11</span></a></li>
+		
+			<li><a href="/categories/rust/">rust<span>1</span></a></li>
 		
 			<li><a href="/categories/static-analysis/">static-analysis<span>2</span></a></li>
 		
@@ -463,23 +465,23 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2024/05/15/java-deserialization/" ><i class="fa fa-file-o"></i>java-deserialization</a>
+      </li>
+    
+      <li>
+        <a href="/2024/05/08/rust-study-1/" ><i class="fa fa-file-o"></i>rust-study-1</a>
+      </li>
+    
+      <li>
+        <a href="/2024/05/08/ctf-guide-pwn-2/" ><i class="fa fa-file-o"></i>ctf-guide-pwn-2</a>
+      </li>
+    
+      <li>
         <a href="/2024/04/10/tx-security-contest-pc/" ><i class="fa fa-file-o"></i>tx-security-contest-pc</a>
       </li>
     
       <li>
         <a href="/2024/04/01/cve-2024-3094/" ><i class="fa fa-file-o"></i>cve-2024-3094</a>
-      </li>
-    
-      <li>
-        <a href="/2024/04/01/ctf-guide-pwn-1/" ><i class="fa fa-file-o"></i>ctf-guide-pwn-1</a>
-      </li>
-    
-      <li>
-        <a href="/2024/03/29/tracr-paper/" ><i class="fa fa-file-o"></i>tracr-paper</a>
-      </li>
-    
-      <li>
-        <a href="/2024/03/27/haiku-study/" ><i class="fa fa-file-o"></i>haiku-study</a>
       </li>
     
   </ul>
