@@ -1,5 +1,6 @@
-https://wd-2711.tech/2024/05/08/ctf-guide-pwn-2/
 https://wd-2711.tech/2023/06/01/fragmented-knowledge/
+https://wd-2711.tech/2024/05/29/dl-runtime-resolve-details/
+https://wd-2711.tech/2024/05/08/ctf-guide-pwn-2/
 https://wd-2711.tech/2023/03/25/tool-use/
 https://wd-2711.tech/2024/05/15/java-deserialization/
 https://wd-2711.tech/2024/05/08/rust-study-1/

