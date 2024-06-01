@@ -122,6 +122,34 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/03/25/tool-use/" >tool-use</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-03-25  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="工具使用-amp-常用指令"><a href="#工具使用-amp-常用指令" class="headerlink" title="工具使用&amp;常用指令"></a>工具使用&amp;常用指令</h1><h2 id="0x00-qemu-IDA-ARM-Windows"><a href="#0x00-qemu-IDA-ARM-Windows" class="headerlink" title="0x00 qemu+IDA+ARM+Windows"></a>0x00 qemu+IDA+ARM+Windows</h2><p>&emsp;<strong>指令：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 1. 运行 raspberry</span><br><span class="line">qemu-system-arm.exe -M versatilepb -cpu arm1176 -m 256 -drive &quot;file=./arm/2020-02-13-raspbian-buster.img,if=none,index=0,media=disk,format=raw,id=disk0&quot; -device &quot;virtio-blk-pci,drive=disk0,disable-modern=on,disable-legacy=off&quot; -net &quot;user,hostfwd=tcp::5022-:22,hostfwd=tcp::23946-:23946&quot; -dtb ./arm/versatile-pb-buster.dtb -kernel ./arm/kernel-qemu-5.4.51-buster -append &quot;root=/dev/vda2 panic=1&quot; -no-reboot -net nic</span><br><span class="line"># 可以 ssh 连接树莓派， ssh pi@127.0.0.1 </span><br><span class="line"># 2. 运行 ida72 的 armlinux_server</span><br><span class="line">./armlinux_server</span><br><span class="line"># 3. 使用 ida72 来连接</span><br></pre></td></tr></table></figure>
+	
+	</div>
+  <a type="button" href="/2023/03/25/tool-use/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/03/23/peer-DID/" >peer-DID</a>
 		</h3>
 		</div>
@@ -237,34 +265,6 @@
 	
 	</div>
   <a type="button" href="/2023/03/14/hvv-question/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/03/09/KERI-design/" >KERI-design</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-03-09  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="KERI白皮书"><a href="#KERI白皮书" class="headerlink" title="KERI白皮书"></a>KERI白皮书</h1><p>&emsp;<strong>目的：为互联网作为可信任的跨层提供一个安全的去中心化信任基础</strong></p>
-<p>&emsp;<strong>相关名词：</strong>decentralized key management infrastructure (DKMI)：分散的密钥管理基础设施。自主标识符（Autonomic Identifiers：AID）和自主命名空间（Autonomic Namespaces：AN）</p>
-	
-	</div>
-  <a type="button" href="/2023/03/09/KERI-design/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -456,7 +456,7 @@
 		
 			<li><a href="/categories/static-analysis/">static-analysis<span>2</span></a></li>
 		
-			<li><a href="/categories/study-notes/">study-notes<span>17</span></a></li>
+			<li><a href="/categories/study-notes/">study-notes<span>18</span></a></li>
 		
 			<li><a href="/categories/virus-re/">virus-re<span>2</span></a></li>
 		
@@ -477,6 +477,10 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2024/05/31/ace-prepare/" ><i class="fa fa-file-o"></i>ace-prepare</a>
+      </li>
+    
+      <li>
         <a href="/2024/05/29/dl-runtime-resolve-details/" ><i class="fa fa-file-o"></i>dl_runtime_resolve-details</a>
       </li>
     
@@ -490,10 +494,6 @@
     
       <li>
         <a href="/2024/05/08/ctf-guide-pwn-2/" ><i class="fa fa-file-o"></i>ctf-guide-pwn-2</a>
-      </li>
-    
-      <li>
-        <a href="/2024/04/10/tx-security-contest-pc/" ><i class="fa fa-file-o"></i>tx-security-contest-pc</a>
       </li>
     
   </ul>
