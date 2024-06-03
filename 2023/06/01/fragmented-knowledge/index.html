@@ -424,6 +424,14 @@
 <li>为了替代 <code>vsyscall</code>，内核引入了 <code>vdso</code>（Virtual Dynamically linked Shared Object）。<code>vdso</code> 是一种共享库，内核会将其映射到用户空间，提供了一些系统调用的用户态实现。<code>vdso</code> 比 <code>vsyscall</code> 更灵活，并且解决了安全性问题，因为它允许动态链接库的加载和地址的随机化。</li>
 </ul>
 <h4 id="unistd-h-的作用"><a href="#unistd-h-的作用" class="headerlink" title="unistd.h 的作用"></a>unistd.h 的作用</h4><p>&emsp;提供了对 mac/linux 操作系统 API 的访问，是许多系统调用和库函数的声明，例如 read、fork、close 等。</p>
+<h4 id="MSR-寄存器"><a href="#MSR-寄存器" class="headerlink" title="MSR 寄存器"></a>MSR 寄存器</h4><p>&emsp;Model-Specific Register (MSR) 寄存器通常用于配置 CPU 的特定硬件功能、性能监控、调试以及其他功能。MSR 寄存器可以启用或禁用处理器的某些功能，如硬件预取、超线程、虚拟化支持等，还可以控制处理器的电源状态、频率调节等，还可以监控指令执行、缓存命中/未命中、分支预测等，还可以设置硬件断点和陷阱，用于调试程序执行，还可以用于控制虚拟化扩展和管理虚拟机。</p>
+<p>&emsp;访问 MSR 寄存器通常需要特权级别，只有操作系统内核或特权软件才能直接读写这些寄存器。在 x86 架构中，可以使用 <code>RDMSR</code> 指令读取 MSR 寄存器的值，可以使用 <code>WRMSR</code> 指令写入 MSR 寄存器。</p>
+<h4 id="Extended-Page-Tables-EPT-的原理与作用"><a href="#Extended-Page-Tables-EPT-的原理与作用" class="headerlink" title="Extended Page Tables (EPT) 的原理与作用"></a>Extended Page Tables (EPT) 的原理与作用</h4><p>&emsp;Extended Page Tables (EPT) 是 Intel 虚拟化技术（Intel VT-x）的一部分，用于支持硬件辅助的虚拟化，特别是在处理虚拟机内存管理时。<code>EPT 可管理虚拟机的内存地址翻译，从而提高虚拟化性能</code>。</p>
+<p>&emsp;没有 EPT 的情况下，虚拟机管理程序（Hypervisor）需要模拟二级页表翻译。每次虚拟机访问内存时，虚拟机管理程序需要将虚拟机的虚拟地址（Guest Virtual Address, GVA）转换为虚拟机的物理地址（Guest Physical Address, GPA），然后再转换为宿主机的物理地址（Host Physical Address, HPA），这会影响性能。</p>
+<p>&emsp;EPT 允许虚拟机管理程序直接将虚拟机的虚拟地址（GVA）翻译为宿主机的物理地址（HPA）（<code>其实不是</code>）。EPT 使用四级页表结构，类似于传统的 x86-64 页表结构。这四级页表分别是：EPT PML4 (Page Map Level 4)、EPT Page Directory Pointer Table (PDPT)、EPT Page Directory (PD)、EPT Page Table (PT)。</p>
+<p>&emsp;每个表项的格式与传统页表项相似，但包含更多的信息来支持虚拟化。例如，每个 EPT 页表项除了指向下一级页表的物理地址外，<code>还包含了访问权限和内存类型等信息</code>。</p>
+<p>&emsp;EPT 的工作原理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. GVA 到 GPA：虚拟机中的操作系统将应用程序的虚拟地址（GVA）通过其页表转换为虚拟机的物理地址（GPA）。</span><br><span class="line">2. GPA 到 HPA：EPT 将虚拟机的物理地址（GPA）转换为宿主机的物理地址（HPA）。</span><br></pre></td></tr></table></figure>
 
   
 	</div>
