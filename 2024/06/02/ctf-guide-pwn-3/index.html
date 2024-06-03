@@ -134,13 +134,13 @@
 </li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">malloc_chunk</span> &#123;</span><br><span class="line">    INTERNAL_SIZE_T prev_size;</span><br><span class="line">    INTERNAL_SIZE_T size;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">malloc_chunk</span>* fd;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">malloc_chunk</span>* bk;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">malloc_chunk</span>* fd_nextsize;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">malloc_chunk</span>* bk_nextsize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INTERNAL_SIZE_T：在 64 位系统下是 8 字节。</span><br><span class="line"></span><br><span class="line">prev_size：如果上一个 chunk（低地址）处于释放状态，则用于表示其大小。否则作为上一个 chunk 的一部分，用于保存上一个 chunk 的数据。</span><br><span class="line"></span><br><span class="line">size：表示当前 chunk 的大小，必须是 2*SIZE_SZ 的整数倍，SIZE_SZ 在 64 位系统下是 8 字节。最后 3 个 bit 被用作状态标识，最低的两个 bits 从高到低分别代表：（1）IS_MAPPED。标识一个 chunk 是否是从 mmap 函数中获得的。（2）PREV_INUSE。标识上一个 chunk 的状态，当为 1 时，表示上一个 chunk 处于释放状态，否则表示上一个 chunk 处于使用状态。</span><br><span class="line"></span><br><span class="line">fd/bk：仅在当前 chunk 处于释放状态时有效。chunk 被释放后会加入相应的 bin 链表中此时 fd 和 bk 指向该 chunk 在链表中的下一个（fd）和上一个（bk） free chunk（不一定是物理相邻的）。如果 chunk 处于使用状态，那么这两个字段是无效的，都是用户使用的空间。</span><br><span class="line"></span><br><span class="line">fd_nextsize/bk_nextsize：仅在处于释放状态时有效，否则就是用户使用的空间。不同的是它们仅用于 large bin，分别指向前后一个和当前 chunk 大小不同的 chunk。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INTERNAL_SIZE_T：在 64 位系统下是 8 字节。</span><br><span class="line"></span><br><span class="line">prev_size：如果上一个 chunk（低地址）处于释放状态，则用于表示其大小。否则作为上一个 chunk 的一部分，用于保存上一个 chunk 的数据。</span><br><span class="line"></span><br><span class="line">size：表示当前 chunk 的大小，必须是 2*SIZE_SZ 的整数倍，SIZE_SZ 在 64 位系统下是 8 字节。最后 3 个 bit 被用作状态标识，最低的两个 bits 从高到低分别代表：（1）IS_MAPPED。标识一个 chunk 是否是从 mmap 函数中获得的。（2）PREV_INUSE。标识上一个 chunk 的状态，当为 1 时，表示上一个 chunk 处于释放状态，否则表示上一个 chunk 处于使用状态。</span><br><span class="line"></span><br><span class="line">fd/bk：仅在当前 chunk 处于释放状态时有效。chunk 被释放后会加入相应的 bin 链表中此时 fd 和 bk 指向该 chunk 在链表中的下一个（fd，高地址）和上一个（bk） free chunk（不一定是物理相邻的）。如果 chunk 处于使用状态，那么这两个字段是无效的，都是用户使用的空间。</span><br><span class="line"></span><br><span class="line">fd_nextsize/bk_nextsize：仅在处于释放状态时有效，否则就是用户使用的空间。不同的是它们仅用于 large bin，分别指向前后一个和当前 chunk 大小不同的 chunk。</span><br></pre></td></tr></table></figure>
 <p>&emsp;展示堆块的申请与释放过程：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（1）用户连续申请了 3 个堆块 A、B、C，此时释放 chunk B，由于它与 top chunk 不相邻，所以会被放入 bin 中，成为一个 free chunk。</span><br><span class="line">（2）再次申请一个与 B 相同大小的堆块，则 malloc 将从 bin 中取出 chunk B，回到一开始的状态，bin 的表头也会指向 null。</span><br><span class="line">（3）如果用户连续释放 chunk A 和 chunk B，由于它们相邻且都是 free chunk，那么就会被合并成一个大的 chunk 放入 bin 中。</span><br></pre></td></tr></table></figure>
 <p><img src="/images/ctf-guide-pwn-3/image-20240602163900328.png" alt="image-20240602163900328" style="zoom:67%;" /></p>
 <p>&emsp;处于使用状态的 chunk 由两部分组成，即 pre_size 和 size 组成的 chunk_header 和后面供用户使用的 user data。malloc() 函数返回给用户的实际上是指向用户数据的 mem 指针。</p>
 <p><img src="/images/ctf-guide-pwn-3/image-20240602165705802.png" alt="image-20240602165705802" style="zoom:67%;" /></p>
-<p>&emsp;处于释放状态的 chunk 的 fd/bk 是有效的，由于是释放状态，所以下一个 chunk（高地址） 的 PREV_INUSE 比特位一定是 0，prev_size 为当前 chunk 的大小。一个 chunk 的大小最小可能是32字节（64位系统），即两个 SIZE_SZ 的大小（prev_size 与 size）加上两个指针（fd 与 bk）的大小。</p>
+<p>&emsp;处于释放状态的 chunk 的 fd/bk 是有效的，由于是释放状态，所以下一个 chunk（高地址） 的 PREV_INUSE 比特位一定是 0，prev_size 为当前 chunk 的大小。一个 chunk 的大小最小可能是 32 字节（64位系统），即两个 SIZE_SZ 的大小（prev_size 与 size）加上两个指针（fd 与 bk）的大小。</p>
 <p><img src="/images/ctf-guide-pwn-3/image-20240602170237721.png" alt="image-20240602170237721" style="zoom:67%;" /></p>
 <p>&emsp;glibc 是如何在 malloc_chunk 上节省内存的？<code>prev_size</code> 仅在上一个 chunk 为释放状态时才需要，否则它会加入上一个 chunk 的 user data 部分，节省出一个 SIZE_SZ 大小的内存。其次，size 最后 3 位由于内存对齐的原因，被用来标记 chunk 的状态。最后，fd 和 bk 仅在释放状态下才需要，节省了 <code>2*SIZE_SZ</code> 大小的内存。</p>
 <h3 id="各种-bins"><a href="#各种-bins" class="headerlink" title="各种 bins"></a>各种 bins</h3><p>&emsp;chunk 被释放时，glibc 会将它们重新组织起来，构成不同的 bin 链表，当用户再次申请时，就从中寻找合适的 chunk 返回用户。不同大小区间的 chunk 被划分到不同的 bin 中，一共有四种 bin：Fast bin、Small bin、Large bin 和 Unsorted bin。这些 bin 记录在 malloc_state 结构中。fastbinsY 是一个 bin 数组，里面有 NFASTBINS 个 fast bin。bins 也是一个 bin 数组，一共有 126 个 bin，按顺序分别是 bin 1 为 unsorted bin，bin 2 到bin 63 为 small bin，bin 64 到 bin 126 为 large bin。</p>
@@ -153,11 +153,85 @@
 </ul>
 <p><img src="/images/ctf-guide-pwn-3/image-20240602191931005.png" alt="image-20240602191931005" style="zoom:67%;" /></p>
 <ul>
-<li>Small bin。同一个 small bin 里 chunk 的大小相同，采用双链表结构，使用频率介于 fast bin 和 large bin 之间。small bin 在 bins 里居第2到第 63 位，共 62 个。根据排序，每个 small bin 的大小为 <code>2*SIZE_SZ*idx</code>（idx 表示 bins 数组的下标）。最小的 small chunk 为 2x8x2=32 字节，最大的 small chunk 为 2x8x63=1008 字节。由于 small bin 和 fast bin 有重合的部分，所以这些 chunk 在某些情况下会被加入 small bin 中。</li>
+<li>Small bin。同一个 small bin 里 chunk 的大小相同，采用双链表结构，使用频率介于 fast bin 和 large bin 之间。small bin 在 bins 里居第 2 到第 63 位，共 62 个。根据排序，每个 small bin 的大小为 <code>2*SIZE_SZ*idx</code>（idx 表示 bins 数组的下标）。最小的 small chunk 为 2x8x2=32 字节，最大的 small chunk 为 2x8x63=1008 字节。由于 small bin 和 fast bin 有重合的部分，所以这些 chunk 在某些情况下会被加入 small bin 中。</li>
 </ul>
 <p><img src="/images/ctf-guide-pwn-3/image-20240602192521576.png" alt="image-20240602192521576" style="zoom:67%;" /></p>
 <ul>
 <li>Large bin。在 bins 里居第 64 到第 126 位，共 63 个，被分成了 6 组。32 位系统下第 1 个 large bin 的 chunk 最小为 512 字节，第 2 个 large bin 的 chunk 最小为 512+64 字节，处于 [512,512+64) 之间的 chunk 都属于第 1 个large bin。64 位系统第 1 个 large bin 的 chunk 最小为 1024 字节，第 2 个 large bin 的 chunk 最小为 1024+64 字节。large bin 也是采用双链表结构，里面的 chunk 从头结点的 fd 指针（下一个，高地址）开始，按大小顺序进行排列。为了加快检索速度，fd_nextsize 和 bk_nextsize 指针用于指向第 1 个与自己大小不同的 chunk。</li>
+</ul>
+<h3 id="相关源码"><a href="#相关源码" class="headerlink" title="相关源码"></a>相关源码</h3><p>&emsp;需要确保 malloc() 函数返回的内存不会发生溢出，在不用时使用 free() 函数将其释放。下面介绍几个宏定义：</p>
+<ul>
+<li>request2size()。将请求的 req（user data 的大小） 转换成包含 chunk 头部（presize 和 size）的 chunk大小，MINSIZE 默认为 0x20 字节。当 req 属于 [0, MINSIZE-MALLOC_ALIGN_MASK-SIZE_SZ)，也就是 [0,9)，返回 0x20。当 req 为 0x9-&gt;0x18 时，返回 0x20。当 req 为 0x19-&gt;0x28 时，返回 0x30。0x18 的 user data 加上头部 0x10 就已经是 0x28 了，为什么返回的 chunk 大小是 0x20？这是因为如果 chunk 在使用中，下一个 chunk（高地址）的 prev_size 就会属于当前 chunk，所以多出了 0x8 的使用空间。</li>
+</ul>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603104936167.png" alt="image-20240603104936167" style="zoom:67%;" /></p>
+<ul>
+<li><p>chunk2mem() 与 mem2chunk()。chunk2mem() 把指向 chunk 的指针转化成指向 user data 的指针，常出现在 malloc() 函数返回时，mem2chunk() 把指向 user data 的指针转化成指向 chunk 的指针，出现在 free() 函数开始时。</p>
+</li>
+<li><p>chunk 状态相关。PREV_INUSE=0x1、IS_MMAPPED=0x2、NONMAIN_ARENA=0x4（chunk 是否属于非主线程）。通过 chunk 指针 p，可对某标志位进行提取、检查、置位和清除操作。其中，prev_inuse 是检查前一个内存块的使用情况，而 inuse 是检查当前内存块的使用情况。</p>
+</li>
+</ul>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603113852523.png" alt="image-20240603113852523" style="zoom:67%;" /></p>
+<p>&emsp;set_head_size() 修改 size 时不会修改当前 chunk 的标志位，而 set_head() 会修改标志位。set_foot() 修改下一个 chunk（高地址） 的 prev_size 时，当前 chunk 一定要处于释放状态，不然下一个 chunk 的 pre_size 是没有意义的（会当作当前 chunk 的 use data）。</p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603115135528.png" alt="image-20240603115135528" style="zoom:67%;" /></p>
+<p>&emsp;next_chunk() 将当前 chunk 地址加上当前 chunk 大小获得下一个（高地址） chunk 的指针。prev_chunk() 将当前 chunk 地址减去 prev_size（上一个 chunk 的大小） 值获得上一个 chunk 的指针，前提是上一个 chunk 处于释放状态（若是使用状态，则 prev_size 是上一个 chunk 的一部分）。chunk_at_offset() 将当前 chunk 地址加上 s 偏移处的位置视为一个 chunk。</p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603120038416.png" alt="image-20240603120038416" style="zoom:67%;" /></p>
+<h4 id="chunk-合并过程的相关源码"><a href="#chunk-合并过程的相关源码" class="headerlink" title="chunk 合并过程的相关源码"></a>chunk 合并过程的相关源码</h4><p>&emsp;当一个非 fast_bin 的 chunk 被释放时，会与相邻的 chunk 进行合并，顺序通常是先向后（向上，向低地址）合并再向前（向下，向高地址）合并。如果向前合并（向高地址）的 chunk 是 top chunk，则合并之后会形成新的 top chunk，如果不是，则合并之后会被加入 unsorted bin 中。在 free() 中的合并过程代码如下：</p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603121059293.png" alt="image-20240603121059293" style="zoom:67%;" /></p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603121345139.png" alt="image-20240603121345139" style="zoom:67%;" /></p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603121529024.png" alt="image-20240603121529024" style="zoom:67%;" /></p>
+<h4 id="chunk-拆分过程的相关源码"><a href="#chunk-拆分过程的相关源码" class="headerlink" title="chunk 拆分过程的相关源码"></a>chunk 拆分过程的相关源码</h4><p>&emsp;当用户申请的 chunk 较小时，会先将一个大的 chunk 进行拆分，合适的部分返回给用户，剩下的部分（叫做 remainder）则加入 unsorted bin 中，同时 malloc_state 中的 last_remainder 字段记录最近拆分出的 remainder（大小至少为 MINSIZE）。拆分 chunk 的 1 种情况是：fast bin 和 small bin 中都没有适合的 chunk，同时 unsorted bin 中只有 1 个可拆分的 chunk、并且该 chunk 是 last_remainder。</p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603122218439.png" alt="image-20240603122218439" style="zoom:67%;" /></p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603122533513.png" alt="image-20240603122533513" style="zoom:67%;" /></p>
+<h4 id="bins-相关源码"><a href="#bins-相关源码" class="headerlink" title="bins 相关源码"></a>bins 相关源码</h4><p>&emsp;fastbinsY 数组并没有保存头结点，而是只保存了 malloc_chunk 的 fd 成员，这些指针的初始值为 NULL，表示对应的 bin 为空，直到有 chunk 加进来时，fd 才保存 chunk 的地址。</p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603123017551.png" alt="image-20240603123017551" style="zoom:67%;" /></p>
+<p>&emsp;fast bin 中的 chunk 一般不会与其他 chunk 合并，但如果合并之后的 chunk 大于 FASTBIN_CONSOLIDATION_THRESHOLD（65536 字节），就会触发 malloc_consolidate() 函数，将 fast bin 中的 chunk 与其他 free chunk 合并,然后移动到 unsorted bin 中。fast bin 中最大的 chunk 是由 global_max_fast 决定的，这个值一般在堆初始化的时候设置，运行时也可设置。</p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603132120500.png" alt="image-20240603132120500" style="zoom:67%;" /></p>
+<p>&emsp;bin_at(m,i) 宏定义中减去了 offsetof(struct malloc_chunk, fd)，也就是 prev_size 和 size 成员的大小。这是因为 bins 数组实际上保存了双链表的头结点的 fd 和 bk 指针。</p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603132702475.png" alt="image-20240603132702475" style="zoom:67%;" /></p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603132924562.png" alt="image-20240603132924562" style="zoom:67%;" /></p>
+<p>&emsp;bins[0] 和 bins[1] 是 unsorted bin 的 fd 和 bk 指针，bin_at(1) 返回的应该是 unsorted_bin 的头指针，但实际上其指向的是 bins[0] 地址减去 offsetof(struct malloc_chunk, fd) 的位置，这样使用头结点指针 b 时，b-&gt;fd 与 b-&gt;bk 能够正确访问，同时 prev_size 和 size 对于头结点没有意义，所以就被省略了。对于 bin_at(64) 及之后的 large bin 来说，因为头结点的 size 成员没有意义（Large bins 管理的大块内存需要根据大小排序和链接，头结点不需要 size 信息进行管理）。</p>
+<p>&emsp;binmap 为 malloc_state 的成员，在索引 bin 的时候使用，其中一个 bit 表示 bins 中相应的 bin 的状态，1 表示 bin 不为空，0 表示为空，这样能加快搜索速度。</p>
+<h5 id="malloc-consolidate"><a href="#malloc-consolidate" class="headerlink" title="malloc_consolidate()"></a>malloc_consolidate()</h5><p>&emsp;fast bin 中的 chunk 永远不会释放，导致相邻的 free chunk 无法与之合并，从而造成大量的内存碎片。malloc_consolidate() 可以解决这个问题。在达到某些条件时，glibc 就会调用该函数将 fast bin 中的 chunk 取出来，与相邻的 free chunk 合并后放入 unsorted bin，或者与 top chunk 合并后形成新的 top chunk。源码略，见 P238，感觉源码看着没啥帮助呢。</p>
+<h4 id="malloc-与-free-相关源码"><a href="#malloc-与-free-相关源码" class="headerlink" title="malloc 与 free 相关源码"></a>malloc 与 free 相关源码</h4><h5 id="libc-malloc"><a href="#libc-malloc" class="headerlink" title="__libc_malloc()"></a>__libc_malloc()</h5><p>&emsp;glibc 的 malloc() 实际是 __libc_malloc()。</p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603141623408.png" alt="image-20240603141623408" style="zoom:67%;" /></p>
+<h5 id="int-malloc"><a href="#int-malloc" class="headerlink" title="_int_malloc()"></a>_int_malloc()</h5><p>&emsp;分配 chunk 时的搜索顺序是（堆的初始化可能在分配 chunk 时运行）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">（1）在 fast bin 中寻找大小完全一样的 chunk。</span><br><span class="line">（2）在 small bin 中寻找大小完全一样的 chunk。</span><br><span class="line">（3）在 unsorted bin 寻找大小完全一样的 chunk，其过程中还包括对 fast bin 的重新整理（malloc_consolidate），并将 fast bin 中的 chunk 放到 small bin 或者 large bin。</span><br><span class="line">（4）如果申请较大的 chunk，在 large bin 中寻找最小能满足的 chunk。</span><br><span class="line">（5）寻找最小能满足的 bins（根据 binmap 来搜索 bin，因为申请的 chunk 大小所对应 bin 没有找到合适的 chunk，所以就从下一个 bin 中搜索）。</span><br><span class="line">（6）在 top chunk 中切分出合适的 chunk。</span><br><span class="line">（7）系统函数分配。</span><br></pre></td></tr></table></figure>
+<p>&emsp;其源码在 P240。当 _int_malloc() 无法在现有的内存块中找到合适的块时，会调用 sysmalloc() 来从操作系统获取更多的内存。sysmalloc() 的逻辑为：</p>
+<p>（1）当申请的大小大于 <code>mp_.mmap_threshold</code>（128 KB） 时，通过 mmap() 函数进行分配新的内存。</p>
+<p>（2）用 brk() 扩展堆内存，形成新的 top chunk，而旧的 top chunk 会被释放。然后从新的 top chunk 中切分出合适大小的 chunk，返回给用户。</p>
+<h5 id="libc-free"><a href="#libc-free" class="headerlink" title="__libc_free()"></a>__libc_free()</h5><p>&emsp;free() 函数实际上是 __libc_free() 函数，其调用 _int_free() 进行操作。</p>
+<h5 id="int-free"><a href="#int-free" class="headerlink" title="_int_free()"></a>_int_free()</h5><p>&emsp;源码在 P249，其逻辑为：</p>
+<p>（1）获得要释放的 chunk 的大小，并对 chunk 做一些检查。</p>
+<p>（2）如果该 chunk 并非 mmap 生成的，就需要进行合并，先向后合并（低地址），再向前合并（高地址）。如果合并之后的 chunk 超过了 FASTBIN_CONSOLIDATION_THRESHOLD，就会整理 fast bin 并向系统返还内存。</p>
+<h4 id="TCache-机制"><a href="#TCache-机制" class="headerlink" title="TCache 机制"></a>TCache 机制</h4><p>&emsp;前面所讲的是 libc-2.23 的内存分配机制，libc-2.26 引入了新的 TCache 机制，使得内存分配发生一些变化。</p>
+<p>&emsp;TCache（Thread Local Caching），它为每个线程创建一个缓存，里面包含了一些小堆块，无须对 arena 上锁即可使用（可提升性能）。glibc 在编译时使用 USE_TCACHE 来开启 tcache 机制。<code>每个线程默认使用 64 个单链表结构的 bins，每个 bins 最多存放 7 个 chunk。chunk 的大小在 64 位机器上以 16 字节递增，从 24 到 1032 字节，在 32 位机器上则以 8 字节递增，从 12 到 512 字节，所以 tcache bin 只用于存放 non-large 的 chunk。</code></p>
+<p>&emsp;两个新的数据结构：</p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603151236671.png" alt="image-20240603151236671" style="zoom:67%;" /></p>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603151250347.png" alt="image-20240603151250347" style="zoom:67%;" /></p>
+<p>&emsp;tcache_perthread_struct 位于堆开头的位置，它本身也是一个堆块，大小为 0x250。其中包含数组 entries，用于放置 64 个 bins 的地址，数组 counts 则存放每个 bins 中的 chunk 数量。每个被放入 bins 的 chunk 都会在其用户数据中包含一个 tcache_entry（fd 指针），指向同 bins 中下一个 chunk 的用户数据，从而构成单链表。</p>
+<p>&emsp;触发在 tcache 中放入 chunk 的操作有：</p>
+<ul>
+<li>释放堆块时。在整理 fast bins 的操作之前进行，如果 chunk 的大小符合要求，并且对应的 bins 还未装满，就将其放进去。</li>
+<li>分配堆块时。<ul>
+<li>如果从 fast bins 中成功返回了一个需要的 chunk，那么对应 fast bins 中的其他 chunk 会被放进相应的 tcache bin 中，直到上限。chunks 在 tcache bin 的顺序和在 fast bins 中的顺序是反过来的。</li>
+<li>如果从 small bins 中成功返回了一个需要的 chunk，那么对应 small bins 中的其他 chunk 会被放进相应的 tcache bin 中，直到上限。</li>
+<li>binning code 中（指将空闲 chunks 分类到不同的 bin 中），每一个符合要求的 chunk 都会优先被放入 tcache，而不是直接返回（除非 tcache 已装满）。然后，程序会从 tcache 中返回其中一个。</li>
+</ul>
+</li>
+</ul>
+<p>&emsp;触发在 tcache 中取出 chunk 的操作有：</p>
+<ul>
+<li>在 __libc_malloc() 调用 _int_malloc() 之前，如果 tcache bin 中有符合要求的 chunk，则直接返回。</li>
+<li>bining code 中，如果在 tcache 中放入的 chunk 达到上限，则会直接返回最后一个 chunk。</li>
+</ul>
+<p>&emsp;<code>tcache 中的 chunk 不会被合并，这是因为这些 chunk 的 PREV_INUSE 都会被标记。</code></p>
+<h5 id="TCache-的安全分析与安全问题"><a href="#TCache-的安全分析与安全问题" class="headerlink" title="TCache 的安全分析与安全问题"></a>TCache 的安全分析与安全问题</h5><p>&emsp;tcache_put() 和 tcache_get() 分别用于从单链表中放入和取出 chunk。<code>这两个函数都假设调用者已经对参数进行了有效性检查，然而由于 tcache 的操作在 free 和 malloc 中往往都处于很靠前的位置，导致原来的许多有效性检查都被无视了。</code></p>
+<ul>
+<li>CVE-2017-17426。libc-2.26 中发现了安全漏洞，由于 libc_malloc() 使用 request2size() 来将请求大小转换为实际块大小，该函数不会进行整数溢出检查。所以如果请求一个非常大的堆块（接近 SIZE_MAX），那么就会导致整数溢出，从而导致 malloc 错误地返回 tcache bin 里的堆块。此问题在 libc-2.26 中出现，在 libc-2.27 中被修复。</li>
+</ul>
+<p><img src="/images/ctf-guide-pwn-3/image-20240603160239814.png" alt="image-20240603160239814" style="zoom:67%;" /></p>
+<ul>
+<li>二次释放的检查。libc-2.28 版本增加对 tcache 中二次释放的检查，方法是在 tcache_entry 结构体中增加了一个标志 key，用于表示 chunk 是否已经在 tcache bin 中。</li>
 </ul>
 
   
@@ -266,7 +340,7 @@
 	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
 	   <div id="toc" class="toc collapse in">
 		   <span class="toc-title">Contents</span>
-			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#CTF-%E7%AB%9E%E8%B5%9B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-PWN-3"><span class="toc-article-text">CTF 竞赛权威指南-PWN-3</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x08-%E5%A0%86%E5%88%A9%E7%94%A8"><span class="toc-article-text">0x08 堆利用</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-article-text">相关概念</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%90%84%E7%A7%8D-bins"><span class="toc-article-text">各种 bins</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#CTF-%E7%AB%9E%E8%B5%9B%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-PWN-3"><span class="toc-article-text">CTF 竞赛权威指南-PWN-3</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#0x08-%E5%A0%86%E5%88%A9%E7%94%A8"><span class="toc-article-text">0x08 堆利用</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="toc-article-text">相关概念</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E5%90%84%E7%A7%8D-bins"><span class="toc-article-text">各种 bins</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#%E7%9B%B8%E5%85%B3%E6%BA%90%E7%A0%81"><span class="toc-article-text">相关源码</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#chunk-%E5%90%88%E5%B9%B6%E8%BF%87%E7%A8%8B%E7%9A%84%E7%9B%B8%E5%85%B3%E6%BA%90%E7%A0%81"><span class="toc-article-text">chunk 合并过程的相关源码</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#chunk-%E6%8B%86%E5%88%86%E8%BF%87%E7%A8%8B%E7%9A%84%E7%9B%B8%E5%85%B3%E6%BA%90%E7%A0%81"><span class="toc-article-text">chunk 拆分过程的相关源码</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#bins-%E7%9B%B8%E5%85%B3%E6%BA%90%E7%A0%81"><span class="toc-article-text">bins 相关源码</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#malloc-consolidate"><span class="toc-article-text">malloc_consolidate()</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#malloc-%E4%B8%8E-free-%E7%9B%B8%E5%85%B3%E6%BA%90%E7%A0%81"><span class="toc-article-text">malloc 与 free 相关源码</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#libc-malloc"><span class="toc-article-text">__libc_malloc()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#int-malloc"><span class="toc-article-text">_int_malloc()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#libc-free"><span class="toc-article-text">__libc_free()</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#int-free"><span class="toc-article-text">_int_free()</span></a></li></ol></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#TCache-%E6%9C%BA%E5%88%B6"><span class="toc-article-text">TCache 机制</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#TCache-%E7%9A%84%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-article-text">TCache 的安全分析与安全问题</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
 		</div>
 	
 	</div>
