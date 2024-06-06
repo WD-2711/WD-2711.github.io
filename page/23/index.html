@@ -122,6 +122,43 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/03/06/Assembly-5/" >Assembly-5</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-03-06  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="汇编语言学习笔记-5"><a href="#汇编语言学习笔记-5" class="headerlink" title="汇编语言学习笔记-5"></a>汇编语言学习笔记-5</h1><h2 id="0x00-直接定址表"><a href="#0x00-直接定址表" class="headerlink" title="0x00 直接定址表"></a>0x00 直接定址表</h2><p>&emsp;如何有效合理的组织数据，以及相关编程。</p>
+<ul>
+<li><p>地址标号：在后面加<code>:</code>，只能在<strong>代码段</strong>中使用，不能在其他段中使用。</p>
+</li>
+<li><p>数据标号：后面没有<code>:</code>，表示内存单元的地址与内存单元的长度。</p>
+</li>
+</ul>
+<p>&emsp;下面给出两个标号的例子，都是将a段中每个数据相加，并放到b中。</p>
+<ul>
+<li>地址标号的程序如下：</li>
+</ul>
+	
+	</div>
+  <a type="button" href="/2023/03/06/Assembly-5/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/03/02/Self-Sovereign-Identity/" >Self-Sovereign-Identity</a>
 		</h3>
 		</div>
@@ -227,35 +264,6 @@
 	
 	</div>
   <a type="button" href="/2023/02/24/Assembly-4/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/02/23/Assembly-3/" >Assembly-3</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-02-23  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="汇编语言学习笔记-3"><a href="#汇编语言学习笔记-3" class="headerlink" title="汇编语言学习笔记-3"></a>汇编语言学习笔记-3</h1><h2 id="0x00-其他的转移指令"><a href="#0x00-其他的转移指令" class="headerlink" title="0x00 其他的转移指令"></a>0x00 其他的转移指令</h2><h3 id="ret与retf"><a href="#ret与retf" class="headerlink" title="ret与retf"></a>ret与retf</h3><p>​    <strong>ret使用栈中的数据，来修改IP的内容，来实现近转移（段内转移）。</strong>操作如下所示：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(ip)=((ss)*16+(sp))</span><br><span class="line">(sp)=(sp)+2</span><br></pre></td></tr></table></figure>
-<p>​    <strong>执行ret指令时，相当于进行：<code>pop ip</code>。</strong></p>
-	
-	</div>
-  <a type="button" href="/2023/02/23/Assembly-3/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -453,6 +461,8 @@
 		
 			<li><a href="/categories/web/">web<span>9</span></a></li>
 		
+			<li><a href="/categories/windows/">windows<span>1</span></a></li>
+		
 			<li><a href="/categories/杂记/">杂记<span>16</span></a></li>
 		
 		</ul>
@@ -468,6 +478,10 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2024/06/04/segment-register/" ><i class="fa fa-file-o"></i>segment-register</a>
+      </li>
+    
+      <li>
         <a href="/2024/06/03/ace-prepare-2/" ><i class="fa fa-file-o"></i>ace-prepare-2</a>
       </li>
     
@@ -481,10 +495,6 @@
     
       <li>
         <a href="/2024/05/29/dl-runtime-resolve-details/" ><i class="fa fa-file-o"></i>dl_runtime_resolve-details</a>
-      </li>
-    
-      <li>
-        <a href="/2024/05/15/java-deserialization/" ><i class="fa fa-file-o"></i>java-deserialization</a>
       </li>
     
   </ul>

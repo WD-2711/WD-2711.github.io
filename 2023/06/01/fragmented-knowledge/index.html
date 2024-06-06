@@ -432,6 +432,7 @@
 <p>&emsp;每个表项的格式与传统页表项相似，但包含更多的信息来支持虚拟化。例如，每个 EPT 页表项除了指向下一级页表的物理地址外，<code>还包含了访问权限和内存类型等信息</code>。</p>
 <p>&emsp;EPT 的工作原理：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. GVA 到 GPA：虚拟机中的操作系统将应用程序的虚拟地址（GVA）通过其页表转换为虚拟机的物理地址（GPA）。</span><br><span class="line">2. GPA 到 HPA：EPT 将虚拟机的物理地址（GPA）转换为宿主机的物理地址（HPA）。</span><br></pre></td></tr></table></figure>
+<h4 id="PAE（Physical-Address-Extension）"><a href="#PAE（Physical-Address-Extension）" class="headerlink" title="PAE（Physical Address Extension）"></a>PAE（Physical Address Extension）</h4><p>&emsp;PAE 用于扩展 32 位 x86 架构的物理内存寻址能力。在没有 PAE 的情况下，32 位 x86 系统可寻址 4GB 的物理内存。启用 PAE 后，可以寻址更多的物理内存，最高可以达到 64GB。PAE 通过增加 CPU 寻址位数以及使用分页机制来实现这一扩展。</p>
 
   
 	</div>
