@@ -138,47 +138,6 @@
 	
 		<h1 id="GDT-LDT-GDTR-LDTR"><a href="#GDT-LDT-GDTR-LDTR" class="headerlink" title="GDT/LDT/GDTR/LDTR"></a>GDT/LDT/GDTR/LDTR</h1><h2 id="实模式与保护模式"><a href="#实模式与保护模式" class="headerlink" title="实模式与保护模式"></a>实模式与保护模式</h2><p>&emsp;实模式是所有 x86 兼容 CPU 下的一种操作模式。特点是 20 bit 分段内存地址空间，对所有可寻址内存、I/O地址和外设硬件的无限制直接软件访问。实模式不支持内存保护、多任务处理与代码权限级别。</p>
 <p>&emsp;最早期的 8086 CPU 只有实模式，数据总线为 16 位，地址总线为 20 位，所有寄存器都是 16 位。从 80286 开始就有了保护模式，允许硬件级内存保护。从 80386 开始 CPU 数据总线和地址总线均为 32 位，且寄存器都是 32 位。</p>
-<p>&emsp;逻辑地址是逻辑上的地址，实模式下由<code>段基地址+段内偏移</code>组成，保护模式下由<code>段选择符+段内偏移</code>组成。逻辑地址经<code>分段</code>后就成线性地址，如果不启用分页，那么此线性地址即物理地址。线性地址经<code>分页</code>后成为物理地址。</p>
-<p>&emsp;8086 CPU 数据总线为 16 位，一次最多取 2^16B=64KB 数据，因此实模式下每个段为 64KB，其地址总线为 20 位，因此 8086 CPU 寻址能力是 2^20=1MB。<code>要用 16 位的段寄存器表示 1MB 的寻址能力，因此就有了分段的概念。</code>8086 CPU 将 1MB 存储空间分成许多逻辑段，每个段最大为 64KB，这样存储单元可用<code>段基地址+段内偏移</code>表达（其中段基地址是 16 位段寄存器值左移 4 位）。</p>
-<p>&emsp;<code>保护模式和实模式的区别在于用段选择符而还是段基地址</code>。下图为保护模式从逻辑地址到线性地址的转换：</p>
-<p><img src="/images/segment-register/image-20240606134202766.png" alt="image-20240606134202766" style="zoom:67%;" /></p>
-<p>&emsp;上图中的段选择符、描述符表等概念解释如下所示：</p>
-<ul>
-<li>段选择符。段选择符为 16 位，它指向段描述符。其中 TI 指明使用全局描述符表 GDT 还是局部描述符表 LDT。RPL表示请求特权级。索引值为 13 bit，所以在保护模式下最多可表示 2^13=8192 个段描述符，加上 TI，一共可表示 <code>8192*2=16384</code> 个段描述符，也就是 16384 个段。由于偏移地址为 32 位（4GB），所以寻址能力为 <code>16384*4GB＝64TB</code>。例如，远跳转指令 <code>jmpi 0, 8</code>。其中的 8 以段描述符的结构进行解析，得到<code>索引=1</code>、<code>TI=0</code>、<code>RPL=00</code>，所以这条语句的意思是跳转到 GDT 表（TI＝0）中的第 1 个段描述符定义的段中，其段内偏移为 0。再例如，给出逻辑地址 <code>21h:12345678h</code> 转换为线性地址，段选择符为 0x21，解析得到：<code>索引=4</code>、<code>TI=0</code>、<code>RPL=1</code>，若此时 GDT 第 4 个描述符中描述的段基址为 11111111h，则<code>线性地址=11111111h+12345678h=23456789h</code>。</li>
-</ul>
-<p><img src="/images/segment-register/image-20240606134753605.png" alt="image-20240606134753605" style="zoom:67%;" /></p>
-<p><img src="/images/segment-register/image-20240606144212785.png" alt="image-20240606144212785" style="zoom: 50%;" /></p>
-<ul>
-<li>段描述符。段描述符表中的每一项为 64 位。段描述符里有三个基地址信息，共同组成一个 32 位地址（段基地址），此地址再加上段内偏移就是线性地址。S 位和 TYPE 字段的不同又将段分为数据段描述符、代码段描述符和系统段描述符。</li>
-</ul>
-<p><img src="/images/segment-register/image-20240606141544302.png" alt="image-20240606141544302" style="zoom:67%;" /></p>
-<p>&emsp;保护模式通过段选择符指向段描述符，最终由<code>段描述符+段内偏移</code>定位线性地址。之后就是分页机制，其将线性地址转为物理地址。这在 ace-prepare 中有描述，就不介绍了。</p>
-<h2 id="GDT-LDT-相关"><a href="#GDT-LDT-相关" class="headerlink" title="GDT/LDT 相关"></a>GDT/LDT 相关</h2><p>&emsp;一个 CPU 对应一个全局描述符表（GDT，Global Descriptor Table），GDTR 寄存器用于存放 GDT 的入口线性地址与表长（使用 LGDT 指令可以将 GDT 的入口地址放入 GDTR 寄存器）。</p>
-<p><img src="/images/segment-register/image-20240606145006990.png" alt="image-20240606145006990"></p>
-<p>&emsp;局部描述符表（LDT，Local Descriptor Table）可以有多张，可以理解为 GDT 为一级描述符表，LDT 为二级描述符表。LDT 嵌套在 GDT 中。<code>实际 windows 中不会使用 LDTR。</code></p>
-<p>&emsp;举两个例子，分别访问 GDT 与 LDT。访问 GDT（TI=0）的流程为：</p>
-<p>Step1：从 GDTR 寄存器中获得 GDT 基址。</p>
-<p>Step2：在 GDT 中以段选择符高 13 位位置索引值得到段描述符。</p>
-<p>Step3：段描述符包含段的基址、限长、优先级等各种属性，这就得到了段的基址，基址加上偏移地址就得到最后的线性地址。</p>
-<p><img src="/images/segment-register/image-20240606154313306.png" alt="image-20240606154313306" style="zoom:67%;" /></p>
-<p>&emsp;访问 LDT（TI=1） 的流程为：</p>
-<p>Step1：从 GDTR 寄存器中获得 GDT 基址。</p>
-<p>Step2：从 LDTR 寄存器中获取 LDT 所在段的位置索引。</p>
-<p>Step3：根据位置索引在 GDT 中得到 LDT 段描述符，从而得到 LDT 段基址。</p>
-<p>Step4：用段选择器高 13 位位置索引值从 LDT 段中得到段描述符。</p>
-<p>Step5：段描述符包含段的基址、限长、优先级等各种属性，这就得到了段的基址，基址加上偏移地址就得到最后的线性地址。</p>
-<p><img src="/images/segment-register/image-20240606155811710.png" alt="image-20240606155811710" style="zoom:67%;" /></p>
-<h2 id="IDTR-TR-相关"><a href="#IDTR-TR-相关" class="headerlink" title="IDTR/TR 相关"></a>IDTR/TR 相关</h2><ul>
-<li><p>中断描述符表寄存器 IDTR。与 GDTR 类似，IDTR 用于存放中断描述符表 IDT 的基地址和表长。</p>
-</li>
-<li><p>任务寄存器 TR。用于寻址一个特殊的任务状态段（TSS，Task State Segment），TSS 包含当前执行任务的重要信息，主要是 ring3 到 ring0 中使用，改变 SS、CS 段与 ESP。</p>
-</li>
-</ul>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>[1] <a target="_blank" rel="noopener" href="https://blog.csdn.net/chungle2011/article/details/80069703">https://blog.csdn.net/chungle2011/article/details/80069703</a></p>
-<p>[2] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/shiqi17/p/12667236.html">https://www.cnblogs.com/shiqi17/p/12667236.html</a></p>
-<p>[3] <a target="_blank" rel="noopener" href="https://s0rry.cn/posts/Windows-Protection/">https://s0rry.cn/posts/Windows-Protection/</a></p>
-<p>[4] <a target="_blank" rel="noopener" href="https://www.cnblogs.com/kelamoyujuzhen/p/10555924.html">https://www.cnblogs.com/kelamoyujuzhen/p/10555924.html</a></p>
-
 	
 	</div>
   <a type="button" href="/2024/06/04/segment-register/#more" class="btn btn-default more">阅读此文</a>
