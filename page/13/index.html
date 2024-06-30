@@ -122,6 +122,63 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/07/13/OP-TEE-study/" title="OP-TEE，open source project Trusted Execution Environment (TEE)， 开源可信执行环境。Rich Execution Environment (REE)相对应。REE中运行的是non-secure OS，例如安卓，Linux系统等。TEE中运行的是secure OS，需要Arm TrustZone技术的支持，依赖硬件设计...">OP-TEE-study</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-07-13  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="OP-TEE"><a href="#OP-TEE" class="headerlink" title="OP-TEE"></a>OP-TEE</h1><p>&emsp;SCTF2023的一道题是关于OP-TEE的，学习一波。</p>
+<p>&emsp;OP-TEE，open source project Trusted Execution Environment (TEE)， 开源可信执行环境。Rich Execution Environment (REE)相对应。REE中运行的是non-secure OS，例如安卓，Linux系统等。TEE中运行的是secure OS，需要Arm TrustZone技术的支持，依赖硬件设计。</p>
+	
+	</div>
+  <a type="button" href="/2023/07/13/OP-TEE-study/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2023/07/10/IOT-security-vulnerabilities-mining/" title="this page is about iot vulnerability mining. It shows iot device&#39;s component like PCB, flash and etc. Secondly, file system is described, and talk about these characteristics.">IOT-security-vulnerabilities-mining</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-07-10  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="《物联网安全漏洞挖掘实战》读书笔记"><a href="#《物联网安全漏洞挖掘实战》读书笔记" class="headerlink" title="《物联网安全漏洞挖掘实战》读书笔记"></a>《物联网安全漏洞挖掘实战》读书笔记</h1><p>&emsp;今年暑假打算读两本书：《物联网安全漏洞挖掘实战》与《C++反汇编与逆向分析》。这本比较薄，就先读这个，跟着做做实验。</p>
+<p>&emsp;随书附件并不全，我这里丰富了<a target="_blank" rel="noopener" href="https://github.com/WD-2711/re_files/tree/main/IOT%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98">一下</a>。</p>
+<h2 id="0x00-物联网设备硬件分析"><a href="#0x00-物联网设备硬件分析" class="headerlink" title="0x00 物联网设备硬件分析"></a>0x00 物联网设备硬件分析</h2><p>&emsp;首先，我们要知道物联网设备一般是由什么组成的。</p>
+	
+	</div>
+  <a type="button" href="/2023/07/10/IOT-security-vulnerabilities-mining/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/07/06/Qiling-study/" title="Qiling study note. It mainly talk about a program about some challenges. When you overcome it, you will master this skill.">Qiling-study</a>
 		</h3>
 		</div>
@@ -196,63 +253,6 @@
 	
 	</div>
   <a type="button" href="/2023/07/03/go-bin-re-study-2/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/06/27/hvv-emergency/" title="Some knowledge points of hvv emergency response. It mainly includes webshell event handling process, linux, windows emergency response troubleshooting steps, etc.">hvv-emergency</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-06-27  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="webshell应急响应"><a href="#webshell应急响应" class="headerlink" title="webshell应急响应"></a>webshell应急响应</h1><h4 id="攻击的两种方式"><a href="#攻击的两种方式" class="headerlink" title="攻击的两种方式"></a>攻击的两种方式</h4><p>&emsp;钓鱼、0day</p>
-<h4 id="webshell事件处理流程"><a href="#webshell事件处理流程" class="headerlink" title="webshell事件处理流程"></a>webshell事件处理流程</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">（a）现场访谈确定范围</span><br><span class="line">（b）分析日志：</span><br><span class="line">	（1）日志存在：确定攻击事件-&gt;攻击特征-&gt;定位特征文件-&gt;确定攻击者IP-&gt;攻击复现</span><br><span class="line">	（2）日志不存在：黑盒发掘漏洞并查看相关配置文件是否存在弱口令，如tomcat的tomcat-userxml，反共黑客喜欢用的struts2漏洞</span><br><span class="line">（c）根除webshell</span><br><span class="line">（d）后门排查根除</span><br><span class="line">（e）漏洞修补</span><br><span class="line">（f）输出文档与建议</span><br></pre></td></tr></table></figure>
-<h4 id="webshell事件表现"><a href="#webshell事件表现" class="headerlink" title="webshell事件表现"></a>webshell事件表现</h4><p>&emsp;安全设备报警、被上级部门通报、被挂黑链、被篡改首页</p>
-	
-	</div>
-  <a type="button" href="/2023/06/27/hvv-emergency/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/06/19/matrix-review-question/" title="The test questions and test points of matrix analysis and application are mainly for the first-year graduate course.">matrix-review-question</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-06-19  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="矩阵复习题目（划的题-课后题）"><a href="#矩阵复习题目（划的题-课后题）" class="headerlink" title="矩阵复习题目（划的题+课后题）"></a>矩阵复习题目（划的题+课后题）</h1><h2 id="划的题"><a href="#划的题" class="headerlink" title="划的题"></a>划的题</h2><p>1-4在ipad笔记上。</p>
-<h3 id="0x05"><a href="#0x05" class="headerlink" title="0x05"></a>0x05</h3><p>考虑上三角矩阵 $\mathbf{A}$</p>
-	
-	</div>
-  <a type="button" href="/2023/06/19/matrix-review-question/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -444,7 +444,7 @@
 		
 			<li><a href="/categories/static-analysis/">static-analysis<span>2</span></a></li>
 		
-			<li><a href="/categories/study-notes/">study-notes<span>19</span></a></li>
+			<li><a href="/categories/study-notes/">study-notes<span>21</span></a></li>
 		
 			<li><a href="/categories/virus-re/">virus-re<span>2</span></a></li>
 		
@@ -467,6 +467,14 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2024/06/29/kernel-dwm-rendering/" ><i class="fa fa-file-o"></i>kernel-dwm-rendering</a>
+      </li>
+    
+      <li>
+        <a href="/2024/06/29/fire-class-V/" ><i class="fa fa-file-o"></i>fire-class-V</a>
+      </li>
+    
+      <li>
         <a href="/2024/06/04/segment-register/" ><i class="fa fa-file-o"></i>segment-register</a>
       </li>
     
@@ -476,14 +484,6 @@
     
       <li>
         <a href="/2024/06/02/ctf-guide-pwn-3/" ><i class="fa fa-file-o"></i>ctf-guide-pwn-3</a>
-      </li>
-    
-      <li>
-        <a href="/2024/05/31/ace-prepare/" ><i class="fa fa-file-o"></i>ace-prepare</a>
-      </li>
-    
-      <li>
-        <a href="/2024/05/29/dl-runtime-resolve-details/" ><i class="fa fa-file-o"></i>dl_runtime_resolve-details</a>
       </li>
     
   </ul>

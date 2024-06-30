@@ -122,6 +122,60 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/04/22/taint-checking/" >taint-checking</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-04-22  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="symbolic-execution-amp-taint-checking"><a href="#symbolic-execution-amp-taint-checking" class="headerlink" title="symbolic-execution &amp; taint-checking"></a>symbolic-execution &amp; taint-checking</h1><p>&emsp;之前，有西电的大佬<a target="_blank" rel="noopener" href="https://www.k0rz3n.com/">K0rz3n</a>详细说过符号执行与污点分析，之后，USTC的一个学长<code>Ch3nYe</code>也学习了一波。无独有偶，最近我对这个也比较感兴趣，所以趁机学习一波。由于两位大佬说的很详细了，所以我就按两位大佬的脉络来叙述。</p>
+	
+	</div>
+  <a type="button" href="/2023/04/22/taint-checking/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2023/04/18/certificate-transparency-dns/" >certificate-transparency-dns</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-04-18  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="Dns-transparency-调研"><a href="#Dns-transparency-调研" class="headerlink" title="Dns transparency 调研"></a>Dns transparency 调研</h1><p>&emsp;证书放在分布式独立账本中。用户代理：验证证书是否已合法添加到日志中，来帮助执行证书审核。监视器：确保所有记录的证书在日志中可见，并监视日志中的可疑证书。</p>
+	
+	</div>
+  <a type="button" href="/2023/04/18/certificate-transparency-dns/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/04/17/angr-study/" >angr-study</a>
 		</h3>
 		</div>
@@ -198,64 +252,6 @@
 	
 	</div>
   <a type="button" href="/2023/04/10/hvv-middle-ctf/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/04/05/re-core-principle-3/" >re-core-principle-3</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-04-05  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="逆向工程核心原理笔记-3"><a href="#逆向工程核心原理笔记-3" class="headerlink" title="逆向工程核心原理笔记-3"></a>逆向工程核心原理笔记-3</h1><h2 id="0x00-API钩取：逆向分析之花"><a href="#0x00-API钩取：逆向分析之花" class="headerlink" title="0x00 API钩取：逆向分析之花"></a>0x00 API钩取：逆向分析之花</h2><p>&emsp;代码逆向分析中，钩取(Hooking)是一种截取信息、更改程序执行流向、添加新功能的技术。钩取的流程如下：（1）使用反汇编器/调试器熟悉程序的结构与工作原理；（2）开发钩子代码；（3）操作可执行文件与进程内存，部署钩子代码。</p>
-<p>&emsp;其中，钩取<code>Win32 API</code>的技术被称为API钩取。分析程序时若有程序源码，大部分情况都不需要使用钩取技术。</p>
-	
-	</div>
-  <a type="button" href="/2023/04/05/re-core-principle-3/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/03/29/re-part-5-2/" >re-part-5-2</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-03-29  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>由于re-part-5字数太多了，所以另开一个帖子，也是记录剩下的难度5的题解。</p>
-<hr>
-<h1 id="asong"><a href="#asong" class="headerlink" title="asong"></a>asong</h1><p>&emsp;题目一共3个文件，<code>asong</code>是一个64位的ELF、<code>out</code>文件是一个二进制文件、<code>that_girl</code>是一个有好多句子的文件。</p>
-<p>&emsp;这个题目，就是使用<code>that_girl</code>文件，结合<code>flag</code>，最后生成一个<code>out</code>文件，题目思路比较简单，就是函数逆向有点麻烦，花费了大概<code>6h</code>，脚本如下：</p>
-	
-	</div>
-  <a type="button" href="/2023/03/29/re-part-5-2/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -447,7 +443,7 @@
 		
 			<li><a href="/categories/static-analysis/">static-analysis<span>2</span></a></li>
 		
-			<li><a href="/categories/study-notes/">study-notes<span>19</span></a></li>
+			<li><a href="/categories/study-notes/">study-notes<span>21</span></a></li>
 		
 			<li><a href="/categories/virus-re/">virus-re<span>2</span></a></li>
 		
@@ -470,6 +466,14 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2024/06/29/kernel-dwm-rendering/" ><i class="fa fa-file-o"></i>kernel-dwm-rendering</a>
+      </li>
+    
+      <li>
+        <a href="/2024/06/29/fire-class-V/" ><i class="fa fa-file-o"></i>fire-class-V</a>
+      </li>
+    
+      <li>
         <a href="/2024/06/04/segment-register/" ><i class="fa fa-file-o"></i>segment-register</a>
       </li>
     
@@ -479,14 +483,6 @@
     
       <li>
         <a href="/2024/06/02/ctf-guide-pwn-3/" ><i class="fa fa-file-o"></i>ctf-guide-pwn-3</a>
-      </li>
-    
-      <li>
-        <a href="/2024/05/31/ace-prepare/" ><i class="fa fa-file-o"></i>ace-prepare</a>
-      </li>
-    
-      <li>
-        <a href="/2024/05/29/dl-runtime-resolve-details/" ><i class="fa fa-file-o"></i>dl_runtime_resolve-details</a>
       </li>
     
   </ul>
