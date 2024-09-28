@@ -122,6 +122,33 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/08/01/useful-scripts/" title="平时逆向中常用到的脚本">useful-scripts</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-08-01  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="一些常用的脚本"><a href="#一些常用的脚本" class="headerlink" title="一些常用的脚本"></a>一些常用的脚本</h1><p>脚本…</p>
+	
+	</div>
+  <a type="button" href="/2023/08/01/useful-scripts/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/07/30/starCTF2023/" >starCTF2023</a>
 		</h3>
 		</div>
@@ -223,191 +250,6 @@
 	
 	</div>
   <a type="button" href="/2023/07/21/geekpwn2023/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/07/19/pdd-analysis-by-kaspersky/" title="this article mainly talk about a software&#39;s bad action. Mainly extend from the kaspersky&#39;s report.">pdd-analysis-by-kaspersky</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-07-19  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="pdd恶意行为分析"><a href="#pdd恶意行为分析" class="headerlink" title="pdd恶意行为分析"></a>pdd恶意行为分析</h1><h2 id="0x00-pdd-版本"><a href="#0x00-pdd-版本" class="headerlink" title="0x00 pdd 版本"></a>0x00 pdd 版本</h2><p>&emsp;版本为 6.49。</p>
-<h2 id="0x00-分析流程"><a href="#0x00-分析流程" class="headerlink" title="0x00 分析流程"></a>0x00 分析流程</h2><h3 id="alive-base-ability-plugin"><a href="#alive-base-ability-plugin" class="headerlink" title="alive_base_ability_plugin"></a>alive_base_ability_plugin</h3><p>&emsp;通过卡巴斯基的报告，可以知道Step1中mw1.bin的作用是：（1）使用漏洞（parcel mismatch、0day或1day），获取StartAnyWhere能力（StartAnyWhere指 Android 系统中的一种特权权限，它允许应用程序在任意位置启动其他应用程序，包括系统应用程序和第三方应用程序。例如，通过 Intent 直接启动其他应用程序的 Activity，从而实现一些特殊的功能，例如系统级别的操作、自动化测试、远程控制等）。（2）攻击系统应用，获取读写系统应用文件的能力。（3）包装漏洞的EXP，提供接口提供给上层调用。</p>
-<p>&emsp;下载 pdd 6.49 <a target="_blank" rel="noopener" href="https://com-xunmeng-pinduoduo.en.uptodown.com/android/download/91472728">链接</a>。可以定位到文件：</p>
-<p><code>pinduoduo-6-49-0.zip\assets\component\com.xunmeng.pinduoduo.AliveBaseAbility.7z\com.xunmeng.pinduoduo.AliveBaseAbility\vmp_src\mw1.bin</code>。</p>
-<h4 id="反调-amp-加固"><a href="#反调-amp-加固" class="headerlink" title="反调&amp;加固"></a>反调&amp;加固</h4><h5 id="DebugCheck"><a href="#DebugCheck" class="headerlink" title="DebugCheck()"></a>DebugCheck()</h5><p><img src="/images/pdd-analysis-by-kaspersky/image-20230725143611596.png" alt="image-20230725143611596" style="zoom: 67%;" /></p>
-<p>&emsp;可以发现，pdd 针对不同的手机厂商用了不同的反调试检测。</p>
-<p>&emsp;由于 mw1.bin 文件使用 vmp 做了保护，因此使用<a target="_blank" rel="noopener" href="https://github.com/davinci1012/pinduoduo_backdoor_unpacker/tree/main/manwe-unpacker">脚本</a>（manwe）对其进行处理，得到某文件夹。通过分析，可以发现 mw1.bin 的主要函数为 alive.base.ability.comp.main，如下所示：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724181257885.png" alt="image-20230724181257885" style="zoom: 67%;" /></p>
-<p>&emsp;可以发现其中有多个接口，按接口进行分析：</p>
-<h4 id="IStrategy"><a href="#IStrategy" class="headerlink" title="IStrategy"></a>IStrategy</h4><p><img src="/images/pdd-analysis-by-kaspersky/image-20230724184604657.png" alt="image-20230724184604657" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724184721988.png" alt="image-20230724184721988" style="zoom: 67%;" /></p>
-<p>&emsp;可以发现，mainFunction 的功能是是从 d（ConcurrentHashMap）中获得字符串对应的 object ，或没有则重新创建一个。此对象属于 com.xunmeng.pinduoduo.alive.strategy.interfaces.plugin.ObjectCreator，是在另一个bin 文件中定义的。最终，可以总结 IStrategy 根据名称获取 Strategy。而 IReceiver、IService、IActivity 这 3 个组件的情况与 IStrategy 类似，都是组件化虚拟接口，在其他 bin 文件中定义。</p>
-<h4 id="VivoBindServiceComp"><a href="#VivoBindServiceComp" class="headerlink" title="VivoBindServiceComp"></a>VivoBindServiceComp</h4><p><img src="/images/pdd-analysis-by-kaspersky/image-20230724195953747.png" alt="image-20230724195953747" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724200029759.png" alt="image-20230724200029759" style="zoom: 67%;" /></p>
-<p>&emsp;此组件重新生成了 IVivoBindServiceComp，其是 Vivo 的组件泄露漏洞利⽤。TODO。</p>
-<h4 id="ISonaAbility"><a href="#ISonaAbility" class="headerlink" title="ISonaAbility"></a>ISonaAbility</h4><p><img src="/images/pdd-analysis-by-kaspersky/image-20230724201043365.png" alt="image-20230724201043365" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724201138750.png" alt="image-20230724201138750" style="zoom: 67%;" /></p>
-<p>&emsp;从上图发现，构造提权 Intent 后，使用 SonaAbility 进行攻击，执行提权Intent。其中， SonaAbility 包装了 0day、1day、Bundle Mismatch 漏洞进行提权。</p>
-<p>&emsp;这些漏洞的共同特点在于框架中 Parcelable 对象（跨进程通信）的写入（序列化）和读出（反序列化）不一致，比如将一个成员变量写入时为 long，而读出时为 int。我们可以构造有漏洞的 Parcelable 对象，实现以 Settings 系统应用（管理设备系统设置的应用程序）发送任意 Intent 启动 Activity 的能力。</p>
-<p>&emsp;普通 App 将 Bundle（多种数据类型打包成一个）序列化后通过 Binder 传递给 system_server，然后 system_server 通过 Bundle 的一系列 getXXX（如 getBoolean、getParcelable）函数（获取数据类型）触发反序列化，获得 KEY_INTENT 的值，即一个 intent 对象，并进行安全检查。若检查通过，调用 writeBundle 进行第二次序列化，然后 Settings 系统应用中反序列化后重新获得<code>&#123;KEY_INTENT:intent&#125;</code>，并调用 startActivity。</p>
-<p>&emsp;如果第二次序列化和反序列化过程不匹配，那么就有可能在 system_server 检查时 Bundle 中恶意的<code>&#123;KEY_INTENT:intent&#125;</code>不出现，而在 Settings 中出现，那么就绕过了 checkKeyIntent 检查。</p>
-<p>&emsp;图示如下：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725232026034.png" alt="image-20230725232026034" style="zoom:67%;" /></p>
-<p>&emsp;SonaAbility 接收其他组件包装的 Intent，在 start(SonaRequest) 中取出，并通过平台调⽤对应的漏洞，如下所示：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725233510309.png" alt="image-20230725233510309" style="zoom:67%;" /></p>
-<p>（1）红框代码：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725233727886.png" alt="image-20230725233727886" style="zoom:67%;" /></p>
-<p>&emsp;可以发现，它是在应用程序启动时跟踪性能和数据。</p>
-<p>（2）绿框代码：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230726104614132.png" alt="image-20230726104614132" style="zoom:67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230726104933334.png" alt="image-20230726104933334" style="zoom:67%;" /></p>
-<p>&emsp;可发现它利用 startActivity 函数启动 intent 并跟踪性能和数据。</p>
-<h4 id="IAlivePullStartUp"><a href="#IAlivePullStartUp" class="headerlink" title="IAlivePullStartUp"></a>IAlivePullStartUp</h4><p><img src="/images/pdd-analysis-by-kaspersky/image-20230724201536278.png" alt="image-20230724201536278" style="zoom: 67%;" /></p>
-<p>&emsp;<code>...pullstartup.a()</code>是一个类，其中包含很多函数，重点有 4 个函数，分别为：makeBundle、startAccount、startSpecialActivity、stopSpecialActivity，其他组件可以调用此接口执行 Intent 攻击。</p>
-<h4 id="IAliveBaseAbility"><a href="#IAliveBaseAbility" class="headerlink" title="IAliveBaseAbility"></a>IAliveBaseAbility</h4><p>IAliveBaseAbility&emsp;报告中说这是核心组件，<strong>提供基于平台的保活能力、基于提权漏洞特权文件的访问能力。</strong>分析流程如下：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724205808292.png" alt="image-20230724205808292" style="zoom: 67%;" /></p>
-<p>&emsp;跟进<code>xxx.impl.a()</code>，可以发现其中的重要的函数：</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724210634829.png" alt="image-20230724210634829" style="zoom: 67%;" /></p>
-<p>&emsp;分别跟进其中重要的函数：</p>
-<h5 id="AliveStartup"><a href="#AliveStartup" class="headerlink" title="AliveStartup()"></a>AliveStartup()</h5><p>&emsp;&emsp;（a）canStartBackgroundActivity()。是否可以启动后台活动。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724233215251.png" alt="image-20230724233215251" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230724233257255.png" alt="image-20230724233257255" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（b）canStartBgActivityByAlarm。从 RemoteConfig 中实例化 start_bg_activity_by_alarm 对象，可以通过 Alarm 启动后台活动。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725123945202.png" alt="image-20230725123945202" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725124023123.png" alt="image-20230725124023123" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（c）canStartBgActivityByFullScreenNotification()。通过通知启动后台活动。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725124326736.png" alt="image-20230725124326736" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725124659230.png" alt="image-20230725124659230" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725124906160.png" alt="image-20230725124906160" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（d）canStartBgActivityByFullScreenNotification。与（c）类似，只不过（c）自动添加了权限检查。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725125114425.png" alt="image-20230725125114425" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（e）grantAutoStartPermission。获得自启动权限。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725125351912.png" alt="image-20230725125351912" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（f）hasAutoStartPermission。针对三星设备，修改系统自启动设置，达到保活。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130003768.png" alt="image-20230725130003768" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130034928.png" alt="image-20230725130034928" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130048211.png" alt="image-20230725130048211" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（g）startBackgroundActivity。通过PendingIntent.getActivity函数启动Activity。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130358433.png" alt="image-20230725130358433" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130441062.png" alt="image-20230725130441062" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130515295.png" alt="image-20230725130515295" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（h）startBackgroundActivityByAlarm。使用bg_act_alarm_clock_5300启动后台activity。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130705503.png" alt="image-20230725130705503" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725130816929.png" alt="image-20230725130816929" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（i）startBackgroundActivityByTheme(Intent intent)。利用主题管理器启动后台活动。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725133516444.png" alt="image-20230725133516444" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725133602759.png" alt="image-20230725133602759" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（j）startBackgroundByFullScreenNotification。针对小米设备，通过全屏通知启动后台程序。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725134915901.png" alt="image-20230725134915901" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725135003070.png" alt="image-20230725135003070" style="zoom: 67%;" /></p>
-<h5 id="DoubleInstance"><a href="#DoubleInstance" class="headerlink" title="DoubleInstance()"></a>DoubleInstance()</h5><p><img src="/images/pdd-analysis-by-kaspersky/image-20230725144138868.png" alt="image-20230725144138868" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725144436436.png" alt="image-20230725144436436" style="zoom: 67%;" /></p>
-<p>&emsp;主要是通过判断/data/user/deviceId这个文件是否存在，来判断是否双开。</p>
-<h5 id="FileProvider"><a href="#FileProvider" class="headerlink" title="FileProvider()"></a>FileProvider()</h5><p>&emsp;&emsp;（a）hasAbility(string str)。猜测HW指的是华为手机，这应该是针对华为手机的模块，来检查是否ab_key_hw_fp_ability中是否有某ability。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725162915619.png" alt="image-20230725162915619" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（b）hasPermission()。猜测HW指的是华为手机，这应该是针对华为手机的模块，来检查是否ab_key_hw_fp_ability中是否有某ability。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725163149481.png" alt="image-20230725163149481" style="zoom: 67%;" /></p>
-<p>&emsp;（c）startGrantPermission(string str)。构造intent，并使用launchIntentWithHwLauncherProvider函数来发送intent，从而获取权限。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725163702681.png" alt="image-20230725163702681" style="zoom: 67%;" /></p>
-<p>&emsp;（d）getLauncherIcons()。根据sqlite数据库中的数据，构造iconInfo的列表并返回。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725164113063.png" alt="image-20230725164113063" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725164213198.png" alt="image-20230725164213198" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725164255732.png" alt="image-20230725164255732" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725164334949.png" alt="image-20230725164334949" style="zoom: 67%;" /></p>
-<p>&emsp;（e）addIcon()。添加Icon。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725164805808.png" alt="image-20230725164805808" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725164907400.png" alt="image-20230725164907400" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725165309455.png" alt="image-20230725165309455" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725165329011.png" alt="image-20230725165329011" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725165417778.png" alt="image-20230725165417778" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（f）moveIconToFolder(int i, int i2)。将Icon移动到某文件夹下。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725165747051.png" alt="image-20230725165747051" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725165819821.png" alt="image-20230725165819821" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725165927556.png" alt="image-20230725165927556" style="zoom: 67%;" /></p>
-<p>&emsp;&emsp;（g）moveIconOutFolder同理。</p>
-<p>&emsp;&emsp;（h）updateIcon(IconInfo iconInfo)。更新Icon，其处理机制与（e）（f）（g）很相似，都是对数据库做操作。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725170116324.png" alt="image-20230725170116324" style="zoom: 67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725170155994.png" alt="image-20230725170155994" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（i）removeIcon(int i)同理。</p>
-<p>&emsp;&emsp;（j）addScreen()的作用是添加Screen，机制与上面相同，不再赘述。</p>
-<p>&emsp;&emsp;（k）getLayoutProps()。构造view的布局对象并返回。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725170929917.png" alt="image-20230725170929917" style="zoom:80%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725171119569.png" alt="image-20230725171119569"></p>
-<p>&emsp;&emsp;（l）restartLauncher()。开多线程进行重新启动。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725171350573.png" alt="image-20230725171350573" style="zoom:67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725172809280.png" alt="image-20230725172809280"></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725173254643.png" alt="image-20230725173254643" style="zoom:67%;" /></p>
-<h5 id="FileProviderV2"><a href="#FileProviderV2" class="headerlink" title="FileProviderV2()"></a>FileProviderV2()</h5><p>&emsp;报告中说这是核心组件，主要作用是通过各种提权漏洞获得对系统应用的文件访问能力。分析其函数及功能如下：</p>
-<p>&emsp;&emsp;（a）fileProviderUtils()。获得文件所需的工具函数。下图红框部分代表一个类，其中有writeStreamLocked、writeStreamWithRecheck、openDB、getSharedPreferencesByFile、openStream等函数。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725174104945.png" alt="image-20230725174104945" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（b）getValidUriByScene(String str)。根据Scence获取资源标识符uri。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725175717174.png" alt="image-20230725175717174" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（c）hasPermission(String str)。通过openInpustStream打开StrategyFramework的str标签位，若能打开则说明有str权限。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725180117136.png" alt="image-20230725180117136" style="zoom:67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725180354430.png" alt="image-20230725180354430" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（d）hasPermission(String str, String str2)。与（c）类似，判断是否有某权限。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725180604652.png" alt="image-20230725180604652" style="zoom:67%;" /></p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725180821039.png" alt="image-20230725180821039" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（e）hssLocalDataManager()。返回一个hssLocalDataManager的类（huawei security server），里面的方法有很多，列入写xml文件等。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725181025619.png" alt="image-20230725181025619" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（f）hwHiBoardProvider()。创建并返回一个类，叫做hwHiBoard。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725203949074.png" alt="image-20230725203949074" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（g）hwSelfStartProvider()。也是创建并返回一个类，这个类对SelfStart做了好多操作，例如Start、Enable、Disable。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725205443769.png" alt="image-20230725205443769" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（h）kaelDbOperate()。返回一个类，此类中有很多方法，例如根据URI或者stream流生成MD5。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725211459732.png" alt="image-20230725211459732" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（i）oppoAuProvider()。也是返回一个类，针对oppo设备，提供了一些权限和数据库操作的类，主要用于管理和控制应用程序的一些功能或行为，例如卸载应用程序、重启桌面等。</p>
-<p>&emsp;&emsp;（j）oppoLauncherProvider()。针对oppo设备，提供了一个桌面图标管理的类，用于管理和控制应用程序的桌面图标的添加、删除和获取等操作。</p>
-<p>&emsp;&emsp;（k）oppoLockPullProvider()。针对oppo设备，提供了检查锁屏拉动功能的类，用于判断是否允许在指定组件上进行锁屏拉动操作。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725214806284.png" alt="image-20230725214806284" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（l）permQuery()。提供了查询是否具有Vivo锁屏权限的类，主要用于判断当前应用程序是否具有在Vivo设备上进行锁屏操作的权限。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725215109457.png" alt="image-20230725215109457" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（m）persistPermission(Intent intent)。用于保存、更新和广播权限授权结果。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725220456034.png" alt="image-20230725220456034" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（n）startGrantPermission(String str, String str2)。用于构建、填充并发送权限授权请求。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725220948213.png" alt="image-20230725220948213" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（o）startGrantPermission(String str, String str2, Intent intent, String str3)。用于开始请求权限授权，支持批量处理多个权限授权请求。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725221213125.png" alt="image-20230725221213125" style="zoom:67%;" /></p>
-<p>&emsp;&emsp;（p）xmBehaviorWhiteProvider()。返回一个类，是一个用于管理行为白名单和本地配置版本的工具类，主要提供了一些查询和设置相关信息的方法。</p>
-<h5 id="FloatWindow"><a href="#FloatWindow" class="headerlink" title="FloatWindow()"></a>FloatWindow()</h5><p>&emsp;这个类定义了多个方法，用于添加、移除和更新小米设备上的浮动窗口。浮动窗口是通过将一个View添加到一个带有特定LayoutParams的WindowManager中创建的。这个类还使用hasOverlayPermission()方法检查是否有权限绘制浮动窗口。报告中说通过漏洞获取悬浮窗能力保活。</p>
-<h5 id="ScreenRecordCheck"><a href="#ScreenRecordCheck" class="headerlink" title="ScreenRecordCheck()"></a>ScreenRecordCheck()</h5><p>&emsp;用于屏幕录制检查的实现类。这个类定义了多个方法，用于检查设备是否在录制屏幕，启动检测屏幕录制、获取屏幕录制状态和检测屏幕录制是否受支持。</p>
-<p><img src="/images/pdd-analysis-by-kaspersky/image-20230725223312024.png" alt="image-20230725223312024" style="zoom:67%;" /></p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>&emsp;最终，可以在com.xunmeng.pinduoduo.android_pull_ablity_comp.pullstartup发现针对多个厂商的提权代码。提权后，pdd会动态下发dex，给自己保活、防卸载、收集数据等。目前，pdd负责dex下发的服务器已删除这些文件。</p>
-<h5 id="针对huawei"><a href="#针对huawei" class="headerlink" title="针对huawei"></a>针对huawei</h5><p><img src="/images/pdd-analysis-by-kaspersky/image-20230726110309669.png" alt="image-20230726110309669" style="zoom:67%;" /></p>
-<h5 id="针对xiaomi"><a href="#针对xiaomi" class="headerlink" title="针对xiaomi"></a>针对xiaomi</h5><p><img src="/images/pdd-analysis-by-kaspersky/image-20230726110335237.png" alt="image-20230726110335237" style="zoom:67%;" /></p>
-<h5 id="针对samsung"><a href="#针对samsung" class="headerlink" title="针对samsung"></a>针对samsung</h5><p><img src="/images/pdd-analysis-by-kaspersky/image-20230726110421585.png" alt="image-20230726110421585" style="zoom:67%;" /></p>
-<p>&emsp;还包括针对基本功能的提权，由于精力与水平有限，并未仔细研究漏洞利用代码（但是认为这部分是最重要的..）。</p>
-<h3 id="base-secdt-comp-plugin"><a href="#base-secdt-comp-plugin" class="headerlink" title="base_secdt_comp_plugin"></a>base_secdt_comp_plugin</h3><p>&emsp;定位到文件：<code>pinduoduo-6-49-0.zip\assets\component\com.xunmeng.pinduoduo.secdtbase\nvwa_src\nw0.bin</code>。使用<a target="_blank" rel="noopener" href="https://github.com/davinci1012/pinduoduo_backdoor_unpacker/tree/main/manwe-unpacker">nvwa脚本</a>来进行处理。但是我未成功，因为运行脚本需要安装krak2命令，开了代理还是很慢。所以直接总结报告中给出的：<strong>此组件目的是环境检测，在上⾯多个component中都有isEnvUnsafe的检测，如果发现正在被调试或hook，则不出现恶意行为，并尝试清除系统⽇志。 通过nvwa VMP进行保护。</strong></p>
-<h3 id="其他plugin"><a href="#其他plugin" class="headerlink" title="其他plugin"></a>其他plugin</h3><p>&emsp;在我分析的pdd版本（6.49）中，并未有alive_security_biz_plugin、smart_shortcut_plugin、app_sd_thousand_plugin。所以这里直接复制报告中的内容。</p>
-<p>&emsp;alive_security_biz_plugin。如果说alive_base_ability_plugin是对提权能力的包装，那这个Plugin则是驱动器，通过各种方式利用之前的能力（也包括⼀些新的漏洞）来实现保活、窃取隐私等目的。该Plugin包含了数十个Strategy，每个Strategy都对应着一套利用代码。此plugin也包含大量数据收集逻辑，例如各种用户身份的collector，监控其他App运行、DAU情况。</p>
-<p>&emsp;smart_shortcut_plugin。通过<strong>对Launcher桌面的控制</strong>，实现保活、防卸载等功能。例如通过提权后修改Launcher的布局，加入一个假的<br>快捷方式图标而把真实图标隐藏掉，可达到防卸载目的。将图标移动到用户常用屏处，可达到提高转化率效果。通过放置1*1的隐藏widget，可达到保活目的等。 </p>
-<p>&emsp;app_sd_thousand_plugin。写入其他App的动态代码文件后<strong>进行提权</strong>并驻留后门的逻辑，以及利用系统备份功能窃取其他应用隐私数据的模块，例如利用系统备份功能，窃取微信聊天记录。在提权成功后，其会从远端再次拉取dex文件。</p>
-<h2 id="0x01-pdd-分析总结"><a href="#0x01-pdd-分析总结" class="headerlink" title="0x01 pdd 分析总结"></a>0x01 pdd 分析总结</h2><p>（1）保活：指将自己加入系统的自启动白名单、关联启动白名单、后台白名单、锁屏白名单、悬浮窗、1像素透明图标、省电策略等⽅式，绕过系统强制休眠限制，持续后台存活。修改隐藏自身耗电量，逃避用户注意。</p>
-<p>（2）诱导欺骗行为：通过相关权限，绕过系统限制构造相关全屏广告、虚假通知（例如锁屏、解锁、全屏红包消息），诱导用户点击；劫持用户壁纸，劫持用户日历、闹钟等；⼀直展示消息未读状态，吸引用户点击；修改用户电池状态。</p>
-<p>（3）防卸载行为：通过假图标、Widget等⽅式，让用户在桌面无法删除 app；或通过注入系统进程⽅式，拦截回滚用户卸载操作。</p>
-<p>（4）信息收集：收集用户的位置、Wifi、识别码、相册、安装包信息、⽤户帐户信息、历史通知等，甚⾄包括聊天记录，对用户进行精准画像。监控淘宝、头条等多个头部厂商。</p>
-<p>（5）攻击、感染行为。提权后攻击其他App、系统App，覆盖文件驻留后门，进行持久化。</p>
-<p>（6）远程静默安装行为和链接伪造。利用应用市场接口、浏览器、微信WebView漏洞，实现⽤户点击链接打开网页即被静默安装拼多多。</p>
-
-	
-	</div>
-  <a type="button" href="/2023/07/19/pdd-analysis-by-kaspersky/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -599,7 +441,7 @@
 		
 			<li><a href="/categories/static-analysis/">static-analysis<span>2</span></a></li>
 		
-			<li><a href="/categories/study-notes/">study-notes<span>21</span></a></li>
+			<li><a href="/categories/study-notes/">study-notes<span>22</span></a></li>
 		
 			<li><a href="/categories/virus-re/">virus-re<span>2</span></a></li>
 		
@@ -622,6 +464,10 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2024/08/31/gamecheat-1/" ><i class="fa fa-file-o"></i>gamecheat-1</a>
+      </li>
+    
+      <li>
         <a href="/2024/06/29/kernel-dwm-rendering/" ><i class="fa fa-file-o"></i>kernel-dwm-rendering</a>
       </li>
     
@@ -635,10 +481,6 @@
     
       <li>
         <a href="/2024/06/03/ace-prepare-2/" ><i class="fa fa-file-o"></i>ace-prepare-2</a>
-      </li>
-    
-      <li>
-        <a href="/2024/06/02/ctf-guide-pwn-3/" ><i class="fa fa-file-o"></i>ctf-guide-pwn-3</a>
       </li>
     
   </ul>

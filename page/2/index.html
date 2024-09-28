@@ -122,6 +122,33 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2024/06/02/ctf-guide-pwn-3/" >ctf-guide-pwn-3</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2024-06-02  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="CTF-竞赛权威指南-PWN-3"><a href="#CTF-竞赛权威指南-PWN-3" class="headerlink" title="CTF 竞赛权威指南-PWN-3"></a>CTF 竞赛权威指南-PWN-3</h1><h2 id="0x08-堆利用"><a href="#0x08-堆利用" class="headerlink" title="0x08 堆利用"></a>0x08 堆利用</h2><p>&emsp;内存管理要求在程序请求时动态分配内存，并在程序不需要时释放分配的内存。glibc 实现的内存管理机制叫 ptmalloc2，它支持多线程，其在速度、所占空间、可移植性、可调整性上都有很好的表现。常见的内存管理机制还有 dlmalloc、tcmalloc、jemalloc 等。堆是由低地址向高地址增长的线性区域。只有当用户向操作系统申请内存时，堆才会被内核分配出来，并且出于效率和页对齐的考虑，通常会分配相当大的连续内存。程序再次申请时便会从这片内存中分配，直到堆空间不能满足时才会再次增长。堆一般在 BSS 段高地址处。</p>
+	
+	</div>
+  <a type="button" href="/2024/06/02/ctf-guide-pwn-3/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2024/05/31/ace-prepare/" >ace-prepare</a>
 		</h3>
 		</div>
@@ -222,33 +249,6 @@
 	
 	</div>
   <a type="button" href="/2024/05/08/rust-study-1/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2024/05/08/ctf-guide-pwn-2/" >ctf-guide-pwn-2</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2024-05-08  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="CTF-竞赛权威指南-PWN-2"><a href="#CTF-竞赛权威指南-PWN-2" class="headerlink" title="CTF 竞赛权威指南-PWN-2"></a>CTF 竞赛权威指南-PWN-2</h1><h2 id="0x04-shellcode-开发"><a href="#0x04-shellcode-开发" class="headerlink" title="0x04 shellcode 开发"></a>0x04 shellcode 开发</h2>
-	
-	</div>
-  <a type="button" href="/2024/05/08/ctf-guide-pwn-2/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -440,7 +440,7 @@
 		
 			<li><a href="/categories/static-analysis/">static-analysis<span>2</span></a></li>
 		
-			<li><a href="/categories/study-notes/">study-notes<span>21</span></a></li>
+			<li><a href="/categories/study-notes/">study-notes<span>22</span></a></li>
 		
 			<li><a href="/categories/virus-re/">virus-re<span>2</span></a></li>
 		
@@ -463,6 +463,10 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2024/08/31/gamecheat-1/" ><i class="fa fa-file-o"></i>gamecheat-1</a>
+      </li>
+    
+      <li>
         <a href="/2024/06/29/kernel-dwm-rendering/" ><i class="fa fa-file-o"></i>kernel-dwm-rendering</a>
       </li>
     
@@ -476,10 +480,6 @@
     
       <li>
         <a href="/2024/06/03/ace-prepare-2/" ><i class="fa fa-file-o"></i>ace-prepare-2</a>
-      </li>
-    
-      <li>
-        <a href="/2024/06/02/ctf-guide-pwn-3/" ><i class="fa fa-file-o"></i>ctf-guide-pwn-3</a>
       </li>
     
   </ul>
