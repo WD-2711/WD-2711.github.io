@@ -122,6 +122,33 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/07/03/vmp-analysis/" title="VMP study note. Mainly from &#34;Encryption and Decryption&#34;. It record vmp analysis and how to recover vmp program process.">vmp-analysis</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-07-03  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="VMProtect逆向与还原浅析"><a href="#VMProtect逆向与还原浅析" class="headerlink" title="VMProtect逆向与还原浅析"></a>VMProtect逆向与还原浅析</h1><p>&emsp;VMProtect是一个比较麻烦的壳，《加密与解密》第21章主要讲了这个壳，做一下笔记。此笔记分析的<code>VMP</code>版本为<code>1.7</code>。<code>vmp</code>可以看作一个虚拟机+虚假跳转/流程分割的壳。下面是一个虚假跳转的例子，实际上下面的两个块都只执行了<code>Mov dword ptr ss:[ebp+04h], eax</code>语句。</p>
+	
+	</div>
+  <a type="button" href="/2023/07/03/vmp-analysis/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/07/03/go-bin-re-study-2/" title="The notes on the reverse analysis of Go language are mainly based on Master Jieyu’s blog. The content includes interface mapping table, string analysis, and a demonstration of a DDG case.">go-bin-re-study-2</a>
 		</h3>
 		</div>
@@ -225,34 +252,6 @@
 	
 	</div>
   <a type="button" href="/2023/06/17/stm-re/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/06/17/SCTF-2023/" title="SCTF2023 about wp in the reverse direction.">SCTF-2023</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-06-17  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>复现文件保存在<a target="_blank" rel="noopener" href="https://github.com/WD-2711/re_files/tree/main/SCTF2023-re">链接</a>。</p>
-<h1 id="SycLang"><a href="#SycLang" class="headerlink" title="SycLang"></a>SycLang</h1><p>&emsp;64位trans_IR。主要是看那个txt文件。经过化简，可以得到：</p>
-	
-	</div>
-  <a type="button" href="/2023/06/17/SCTF-2023/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -426,6 +425,8 @@
 		
 			<li><a href="/categories/funny-thing/">funny thing<span>2</span></a></li>
 		
+			<li><a href="/categories/fuzz/">fuzz<span>1</span></a></li>
+		
 			<li><a href="/categories/geekpwn/">geekpwn<span>2</span></a></li>
 		
 			<li><a href="/categories/go/">go<span>3</span></a></li>
@@ -467,6 +468,10 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2024/11/09/fuzzer-dev/" ><i class="fa fa-file-o"></i>fuzzer-dev</a>
+      </li>
+    
+      <li>
         <a href="/2024/08/31/gamecheat-1/" ><i class="fa fa-file-o"></i>gamecheat-1</a>
       </li>
     
@@ -480,10 +485,6 @@
     
       <li>
         <a href="/2024/06/04/segment-register/" ><i class="fa fa-file-o"></i>segment-register</a>
-      </li>
-    
-      <li>
-        <a href="/2024/06/03/ace-prepare-2/" ><i class="fa fa-file-o"></i>ace-prepare-2</a>
       </li>
     
   </ul>

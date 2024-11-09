@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wd-2711.tech/2024/11/09/fuzzer-dev/</loc>
+    
+    <lastmod>2024-11-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://wd-2711.tech/2024/08/31/gamecheat-1/</loc>
     
     <lastmod>2024-11-09</lastmod>
@@ -1628,6 +1637,13 @@
   
   <url>
     <loc>https://wd-2711.tech/categories/windows/</loc>
+    <lastmod>2024-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/fuzz/</loc>
     <lastmod>2024-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
