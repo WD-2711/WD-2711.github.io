@@ -1,6 +1,9 @@
+https://wd-2711.tech/2024/11/19/AI-security/
+https://wd-2711.tech/2024/11/13/datacon-2024/
+https://wd-2711.tech/2023/09/25/intern-ms-prepare/
+https://wd-2711.tech/2024/06/02/ctf-guide-pwn-3/
 https://wd-2711.tech/2024/11/09/fuzzer-dev/
 https://wd-2711.tech/2024/08/31/gamecheat-1/
-https://wd-2711.tech/2024/06/02/ctf-guide-pwn-3/
 https://wd-2711.tech/2024/05/08/rust-study-1/
 https://wd-2711.tech/2024/06/29/kernel-dwm-rendering/
 https://wd-2711.tech/2024/06/29/fire-class-V/
@@ -14,7 +17,6 @@ https://wd-2711.tech/2024/05/08/ctf-guide-pwn-2/
 https://wd-2711.tech/2024/05/15/java-deserialization/
 https://wd-2711.tech/2023/06/07/keri-translate-2/
 https://wd-2711.tech/2024/04/01/ctf-guide-pwn-1/
-https://wd-2711.tech/2023/09/25/intern-ms-prepare/
 https://wd-2711.tech/2024/04/10/tx-security-contest-pc/
 https://wd-2711.tech/2023/08/01/useful-scripts/
 https://wd-2711.tech/2024/03/11/register-mechine/
@@ -186,3 +188,4 @@ https://wd-2711.tech/categories/static-analysis/
 https://wd-2711.tech/categories/rust/
 https://wd-2711.tech/categories/windows/
 https://wd-2711.tech/categories/fuzz/
+https://wd-2711.tech/categories/datacon/

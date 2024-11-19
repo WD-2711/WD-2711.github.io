@@ -2,6 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wd-2711.tech/2024/11/19/AI-security/</loc>
+    
+    <lastmod>2024-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/2024/11/13/datacon-2024/</loc>
+    
+    <lastmod>2024-11-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/2023/09/25/intern-ms-prepare/</loc>
+    
+    <lastmod>2024-11-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/2024/06/02/ctf-guide-pwn-3/</loc>
+    
+    <lastmod>2024-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://wd-2711.tech/2024/11/09/fuzzer-dev/</loc>
     
     <lastmod>2024-11-10</lastmod>
@@ -14,15 +50,6 @@
     <loc>https://wd-2711.tech/2024/08/31/gamecheat-1/</loc>
     
     <lastmod>2024-11-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/2024/06/02/ctf-guide-pwn-3/</loc>
-    
-    <lastmod>2024-10-31</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -140,15 +167,6 @@
     <loc>https://wd-2711.tech/2024/04/01/ctf-guide-pwn-1/</loc>
     
     <lastmod>2024-05-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/2023/09/25/intern-ms-prepare/</loc>
-    
-    <lastmod>2024-05-07</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -1480,7 +1498,7 @@
 
   <url>
     <loc>https://wd-2711.tech/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -1490,161 +1508,168 @@
   
   <url>
     <loc>https://wd-2711.tech/categories/re/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/Assembly/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/blockchain/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/web/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/papers/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/cs-books/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/%E6%9D%82%E8%AE%B0/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/ML/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/crypto/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/IOT/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/TEE/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/study-notes/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/geekpwn/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/re-book/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/pwn/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/go/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/virus-re/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/matrix-analysis-application/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/funny-thing/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/static-analysis/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/rust/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/windows/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/fuzz/</loc>
-    <lastmod>2024-11-10</lastmod>
+    <lastmod>2024-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/datacon/</loc>
+    <lastmod>2024-11-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
