@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>pairing-based-crypto | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="pairing-based-crypto"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> pairing-based-crypto</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="What-is-pairing"><a href="#What-is-pairing" class="headerlink" title="What is pairing?"></a>What is pairing?</h1><p>&emsp;最近在搞中期报告，要用到一些双线性配对密码学的知识。我们都知道双线性配对满足一些计算性质，例如$e(u^a,v^b)=e(u,v)^{ab}$，利用双线性配对可以构造很多密码学算法，当然也是身份加密的基础。然而，双线性配对到底是啥呢？咋来的呢？具体应用是什么呢？</p>
+<span id="more"></span>
+<p>&emsp;首先要引入一些概念。</p>
+<p>&emsp;群。一种代数结构，由一组元素和二元运算*组成。群必须满足以下四个条件：</p>
+<ul>
+<li>封闭性：对于群中的任意两个元素 a 和 b，a*b 仍在群中。</li>
+<li>结合性：对于群中的任意元素 a、b 和 c，有 (a∗b)∗c=a∗(b∗c)。</li>
+<li>单位元：存在一个单位元 e，使得对于任何元素 a，都有 a∗e=a。</li>
+<li>逆元：对于群中的每个元素 a，存在一个元素 b，使得 a∗b=e。</li>
+</ul>
+<p>&emsp;离散对数问题（DLP）。给定一个加法群 G，P 是 G 的生成元，群的阶为 n，以及一个群中的元素 Q。DLP 是要求找到一个整数 $x \in [0,n−1]$，使得：Q=x*P。当 n 很大的时候，而且群如果是精心选择的话，DLP 很困难。</p>
+<p>&emsp;Diffie-Hellman 问题（DHP）。给定 P、aP 和 bP 的情况下得到 abP。很容易看出来 DHP 比 DLP 简单，因为多了一些信息。</p>
+<h2 id="pairing-是怎么来的？"><a href="#pairing-是怎么来的？" class="headerlink" title="pairing 是怎么来的？"></a>pairing 是怎么来的？</h2><p>&emsp;给一个域 K 上的椭圆曲线 E：$y_2 + a_1xy + a_3y = x_3 + a_2x_2 + a_4x + a_6$，其中 $a_1,a_2,a_3,a_4,a_6 \in K$。E(K) 是一个点集，由无穷远处的点和满足上式的点 $(x, y) \in K * K$ 组成。假设 K 是阶数为 q、特征为 p 的有限域 $F_q$，那么 E(K) 中的元素数量$#E(K)$满足：${(\sqrt{q}-1)}^2 \leq #E(K) \leq {(\sqrt{q}+1)}^2$（Hasse 定理），可以推导出$#E(K) = q + 1 − t$，其中$|t| \leq 2 \sqrt{q}$。如果 $p | t$ ，则 E 被称为超奇异，否则 E 是普通的。如果 q 是素数，那么对于每个 t，$|t| &lt; 2 \sqrt{q}$，都存在一条在 $F_q$ 上定义的椭圆曲线 E，其中 $#E(F_q) = q + 1 − t$。</p>
+<p>&emsp;如果 p &gt; 3，则 E 转换为：$y^2 = x^3 + ax + b$，其中 $a, b \in K$ 且 $4a^3 +27b^2 \ne 0$。如果 E 是超奇异且 p = 3，则 E 转换为：$y^2 = x^3 + ax + b$，其中 $a, b \in K$ 且 $b \ne 0$。如果 E 是超奇异且 p = 2，则转换为：$y^2 + cy = x^3 + ax + b$，其中 $a, b, c \in K$ 且 $c \ne 0$。下面是椭圆曲线的计算规则：</p>
+<p><img src="/images/pairing-based-crypto/image-20241204141756488.png" alt="image-20241204141756488" style="zoom:67%;" /></p>
+<p>&emsp;令 $P \in E(K)$ 为素数阶 n 的点，并假设 gcd(n, q) = 1。P 中的椭圆曲线离散对数问题（ECDLP）如下：给定 $P,Q \in〈P〉$，找到整数 $l$ 使得 $Q = lP$。已知用于求解 ECDLP 的最佳通用算法是 Pollard 的 rho 方法，时间复杂度为 $O(\sqrt{n})$。Weil 和 Tate 配对可用于将 ECDLP 实例转换为扩展域 $F<em>{q^k}$ 中的离散对数问题。令 E 为在 $F_q$ 上定义的椭圆曲线，$P \in E(F_q)$ 为素数阶 n 的点。假设 gcd(n, q) = 1。则 P 的嵌入度是满足 $n|q^k-1 $ 的最小正整数 k。如果嵌入度 k 较小，则用于求解 $F</em>{q^k}$ 中的 DLP 可能比用于求解 ECDLP 更快。</p>
+<p>&emsp;人们一致认为，低嵌入度的椭圆曲线不应在离散对数协议中使用，因为会受到 Weil 和 Tate 配对攻击。然而，低嵌入度椭圆曲线现在又重新流行起来，因为它们可以实现基于配对的协议。</p>
+<p>&emsp;那什么是 Weil 和 Tate 配对攻击呢？令 E 是在 $K = F<em>q$ 上定义的椭圆曲线，并令 $K’$ 表示 K 的代数闭包，用 $E(K’)$ 表示 E。E 上的除数是 $D = \sum</em>{P \in E}{n_P(P)}$，其中 $n_P$ 是整数集。如果对于 K 的所有自重构 $\alpha$，满足 $D^\alpha=\sum_P{n_P(P^\alpha)}=D$，$P^\alpha=(\alpha(x), \alpha(y))$，那么就叫 D 在 K 上定义了。在 K 上定义的所有除数的集合用 $Div_K (E)$ 表示。</p>
+<p>To be continued…</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a href="/2024/12/15/gamecheat-2/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> 上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2024/11/28/recentlyThink-6/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2024-12-03 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/crypto/">crypto<span>6</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2024 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>
