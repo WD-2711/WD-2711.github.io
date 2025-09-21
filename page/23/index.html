@@ -122,6 +122,64 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/04/05/re-core-principle-3/" >re-core-principle-3</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-04-05  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="逆向工程核心原理笔记-3"><a href="#逆向工程核心原理笔记-3" class="headerlink" title="逆向工程核心原理笔记-3"></a>逆向工程核心原理笔记-3</h1><h2 id="0x00-API钩取：逆向分析之花"><a href="#0x00-API钩取：逆向分析之花" class="headerlink" title="0x00 API钩取：逆向分析之花"></a>0x00 API钩取：逆向分析之花</h2><p>&emsp;代码逆向分析中，钩取(Hooking)是一种截取信息、更改程序执行流向、添加新功能的技术。钩取的流程如下：（1）使用反汇编器/调试器熟悉程序的结构与工作原理；（2）开发钩子代码；（3）操作可执行文件与进程内存，部署钩子代码。</p>
+<p>&emsp;其中，钩取<code>Win32 API</code>的技术被称为API钩取。分析程序时若有程序源码，大部分情况都不需要使用钩取技术。</p>
+	
+	</div>
+  <a type="button" href="/2023/04/05/re-core-principle-3/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2023/03/29/re-part-5-2/" >re-part-5-2</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-03-29  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p>由于re-part-5字数太多了，所以另开一个帖子，也是记录剩下的难度5的题解。</p>
+<hr>
+<h1 id="asong"><a href="#asong" class="headerlink" title="asong"></a>asong</h1><p>&emsp;题目一共3个文件，<code>asong</code>是一个64位的ELF、<code>out</code>文件是一个二进制文件、<code>that_girl</code>是一个有好多句子的文件。</p>
+<p>&emsp;这个题目，就是使用<code>that_girl</code>文件，结合<code>flag</code>，最后生成一个<code>out</code>文件，题目思路比较简单，就是函数逆向有点麻烦，花费了大概<code>6h</code>，脚本如下：</p>
+	
+	</div>
+  <a type="button" href="/2023/03/29/re-part-5-2/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/03/28/stm32f1/" >stm32f1</a>
 		</h3>
 		</div>
@@ -198,61 +256,6 @@
 	
 	</div>
   <a type="button" href="/2023/03/26/re-part-5/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/03/25/tool-use/" >tool-use</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-03-25  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="工具使用-amp-常用指令"><a href="#工具使用-amp-常用指令" class="headerlink" title="工具使用&amp;常用指令"></a>工具使用&amp;常用指令</h1><h2 id="0x00-qemu-IDA-ARM-Windows"><a href="#0x00-qemu-IDA-ARM-Windows" class="headerlink" title="0x00 qemu+IDA+ARM+Windows"></a>0x00 qemu+IDA+ARM+Windows</h2><p>&emsp;<strong>指令：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 1. 运行 raspberry</span><br><span class="line">qemu-system-arm.exe -M versatilepb -cpu arm1176 -m 256 -drive &quot;file=./arm/2020-02-13-raspbian-buster.img,if=none,index=0,media=disk,format=raw,id=disk0&quot; -device &quot;virtio-blk-pci,drive=disk0,disable-modern=on,disable-legacy=off&quot; -net &quot;user,hostfwd=tcp::5022-:22,hostfwd=tcp::23946-:23946&quot; -dtb ./arm/versatile-pb-buster.dtb -kernel ./arm/kernel-qemu-5.4.51-buster -append &quot;root=/dev/vda2 panic=1&quot; -no-reboot -net nic</span><br><span class="line"># 可以 ssh 连接树莓派， ssh pi@127.0.0.1 </span><br><span class="line"># 2. 运行 ida72 的 armlinux_server</span><br><span class="line">./armlinux_server</span><br><span class="line"># 3. 使用 ida72 来连接</span><br></pre></td></tr></table></figure>
-	
-	</div>
-  <a type="button" href="/2023/03/25/tool-use/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/03/23/peer-DID/" >peer-DID</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-03-23  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="Peer-DID学习笔记"><a href="#Peer-DID学习笔记" class="headerlink" title="Peer-DID学习笔记"></a>Peer-DID学习笔记</h1><h2 id="0x00-介绍"><a href="#0x00-介绍" class="headerlink" title="0x00 介绍"></a>0x00 介绍</h2><p>&emsp;DID：decentralized identifiers（分散标识符）。只有交互的双方能够解析对方的DID。</p>
-	
-	</div>
-  <a type="button" href="/2023/03/23/peer-DID/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -440,7 +443,7 @@
 		
 			<li><a href="/categories/pwn/">pwn<span>4</span></a></li>
 		
-			<li><a href="/categories/re/">re<span>42</span></a></li>
+			<li><a href="/categories/re/">re<span>43</span></a></li>
 		
 			<li><a href="/categories/re-book/">re-book<span>11</span></a></li>
 		
@@ -448,7 +451,7 @@
 		
 			<li><a href="/categories/static-analysis/">static-analysis<span>2</span></a></li>
 		
-			<li><a href="/categories/study-notes/">study-notes<span>23</span></a></li>
+			<li><a href="/categories/study-notes/">study-notes<span>24</span></a></li>
 		
 			<li><a href="/categories/virus-re/">virus-re<span>2</span></a></li>
 		
@@ -471,6 +474,14 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2025/09/21/reverse-repeat/" ><i class="fa fa-file-o"></i>reverse_repeat</a>
+      </li>
+    
+      <li>
+        <a href="/2025/07/27/tulip-notes/" ><i class="fa fa-file-o"></i>tulip-notes</a>
+      </li>
+    
+      <li>
         <a href="/2025/02/09/blue-fox/" ><i class="fa fa-file-o"></i>blue-fox</a>
       </li>
     
@@ -480,14 +491,6 @@
     
       <li>
         <a href="/2024/12/03/pairing-based-crypto/" ><i class="fa fa-file-o"></i>pairing-based-crypto</a>
-      </li>
-    
-      <li>
-        <a href="/2024/11/28/recentlyThink-6/" ><i class="fa fa-file-o"></i>recentlyThink-6</a>
-      </li>
-    
-      <li>
-        <a href="/2024/11/19/AI-security/" ><i class="fa fa-file-o"></i>AI-security</a>
       </li>
     
   </ul>

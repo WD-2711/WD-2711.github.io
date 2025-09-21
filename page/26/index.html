@@ -122,6 +122,64 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2023/02/25/signature-paper/" >signature-paper</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-02-25  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="Verifiable-Timed-Signatures-Made-Practical（实用的可验证的定时签名）"><a href="#Verifiable-Timed-Signatures-Made-Practical（实用的可验证的定时签名）" class="headerlink" title="Verifiable Timed Signatures Made Practical（实用的可验证的定时签名）"></a>Verifiable Timed Signatures Made Practical（实用的可验证的定时签名）</h2><p>&emsp;&emsp;定时签名是提交者在某消息上的签名，并与某个用户共享。经过一段时间T后，提交者向用户显示签名。如果提交者未能透露签名，则保证用户从最初给出的承诺中强制检索签名。</p>
+<p>&emsp;&emsp;本文中提出了可验证的定时签名（Verifiable Timed Signature：VTS），它让用户验证在<code>𝐶</code>中承诺的签名<code>𝜎</code>是否可以在时间T内通过ForceOp获得，并且确实是消息m的有效签名，即<code>Vf(pk,𝑚,𝜎)=1</code>。这种可验证性保证了用户能从承诺中获得一个有效的签名，且用户可以用ForceOp来检索。Commit额外输出一个证明<code>𝜋</code>，证明其嵌入的确实是消息m的签名。</p>
+	
+	</div>
+  <a type="button" href="/2023/02/25/signature-paper/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2023/02/24/Assembly-4/" >Assembly-4</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2023-02-24  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h1 id="汇编语言学习笔记-4"><a href="#汇编语言学习笔记-4" class="headerlink" title="汇编语言学习笔记-4"></a>汇编语言学习笔记-4</h1><h2 id="0x00-内中断"><a href="#0x00-内中断" class="headerlink" title="0x00 内中断"></a>0x00 内中断</h2><p>​    中断意思就是：<strong>CPU不再接着（刚执行完的指令）向下执行，而是转去处理特殊信息（中断信息）</strong>。</p>
+<p>​    那什么时候CPU会马上处理中断信息呢？</p>
+<p><img src="/images/Assembly-4/image-20230224130151427.png" alt="image-20230224130151427" style="zoom:67%;" /></p>
+<p>​    CPU根据中断信息可以找到要执行的处理程序，因此中断信息和处理程序的入口地址间需建立联系。<strong>中断类型码用于定位中断处理程序。</strong></p>
+	
+	</div>
+  <a type="button" href="/2023/02/24/Assembly-4/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2023/02/23/Assembly-3/" >Assembly-3</a>
 		</h3>
 		</div>
@@ -200,62 +258,6 @@
 	
 	</div>
   <a type="button" href="/2023/02/17/xxe-web/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/02/11/Assembly-1/" >Assembly_1</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-02-11  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="汇编语言学习笔记-1"><a href="#汇编语言学习笔记-1" class="headerlink" title="汇编语言学习笔记-1"></a>汇编语言学习笔记-1</h1><h2 id="0x00-存储器的存储结构"><a href="#0x00-存储器的存储结构" class="headerlink" title="0x00 存储器的存储结构"></a>0x00 存储器的存储结构</h2><p><img src="/images/Assembly-1/image-20230211201707096.png" alt="image-20230211201707096" style="zoom:75%;" /></p>
-<p>​    1TB=1024GB，1GB=1024MB，1MB=1024KB，1KB=1024B，1B=1字节（8位）。</p>
-<p>​    CPU想要对存储介质上的数据进行操作，就必须通过总线，总线分为<strong>地址总线、控制总线、数据总线</strong>。例如，CPU在内存中读数据，图示如下：</p>
-	
-	</div>
-  <a type="button" href="/2023/02/11/Assembly-1/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2023/02/10/go-study/" >go-study</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2023-02-10  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h1 id="Go-Study"><a href="#Go-Study" class="headerlink" title="Go Study"></a>Go Study</h1><p>​    相关代码见：<a target="_blank" rel="noopener" href="https://github.com/WD-2711/go-study">https://github.com/WD-2711/go-study</a></p>
-	
-	</div>
-  <a type="button" href="/2023/02/10/go-study/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -443,7 +445,7 @@
 		
 			<li><a href="/categories/pwn/">pwn<span>4</span></a></li>
 		
-			<li><a href="/categories/re/">re<span>42</span></a></li>
+			<li><a href="/categories/re/">re<span>43</span></a></li>
 		
 			<li><a href="/categories/re-book/">re-book<span>11</span></a></li>
 		
@@ -451,7 +453,7 @@
 		
 			<li><a href="/categories/static-analysis/">static-analysis<span>2</span></a></li>
 		
-			<li><a href="/categories/study-notes/">study-notes<span>23</span></a></li>
+			<li><a href="/categories/study-notes/">study-notes<span>24</span></a></li>
 		
 			<li><a href="/categories/virus-re/">virus-re<span>2</span></a></li>
 		
@@ -474,6 +476,14 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2025/09/21/reverse-repeat/" ><i class="fa fa-file-o"></i>reverse_repeat</a>
+      </li>
+    
+      <li>
+        <a href="/2025/07/27/tulip-notes/" ><i class="fa fa-file-o"></i>tulip-notes</a>
+      </li>
+    
+      <li>
         <a href="/2025/02/09/blue-fox/" ><i class="fa fa-file-o"></i>blue-fox</a>
       </li>
     
@@ -483,14 +493,6 @@
     
       <li>
         <a href="/2024/12/03/pairing-based-crypto/" ><i class="fa fa-file-o"></i>pairing-based-crypto</a>
-      </li>
-    
-      <li>
-        <a href="/2024/11/28/recentlyThink-6/" ><i class="fa fa-file-o"></i>recentlyThink-6</a>
-      </li>
-    
-      <li>
-        <a href="/2024/11/19/AI-security/" ><i class="fa fa-file-o"></i>AI-security</a>
       </li>
     
   </ul>
