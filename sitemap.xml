@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://wd-2711.tech/2026/10/17/test/</loc>
+    
+    <lastmod>2026-10-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/2025/11/01/ue5-dumper-analysis/</loc>
+    
+    <lastmod>2025-11-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://wd-2711.tech/2025/09/21/reverse-repeat/</loc>
     
     <lastmod>2025-11-01</lastmod>
@@ -92,7 +110,25 @@
   </url>
   
   <url>
+    <loc>https://wd-2711.tech/2023/07/19/pdd-analysis-by-kaspersky/</loc>
+    
+    <lastmod>2024-11-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://wd-2711.tech/2024/06/02/ctf-guide-pwn-3/</loc>
+    
+    <lastmod>2024-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/2024/04/01/ctf-guide-pwn-1/</loc>
     
     <lastmod>2024-11-12</lastmod>
     
@@ -113,6 +149,15 @@
     <loc>https://wd-2711.tech/2024/05/08/rust-study-1/</loc>
     
     <lastmod>2024-10-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/2022/11/13/echo-server-wp/</loc>
+    
+    <lastmod>2024-09-24</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -175,6 +220,15 @@
   <url>
     <loc>https://wd-2711.tech/2024/05/31/ace-prepare/</loc>
     
+    <lastmod>2024-06-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/2024/04/10/tx-security-contest-pc/</loc>
+    
     <lastmod>2024-06-01</lastmod>
     
     <changefreq>monthly</changefreq>
@@ -218,24 +272,6 @@
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/2024/04/01/ctf-guide-pwn-1/</loc>
-    
-    <lastmod>2024-05-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/2024/04/10/tx-security-contest-pc/</loc>
-    
-    <lastmod>2024-05-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://wd-2711.tech/2023/08/01/useful-scripts/</loc>
     
     <lastmod>2024-04-24</lastmod>
@@ -264,15 +300,6 @@
   
   <url>
     <loc>https://wd-2711.tech/2023/08/25/frida-reverse-analysis/</loc>
-    
-    <lastmod>2024-04-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/2023/07/19/pdd-analysis-by-kaspersky/</loc>
     
     <lastmod>2024-04-08</lastmod>
     
@@ -1370,15 +1397,6 @@
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/2022/11/13/echo-server-wp/</loc>
-    
-    <lastmod>2023-07-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://wd-2711.tech/2022/12/11/cve-2019-9081-recurrence/</loc>
     
     <lastmod>2023-07-28</lastmod>
@@ -1552,7 +1570,7 @@
 
   <url>
     <loc>https://wd-2711.tech/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -1561,169 +1579,176 @@
 
   
   <url>
-    <loc>https://wd-2711.tech/categories/re/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://wd-2711.tech/categories/Assembly/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/blockchain/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/web/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/papers/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/cs-books/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/%E6%9D%82%E8%AE%B0/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/ML/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/crypto/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <loc>https://wd-2711.tech/categories/re/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/web/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/blockchain/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/cs-books/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/%E6%9D%82%E8%AE%B0/</loc>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/IOT/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/papers/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/crypto/</loc>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/TEE/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/study-notes/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/geekpwn/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/re-book/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/pwn/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/go/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/virus-re/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/matrix-analysis-application/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/funny-thing/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/static-analysis/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/rust/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/windows/</loc>
-    <lastmod>2025-11-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://wd-2711.tech/categories/fuzz/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://wd-2711.tech/categories/datacon/</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/fuzz/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/go/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/virus-re/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/matrix-analysis-application/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/funny-thing/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/rust/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/windows/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/static-analysis/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
