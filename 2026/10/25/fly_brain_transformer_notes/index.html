@@ -1,0 +1,602 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>fly_brain_transformer_notes | wd-z711&#39;s B10g</title>
+  <meta name="author" content="wd-z711">
+  
+  <meta name="description" content="Common student in China. Interested in web &amp; re.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="fly_brain_transformer_notes"/>
+  <meta property="og:site_name" content="wd-z711&#39;s B10g"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'G-YHJSKZDC3Y', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="wd-z711's B10g" type="application/atom+xml">
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">wd-z711&#39;s B10g</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> fly_brain_transformer_notes</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="果蝇大脑与-Transformer-讨论笔记"><a href="#果蝇大脑与-Transformer-讨论笔记" class="headerlink" title="果蝇大脑与 Transformer 讨论笔记"></a>果蝇大脑与 Transformer 讨论笔记</h1><h2 id="1-项目定位"><a href="#1-项目定位" class="headerlink" title="1. 项目定位"></a>1. 项目定位</h2><p><code>eonsystemspbc/fly-brain</code> 不是”果蝇大脑玩具”，而是”拿真实果蝇大脑当尺子，给 6 种仿真软件测速度和准确度”的基准测试工具。</p>
+<ul>
+<li>模型：13.8 万神经元、约 500 万突触（基于 <em>Nature</em> 2024 论文）。</li>
+<li>做的事：① 模拟光遗传刺激实验；② 给 6 个后端测速；③ 以 Brian2(CPU) 为准，校验其他后端的准确度。</li>
+</ul>
+<h2 id="2-与具身智能的关系"><a href="#2-与具身智能的关系" class="headerlink" title="2. 与具身智能的关系"></a>2. 与具身智能的关系</h2><p>该项目本身不做具身，是”上游地基”：先解决”大脑怎么又快又准地跑起来”，具身项目（如 <code>erojasoficial-byte/fly-brain</code>、<code>FlyDrones</code>、<code>Lulzx/fly-brain</code>）再给它接上身体做动作。</p>
+<h2 id="3-Brian2-与-LIF-模型"><a href="#3-Brian2-与-LIF-模型" class="headerlink" title="3. Brian2 与 LIF 模型"></a>3. Brian2 与 LIF 模型</h2><p>Brian2 用三个对象搭脑：<code>NeuronGroup</code>（LIF 方程定义神经元）、<code>Synapses</code>（连接 + 权重）、<code>PoissonInput</code>（外部刺激）。</p>
+<p>LIF（漏电积分-放电）方程核心：</p>
+<ul>
+<li><code>dv/dt = (v_0 - v + g)/t_mbr</code>：膜电位向静息电位回归，受输入 <code>g</code> 驱动；</li>
+<li><code>dg/dt = -g/tau</code>：输入信号随时间衰减（”漏电”）；</li>
+<li>电压到阈值 <code>v_th</code> 就放电，随后复位并进入不应期。</li>
+</ul>
+<h2 id="4-LIF-是否通用"><a href="#4-LIF-是否通用" class="headerlink" title="4. LIF 是否通用"></a>4. LIF 是否通用</h2><p><strong>方程形式通用，参数必须按物种调。</strong> 果蝇那套参数（静息 -52mV、阈值 -45mV、膜时间常数 20ms、突触时间常数 5ms、不应期 2.2ms、传导延迟 1.8ms）全部专门查自果蝇文献，不是拿老鼠/人的值套用。</p>
+<h2 id="5-LIF-vs-Transformer"><a href="#5-LIF-vs-Transformer" class="headerlink" title="5. LIF vs Transformer"></a>5. LIF vs Transformer</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>LIF 神经元</th>
+<th>Transformer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输出</td>
+<td>脉冲（二值、稀疏）</td>
+<td>连续浮点数</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>动态系统，随时间演化</td>
+<td>静态一步到位，时间靠位置编码</td>
+</tr>
+<tr>
+<td>记忆</td>
+<td>膜电位衰减（短时）</td>
+<td>注意力 / KV Cache（显式、长程）</td>
+</tr>
+<tr>
+<td>编码</td>
+<td>脉冲时间/频率</td>
+<td>数值大小</td>
+</tr>
+<tr>
+<td>连接</td>
+<td>稀疏、局部</td>
+<td>全连接、全局</td>
+</tr>
+<tr>
+<td>权重</td>
+<td>相对固定、局部</td>
+<td>注意力动态、全局</td>
+</tr>
+<tr>
+<td>学习</td>
+<td>STDP 等局部规则</td>
+<td>全局反向传播</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>共同点：都是”接收多输入 → 加权聚合 → 非线性 → 输出”的分层并行计算单元。</p>
+<h2 id="6-记忆存在哪"><a href="#6-记忆存在哪" class="headerlink" title="6. 记忆存在哪"></a>6. 记忆存在哪</h2><p><strong>关键澄清：LIF 的”漏电”是膜电位的物理特性，不等于”不能模拟记忆”。</strong> 记忆不存于单细胞膜电位，而存于突触权重（持久）与网络持续放电（短时）。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>记忆类型</th>
+<th>生物/LIF</th>
+<th>Transformer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>长期记忆</td>
+<td>突触权重 <code>syn.w</code></td>
+<td>训练好的网络权重</td>
+</tr>
+<tr>
+<td>短期/工作记忆</td>
+<td>膜电位 + 持续放电（隐式、会漏）</td>
+<td>激活值 + KV Cache（显式、可精确查找）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="7-具身智能下-Transformer-的局限"><a href="#7-具身智能下-Transformer-的局限" class="headerlink" title="7. 具身智能下 Transformer 的局限"></a>7. 具身智能下 Transformer 的局限</h2><p>Transformer 为”静态、离线、完整序列”设计，而具身智能需要”动态、在线、闭环”。短板：无内在时间动力学、全连接二次复杂度、无在线学习、无闭环。</p>
+<p><strong>神经科学是”启发源”而非”说明书”</strong>：取”稀疏、脉冲、闭环、局部学习、时间动力学”这些原则，而非照搬细节。</p>
+<h2 id="8-蘑菇体（Mushroom-Body）：联想学习"><a href="#8-蘑菇体（Mushroom-Body）：联想学习" class="headerlink" title="8. 蘑菇体（Mushroom Body）：联想学习"></a>8. 蘑菇体（Mushroom Body）：联想学习</h2><p>链路：ORN(2562) → 触角叶(50 glomeruli) → PN(686) → <strong>KC(4064，稀疏扩展约6倍)</strong> → MBON(97)。</p>
+<ul>
+<li><strong>机制</strong>：每个 KC 只随机采样约 5 个 PN，把相似气味”投影到高维稀疏空间”区分开（稀疏编码）。</li>
+<li><strong>APL</strong>（仅 2 个）：旁路反馈抑制环，作用在 KC 层，调节 KC 活跃度（增益控制）。</li>
+<li><strong>多巴胺神经元</strong>（约 340 个）：教学信号，作用在 KC→MBON 突触上，改写权重（写记忆）。</li>
+</ul>
+<h2 id="9-中央复合体（Central-Complex）：导航"><a href="#9-中央复合体（Central-Complex）：导航" class="headerlink" title="9. 中央复合体（Central Complex）：导航"></a>9. 中央复合体（Central Complex）：导航</h2><ul>
+<li><strong>环形连接</strong>：8 个朝向位置首尾相接排成环。</li>
+<li><strong>余弦权重</strong>：”近邻互助、远邻互斥”，逼出唯一一个活动亮斑（环形吸引子），亮斑位置 = 当前朝向。</li>
+<li><strong>方向更新</strong>：PEN 通路左右偏移，让亮斑随转身沿环移动。</li>
+</ul>
+<h2 id="10-朝向-→-转向的闭环"><a href="#10-朝向-→-转向的闭环" class="headerlink" title="10. 朝向 → 转向的闭环"></a>10. 朝向 → 转向的闭环</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">朝向亮斑(EB/PB) → 扇形体FB(PFL3/PFL2，比较器) → 下行神经元 → 运动神经元 → 腿部肌肉</span><br></pre></td></tr></table></figure>
+<ul>
+<li>PFL3（左转）/ PFL2（右转）：把”当前朝向 vs 目标方向”的差翻译成转向指令。</li>
+<li><strong>诚实提醒</strong>：连接组能传播到”转向相关下行神经元”，但”协调转身/走路”的节奏部分依赖外挂步态生成器，不完全是连接组自己涌现的。</li>
+</ul>
+<h2 id="11-核心方法论：结构-≠-功能"><a href="#11-核心方法论：结构-≠-功能" class="headerlink" title="11. 核心方法论：结构 ≠ 功能"></a>11. 核心方法论：结构 ≠ 功能</h2><p>连接图（谁连谁）只告诉你”在哪找功能”，不能告诉你”零件怎么运转”。</p>
+<p>例证：用”点神经元（开关）”模拟 APL（实际是连续分级信号的”调光旋钮”），无法复现增益控制——因为零件类型搞错了，接线图再对也跑不出功能。</p>
+<h2 id="12-感觉系统全景（多模态）"><a href="#12-感觉系统全景（多模态）" class="headerlink" title="12. 感觉系统全景（多模态）"></a>12. 感觉系统全景（多模态）</h2><p>果蝇不是只有视觉+嗅觉，而是多模态。关键区分是”进大脑做认知”还是”进脊髓做反射”：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>感觉</th>
+<th>器官</th>
+<th>去向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>嗅觉</td>
+<td>触角→触角叶</td>
+<td>中央脑</td>
+</tr>
+<tr>
+<td>视觉</td>
+<td>复眼→视叶</td>
+<td>中央脑</td>
+</tr>
+<tr>
+<td>味觉</td>
+<td>口器唇瓣、腿爪</td>
+<td>部分进中央脑（学习），部分 VNC 反射</td>
+</tr>
+<tr>
+<td>触觉</td>
+<td>跗节、触角尖、全身刚毛</td>
+<td>多走 VNC 反射</td>
+</tr>
+<tr>
+<td>本体感觉</td>
+<td>腿关节（角度/负载）</td>
+<td>VNC</td>
+</tr>
+<tr>
+<td>平衡（陀螺仪）</td>
+<td>平衡棒 haltere</td>
+<td>VNC + 飞行</td>
+</tr>
+<tr>
+<td>振动/风速/听觉</td>
+<td>Johnston 器官</td>
+<td>VNC</td>
+</tr>
+<tr>
+<td>温度</td>
+<td>触角芒</td>
+<td>中央脑 / VNC</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>视觉、嗅觉是通向”大脑认知”的两条大路；触觉/本体/平衡多在腹神经索（VNC，相当于脊髓）层面就完成反射，不都上报大脑。</li>
+<li>反直觉点：果蝇用<strong>嘴和腿</strong>尝味（爪踩糖水触发伸喙 MN9）；<strong>听觉</strong>=Johnston 器官感受振动（无耳膜）；<strong>平衡棒</strong>=退化后翅，测身体旋转角速度（陀螺仪）。</li>
+</ul>
+<h2 id="13-视觉通路：视叶三层如何逐层抽象"><a href="#13-视觉通路：视叶三层如何逐层抽象" class="headerlink" title="13. 视觉通路：视叶三层如何逐层抽象"></a>13. 视觉通路：视叶三层如何逐层抽象</h2><p><strong>细胞命名</strong>：字母=层/形态，数字=亚型。R1–R8=光感受器（R1–R6 管明暗→Lamina，R7/R8 管颜色→直插 Medulla）；L1–L5=Lamina 单极细胞（L1/L2/L3 主通道，L4/L5 调节）；Mi/Tm=Medulla；T4/T5=Lobula Plate 方向选择；HS/VS=宽场光流；LC=视觉投射出口。</p>
+<p><strong>光感受器极性（易错点）</strong>：果蝇光感受器是<strong>光去极化</strong>——亮处活跃（与人眼相反，昆虫特性）。释放组织胺（抑制性），故 L1–L3 是 OFF 细胞（对变暗兴奋）。</p>
+<p><strong>ON/OFF 两条通道 = 分叉，不是串行反转</strong>：光感受器信号在 Lamina 分叉给 L1、L2 两条并列的线；Medulla 里 L1 保持 OFF（→T5 测暗边）、L2 再反转回 ON（→T4 测亮边）。层与层串行，一层内并行分叉。</p>
+<p><strong>三层各怎么算 + 为什么分层</strong>：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>做什么</th>
+<th>机制</th>
+<th>为什么单独一层</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lamina</td>
+<td>亮度→变化</td>
+<td>光感受器适应（时间高通）+ 侧抑制（空间高通）</td>
+<td>绝对亮度无用，只留变化</td>
+</tr>
+<tr>
+<td>Medulla</td>
+<td>变化→朝向/颜色</td>
+<td>组合相邻列做朝向选择；R7/R8 颜色拮抗</td>
+<td>需跨列空间重组</td>
+</tr>
+<tr>
+<td>Lobula/Plate</td>
+<td>特征→运动/物体</td>
+<td>T4/T5 方向选择（空间偏移+时间延迟）；HS/VS 求和=光流；LC 整合物体</td>
+<td>运动是时空计算，需最深连接</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>T4/T5</strong>：方向选择细胞，每位置 4 方向（前后上下），T4 测亮边、T5 测暗边，靠”这里现在 + 旁边刚才”两信号比对。HS/VS 把全视野 T4/T5 求和成光流（喂飞行稳定），LC 整合成威胁/物体（送决策）。</p>
+<p><strong>宽场 vs 柱状（HS/VS vs LC）</strong>：感受野大小相反——HS/VS 宽场（全视野求和，空间被平均掉）→ 全局光流 → 稳定自己；LC 柱状（各守一小块，位置保留）→ 局部威胁/对象 → 追/逃。根因：全局运动=自己动（要纠正），局部物体=世界里有东西（要应对）。Medulla 给 Lobula 的是保留空间的局部特征图（每列带朝向/ON-OFF/颜色），宽场/柱状是 Lobula 两类下游对它做全局求和 vs 局部读取的结果。</p>
+<p><strong>“延迟”≠记忆</strong>：方向选择里的”旁边刚才”是物理延迟（膜电容充放电、多跳突触、传导距离，毫秒级），不是存储。靠快慢两路信号”同时到达”来判方向，无需记忆单元。</p>
+<p><strong>为什么非得三层</strong>：① 依赖链（边←变化←亮度，不能跳）；② 感受野逐层扩大（单列→几列→全视野），每种抽象需不同空间尺度；③ 每层产出不同标签通道给不同下游（威胁走最短硬连线，逃跑快至 10ms 级）。</p>
+<p><strong>项目实现</strong>：用 flyvis（训练出的神经网络）映射连接组，非手写电路。</p>
+<h2 id="14-Lulzx-fly-brain-具身智能的最小完整样本"><a href="#14-Lulzx-fly-brain-具身智能的最小完整样本" class="headerlink" title="14. Lulzx-fly-brain = 具身智能的最小完整样本"></a>14. Lulzx-fly-brain = 具身智能的最小完整样本</h2><p><strong>与第 2 节呼应</strong>：<code>fly-brain</code> 是”上游地基”，具身项目”接上身体”；<code>Lulzx-fly-brain</code> 就是接上身体后的具体样本——16.5 万神经元真实连接组 + flybody 身体 + MuJoCo 物理环境，让行为在闭环里自己冒出来。</p>
+<p><strong>具身智能的核心 = 闭环（vs 开环）</strong>：</p>
+<ul>
+<li>开环：实验者喂输入 → 看输出，网络被动、与世界无互动；</li>
+<li>闭环：大脑发命令 → 身体动 → 改变环境 → 环境反过来给感官输入 → 影响下一步命令；</li>
+<li>本项目每毫秒：读物理状态 → 翻译成感觉神经元 → 眼睛投光线给 flyvis → 大脑跑 0.5ms 脉冲步 → 运动神经元设执行器 → MuJoCo 推进。<strong>读的是物理状态，不是实验者设计的刺激</strong>——这是闭环的分水岭。</li>
+</ul>
+<p><strong>身体是计算的一部分（三个只有闭环才暴露的证据）</strong>：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>再传入（reafference）</td>
+<td>身体一动、脚触地，接触信号反过来把行走神经元顶到 10–13Hz，停不下来（需门控抑制）</td>
+</tr>
+<tr>
+<td>逃逸变难</td>
+<td>自己动 / 墙逼近 / 腿在视网膜上产生”膨胀”，与真 looming 难分（10 次 loom 仅 2 次成功）</td>
+</tr>
+<tr>
+<td>偏差放大</td>
+<td>左右不对称的微小偏差被累积成原地转圈（开环看不到，因开环没有位置累积）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>两条诚实边界（具身智能的经典难题）</strong>：</p>
+<ul>
+<li><strong>命令 ≠ 运动程序</strong>：连接组能给”往前走”的命令，但走路节律 / 姿态协调靠外部步态生成器（拟合 100 条真实轨迹）——运动智能很大一部分在身体 / 神经索，不在大脑；</li>
+<li><strong>自发活动从哪来</strong>：何时走 / 停 / 理毛来自外部模块，不是连接组产生的。”命令的出处，和它经过哪条路径，一样重要。”</li>
+</ul>
+<p><strong>两条路线（呼应”先天 vs 后天”）</strong>：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>做法</th>
+<th>代表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自下而上（发育 / 接线）</td>
+<td>真实连接组 + 身体，看先天布线能否自发产生行为，不训练</td>
+<td>Lulzx-fly-brain</td>
+</tr>
+<tr>
+<td>自上而下（训练逼近）</td>
+<td>RL 在果蝇身体上训练连接组结构的控制器</td>
+<td>Fly-connectomic Graph Model (Jin et al. 2026)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>警告：训练出的控制器不一定用生物动力学，其成功不能证明”接线本身规定了运动程序”。</p>
+<p><strong>一句话</strong>：用”真实连接组 + 真实身体 + 物理环境”回答具身智能的核心问题——行为怎么在闭环里冒出来，哪些算大脑的功劳、哪些是身体和环境给的；最有价值的甚至是闭环逼出来的那些诚实失败。</p>
+
+  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2026/10/17/test/" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+    </center>
+	</div>
+
+
+	<!-- comment -->
+	
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    <!-- 
+    <div id="disqus_thread" class="ds-thread">
+        <script type="text/javascript">
+            /**
+             * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+             * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+             */
+                /*
+                 var disqus_config = function () {
+                 this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                 this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                 };
+                 */
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+
+                s.src = 'https://https-wd-2711-tech.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by
+                Disqus.</a></noscript>
+    </div> -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'wLIJ70s3fPvW8WJPgVVAuWVR-gzGzoHsz',
+            appKey: 'NVGqxhUkqtFv2CbwmXXWjCdR'
+        })
+    </script>
+
+    
+</section>
+
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2026-10-25 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/study-notes/">study-notes<span>25</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+		   <span class="toc-title">Contents</span>
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-1"><a class="toc-article-link" href="#%E6%9E%9C%E8%9D%87%E5%A4%A7%E8%84%91%E4%B8%8E-Transformer-%E8%AE%A8%E8%AE%BA%E7%AC%94%E8%AE%B0"><span class="toc-article-text">果蝇大脑与 Transformer 讨论笔记</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#1-%E9%A1%B9%E7%9B%AE%E5%AE%9A%E4%BD%8D"><span class="toc-article-text">1. 项目定位</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#2-%E4%B8%8E%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-article-text">2. 与具身智能的关系</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#3-Brian2-%E4%B8%8E-LIF-%E6%A8%A1%E5%9E%8B"><span class="toc-article-text">3. Brian2 与 LIF 模型</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#4-LIF-%E6%98%AF%E5%90%A6%E9%80%9A%E7%94%A8"><span class="toc-article-text">4. LIF 是否通用</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#5-LIF-vs-Transformer"><span class="toc-article-text">5. LIF vs Transformer</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#6-%E8%AE%B0%E5%BF%86%E5%AD%98%E5%9C%A8%E5%93%AA"><span class="toc-article-text">6. 记忆存在哪</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#7-%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E4%B8%8B-Transformer-%E7%9A%84%E5%B1%80%E9%99%90"><span class="toc-article-text">7. 具身智能下 Transformer 的局限</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#8-%E8%98%91%E8%8F%87%E4%BD%93%EF%BC%88Mushroom-Body%EF%BC%89%EF%BC%9A%E8%81%94%E6%83%B3%E5%AD%A6%E4%B9%A0"><span class="toc-article-text">8. 蘑菇体（Mushroom Body）：联想学习</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#9-%E4%B8%AD%E5%A4%AE%E5%A4%8D%E5%90%88%E4%BD%93%EF%BC%88Central-Complex%EF%BC%89%EF%BC%9A%E5%AF%BC%E8%88%AA"><span class="toc-article-text">9. 中央复合体（Central Complex）：导航</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#10-%E6%9C%9D%E5%90%91-%E2%86%92-%E8%BD%AC%E5%90%91%E7%9A%84%E9%97%AD%E7%8E%AF"><span class="toc-article-text">10. 朝向 → 转向的闭环</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#11-%E6%A0%B8%E5%BF%83%E6%96%B9%E6%B3%95%E8%AE%BA%EF%BC%9A%E7%BB%93%E6%9E%84-%E2%89%A0-%E5%8A%9F%E8%83%BD"><span class="toc-article-text">11. 核心方法论：结构 ≠ 功能</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#12-%E6%84%9F%E8%A7%89%E7%B3%BB%E7%BB%9F%E5%85%A8%E6%99%AF%EF%BC%88%E5%A4%9A%E6%A8%A1%E6%80%81%EF%BC%89"><span class="toc-article-text">12. 感觉系统全景（多模态）</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#13-%E8%A7%86%E8%A7%89%E9%80%9A%E8%B7%AF%EF%BC%9A%E8%A7%86%E5%8F%B6%E4%B8%89%E5%B1%82%E5%A6%82%E4%BD%95%E9%80%90%E5%B1%82%E6%8A%BD%E8%B1%A1"><span class="toc-article-text">13. 视觉通路：视叶三层如何逐层抽象</span></a></li><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#14-Lulzx-fly-brain-%E5%85%B7%E8%BA%AB%E6%99%BA%E8%83%BD%E7%9A%84%E6%9C%80%E5%B0%8F%E5%AE%8C%E6%95%B4%E6%A0%B7%E6%9C%AC"><span class="toc-article-text">14. Lulzx-fly-brain &#x3D; 具身智能的最小完整样本</span></a></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+
+	<!-- copyright -->
+	<div>
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+      <strong>作者:  </strong>wd-z711</a>
+      </li>
+      <li class="post-copyright-link">
+      <strong>文章链接:  </strong>
+      <a href="/" target="_blank" title="">https://wd-2711.tech/</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>版权声明:   </strong>
+        本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+        许可协议。转载请注明出处!
+      </li>
+    </ul>
+  <div>
+ 	
+
+		
+
+
+</div><!-- row -->
+
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2026 wd-z711
+  
+      <!-- with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.     -->
+
+     <!-- <script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      
+      _st('install','aB-vgeB8gEDrnRJuhceL','2.0.0');
+    </script> -->
+    </p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+   </html>
