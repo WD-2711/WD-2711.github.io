@@ -176,13 +176,13 @@ https://wd-2711.tech/2022/10/29/Hello/
 https://wd-2711.tech/
 https://wd-2711.tech/categories/re/
 https://wd-2711.tech/categories/Assembly/
+https://wd-2711.tech/categories/ML/
 https://wd-2711.tech/categories/web/
 https://wd-2711.tech/categories/blockchain/
+https://wd-2711.tech/categories/papers/
+https://wd-2711.tech/categories/%E6%9D%82%E8%AE%B0/
 https://wd-2711.tech/categories/cs-books/
 https://wd-2711.tech/categories/IOT/
-https://wd-2711.tech/categories/%E6%9D%82%E8%AE%B0/
-https://wd-2711.tech/categories/ML/
-https://wd-2711.tech/categories/papers/
 https://wd-2711.tech/categories/crypto/
 https://wd-2711.tech/categories/TEE/
 https://wd-2711.tech/categories/study-notes/

@@ -120,6 +120,7 @@
 <li>模型：13.8 万神经元、约 500 万突触（基于 <em>Nature</em> 2024 论文）。</li>
 <li>做的事：① 模拟光遗传刺激实验；② 给 6 个后端测速；③ 以 Brian2(CPU) 为准，校验其他后端的准确度。</li>
 </ul>
+<span id="more"></span>
 <h2 id="2-与具身智能的关系"><a href="#2-与具身智能的关系" class="headerlink" title="2. 与具身智能的关系"></a>2. 与具身智能的关系</h2><p>这个项目本身不做具身。它是“上游地基”：先解决大脑怎么又快又准地跑起来，具身项目（<code>erojasoficial-byte/fly-brain</code>、<code>FlyDrones</code>、<code>Lulzx/fly-brain</code>）再给它接上身体去做动作。</p>
 <h2 id="3-Brian2-与-LIF-模型"><a href="#3-Brian2-与-LIF-模型" class="headerlink" title="3. Brian2 与 LIF 模型"></a>3. Brian2 与 LIF 模型</h2><p>Brian2 用三个对象搭脑：<code>NeuronGroup</code>（LIF 方程定义神经元）、<code>Synapses</code>（连接 + 权重）、<code>PoissonInput</code>（外部刺激）。</p>
 <p>LIF（漏电积分-放电）方程核心：</p>
