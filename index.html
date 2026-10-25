@@ -136,20 +136,20 @@
   <div class="row">
 	
 	
-		<h1 id="果蝇大脑与-Transformer-讨论笔记"><a href="#果蝇大脑与-Transformer-讨论笔记" class="headerlink" title="果蝇大脑与 Transformer 讨论笔记"></a>果蝇大脑与 Transformer 讨论笔记</h1><h2 id="1-项目定位"><a href="#1-项目定位" class="headerlink" title="1. 项目定位"></a>1. 项目定位</h2><p><code>eonsystemspbc/fly-brain</code> 不是”果蝇大脑玩具”，而是”拿真实果蝇大脑当尺子，给 6 种仿真软件测速度和准确度”的基准测试工具。</p>
+		<h1 id="果蝇大脑与-Transformer-讨论笔记"><a href="#果蝇大脑与-Transformer-讨论笔记" class="headerlink" title="果蝇大脑与 Transformer 讨论笔记"></a>果蝇大脑与 Transformer 讨论笔记</h1><h2 id="1-项目定位"><a href="#1-项目定位" class="headerlink" title="1. 项目定位"></a>1. 项目定位</h2><p><code>eonsystemspbc/fly-brain</code> 不是“果蝇大脑玩具”。它拿真实果蝇大脑当尺子，给 6 种仿真软件测速度和准确度。</p>
 <ul>
 <li>模型：13.8 万神经元、约 500 万突触（基于 <em>Nature</em> 2024 论文）。</li>
 <li>做的事：① 模拟光遗传刺激实验；② 给 6 个后端测速；③ 以 Brian2(CPU) 为准，校验其他后端的准确度。</li>
 </ul>
-<h2 id="2-与具身智能的关系"><a href="#2-与具身智能的关系" class="headerlink" title="2. 与具身智能的关系"></a>2. 与具身智能的关系</h2><p>该项目本身不做具身，是”上游地基”：先解决”大脑怎么又快又准地跑起来”，具身项目（如 <code>erojasoficial-byte/fly-brain</code>、<code>FlyDrones</code>、<code>Lulzx/fly-brain</code>）再给它接上身体做动作。</p>
+<h2 id="2-与具身智能的关系"><a href="#2-与具身智能的关系" class="headerlink" title="2. 与具身智能的关系"></a>2. 与具身智能的关系</h2><p>这个项目本身不做具身。它是“上游地基”：先解决大脑怎么又快又准地跑起来，具身项目（<code>erojasoficial-byte/fly-brain</code>、<code>FlyDrones</code>、<code>Lulzx/fly-brain</code>）再给它接上身体去做动作。</p>
 <h2 id="3-Brian2-与-LIF-模型"><a href="#3-Brian2-与-LIF-模型" class="headerlink" title="3. Brian2 与 LIF 模型"></a>3. Brian2 与 LIF 模型</h2><p>Brian2 用三个对象搭脑：<code>NeuronGroup</code>（LIF 方程定义神经元）、<code>Synapses</code>（连接 + 权重）、<code>PoissonInput</code>（外部刺激）。</p>
 <p>LIF（漏电积分-放电）方程核心：</p>
 <ul>
 <li><code>dv/dt = (v_0 - v + g)/t_mbr</code>：膜电位向静息电位回归，受输入 <code>g</code> 驱动；</li>
-<li><code>dg/dt = -g/tau</code>：输入信号随时间衰减（”漏电”）；</li>
+<li><code>dg/dt = -g/tau</code>：输入信号随时间衰减，这就是“漏电”；</li>
 <li>电压到阈值 <code>v_th</code> 就放电，随后复位并进入不应期。</li>
 </ul>
-<h2 id="4-LIF-是否通用"><a href="#4-LIF-是否通用" class="headerlink" title="4. LIF 是否通用"></a>4. LIF 是否通用</h2><p><strong>方程形式通用，参数必须按物种调。</strong> 果蝇那套参数（静息 -52mV、阈值 -45mV、膜时间常数 20ms、突触时间常数 5ms、不应期 2.2ms、传导延迟 1.8ms）全部专门查自果蝇文献，不是拿老鼠/人的值套用。</p>
+<h2 id="4-LIF-是否通用"><a href="#4-LIF-是否通用" class="headerlink" title="4. LIF 是否通用"></a>4. LIF 是否通用</h2><p><strong>方程形式通用，参数必须按物种调。</strong> 果蝇那套参数——静息 -52mV、阈值 -45mV、膜时间常数 20ms、突触时间常数 5ms、不应期 2.2ms、传导延迟 1.8ms——全部查自果蝇文献，没有拿老鼠或人的值套上去。</p>
 <h2 id="5-LIF-vs-Transformer"><a href="#5-LIF-vs-Transformer" class="headerlink" title="5. LIF vs Transformer"></a>5. LIF vs Transformer</h2><div class="table-container">
 <table>
 <thead>
@@ -198,8 +198,8 @@
 </tbody>
 </table>
 </div>
-<p>共同点：都是”接收多输入 → 加权聚合 → 非线性 → 输出”的分层并行计算单元。</p>
-<h2 id="6-记忆存在哪"><a href="#6-记忆存在哪" class="headerlink" title="6. 记忆存在哪"></a>6. 记忆存在哪</h2><p><strong>关键澄清：LIF 的”漏电”是膜电位的物理特性，不等于”不能模拟记忆”。</strong> 记忆不存于单细胞膜电位，而存于突触权重（持久）与网络持续放电（短时）。</p>
+<p>共同点：都是“多输入加权聚合，过一层非线性，再输出”的分层并行计算单元。</p>
+<h2 id="6-记忆存在哪"><a href="#6-记忆存在哪" class="headerlink" title="6. 记忆存在哪"></a>6. 记忆存在哪</h2><p>澄清一点：LIF 的“漏电”是膜电位的物理特性，不代表它不能模拟记忆。记忆不在单个细胞的膜电位里，而在突触权重（长期）和网络的持续放电（短期）。</p>
 <div class="table-container">
 <table>
 <thead>
@@ -223,27 +223,27 @@
 </tbody>
 </table>
 </div>
-<h2 id="7-具身智能下-Transformer-的局限"><a href="#7-具身智能下-Transformer-的局限" class="headerlink" title="7. 具身智能下 Transformer 的局限"></a>7. 具身智能下 Transformer 的局限</h2><p>Transformer 为”静态、离线、完整序列”设计，而具身智能需要”动态、在线、闭环”。短板：无内在时间动力学、全连接二次复杂度、无在线学习、无闭环。</p>
-<p><strong>神经科学是”启发源”而非”说明书”</strong>：取”稀疏、脉冲、闭环、局部学习、时间动力学”这些原则，而非照搬细节。</p>
-<h2 id="8-蘑菇体（Mushroom-Body）：联想学习"><a href="#8-蘑菇体（Mushroom-Body）：联想学习" class="headerlink" title="8. 蘑菇体（Mushroom Body）：联想学习"></a>8. 蘑菇体（Mushroom Body）：联想学习</h2><p>链路：ORN(2562) → 触角叶(50 glomeruli) → PN(686) → <strong>KC(4064，稀疏扩展约6倍)</strong> → MBON(97)。</p>
+<h2 id="7-具身智能下-Transformer-的局限"><a href="#7-具身智能下-Transformer-的局限" class="headerlink" title="7. 具身智能下 Transformer 的局限"></a>7. 具身智能下 Transformer 的局限</h2><p>Transformer 是为“静态、离线、完整序列”设计的，具身智能要的是“动态、在线、闭环”。短板有四条：没有内在时间动力学、全连接带来二次复杂度、没有在线学习、不闭环。</p>
+<p>神经科学在这里是启发源，不是说明书。取的是稀疏、脉冲、闭环、局部学习、时间动力学这些原则，不搬细节。</p>
+<h2 id="8-蘑菇体（Mushroom-Body）：联想学习"><a href="#8-蘑菇体（Mushroom-Body）：联想学习" class="headerlink" title="8. 蘑菇体（Mushroom Body）：联想学习"></a>8. 蘑菇体（Mushroom Body）：联想学习</h2><p>链路：ORN(2562) → 触角叶(50 glomeruli) → PN(686) → KC(4064，稀疏扩展约 6 倍) → MBON(97)。</p>
 <ul>
-<li><strong>机制</strong>：每个 KC 只随机采样约 5 个 PN，把相似气味”投影到高维稀疏空间”区分开（稀疏编码）。</li>
-<li><strong>APL</strong>（仅 2 个）：旁路反馈抑制环，作用在 KC 层，调节 KC 活跃度（增益控制）。</li>
-<li><strong>多巴胺神经元</strong>（约 340 个）：教学信号，作用在 KC→MBON 突触上，改写权重（写记忆）。</li>
+<li>机制：每个 KC 只随机采样约 5 个 PN，把相似气味投影到高维稀疏空间里分开（稀疏编码）。</li>
+<li>APL，只有 2 个：旁路反馈抑制环，作用在 KC 层，调 KC 的活跃度（增益控制）。</li>
+<li>多巴胺神经元，约 340 个：教学信号，作用在 KC→MBON 突触上改权重，也就是写记忆。</li>
 </ul>
 <h2 id="9-中央复合体（Central-Complex）：导航"><a href="#9-中央复合体（Central-Complex）：导航" class="headerlink" title="9. 中央复合体（Central Complex）：导航"></a>9. 中央复合体（Central Complex）：导航</h2><ul>
-<li><strong>环形连接</strong>：8 个朝向位置首尾相接排成环。</li>
-<li><strong>余弦权重</strong>：”近邻互助、远邻互斥”，逼出唯一一个活动亮斑（环形吸引子），亮斑位置 = 当前朝向。</li>
-<li><strong>方向更新</strong>：PEN 通路左右偏移，让亮斑随转身沿环移动。</li>
+<li>环形连接：8 个朝向位置首尾相接排成环。</li>
+<li>余弦权重：近邻互助、远邻互斥，逼出唯一一个活动亮斑（环形吸引子），亮斑的位置就是当前朝向。</li>
+<li>方向更新：PEN 通路左右偏移，带着亮斑随转身沿环移动。</li>
 </ul>
 <h2 id="10-朝向-→-转向的闭环"><a href="#10-朝向-→-转向的闭环" class="headerlink" title="10. 朝向 → 转向的闭环"></a>10. 朝向 → 转向的闭环</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">朝向亮斑(EB/PB) → 扇形体FB(PFL3/PFL2，比较器) → 下行神经元 → 运动神经元 → 腿部肌肉</span><br></pre></td></tr></table></figure>
 <ul>
-<li>PFL3（左转）/ PFL2（右转）：把”当前朝向 vs 目标方向”的差翻译成转向指令。</li>
-<li><strong>诚实提醒</strong>：连接组能传播到”转向相关下行神经元”，但”协调转身/走路”的节奏部分依赖外挂步态生成器，不完全是连接组自己涌现的。</li>
+<li>PFL3（左转）/ PFL2（右转）把“当前朝向 vs 目标方向”的差翻译成转向指令。</li>
+<li>诚实提醒：连接组能一路传到与转向相关的下行神经元，但协调转身和走路的节奏，有一部分靠外挂步态生成器，不完全是连接组自己涌现的。</li>
 </ul>
-<h2 id="11-核心方法论：结构-≠-功能"><a href="#11-核心方法论：结构-≠-功能" class="headerlink" title="11. 核心方法论：结构 ≠ 功能"></a>11. 核心方法论：结构 ≠ 功能</h2><p>连接图（谁连谁）只告诉你”在哪找功能”，不能告诉你”零件怎么运转”。</p>
-<p>例证：用”点神经元（开关）”模拟 APL（实际是连续分级信号的”调光旋钮”），无法复现增益控制——因为零件类型搞错了，接线图再对也跑不出功能。</p>
-<h2 id="12-感觉系统全景（多模态）"><a href="#12-感觉系统全景（多模态）" class="headerlink" title="12. 感觉系统全景（多模态）"></a>12. 感觉系统全景（多模态）</h2><p>果蝇不是只有视觉+嗅觉，而是多模态。关键区分是”进大脑做认知”还是”进脊髓做反射”：</p>
+<h2 id="11-核心方法论：结构-≠-功能"><a href="#11-核心方法论：结构-≠-功能" class="headerlink" title="11. 核心方法论：结构 ≠ 功能"></a>11. 核心方法论：结构 ≠ 功能</h2><p>连接图只回答“在哪找功能”，不回答“零件怎么运转”。</p>
+<p>例证：拿点神经元（开关）去模拟 APL（实际是连续分级信号的调光旋钮），复现不出增益控制。零件类型错了，接线图再对也跑不出功能。</p>
+<h2 id="12-感觉系统全景（多模态）"><a href="#12-感觉系统全景（多模态）" class="headerlink" title="12. 感觉系统全景（多模态）"></a>12. 感觉系统全景（多模态）</h2><p>果蝇不是只有视觉和嗅觉，它是多模态的。关键区分是“进大脑做认知”还是“进脊髓做反射”：</p>
 <div class="table-container">
 <table>
 <thead>
@@ -298,13 +298,13 @@
 </table>
 </div>
 <ul>
-<li>视觉、嗅觉是通向”大脑认知”的两条大路；触觉/本体/平衡多在腹神经索（VNC，相当于脊髓）层面就完成反射，不都上报大脑。</li>
-<li>反直觉点：果蝇用<strong>嘴和腿</strong>尝味（爪踩糖水触发伸喙 MN9）；<strong>听觉</strong>=Johnston 器官感受振动（无耳膜）；<strong>平衡棒</strong>=退化后翅，测身体旋转角速度（陀螺仪）。</li>
+<li>视觉和嗅觉是通向“大脑认知”的两条大路；触觉、本体感觉、平衡大多在腹神经索（VNC，相当于脊髓）这一层就完成反射，不都上报大脑。</li>
+<li>反直觉的地方：果蝇用嘴和腿尝味（爪踩糖水会触发伸喙 MN9）；它的“听觉”是 Johnston 器官感受振动，没有耳膜；平衡棒是退化的后翅，测的是身体旋转角速度，相当于陀螺仪。</li>
 </ul>
-<h2 id="13-视觉通路：视叶三层如何逐层抽象"><a href="#13-视觉通路：视叶三层如何逐层抽象" class="headerlink" title="13. 视觉通路：视叶三层如何逐层抽象"></a>13. 视觉通路：视叶三层如何逐层抽象</h2><p><strong>细胞命名</strong>：字母=层/形态，数字=亚型。R1–R8=光感受器（R1–R6 管明暗→Lamina，R7/R8 管颜色→直插 Medulla）；L1–L5=Lamina 单极细胞（L1/L2/L3 主通道，L4/L5 调节）；Mi/Tm=Medulla；T4/T5=Lobula Plate 方向选择；HS/VS=宽场光流；LC=视觉投射出口。</p>
-<p><strong>光感受器极性（易错点）</strong>：果蝇光感受器是<strong>光去极化</strong>——亮处活跃（与人眼相反，昆虫特性）。释放组织胺（抑制性），故 L1–L3 是 OFF 细胞（对变暗兴奋）。</p>
-<p><strong>ON/OFF 两条通道 = 分叉，不是串行反转</strong>：光感受器信号在 Lamina 分叉给 L1、L2 两条并列的线；Medulla 里 L1 保持 OFF（→T5 测暗边）、L2 再反转回 ON（→T4 测亮边）。层与层串行，一层内并行分叉。</p>
-<p><strong>三层各怎么算 + 为什么分层</strong>：</p>
+<h2 id="13-视觉通路：视叶三层如何逐层抽象"><a href="#13-视觉通路：视叶三层如何逐层抽象" class="headerlink" title="13. 视觉通路：视叶三层如何逐层抽象"></a>13. 视觉通路：视叶三层如何逐层抽象</h2><p>细胞命名：字母是层或形态，数字是亚型。R1–R8 是光感受器（R1–R6 管明暗，走 Lamina；R7/R8 管颜色，直接插进 Medulla）；L1–L5 是 Lamina 单极细胞（L1/L2/L3 是主通道，L4/L5 负责调节）；Mi/Tm 在 Medulla；T4/T5 在 Lobula Plate 做方向选择；HS/VS 是宽场光流；LC 是视觉投射的出口。</p>
+<p>光感受器极性（易错点）：果蝇光感受器是光去极化，亮处活跃，跟人眼相反。它释放组织胺，是抑制性的，所以 L1–L3 是 OFF 细胞，对变暗兴奋。</p>
+<p>ON/OFF 两条通道是分叉，不是串行反转。光感受器信号在 Lamina 分叉给 L1、L2 两条并列的线；到 Medulla，L1 保持 OFF（喂给 T5，测暗边），L2 再反转回 ON（喂给 T4，测亮边）。层与层之间串行，一层之内并行分叉。</p>
+<p>三层各算什么、为什么分层：</p>
 <div class="table-container">
 <table>
 <thead>
@@ -320,36 +320,36 @@
 <td>Lamina</td>
 <td>亮度→变化</td>
 <td>光感受器适应（时间高通）+ 侧抑制（空间高通）</td>
-<td>绝对亮度无用，只留变化</td>
+<td>绝对亮度没用，只留变化</td>
 </tr>
 <tr>
 <td>Medulla</td>
 <td>变化→朝向/颜色</td>
 <td>组合相邻列做朝向选择；R7/R8 颜色拮抗</td>
-<td>需跨列空间重组</td>
+<td>需要跨列做空间重组</td>
 </tr>
 <tr>
 <td>Lobula/Plate</td>
 <td>特征→运动/物体</td>
 <td>T4/T5 方向选择（空间偏移+时间延迟）；HS/VS 求和=光流；LC 整合物体</td>
-<td>运动是时空计算，需最深连接</td>
+<td>运动是时空计算，需要最深的连接</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p><strong>T4/T5</strong>：方向选择细胞，每位置 4 方向（前后上下），T4 测亮边、T5 测暗边，靠”这里现在 + 旁边刚才”两信号比对。HS/VS 把全视野 T4/T5 求和成光流（喂飞行稳定），LC 整合成威胁/物体（送决策）。</p>
-<p><strong>宽场 vs 柱状（HS/VS vs LC）</strong>：感受野大小相反——HS/VS 宽场（全视野求和，空间被平均掉）→ 全局光流 → 稳定自己；LC 柱状（各守一小块，位置保留）→ 局部威胁/对象 → 追/逃。根因：全局运动=自己动（要纠正），局部物体=世界里有东西（要应对）。Medulla 给 Lobula 的是保留空间的局部特征图（每列带朝向/ON-OFF/颜色），宽场/柱状是 Lobula 两类下游对它做全局求和 vs 局部读取的结果。</p>
-<p><strong>“延迟”≠记忆</strong>：方向选择里的”旁边刚才”是物理延迟（膜电容充放电、多跳突触、传导距离，毫秒级），不是存储。靠快慢两路信号”同时到达”来判方向，无需记忆单元。</p>
-<p><strong>为什么非得三层</strong>：① 依赖链（边←变化←亮度，不能跳）；② 感受野逐层扩大（单列→几列→全视野），每种抽象需不同空间尺度；③ 每层产出不同标签通道给不同下游（威胁走最短硬连线，逃跑快至 10ms 级）。</p>
-<p><strong>项目实现</strong>：用 flyvis（训练出的神经网络）映射连接组，非手写电路。</p>
-<h2 id="14-Lulzx-fly-brain-具身智能的最小完整样本"><a href="#14-Lulzx-fly-brain-具身智能的最小完整样本" class="headerlink" title="14. Lulzx-fly-brain = 具身智能的最小完整样本"></a>14. Lulzx-fly-brain = 具身智能的最小完整样本</h2><p><strong>与第 2 节呼应</strong>：<code>fly-brain</code> 是”上游地基”，具身项目”接上身体”；<code>Lulzx-fly-brain</code> 就是接上身体后的具体样本——16.5 万神经元真实连接组 + flybody 身体 + MuJoCo 物理环境，让行为在闭环里自己冒出来。</p>
-<p><strong>具身智能的核心 = 闭环（vs 开环）</strong>：</p>
+<p>T4/T5 是方向选择细胞，每个位置四个方向（前后上下）。T4 测亮边，T5 测暗边，靠“这里现在”和“旁边刚才”两个信号比对。HS/VS 把全视野的 T4/T5 求和成光流，喂给飞行稳定；LC 把它们整合成威胁或物体，送去决策。</p>
+<p>宽场和柱状（HS/VS 对 LC）：两者的感受野大小正好相反。HS/VS 是宽场，全视野求和，空间信息被平均掉，得到全局光流，用来稳定自己；LC 是柱状，各守一小块，位置保留，得到局部威胁或对象，用来追或逃。根因也简单：全局运动是自己动了，要纠正；局部物体是世界里真有东西，要应对。Medulla 交给 Lobula 的是保留空间的局部特征图（每列带朝向、ON/OFF、颜色），宽场和柱状，是 Lobula 两类下游对它分别做全局求和与局部读取的结果。</p>
+<p>“延迟”不等于记忆。方向选择里的“旁边刚才”是物理延迟（膜电容充放电、多跳突触、传导距离，毫秒级），不是存储。快慢两路信号同时到达就能判方向，不需要记忆单元。</p>
+<p>为什么非得三层：一是依赖链，边依赖变化，变化依赖亮度，跳不过去；二是感受野逐层扩大，从单列到几列再到全视野，每种抽象需要不同的空间尺度；三是每层产出的标签通道不一样，供给不同下游，威胁走最短的硬连线，逃跑能快到 10ms 级。</p>
+<p>项目实现：用 flyvis（训练出来的神经网络）映射连接组，不是手写电路。</p>
+<h2 id="14-Lulzx-fly-brain-具身智能的最小完整样本"><a href="#14-Lulzx-fly-brain-具身智能的最小完整样本" class="headerlink" title="14. Lulzx-fly-brain = 具身智能的最小完整样本"></a>14. Lulzx-fly-brain = 具身智能的最小完整样本</h2><p>呼应第 2 节：fly-brain 是上游地基，具身项目给它接上身体；Lulzx-fly-brain 就是接上身体之后的具体样本——16.5 万神经元的真实连接组，加 flybody 身体，加 MuJoCo 物理环境，行为在闭环里自己冒出来。</p>
+<p>具身智能的核心是闭环，不是开环：</p>
 <ul>
-<li>开环：实验者喂输入 → 看输出，网络被动、与世界无互动；</li>
-<li>闭环：大脑发命令 → 身体动 → 改变环境 → 环境反过来给感官输入 → 影响下一步命令；</li>
-<li>本项目每毫秒：读物理状态 → 翻译成感觉神经元 → 眼睛投光线给 flyvis → 大脑跑 0.5ms 脉冲步 → 运动神经元设执行器 → MuJoCo 推进。<strong>读的是物理状态，不是实验者设计的刺激</strong>——这是闭环的分水岭。</li>
+<li>开环：实验者喂输入，看输出。网络是被动的，跟世界没有互动。</li>
+<li>闭环：大脑发命令，身体动，环境变了，环境反过来给感官输入，影响下一步命令。</li>
+<li>这个项目每毫秒都在跑：读物理状态 → 翻译成感觉神经元 → 眼睛投光线给 flyvis → 大脑跑 0.5ms 脉冲步 → 运动神经元设执行器 → MuJoCo 推进。<strong>它读的是物理状态，不是实验者设计的刺激</strong>，这是闭环和开环的分水岭。</li>
 </ul>
-<p><strong>身体是计算的一部分（三个只有闭环才暴露的证据）</strong>：</p>
+<p>身体是计算的一部分，有三个证据只有闭环才暴露得出来：</p>
 <div class="table-container">
 <table>
 <thead>
@@ -361,25 +361,25 @@
 <tbody>
 <tr>
 <td>再传入（reafference）</td>
-<td>身体一动、脚触地，接触信号反过来把行走神经元顶到 10–13Hz，停不下来（需门控抑制）</td>
+<td>身体一动、脚触地，接触信号反过来把行走神经元顶到 10–13Hz，停不下来（需要门控抑制）</td>
 </tr>
 <tr>
 <td>逃逸变难</td>
-<td>自己动 / 墙逼近 / 腿在视网膜上产生”膨胀”，与真 looming 难分（10 次 loom 仅 2 次成功）</td>
+<td>自己动、墙逼近、腿在视网膜上产生的“膨胀”，跟真的 looming 难分（10 次 loom 只有 2 次成功）</td>
 </tr>
 <tr>
 <td>偏差放大</td>
-<td>左右不对称的微小偏差被累积成原地转圈（开环看不到，因开环没有位置累积）</td>
+<td>左右不对称的微小偏差被累积成原地转圈（开环看不到，因为开环没有位置累积）</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p><strong>两条诚实边界（具身智能的经典难题）</strong>：</p>
+<p>两条诚实边界，也是具身智能的经典难题：</p>
 <ul>
-<li><strong>命令 ≠ 运动程序</strong>：连接组能给”往前走”的命令，但走路节律 / 姿态协调靠外部步态生成器（拟合 100 条真实轨迹）——运动智能很大一部分在身体 / 神经索，不在大脑；</li>
-<li><strong>自发活动从哪来</strong>：何时走 / 停 / 理毛来自外部模块，不是连接组产生的。”命令的出处，和它经过哪条路径，一样重要。”</li>
+<li>命令 ≠ 运动程序。连接组能给“往前走”的命令，但走路的节律和姿态协调靠外部步态生成器（拟合了 100 条真实轨迹）。运动智能有相当一部分在身体和神经索里，不在大脑。</li>
+<li>自发活动从哪来？什么时候走、什么时候停、什么时候理毛，来自外部模块，不是连接组产生的。命令的出处，和它经过哪条路径，一样重要。</li>
 </ul>
-<p><strong>两条路线（呼应”先天 vs 后天”）</strong>：</p>
+<p>两条路线，呼应“先天 vs 后天”：</p>
 <div class="table-container">
 <table>
 <thead>
@@ -392,19 +392,19 @@
 <tbody>
 <tr>
 <td>自下而上（发育 / 接线）</td>
-<td>真实连接组 + 身体，看先天布线能否自发产生行为，不训练</td>
+<td>真实连接组 + 身体，看先天布线能不能自发产生行为，不训练</td>
 <td>Lulzx-fly-brain</td>
 </tr>
 <tr>
 <td>自上而下（训练逼近）</td>
-<td>RL 在果蝇身体上训练连接组结构的控制器</td>
+<td>用 RL 在果蝇身体上训练一个连接组结构的控制器</td>
 <td>Fly-connectomic Graph Model (Jin et al. 2026)</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>警告：训练出的控制器不一定用生物动力学，其成功不能证明”接线本身规定了运动程序”。</p>
-<p><strong>一句话</strong>：用”真实连接组 + 真实身体 + 物理环境”回答具身智能的核心问题——行为怎么在闭环里冒出来，哪些算大脑的功劳、哪些是身体和环境给的；最有价值的甚至是闭环逼出来的那些诚实失败。</p>
+<p>警告：训练出来的控制器不一定会用生物动力学，它成功了，也不能证明接线本身就规定了运动程序。</p>
+<p>一句话：用真实连接组、真实身体和物理环境，回答具身智能的核心问题——行为怎么在闭环里冒出来，哪些算大脑的功劳，哪些是身体和环境给的。最有价值的，反倒是闭环逼出来的那些诚实失败。</p>
 
 	
 	</div>

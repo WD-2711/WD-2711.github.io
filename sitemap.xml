@@ -1595,13 +1595,6 @@
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/ML/</loc>
-    <lastmod>2026-10-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://wd-2711.tech/categories/Assembly/</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -1623,7 +1616,14 @@
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/papers/</loc>
+    <loc>https://wd-2711.tech/categories/cs-books/</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://wd-2711.tech/categories/IOT/</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1637,14 +1637,14 @@
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/cs-books/</loc>
+    <loc>https://wd-2711.tech/categories/ML/</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/IOT/</loc>
+    <loc>https://wd-2711.tech/categories/papers/</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1679,14 +1679,14 @@
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/pwn/</loc>
+    <loc>https://wd-2711.tech/categories/re-book/</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://wd-2711.tech/categories/re-book/</loc>
+    <loc>https://wd-2711.tech/categories/pwn/</loc>
     <lastmod>2026-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
